@@ -4,6 +4,7 @@
   "account_id": "ab75f75941a21a81db27bf12e99c620b",
   "compatibility_date": "2026-04-01",
   "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": true,
   "routes": [
     { "pattern": "apartmani.novoselec.ch", "custom_domain": true }
   ],
