@@ -21,6 +21,25 @@ npm run dev        # Astro dev server (local, no Worker runtime)
 
 Note: local dev does not emulate D1 or R2 bindings. For full Worker runtime testing, deploy to a preview environment.
 
+## Seed Data
+
+The `seed/` directory contains structured JSON files used to pre-populate the database and plan media assets before the site launches. All apartment and testimonial records are marked `"placeholder": true` and should be replaced with real content before going live.
+
+### Content seed files
+
+| File | Contents |
+|---|---|
+| `seed/content/apartments.json` | 2 apartments (Lavanda, Tramuntana) — structured fields: capacity, amenities, bed config, distances, `localized` names/descriptions/SEO in all 4 locales |
+| `seed/content/seasons.json` | Pricing seasons per apartment: off-peak, peak, shoulder — `pricePerNight`, `minStay`, date ranges |
+| `seed/content/testimonials.json` | 3 placeholder guest testimonials — localized quotes, ratings, `mostLovedFor` tags, apartment association |
+| `seed/content/site-settings.json` | Default site config — check-in/out times, tourist tax rate (1.35 EUR/person/night), `activeLocales`, section toggles |
+
+These files are the source of truth for initial data shape. Seeding is performed by running an import script (not yet implemented) against the D1 database using the Wrangler D1 execute command.
+
+### Media seed plan
+
+`seed/media/README.md` tracks royalty-free stock photo sources (Pexels, Pixabay, Unsplash) organized by category: hero/landscape, apartment interiors, editorial, local guide. Photos are to be downloaded at original resolution and uploaded to R2 with UUID keys. Blurhash values are computed at seed time.
+
 ## Apply D1 Migrations
 
 All migrations live in `migrations/`. Apply them to the remote D1 database with:
@@ -87,6 +106,9 @@ src/
   schemas/        # Zod validation schemas
   styles/         # Global CSS design system
 migrations/       # D1 SQL migration files (applied via wrangler)
+seed/
+  content/        # JSON seed data (apartments, seasons, testimonials, site-settings)
+  media/          # Stock media sourcing plan (README.md)
 public/           # Static assets
 wrangler.jsonc    # Cloudflare Worker configuration
 astro.config.mjs  # Astro build configuration
@@ -98,4 +120,5 @@ astro.config.mjs  # Astro build configuration
 
 - [Configuration](configuration.md#cloudflare-bindings) — Bindings, secrets, and migration details
 - [Architecture](architecture.md#components) — What each resource is used for
+- [Architecture](architecture.md#seed-data-structure) — Seed file schema and field definitions
 - [API Reference](api-reference.md) — All endpoint signatures

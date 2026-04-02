@@ -79,6 +79,7 @@ All public pages are prefixed with the locale: `/hr/`, `/de/`, `/sl/`, `/en/`. C
 | `/:locale/vodic` | `src/pages/[locale]/vodic.astro` | Local Guide — category grid (beaches, food, activities) |
 | `/:locale/privatnost` | `src/pages/[locale]/privatnost.astro` | Privacy Policy (GDPR) |
 | `/:locale/impressum` | `src/pages/[locale]/impressum.astro` | Legal notice |
+| `/:locale/pristupacnost` | `src/pages/[locale]/pristupacnost.astro` | Accessibility statement — WCAG 2.1 AA compliance target, localized in all 4 locales |
 
 `/:locale` is one of `hr`, `de`, `sl`, `en`.
 
@@ -143,6 +144,26 @@ Admin triggers confirm
 
 Overlap detection is embedded in the INSERT statement itself (`INSERT...WHERE NOT EXISTS`), not as a separate pre-check. The INSERT runs alone in a D1 `batch()` so its result can be checked before the status update executes. If `meta.changes === 0` the function returns `409` and the UPDATE is never reached — preventing the previous failure mode where the UPDATE ran unconditionally in the same batch even when no block was written.
 
+## Seed Data Structure
+
+The `seed/` directory holds structured JSON files used to bootstrap the database before launch. Records with `"placeholder": true` indicate content that must be replaced with real data before going live.
+
+### Apartments (`seed/content/apartments.json`)
+
+Each apartment record contains structured fields (not rich text): `capacity`, `bedrooms`, `bathrooms`, `areaSqm`, `distanceToBeachMeters`, `seaView`, `amenities` (object), `bedConfig` (array), `bestFor` (array), `cleaningFee`, and a `localized` map keyed by locale (`hr`/`de`/`sl`/`en`). Each locale entry has `name`, `slug`, `shortDescription`, `valueProp`, `seoTitle`, `seoDescription`. Apartment IDs (`apt-lavanda`, `apt-tramuntana`) are referenced by seasons and testimonials.
+
+### Seasons (`seed/content/seasons.json`)
+
+Each season record has `apartmentId`, `name` (Off-peak/Peak/Shoulder), `startDate`, `endDate`, `pricePerNight`, and `minStay`. Seasons are used by the pricing model in `src/lib/pricing.ts` to compute stay costs.
+
+### Testimonials (`seed/content/testimonials.json`)
+
+Each testimonial has `guestName`, `country`, `travelType`, `season`, `year`, `rating`, `source`, `isFeatured`, `mostLovedFor` (tag array), `apartmentId`, and a `quote` map localized across all 4 locales.
+
+### Site Settings (`seed/content/site-settings.json`)
+
+A single object with `propertyName`, `email`, `checkInTime`, `checkOutTime`, `touristTaxRate`, `activeLocales`, `heroPhotoKeys`, and `sectionToggles` (feature flags for homepage sections).
+
 ---
 
 ## Related Documentation
@@ -155,3 +176,4 @@ Overlap detection is embedded in the INSERT statement itself (`INSERT...WHERE NO
 - [Security](security.md#content-security-policy) — CSP and header policy
 - [SEO](seo.md) — Keyword targets, structured data, sitemap strategy
 - [Decisions](decisions/README.md) — Trade-off rationale for key choices
+- [Deployment](deployment.md#seed-data) — Seed files, media sourcing plan, seeding process

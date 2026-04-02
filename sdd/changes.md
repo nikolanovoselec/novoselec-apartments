@@ -1,5 +1,20 @@
 # Changelog
 
+## 2026-04-02 — Revision 11: Phase 7 Content Seed Data & Accessibility Statement (3b56701)
+
+Spec synced with Phase 7 commit (seed data for apartments, seasons, testimonials, site-settings, stock media plan, accessibility statement page).
+
+### Implementation progress noted (all statuses remain Planned)
+
+- **REQ-CMS-6:** Significant seed data added. Delivered: 2 apartments (Lavanda 4-pax, Tramuntana 6-pax) with full structured data (amenities, bed config, distances, SEO fields) in all 4 locales, `placeholder: true`; 3 seasonal pricing entries per apartment (off-peak/peak/shoulder with realistic EUR prices and min-stay); 3 testimonials with structured metadata (country, travel type, rating, mostLovedFor tags, apartment link) in all 4 locales, `placeholder: true`; site-settings singleton (property name, email, check-in/out times, tourist tax rate 1.35 EUR, section toggles all enabled, activeLocales defaults to `["hr"]`); stock media source plan in `seed/media/README.md` listing 21-28 royalty-free photos across 4 categories (hero, interiors, editorial, local guide). Missing from AC: hero slideshow photos (heroPhotoKeys empty), editorial page content as seedable JSON (exists hardcoded from Phase 6 but not in seed format), local guide 12-15 entries, 10-15 FAQ entries in seed format (5 hardcoded from Phase 6), host story template in seed format, legal page templates in seed format, actual stock media files (plan only), dashboard placeholder checklist, optional hero video. Status remains Planned.
+- **REQ-TC-7:** Accessibility statement page at `/{locale}/pristupacnost` in all 4 locales. Footer link present in all locales. Content states WCAG 2.1 AA target. Contact method references email (no explicit address -- relies on site contact info). Missing from AC: CMS integration (hardcoded with same pattern as Phase 6 pages), explicit list of known limitations. Status remains Planned.
+
+### AC deviations noted
+- **REQ-CMS-6:** Spec AC says "2-3 example apartments"; implementation delivers 2 (within range). Spec says "3-5 example testimonials"; implementation delivers 3 (within range). Both are at the lower bound.
+- **REQ-CMS-6:** `site-settings.json` has `phone` and `whatsappNumber` as empty strings and `heroPhotoKeys` as empty array. These are expected placeholders for owner to fill in, but the seed script should document that these must be populated before the site is visitor-ready.
+- **REQ-CMS-6:** Spec AC includes "social links" in site-settings; implementation does not include social links field in `site-settings.json`.
+- **REQ-TC-7:** Spec AC says "at least in English and German"; implementation provides all 4 locales (exceeds requirement). Content says "contact us by email" without specifying an actual address -- depends on site-settings email being discoverable elsewhere on the page/footer.
+
 ## 2026-04-02 — Revision 10: Phase 6 Editorial, Legal, SEO Pages (3f30f66)
 
 Spec synced with Phase 6 commit (editorial pages, legal pages, sitemap, robots.txt, local guide stub).

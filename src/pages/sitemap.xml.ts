@@ -11,6 +11,7 @@ const pages = [
   "/faq",
   "/privatnost",
   "/impressum",
+  "/pristupacnost",
 ];
 
 /**
