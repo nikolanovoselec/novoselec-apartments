@@ -1,6 +1,7 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "apartmani",
+  "account_id": "eac400a0a3a3638c7c91fe2e7875756d",
   "compatibility_date": "2026-04-01",
   "compatibility_flags": ["nodejs_compat"],
   "d1_databases": [
