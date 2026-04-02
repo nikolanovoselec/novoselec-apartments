@@ -71,6 +71,10 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin)
     <slot />
 
     <script>
+      // Add reveal-ready class so CSS animations only apply when JS works.
+      // Without JS, content stays visible (no opacity:0).
+      document.documentElement.classList.add("reveal-ready");
+
       const observer = new IntersectionObserver(
         (entries) => {
           for (const entry of entries) {

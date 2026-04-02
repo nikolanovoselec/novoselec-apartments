@@ -3,7 +3,8 @@
    ========================================================================== */
 
 /* ---------- Fade up reveal (default for content sections) ---------- */
-[data-reveal] {
+/* Content is visible by default. Animation only applies after JS adds .reveal-ready */
+.reveal-ready [data-reveal] {
   opacity: 0;
   transform: translateY(30px);
   transition:
@@ -11,13 +12,13 @@
     transform var(--duration-slow) var(--ease-out);
 }
 
-[data-reveal].is-visible {
+.reveal-ready [data-reveal].is-visible {
   opacity: 1;
   transform: translateY(0);
 }
 
 /* ---------- Staggered entry for grids/lists ---------- */
-[data-reveal-stagger] > * {
+.reveal-ready [data-reveal-stagger] > * {
   opacity: 0;
   transform: translateY(30px);
   transition:
@@ -32,24 +33,24 @@
 [data-reveal-stagger].is-visible > *:nth-child(5) { transition-delay: 0.4s; }
 [data-reveal-stagger].is-visible > *:nth-child(6) { transition-delay: 0.5s; }
 
-[data-reveal-stagger].is-visible > * {
+.reveal-ready [data-reveal-stagger].is-visible > * {
   opacity: 1;
   transform: translateY(0);
 }
 
 /* ---------- Image clip-path reveal ---------- */
-[data-reveal-clip] {
+.reveal-ready [data-reveal-clip] {
   clip-path: inset(0 100% 0 0);
   transition: clip-path 1s var(--ease-out);
 }
 
-[data-reveal-clip].is-visible {
+.reveal-ready [data-reveal-clip].is-visible {
   clip-path: inset(0 0 0 0);
 }
 
 /* ---------- Section divider line extend ---------- */
 .section-divider {
-  width: 0;
+  width: 120px;
   height: 1px;
   background: currentColor;
   opacity: 0.2;
@@ -57,7 +58,11 @@
   transition: width 1s var(--ease-out);
 }
 
-.section-divider.is-visible {
+.reveal-ready .section-divider {
+  width: 0;
+}
+
+.reveal-ready .section-divider.is-visible {
   width: 120px;
 }
 
