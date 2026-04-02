@@ -1,0 +1,131 @@
+---
+import Page from "~/layouts/Page.astro";
+import SchemaOrg from "~/components/seo/SchemaOrg.astro";
+import { isValidLocale, type Locale } from "~/i18n/config";
+import { t } from "~/i18n/t";
+
+const { locale } = Astro.params;
+if (!locale || !isValidLocale(locale)) return Astro.redirect("/hr/", 302);
+const typedLocale = locale as Locale;
+
+// TODO: Load from Emdash CMS. For now, static preloaded FAQ content.
+const faqs: Array<{ question: string; answer: string; category: string }> = [
+  {
+    question: typedLocale === "de" ? "Wie komme ich nach Pašman?" : typedLocale === "sl" ? "Kako pridem na Pašman?" : typedLocale === "en" ? "How do I get to Pašman?" : "Kako doći na Pašman?",
+    answer: typedLocale === "de" ? "Mit der Fähre von Biograd na Moru nach Tkon (25 Min.) oder über die Ždrelac-Brücke von Ugljan." : typedLocale === "sl" ? "S trajektom iz Biograda na Moru do Tkona (25 min) ali čez most Ždrelac z Ugljana." : typedLocale === "en" ? "By ferry from Biograd na Moru to Tkon (25 min) or via the Ždrelac bridge from Ugljan." : "Trajektom iz Biograda na Moru do Tkona (25 min) ili preko mosta Ždrelac s Ugljana.",
+    category: "getting-there",
+  },
+  {
+    question: typedLocale === "de" ? "Gibt es Klimaanlage?" : typedLocale === "sl" ? "Ali je na voljo klima?" : typedLocale === "en" ? "Is there air conditioning?" : "Ima li klima uređaj?",
+    answer: typedLocale === "de" ? "Ja, alle Ferienwohnungen haben eine Klimaanlage." : typedLocale === "sl" ? "Da, vsi apartmaji imajo klimatsko napravo." : typedLocale === "en" ? "Yes, all apartments have air conditioning." : "Da, svi apartmani imaju klimu.",
+    category: "apartment",
+  },
+  {
+    question: typedLocale === "de" ? "Gibt es Parkplätze?" : typedLocale === "sl" ? "Ali je na voljo parkirišče?" : typedLocale === "en" ? "Is parking available?" : "Ima li parkinga?",
+    answer: typedLocale === "de" ? "Ja, kostenlose Parkplätze sind direkt bei der Unterkunft vorhanden." : typedLocale === "sl" ? "Da, brezplačno parkirišče je na voljo neposredno ob nastanitvi." : typedLocale === "en" ? "Yes, free parking is available right at the property." : "Da, besplatno parkiranje je dostupno uz smještaj.",
+    category: "apartment",
+  },
+  {
+    question: typedLocale === "de" ? "Sind Haustiere erlaubt?" : typedLocale === "sl" ? "Ali so hišni ljubljenčki dovoljeni?" : typedLocale === "en" ? "Are pets allowed?" : "Jesu li kućni ljubimci dozvoljeni?",
+    answer: typedLocale === "de" ? "Bitte fragen Sie bei der Buchung nach. Wir sind haustierfreundlich, es gelten jedoch bestimmte Bedingungen." : typedLocale === "sl" ? "Prosimo, vprašajte ob rezervaciji. Smo prijazni do živali, vendar veljajo določeni pogoji." : typedLocale === "en" ? "Please ask when booking. We are pet-friendly but certain conditions apply." : "Molimo pitajte pri rezervaciji. Primamo kućne ljubimce, ali vrijede određeni uvjeti.",
+    category: "booking",
+  },
+  {
+    question: typedLocale === "de" ? "Wann ist Check-in/Check-out?" : typedLocale === "sl" ? "Kdaj je prijava/odjava?" : typedLocale === "en" ? "What are check-in/check-out times?" : "Kada je prijava/odjava?",
+    answer: typedLocale === "de" ? "Check-in ab 14:00 Uhr, Check-out bis 10:00 Uhr. Flexible Zeiten nach Absprache möglich." : typedLocale === "sl" ? "Prijava od 14:00, odjava do 10:00. Prilagodljivi časi po dogovoru." : typedLocale === "en" ? "Check-in from 14:00, check-out by 10:00. Flexible times possible by arrangement." : "Prijava od 14:00, odjava do 10:00. Fleksibilni termini po dogovoru.",
+    category: "booking",
+  },
+];
+
+// Schema.org FAQPage
+const faqSchema = {
+  mainEntity: faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: faq.answer,
+    },
+  })),
+};
+---
+
+<Page title={t(typedLocale, "faq.title")} locale={typedLocale}>
+  <SchemaOrg type="FAQPage" data={faqSchema} />
+
+  <section class="hero-simple">
+    <div class="container text-center">
+      <h1 class="hero-title">{t(typedLocale, "faq.title")}</h1>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="faq-list" data-reveal-stagger>
+        {faqs.map((faq, i) => (
+          <details class="faq-item" id={i === faqs.length - 1 ? "house-rules" : undefined}>
+            <summary class="faq-item__question">
+              {faq.question}
+              <svg class="faq-item__icon" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true">
+                <path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+              </svg>
+            </summary>
+            <div class="faq-item__answer">
+              <p>{faq.answer}</p>
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+</Page>
+
+<style>
+  .hero-simple {
+    padding: calc(var(--nav-height) + var(--space-3xl)) 0 var(--space-3xl);
+    background: var(--color-navy);
+    color: var(--color-white);
+  }
+  .hero-simple h1 { color: var(--color-white); }
+
+  .faq-list {
+    max-width: 800px;
+    margin-inline: auto;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid var(--color-stone);
+  }
+
+  .faq-item__question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-lg) 0;
+    cursor: pointer;
+    font-size: var(--font-size-lg);
+    font-weight: 500;
+    color: var(--color-navy);
+    list-style: none;
+  }
+
+  .faq-item__question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-item__icon {
+    flex-shrink: 0;
+    transition: transform var(--duration-fast);
+    color: var(--color-text-light);
+  }
+
+  .faq-item[open] .faq-item__icon {
+    transform: rotate(180deg);
+  }
+
+  .faq-item__answer {
+    padding-bottom: var(--space-lg);
+    color: var(--color-text);
+    line-height: 1.7;
+  }
+</style>

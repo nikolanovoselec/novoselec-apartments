@@ -1,0 +1,81 @@
+---
+import Page from "~/layouts/Page.astro";
+import { isValidLocale, type Locale } from "~/i18n/config";
+import { t } from "~/i18n/t";
+
+const { locale } = Astro.params;
+if (!locale || !isValidLocale(locale)) return Astro.redirect("/hr/", 302);
+const typedLocale = locale as Locale;
+
+const sections = [
+  {
+    hr: { title: "Kristalno čisto more", text: "Pašman ima jednu od najčišćih voda na Jadranu zahvaljujući stalnim morskim strujama. Tirkizno more i skrivene uvale čekaju vas na svakom koraku." },
+    de: { title: "Kristallklares Meer", text: "Pašman hat dank ständiger Meeresströmungen eines der saubersten Gewässer der Adria. Türkisfarbenes Meer und versteckte Buchten erwarten Sie bei jedem Schritt." },
+    sl: { title: "Kristalno čisto morje", text: "Pašman ima eno najčistejših voda na Jadranu zahvaljujoč stalnim morskim tokovom. Turkizno morje in skrite zalive vas čakajo na vsakem koraku." },
+    en: { title: "Crystal-clear sea", text: "Pašman has some of the cleanest waters in the Adriatic thanks to constant sea currents. Turquoise sea and hidden coves await you at every turn." },
+  },
+  {
+    hr: { title: "Mir otoka", text: "Daleko od gužvi popularnih destinacija, Pašman nudi autentični ritam otočnog života. Maslinovi nasadi, borove šume i zvuk cvrčaka — ovdje se vrijeme usporava." },
+    de: { title: "Inselruhe", text: "Fernab vom Trubel beliebter Reiseziele bietet Pašman den authentischen Rhythmus des Insellebens. Olivenhaine, Pinienwälder und Zikadengezirpe — hier verlangsamt sich die Zeit." },
+    sl: { title: "Mir otoka", text: "Daleč od gneče priljubljenih destinacij Pašman ponuja avtentični ritem otoškega življenja. Oljčni nasadi, borovi gozdovi in zvok škržatov — tukaj se čas upočasni." },
+    en: { title: "Island tranquility", text: "Far from the crowds of popular destinations, Pašman offers the authentic rhythm of island life. Olive groves, pine forests, and the sound of cicadas — time slows down here." },
+  },
+  {
+    hr: { title: "25 minuta od kopna", text: "Trajekt iz Biograda na Moru do Tkona vozi samo 25 minuta. Alternativno, možete doći preko mosta Ždrelac s otoka Ugljana. Otok je lako dostupan, a opet dovoljno daleko da se osjetite kao na pravom odmoru." },
+    de: { title: "25 Minuten vom Festland", text: "Die Fähre von Biograd na Moru nach Tkon dauert nur 25 Minuten. Alternativ können Sie über die Ždrelac-Brücke von der Insel Ugljan anreisen. Die Insel ist leicht erreichbar und dennoch weit genug entfernt, um sich wie ein echter Urlaub anzufühlen." },
+    sl: { title: "25 minut od kopna", text: "Trajekt iz Biograda na Moru do Tkona vozi le 25 minut. Alternativno lahko pridete čez most Ždrelac z otoka Ugljan. Otok je lahko dostopen, a vseeno dovolj oddaljen, da se počutite kot na pravem dopustu." },
+    en: { title: "25 minutes from the mainland", text: "The ferry from Biograd na Moru to Tkon takes just 25 minutes. Alternatively, you can arrive via the Ždrelac bridge from Ugljan island. The island is easily accessible yet far enough to feel like a real getaway." },
+  },
+  {
+    hr: { title: "Autentična Dalmacija", text: "Kamene kuće, konobe s domaćom hranom, ribarnice na rivi — Pašman je Dalmacija kakva je nekad bila. Bez velikih hotela i masovnog turizma, samo pravi mediteranski život." },
+    de: { title: "Authentisches Dalmatien", text: "Steinhäuser, Konobas mit hausgemachtem Essen, Fischmärkte an der Promenade — Pašman ist Dalmatien, wie es einmal war. Keine großen Hotels und kein Massentourismus, nur echtes mediterranes Leben." },
+    sl: { title: "Pristna Dalmacija", text: "Kamnite hiše, konobe z domačo hrano, ribje tržnice na rivi — Pašman je Dalmacija, kakršna je nekoč bila. Brez velikih hotelov in množičnega turizma, samo pravo mediteransko življenje." },
+    en: { title: "Authentic Dalmatia", text: "Stone houses, konobas with homemade food, fish markets on the promenade — Pašman is Dalmatia as it once was. No big hotels or mass tourism, just real Mediterranean life." },
+  },
+];
+---
+
+<Page title={t(typedLocale, "nav.whyPasman")} locale={typedLocale}>
+  <section class="hero-simple">
+    <div class="container text-center">
+      <h1 class="hero-title">{t(typedLocale, "nav.whyPasman")}</h1>
+    </div>
+  </section>
+
+  {sections.map((section, i) => {
+    const content = section[typedLocale] ?? section.hr;
+    return (
+      <section class:list={["section", { "bg-alt": i % 2 === 1 }]} data-reveal>
+        <div class="container">
+          <h2>{content.title}</h2>
+          <div class="section-divider"></div>
+          <p style="margin-top: var(--space-lg);">{content.text}</p>
+        </div>
+      </section>
+    );
+  })}
+
+  <section class="section" data-reveal>
+    <div class="container text-center">
+      <a href={`/${typedLocale}/apartmani`} class="btn btn--primary">
+        {t(typedLocale, "nav.apartments")}
+      </a>
+    </div>
+  </section>
+</Page>
+
+<style>
+  .hero-simple {
+    padding: calc(var(--nav-height) + var(--space-3xl)) 0 var(--space-3xl);
+    background: var(--color-navy);
+    color: var(--color-white);
+  }
+
+  .hero-simple h1 {
+    color: var(--color-white);
+  }
+
+  .bg-alt {
+    background: var(--color-bg-alt);
+  }
+</style>

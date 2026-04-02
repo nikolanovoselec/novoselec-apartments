@@ -1,0 +1,89 @@
+---
+import Page from "~/layouts/Page.astro";
+import { isValidLocale, type Locale } from "~/i18n/config";
+import { t } from "~/i18n/t";
+
+const { locale } = Astro.params;
+if (!locale || !isValidLocale(locale)) return Astro.redirect("/hr/", 302);
+const typedLocale = locale as Locale;
+
+// TODO: Load guide entries from Emdash CMS
+// For now, preloaded static content
+const categories = [
+  { key: "guide.beaches", icon: "🏖️" },
+  { key: "guide.foodDrink", icon: "🍽️" },
+  { key: "guide.restaurants", icon: "🏠" },
+  { key: "guide.activities", icon: "🚴" },
+  { key: "guide.dayTrips", icon: "⛵" },
+];
+---
+
+<Page title={t(typedLocale, "guide.title")} locale={typedLocale}>
+  <section class="hero-simple">
+    <div class="container text-center">
+      <h1 class="hero-title">{t(typedLocale, "guide.title")}</h1>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="category-grid" data-reveal-stagger>
+        {categories.map((cat) => (
+          <div class="category-card">
+            <span class="category-card__icon">{cat.icon}</span>
+            <h3>{t(typedLocale, cat.key)}</h3>
+          </div>
+        ))}
+      </div>
+
+      <p class="coming-soon text-center" style="margin-top: var(--space-3xl);">
+        {typedLocale === "de" ? "Lokale Tipps werden bald hinzugefügt." : typedLocale === "sl" ? "Lokalni nasveti bodo kmalu dodani." : typedLocale === "en" ? "Local tips coming soon." : "Lokalni savjeti uskoro dolaze."}
+      </p>
+    </div>
+  </section>
+</Page>
+
+<style>
+  .hero-simple {
+    padding: calc(var(--nav-height) + var(--space-3xl)) 0 var(--space-3xl);
+    background: var(--color-navy);
+    color: var(--color-white);
+  }
+  .hero-simple h1 { color: var(--color-white); }
+
+  .category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-lg);
+    max-width: 800px;
+    margin-inline: auto;
+  }
+
+  .category-card {
+    text-align: center;
+    padding: var(--space-xl);
+    background: var(--color-white);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow var(--duration-normal) var(--ease-out);
+  }
+
+  .category-card:hover {
+    box-shadow: var(--shadow-md);
+  }
+
+  .category-card__icon {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: var(--space-md);
+  }
+
+  .category-card h3 {
+    font-size: var(--font-size-lg);
+  }
+
+  .coming-soon {
+    color: var(--color-text-light);
+    font-style: italic;
+  }
+</style>

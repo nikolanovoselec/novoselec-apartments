@@ -1,0 +1,73 @@
+---
+import Page from "~/layouts/Page.astro";
+import { isValidLocale, type Locale } from "~/i18n/config";
+import { t } from "~/i18n/t";
+
+const { locale } = Astro.params;
+if (!locale || !isValidLocale(locale)) return Astro.redirect("/hr/", 302);
+const typedLocale = locale as Locale;
+
+const hostStory = {
+  hr: "Naša obitelj je na ovom otoku generacijama. Ždrelac je naš dom — tiho mjesto na sjevernom vrhu Pašmana, povezano mostom s Ugljanom. Ovdje smo odrasli uz more, maslinike i konobe. Naši apartmani su uređeni s ljubavlju i pažnjom, jer želimo da se osjećate kao kod kuće — samo s boljim pogledom.",
+  de: "Unsere Familie lebt seit Generationen auf dieser Insel. Ždrelac ist unser Zuhause — ein ruhiger Ort an der Nordspitze von Pašman, verbunden durch eine Brücke mit Ugljan. Wir sind hier am Meer aufgewachsen, zwischen Olivenhainen und Konobas. Unsere Ferienwohnungen sind mit Liebe und Sorgfalt eingerichtet, denn wir möchten, dass Sie sich wie zu Hause fühlen — nur mit besserer Aussicht.",
+  sl: "Naša družina je na tem otoku že generacije. Ždrelac je naš dom — tih kraj na severnem vrhu Pašmana, povezan z mostom z Ugljanom. Tukaj smo odrasli ob morju, med oljčnimi nasadi in konobami. Naši apartmaji so urejeni z ljubeznijo in skrbjo, ker želimo, da se počutite kot doma — le z boljšim razgledom.",
+  en: "Our family has been on this island for generations. Ždrelac is our home — a quiet place at the northern tip of Pašman, connected by bridge to Ugljan. We grew up here by the sea, among olive groves and konobas. Our apartments are furnished with love and care, because we want you to feel at home — just with a better view.",
+};
+---
+
+<Page title={t(typedLocale, "hosts.title")} locale={typedLocale}>
+  <section class="hero-simple">
+    <div class="container text-center">
+      <h1 class="hero-title">{t(typedLocale, "hosts.title")}</h1>
+    </div>
+  </section>
+
+  <section class="section" data-reveal>
+    <div class="container host-content">
+      <div class="host-story">
+        <p class="host-story__text">{hostStory[typedLocale] ?? hostStory.hr}</p>
+        <p class="host-story__response">{t(typedLocale, "hosts.responseTime")}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-alt" data-reveal>
+    <div class="container text-center">
+      <a href={`/${typedLocale}/apartmani`} class="btn btn--primary">
+        {t(typedLocale, "nav.apartments")}
+      </a>
+    </div>
+  </section>
+</Page>
+
+<style>
+  .hero-simple {
+    padding: calc(var(--nav-height) + var(--space-3xl)) 0 var(--space-3xl);
+    background: var(--color-navy);
+    color: var(--color-white);
+  }
+  .hero-simple h1 { color: var(--color-white); }
+  .bg-alt { background: var(--color-bg-alt); }
+
+  .host-content {
+    max-width: 700px;
+    margin-inline: auto;
+  }
+
+  .host-story__text {
+    font-size: var(--font-size-lg);
+    line-height: 1.8;
+    color: var(--color-text);
+  }
+
+  .host-story__response {
+    margin-top: var(--space-xl);
+    padding: var(--space-md) var(--space-lg);
+    background: var(--color-stone);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-sm);
+    color: var(--color-olive);
+    font-weight: 500;
+    display: inline-block;
+  }
+</style>

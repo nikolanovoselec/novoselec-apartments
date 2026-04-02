@@ -1,0 +1,68 @@
+---
+import Page from "~/layouts/Page.astro";
+import { isValidLocale, type Locale } from "~/i18n/config";
+
+const { locale } = Astro.params;
+if (!locale || !isValidLocale(locale)) return Astro.redirect("/hr/", 302);
+const typedLocale = locale as Locale;
+
+// Impressum always available in German (CON-LEGAL)
+// TODO: Load from Emdash CMS
+const content = {
+  hr: {
+    title: "Impressum",
+    body: "Apartmani Ždrelac\nŽdrelac, Pašman\n23262, Hrvatska\n\nKontakt:\nEmail: info@apartmani-zdrelac.hr\nTelefon: +385 XX XXX XXXX\n\nOdgovorna osoba: [Ime vlasnika]\n\nOvo je predložak. Vlasnik treba ažurirati svoje podatke u CMS-u.",
+  },
+  de: {
+    title: "Impressum",
+    body: "Apartmani Ždrelac\nŽdrelac, Pašman\n23262, Kroatien\n\nKontakt:\nE-Mail: info@apartmani-zdrelac.hr\nTelefon: +385 XX XXX XXXX\n\nVerantwortliche Person: [Name des Eigentümers]\n\nDies ist eine Vorlage. Der Eigentümer muss seine Daten im CMS aktualisieren.",
+  },
+  sl: {
+    title: "Impressum",
+    body: "Apartmani Ždrelac\nŽdrelac, Pašman\n23262, Hrvaška\n\nKontakt:\nE-pošta: info@apartmani-zdrelac.hr\nTelefon: +385 XX XXX XXXX\n\nOdgovorna oseba: [Ime lastnika]\n\nTo je predloga. Lastnik mora posodobiti svoje podatke v CMS-u.",
+  },
+  en: {
+    title: "Legal Notice",
+    body: "Apartmani Ždrelac\nŽdrelac, Pašman\n23262, Croatia\n\nContact:\nEmail: info@apartmani-zdrelac.hr\nPhone: +385 XX XXX XXXX\n\nResponsible person: [Owner name]\n\nThis is a template. The owner needs to update their details in the CMS.",
+  },
+};
+
+const page = content[typedLocale] ?? content.hr;
+---
+
+<Page title={page.title} locale={typedLocale}>
+  <section class="hero-simple">
+    <div class="container text-center">
+      <h1 class="hero-title">{page.title}</h1>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container legal-content">
+      {page.body.split("\n\n").map((paragraph) => (
+        <p>{paragraph.split("\n").map((line, i) => (
+          <>{i > 0 && <br />}{line}</>
+        ))}</p>
+      ))}
+    </div>
+  </section>
+</Page>
+
+<style>
+  .hero-simple {
+    padding: calc(var(--nav-height) + var(--space-3xl)) 0 var(--space-3xl);
+    background: var(--color-navy);
+    color: var(--color-white);
+  }
+  .hero-simple h1 { color: var(--color-white); }
+
+  .legal-content {
+    max-width: 700px;
+    margin-inline: auto;
+  }
+
+  .legal-content p {
+    margin-bottom: var(--space-lg);
+    line-height: 1.7;
+  }
+</style>

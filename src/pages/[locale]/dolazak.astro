@@ -1,0 +1,135 @@
+---
+import Page from "~/layouts/Page.astro";
+import { isValidLocale, type Locale } from "~/i18n/config";
+import { t } from "~/i18n/t";
+
+const { locale } = Astro.params;
+if (!locale || !isValidLocale(locale)) return Astro.redirect("/hr/", 302);
+const typedLocale = locale as Locale;
+
+const ferryInfo = {
+  hr: { route: "Biograd na Moru → Tkon", duration: "25 minuta", operator: "Jadrolinija", tip: "U srpnju i kolovozu dođite 45 minuta ranije ako vozite auto." },
+  de: { route: "Biograd na Moru → Tkon", duration: "25 Minuten", operator: "Jadrolinija", tip: "Im Juli und August kommen Sie 45 Minuten früher, wenn Sie ein Auto mitnehmen." },
+  sl: { route: "Biograd na Moru → Tkon", duration: "25 minut", operator: "Jadrolinija", tip: "Julija in avgusta pridite 45 minut prej, če pripeljete avto." },
+  en: { route: "Biograd na Moru → Tkon", duration: "25 minutes", operator: "Jadrolinija", tip: "In July and August, arrive 45 minutes early if bringing a car." },
+};
+
+const altRoute = {
+  hr: { title: "Alternativna ruta preko Ugljana", text: "Budući da se apartmani nalaze u Ždrelacu, na samom mostu prema Ugljanu, možete koristiti i trajekt Zadar → Preko (Ugljan), a zatim prijeći most do Pašmana." },
+  de: { title: "Alternative Route über Ugljan", text: "Da sich die Ferienwohnungen in Ždrelac befinden, direkt an der Brücke nach Ugljan, können Sie auch die Fähre Zadar → Preko (Ugljan) nehmen und dann über die Brücke nach Pašman fahren." },
+  sl: { title: "Alternativna pot čez Ugljan", text: "Ker se apartmaji nahajajo v Ždrelacu, tik ob mostu proti Ugljanu, lahko uporabite tudi trajekt Zadar → Preko (Ugljan) in nato prečkate most do Pašmana." },
+  en: { title: "Alternative route via Ugljan", text: "Since the apartments are in Ždrelac, right at the bridge to Ugljan, you can also take the ferry Zadar → Preko (Ugljan) and then cross the bridge to Pašman." },
+};
+
+const airport = {
+  hr: { title: "Aerodrom Zadar (ZAD)", distance: "~30 km do trajektne luke u Biogradu", text: "Najbliži aerodrom. Vožnja do trajektne luke traje oko 30 minuta." },
+  de: { title: "Flughafen Zadar (ZAD)", distance: "~30 km zum Fährhafen Biograd", text: "Der nächstgelegene Flughafen. Die Fahrt zum Fährhafen dauert etwa 30 Minuten." },
+  sl: { title: "Letališče Zadar (ZAD)", distance: "~30 km do trajektnega pristanišča v Biogradu", text: "Najbližje letališče. Vožnja do trajektnega pristanišča traja približno 30 minut." },
+  en: { title: "Zadar Airport (ZAD)", distance: "~30 km to Biograd ferry port", text: "The closest airport. The drive to the ferry port takes about 30 minutes." },
+};
+
+const ferry = ferryInfo[typedLocale] ?? ferryInfo.hr;
+const alt = altRoute[typedLocale] ?? altRoute.hr;
+const air = airport[typedLocale] ?? airport.hr;
+---
+
+<Page title={t(typedLocale, "gettingHere.title")} locale={typedLocale}>
+  <section class="hero-simple">
+    <div class="container text-center">
+      <h1 class="hero-title">{t(typedLocale, "gettingHere.title")}</h1>
+    </div>
+  </section>
+
+  {/* Ferry section */}
+  <section class="section" data-reveal>
+    <div class="container">
+      <h2>{t(typedLocale, "gettingHere.ferry")}</h2>
+      <div class="section-divider"></div>
+      <div class="info-card">
+        <p class="info-card__route">{ferry.route}</p>
+        <p class="info-card__detail">{ferry.duration} · {ferry.operator}</p>
+        <p class="info-card__tip">{ferry.tip}</p>
+        <a href="https://www.jadrolinija.hr" target="_blank" rel="noopener noreferrer" class="btn" style="margin-top: var(--space-lg);">
+          Jadrolinija.hr
+        </a>
+      </div>
+    </div>
+  </section>
+
+  {/* Alternative route */}
+  <section class="section bg-alt" data-reveal>
+    <div class="container">
+      <h2>{alt.title}</h2>
+      <div class="section-divider"></div>
+      <p style="margin-top: var(--space-lg);">{alt.text}</p>
+    </div>
+  </section>
+
+  {/* Airport */}
+  <section class="section" data-reveal>
+    <div class="container">
+      <h2>{air.title}</h2>
+      <div class="section-divider"></div>
+      <p class="info-card__detail">{air.distance}</p>
+      <p style="margin-top: var(--space-md);">{air.text}</p>
+    </div>
+  </section>
+
+  {/* Map links */}
+  <section class="section bg-alt" data-reveal>
+    <div class="container text-center">
+      <h3>{typedLocale === "de" ? "Auf der Karte ansehen" : typedLocale === "sl" ? "Pogled na zemljevidu" : typedLocale === "en" ? "View on map" : "Pogledaj na karti"}</h3>
+      <div style="display: flex; gap: var(--space-md); justify-content: center; flex-wrap: wrap; margin-top: var(--space-lg);">
+        <a href="https://maps.google.com/?q=Ždrelac,+Pašman,+Croatia" target="_blank" rel="noopener noreferrer" class="btn">
+          Google Maps
+        </a>
+        <a href="https://maps.apple.com/?q=Ždrelac,+Pašman,+Croatia" target="_blank" rel="noopener noreferrer" class="btn">
+          Apple Maps
+        </a>
+      </div>
+    </div>
+  </section>
+
+  {/* Transfer offer */}
+  <section class="section" data-reveal>
+    <div class="container text-center">
+      <p style="font-family: var(--font-serif); font-size: var(--font-size-2xl); color: var(--color-navy);">
+        {t(typedLocale, "gettingHere.transfer")}
+      </p>
+    </div>
+  </section>
+</Page>
+
+<style>
+  .hero-simple {
+    padding: calc(var(--nav-height) + var(--space-3xl)) 0 var(--space-3xl);
+    background: var(--color-navy);
+    color: var(--color-white);
+  }
+  .hero-simple h1 { color: var(--color-white); }
+  .bg-alt { background: var(--color-bg-alt); }
+
+  .info-card {
+    margin-top: var(--space-lg);
+  }
+
+  .info-card__route {
+    font-family: var(--font-serif);
+    font-size: var(--font-size-2xl);
+    color: var(--color-navy);
+  }
+
+  .info-card__detail {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-light);
+    margin-top: var(--space-sm);
+  }
+
+  .info-card__tip {
+    margin-top: var(--space-md);
+    padding: var(--space-md);
+    background: var(--color-stone);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-sm);
+  }
+</style>

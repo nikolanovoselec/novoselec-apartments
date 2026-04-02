@@ -1,0 +1,67 @@
+---
+import Page from "~/layouts/Page.astro";
+import { isValidLocale, type Locale } from "~/i18n/config";
+import { t } from "~/i18n/t";
+
+const { locale } = Astro.params;
+if (!locale || !isValidLocale(locale)) return Astro.redirect("/hr/", 302);
+const typedLocale = locale as Locale;
+
+// Privacy policy content - preloaded template per locale
+// TODO: Load from Emdash CMS
+const content = {
+  hr: {
+    title: "Politika privatnosti",
+    body: `Ova politika privatnosti opisuje kako prikupljamo, koristimo i štitimo vaše osobne podatke.\n\nVoditelj obrade podataka: Apartmani Ždrelac, Ždrelac, Pašman, Hrvatska.\n\nPodaci koje prikupljamo: Ime, email, telefon i poruku putem obrasca za upit.\n\nPravna osnova: Članak 6(1)(b) GDPR — predugovorne mjere na zahtjev ispitanika.\n\nPohrana: Podaci se pohranjuju u Cloudflare D1 bazi podataka (EU regija).\n\nObrada: Resend (dostava emaila), Cloudflare (hosting).\n\nZadržavanje: Upiti se čuvaju 2 godine, nakon čega se brišu osim ako nisu pretvoreni u evidenciju rezervacije.\n\nVaša prava: Imate pravo na pristup, ispravak i brisanje svojih podataka. Kontaktirajte nas emailom.\n\nCloudflare Web Analytics: Ne koristi kolačiće, ne prikuplja osobne podatke.\n\nWhatsApp: Kontakt putem WhatsAppa je pokrenut od strane korisnika i podliježe Metinoj politici privatnosti.\n\nNe prodajemo vaše podatke trećim stranama.`,
+  },
+  de: {
+    title: "Datenschutzerklärung",
+    body: `Diese Datenschutzerklärung beschreibt, wie wir Ihre personenbezogenen Daten erheben, verwenden und schützen.\n\nVerantwortlicher: Apartmani Ždrelac, Ždrelac, Pašman, Kroatien.\n\nErhobene Daten: Name, E-Mail, Telefon und Nachricht über das Anfrageformular.\n\nRechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO — vorvertragliche Maßnahmen.\n\nSpeicherung: Daten werden in der Cloudflare D1-Datenbank (EU-Region) gespeichert.\n\nVerarbeitung: Resend (E-Mail-Zustellung), Cloudflare (Hosting).\n\nSpeicherdauer: Anfragen werden 2 Jahre aufbewahrt und danach gelöscht, sofern sie nicht in Buchungsunterlagen umgewandelt wurden.\n\nIhre Rechte: Sie haben das Recht auf Auskunft, Berichtigung und Löschung Ihrer Daten. Kontaktieren Sie uns per E-Mail.\n\nCloudflare Web Analytics: Verwendet keine Cookies, erhebt keine personenbezogenen Daten.\n\nWhatsApp: Die Kontaktaufnahme über WhatsApp erfolgt auf Ihre Initiative und unterliegt der Datenschutzrichtlinie von Meta.\n\nWir verkaufen Ihre Daten nicht an Dritte.`,
+  },
+  sl: {
+    title: "Politika zasebnosti",
+    body: `Ta politika zasebnosti opisuje, kako zbiramo, uporabljamo in ščitimo vaše osebne podatke.\n\nUpravljavec podatkov: Apartmani Ždrelac, Ždrelac, Pašman, Hrvaška.\n\nPodatki, ki jih zbiramo: Ime, e-pošta, telefon in sporočilo prek obrazca za povpraševanje.\n\nPravna podlaga: Člen 6(1)(b) GDPR — predpogodbeni ukrepi.\n\nShranjevanje: Podatki se shranjujejo v bazi podatkov Cloudflare D1 (regija EU).\n\nObdelava: Resend (dostava e-pošte), Cloudflare (gostovanje).\n\nOhranitev: Povpraševanja se hranijo 2 leti, nato se izbrišejo, razen če so pretvorjena v evidenco rezervacije.\n\nVaše pravice: Imate pravico do dostopa, popravka in izbrisa svojih podatkov. Kontaktirajte nas po e-pošti.\n\nCloudflare Web Analytics: Ne uporablja piškotkov, ne zbira osebnih podatkov.\n\nWhatsApp: Kontakt prek WhatsAppa je sprožen s vaše strani in je predmet Metine politike zasebnosti.\n\nVaših podatkov ne prodajamo tretjim osebam.`,
+  },
+  en: {
+    title: "Privacy Policy",
+    body: `This privacy policy describes how we collect, use, and protect your personal data.\n\nData controller: Apartmani Ždrelac, Ždrelac, Pašman, Croatia.\n\nData we collect: Name, email, phone, and message via the inquiry form.\n\nLegal basis: Article 6(1)(b) GDPR — pre-contractual measures at the request of the data subject.\n\nStorage: Data is stored in a Cloudflare D1 database (EU region).\n\nProcessors: Resend (email delivery), Cloudflare (hosting).\n\nRetention: Inquiries are retained for 2 years, then deleted unless converted to a booking record.\n\nYour rights: You have the right to access, rectify, and erase your data. Contact us by email.\n\nCloudflare Web Analytics: Does not use cookies, does not collect personal data.\n\nWhatsApp: Contact via WhatsApp is user-initiated and subject to Meta's privacy policy.\n\nWe do not sell your data to third parties.`,
+  },
+};
+
+const page = content[typedLocale] ?? content.hr;
+---
+
+<Page title={page.title} locale={typedLocale}>
+  <section class="hero-simple">
+    <div class="container text-center">
+      <h1 class="hero-title">{page.title}</h1>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container legal-content">
+      {page.body.split("\n\n").map((paragraph) => (
+        <p>{paragraph}</p>
+      ))}
+    </div>
+  </section>
+</Page>
+
+<style>
+  .hero-simple {
+    padding: calc(var(--nav-height) + var(--space-3xl)) 0 var(--space-3xl);
+    background: var(--color-navy);
+    color: var(--color-white);
+  }
+  .hero-simple h1 { color: var(--color-white); }
+
+  .legal-content {
+    max-width: 700px;
+    margin-inline: auto;
+  }
+
+  .legal-content p {
+    margin-bottom: var(--space-lg);
+    line-height: 1.7;
+  }
+</style>
