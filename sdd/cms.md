@@ -20,8 +20,8 @@ Emdash CMS integration, media library, authentication, mobile admin UX, section 
 - **Acceptance Criteria:**
   - Emdash as Astro integration with D1 database and R2 storage
   - Admin panel at `/_emdash/admin/` for authenticated owner only
-  - Content queried via Astro Live Collections
-  - Collections: apartments, seasons, testimonials, guide-entries, faqs, pages, inquiries, site-settings
+  - Content queried via Emdash content loader (`getEmDashCollection`, `getEmDashEntry`) wrapped in a locale-aware abstraction layer (`src/lib/content.ts`) providing `getLocalizedCollection(collectionSlug, locale)`, `getLocalizedEntry(collectionSlug, slug, locale)`, and `getSettings()`. All queries filter by `data.locale` field with automatic Croatian fallback.
+  - Collections: homepage, apartments, testimonials, guide, faqs, pages (currently seeded). Planned: seasons, inquiries, site-settings
   - Site-settings: property name, WhatsApp number, phone number, email, active locales, hero photos, social links, section visibility toggles, check-in/out times, tourist tax rate
   - Public queries filtered by active locale and published status. Admin queries show all content including drafts/unpublished.
   - **Failure modes:**
@@ -157,10 +157,12 @@ Emdash CMS integration, media library, authentication, mobile admin UX, section 
   - Optional hero video: one 10-15s ambient stock clip
   - Site deployable and visitor-ready on day one
   - Owner workflow: open admin → see checklist → replace photos → edit text → mark as own content → done
+  - **Seed API:** `POST /api/admin/seed` endpoint applies `seed/seed.json` to D1 via Emdash's `applySeed()`. Idempotent (safe to run multiple times). Returns JSON `{ success, result }` on 200 or `{ success: false, error }` on 500.
+  - **Seed data (`seed/seed.json`):** 6 collections across 4 locales: `homepage` (section-based: why-pasman, zdrelac, apartments, cta), `pages` (why-pasman, getting-here, about, faq with structured section data), `apartments` (2 listings: Lavanda 4-pax, Tramuntana 2-pax with full field set), `faqs` (categorized Q&A), `guide` (local guide entries across categories), `testimonials` (guest quotes with country metadata). All entries have per-locale variants (hr, de, sl, en).
 - **Constraints:** CON-MEDIA, CON-I18N
 - **Priority:** P0
 - **Dependencies:** REQ-CMS-1, REQ-CMS-2, REQ-I18N-4
-- **Verification:** Deploy fresh instance, verify complete site renders in all 4 locales, verify placeholder badges
+- **Verification:** Deploy fresh instance, run seed endpoint, verify complete site renders in all 4 locales, verify placeholder badges
 - **Status:** Planned
 
 ### REQ-CMS-7: Content Safeguards

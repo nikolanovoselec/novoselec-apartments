@@ -15,7 +15,8 @@ Guest testimonials with contextual metadata and trust signal aggregates.
 - **Applies To:** Visitor
 - **Acceptance Criteria:**
   - Emdash collection: guest name (first name + initial), country flag, travel type (family/couple/solo/remote work), season of stay, year, short quote, optional longer story, optional apartment tag, rating (1-5), source (direct guest / Booking.com / Airbnb — for attribution transparency), **"Most loved for" manual tags** per testimonial (sea view, quiet, child-friendly, terrace, food, location — owner selects from predefined list)
-  - Card carousel on homepage
+  - **Homepage testimonials (current implementation):** 3-column grid on desktop (single column mobile) showing up to 3 testimonials from Emdash CMS `testimonials` collection, filtered by locale with Croatian fallback. Each card: `<blockquote>` with italic serif quote text, `<cite>` footer with guest name (bold) and country. Cards have warm cream/white background, border, hover lift (-4px translateY) with shadow. Section hidden if no testimonials exist in CMS. Section label ("Our guests" / localized) above grid.
+  - Card carousel on homepage (planned enhancement: replace static grid with carousel for 4+ testimonials)
   - **Contextual placement on apartment detail pages:** one featured quote near inquiry widget, filtered list below. Featured quote selected by: 1) owner-flagged `isFeatured` boolean in CMS, or 2) fallback to most recent 5-star testimonial for that apartment, or 3) fallback to most recent global testimonial if none apartment-specific.
   - "Guests love:" tag cloud derived from "most loved for" tags across testimonials for each apartment
   - Card design: warm cream background, large quote marks, context line ("Maria K. · Germany · Family · August 2025")

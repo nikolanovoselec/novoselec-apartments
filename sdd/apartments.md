@@ -49,8 +49,9 @@ Apartment listings, detail pages, photo galleries, amenities, seasonal pricing, 
 - **Intent:** Let visitors browse and compare all apartments at a glance
 - **Applies To:** Visitor
 - **Acceptance Criteria:**
-  - **Pre-CMS state (current):** Lifestyle "coming soon" layout with duo-image grid (2-col, 1fr/1fr, 3:4 portrait aspect, 4px gap) on left, localized teaser text and heading on right (desktop). Inquiry CTA button links to homepage inquiry section. Uses `HeroSimple` header. Text side: uppercase label ("Coming soon" per locale), heading, lead paragraph describing the apartments. Single-column stacking on mobile.
-  - **With CMS (planned):** Card per apartment: hero photo, name, capacity, distance to beach, "from €X/night", sea view badge if applicable, "Best for" label (couples/families/etc.), one-line value proposition
+  - **Current implementation:** Card grid showing apartments from Emdash CMS (with hardcoded fallback data when CMS is not yet seeded). Each card: hero photo (3:2 aspect, `object-fit: cover`), name, tagline (italic), meta row (sleeps count, size in m2, beach distance in meters), "Best for" badge (navy uppercase overlay on image), price ("from EUR X/night"), and inquiry CTA button. 2-column grid on desktop, single column on mobile. Cards have hover shadow lift and subtle image zoom (1.03x). Uses `HeroSimple` header. Inquiry section below cards with email CTA.
+  - **Fallback behavior:** When Emdash returns no apartments (CMS not seeded), two hardcoded example apartments display (Lavanda 4-pax, Tramuntana 2-pax) with Pexels stock photos and locale-aware names/taglines/labels. This replaces the previous "coming soon" lifestyle layout.
+  - **With full CMS (planned):** sea view badge if applicable, one-line value proposition, link to detail page
   - Cards link to detail page
   - Quick-compare key facts visible on cards without clicking through
   - Image hover: subtle zoom within overflow:hidden

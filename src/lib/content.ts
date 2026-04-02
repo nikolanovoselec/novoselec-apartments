@@ -19,27 +19,20 @@ export async function getLocalizedCollection(
     const { entries } = await getEmDashCollection(collectionSlug);
     if (!entries || entries.length === 0) return [];
 
+    const mapped = entries.map(mapEntry);
+
     // Filter entries by locale field, fall back to 'hr'
-    const localeEntries = entries.filter(
-      (e: Record<string, unknown>) =>
-        (e as { data?: { locale?: string } }).data?.locale === locale,
-    );
-    if (localeEntries.length > 0) {
-      return localeEntries.map(mapEntry);
-    }
+    const localeEntries = mapped.filter((e) => e.data.locale === locale);
+    if (localeEntries.length > 0) return localeEntries;
 
     // Fallback: try Croatian
-    const hrEntries = entries.filter(
-      (e: Record<string, unknown>) =>
-        (e as { data?: { locale?: string } }).data?.locale === "hr",
-    );
-    if (hrEntries.length > 0) {
-      return hrEntries.map(mapEntry);
-    }
+    const hrEntries = mapped.filter((e) => e.data.locale === "hr");
+    if (hrEntries.length > 0) return hrEntries;
 
     // Last resort: return all entries
-    return entries.map(mapEntry);
-  } catch {
+    return mapped;
+  } catch (error) {
+    console.error(`[CMS] Failed to load collection "${collectionSlug}":`, error);
     return [];
   }
 }
@@ -65,7 +58,8 @@ export async function getLocalizedEntry(
     const { entry } = await getEmDashEntry(collectionSlug, slug);
     if (entry) return mapEntry(entry);
     return null;
-  } catch {
+  } catch (error) {
+    console.error(`[CMS] Failed to load entry "${collectionSlug}/${slug}":`, error);
     return null;
   }
 }
@@ -77,7 +71,8 @@ export async function getSettings(): Promise<Record<string, unknown> | null> {
   try {
     const { getSiteSettings } = await import("emdash");
     return (await getSiteSettings()) as Record<string, unknown>;
-  } catch {
+  } catch (error) {
+    console.error("[CMS] Failed to load site settings:", error);
     return null;
   }
 }

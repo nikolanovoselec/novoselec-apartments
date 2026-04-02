@@ -27,7 +27,8 @@ The homepage and visual shell — hero, navigation, footer, language switcher, a
   - On `prefers-reduced-motion`: all animations disabled, content immediately visible
   - Mobile: title scales down via clamp, subtitle uses smaller font size
   - **Temporary workaround:** Stock photos currently served directly from Pexels CDN URLs (external hotlink) due to a routing bug in the `/media/:key` Worker route (404 on R2 fetch). When the `/media/` route is fixed, images will move to R2 with Cloudflare Image Resizing per REQ-PERF-1. Pexels CDN URLs use `?auto=compress&w=` for basic optimization.
-  - **Future enhancement:** Ken Burns photo slideshow with crossfade can replace the single static hero photo when CMS hero photo management is available. Current single-photo hero serves as the intermediate step between gradient-only fallback and full slideshow.
+  - **Ken Burns animation:** Hero background element uses CSS `@keyframes kenBurns` (slow zoom from `scale(1)` to `scale(1.08)`, 20s, ease-in-out, alternating infinite). Background container oversized to 110% at `-5% inset` to prevent edge visibility during zoom. Respects `prefers-reduced-motion` (animation disabled).
+  - **Future enhancement:** Ken Burns photo slideshow with crossfade (multiple images) can replace the single static hero photo when CMS hero photo management is available. Current single-photo Ken Burns hero serves as the intermediate step between gradient-only fallback and full multi-image slideshow.
 - **Constraints:** CON-PERF, CON-A11Y
 - **Priority:** P0
 - **Dependencies:** None
@@ -59,7 +60,8 @@ The homepage and visual shell — hero, navigation, footer, language switcher, a
   - Logo, language switcher, and nav links always visible
   - "Inquire" CTA button always visible in nav
   - Hamburger menu on mobile with fullscreen overlay
-  - Hamburger button: inline styles for bulletproof rendering (display, flex-direction, gap, background, border, cursor, padding, z-index 101, position relative), three `<span>` elements with inline base styles (block, 24x2px, currentColor background, 1px border-radius, transform/opacity transitions). Selected via `#hamburger-btn` ID. CSS transform morph to X on `.is-open` (translateY + rotate).
+  - Hamburger button: `.nav__hamburger` class with CSS styles (display flex, flex-direction column, gap 6px, no background/border, cursor pointer, padding 12px, z-index 101, position relative), three `<span>` elements (block, 24x2px, currentColor background, 1px border-radius, transform/opacity transitions). Selected via `#hamburger-btn` ID. CSS transform morph to X on `.is-open` (translateY + rotate).
+  - **Admin link:** Navigation includes a link to the Emdash admin panel (`/_emdash/admin/`) labeled with the `nav.admin` translation key. Visible in both desktop nav and mobile menu. No authentication gate on the link itself (Emdash handles auth).
   - Menu items stagger in with animation
   - Focus trapping when fullscreen menu is open
   - Transition driven by IntersectionObserver (0.4s ease)

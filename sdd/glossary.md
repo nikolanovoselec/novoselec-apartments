@@ -30,4 +30,5 @@
 | **NAP** | Name, Address, Phone — consistency across all web presences is critical for local SEO. |
 | **GBP** | Google Business Profile — local business listing on Google Maps. |
 | **GSAP** | GreenSock Animation Platform — JavaScript animation library. Used optionally for max 1 signature scroll animation per page when CSS alone cannot achieve the effect. Gated to <20KB bundle contribution. |
+| **DM Serif Display** | Display serif typeface from Google Fonts with high-contrast transitional strokes. Used for headings and display text. Self-hosted as woff2. Replaced Cormorant Garamond in Revision 20. |
 | **WCAG** | Web Content Accessibility Guidelines — international standard for web accessibility. This site targets WCAG 2.1 Level AA compliance. |

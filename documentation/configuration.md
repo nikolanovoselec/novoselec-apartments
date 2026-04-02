@@ -68,6 +68,19 @@ Accessed as `locals.runtime.env.DB` (type `D1Database`). Holds auth codes, sessi
 
 The R2 bucket binding is defined but commented out in `wrangler.jsonc` pending R2 enablement in the Cloudflare dashboard. Accessed as `locals.runtime.env.MEDIA` (type `R2Bucket`). Also uncomment the corresponding line in `astro.config.mjs`.
 
+## Custom Domain Route
+
+Defined in `wrangler.jsonc` under `routes`:
+
+```jsonc
+{
+  "pattern": "apartmani.novoselec.ch",
+  "custom_domain": true
+}
+```
+
+The Worker is bound to `apartmani.novoselec.ch` as a Cloudflare custom domain. DNS must be proxied through Cloudflare (orange cloud) for the route to take effect. No separate zone or route pattern configuration is needed beyond this entry.
+
 ## Astro Configuration
 
 Key settings in `astro.config.mjs`:

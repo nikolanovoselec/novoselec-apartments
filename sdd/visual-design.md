@@ -34,10 +34,10 @@ Color system, typography, scroll animations, micro-interactions, and Croatian vi
 - **Intent:** Elegant, readable type with Croatian editorial feel
 - **Applies To:** System
 - **Acceptance Criteria:**
-  - Display/headings: serif with Venetian/Roman proportions, light weight (300), dramatic clamp scale (`clamp(3rem, 7vw, 6rem)` for display, `clamp(2rem, 4vw, 3.5rem)` for h2), negative letter-spacing (-0.02em headings, -0.03em display)
-  - Body: humanist sans-serif, regular weight, 15px base, 1.7 line-height
+  - Display/headings: DM Serif Display (transitional serif with high contrast strokes), regular weight (400), dramatic clamp scale (`clamp(3rem, 7vw, 6rem)` for display, `clamp(2rem, 4vw, 3.5rem)` for h2), negative letter-spacing (-0.02em headings, -0.03em display)
+  - Body: Inter (variable humanist sans-serif, weight range 100-900), regular weight, 15px base, 1.7 line-height
   - Utility classes: `.text-lead` (19px, 1.65 line-height) for introductory paragraphs, `.text-label` (11px, 600 weight, 0.12em tracking, uppercase) for small-caps section labels
-  - Max 2 typefaces loaded (Cormorant Garamond + Inter)
+  - Max 2 typefaces loaded (DM Serif Display + Inter variable). Both self-hosted as `.woff2` in `/fonts/`, preloaded via `<link rel="preload">`.
   - Full glyph coverage verified: Croatian (c, c, d, s, z), Slovenian (c, s, z), German (a, o, u, ss)
   - `font-display: swap` with size-adjusted fallback system font stack
   - Body max-width: 60ch
@@ -61,6 +61,7 @@ Color system, typography, scroll animations, micro-interactions, and Croatian vi
   - Image clip-path reveal: CSS `clip-path: inset()` transition on scroll-triggered class via `data-reveal-clip` attribute
   - Staggered entry: CSS `transition-delay` per child (100ms increments) via `data-reveal-stagger` attribute
   - Section divider line extends from 0 to 120px width on scroll entry
+  - **Ken Burns:** CSS `@keyframes kenBurns` (scale 1 to 1.08, 20s, ease-in-out, alternating infinite) applied to hero background. Pure CSS, no JS.
   - **GSAP optional:** Max 1 signature moment per page if CSS cannot achieve it (e.g., pinned "A Day on Pašman" timeline on desktop). If GSAP adds >20KB to bundle, skip it and use CSS-only alternative.
   - No parallax (complexity vs. value tradeoff for this project)
   - Only animate `transform` and `opacity` (GPU-composited), plus `clip-path` and `width` for specific reveal types

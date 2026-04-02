@@ -1,14 +1,41 @@
 import type { APIRoute } from "astro";
+import { getEnv } from "~/lib/env";
+import { verifyJWT } from "~/lib/auth";
 
 /**
  * POST /api/admin/seed
  *
  * One-shot endpoint to seed all Emdash collections with preloaded content.
- * Delegates to Emdash's internal applySeed via dynamic import of the
- * internal module (getDb is not publicly exported).
+ * Requires authenticated admin session (JWT in cookie).
  * Idempotent — safe to run multiple times.
  */
-export const POST: APIRoute = async () => {
+export const POST: APIRoute = async ({ cookies, locals }) => {
+  // Auth check — same pattern as other admin endpoints
+  const env = getEnv(locals);
+  const jwtSecret = env.JWT_SECRET;
+  if (!jwtSecret) {
+    return new Response(
+      JSON.stringify({ error: "Server misconfigured" }),
+      { status: 500, headers: { "Content-Type": "application/json" } },
+    );
+  }
+
+  const authToken = cookies.get("auth_token")?.value;
+  if (!authToken) {
+    return new Response(
+      JSON.stringify({ error: "Authentication required" }),
+      { status: 401, headers: { "Content-Type": "application/json" } },
+    );
+  }
+
+  const payload = await verifyJWT(authToken, jwtSecret);
+  if (!payload) {
+    return new Response(
+      JSON.stringify({ error: "Invalid or expired session" }),
+      { status: 401, headers: { "Content-Type": "application/json" } },
+    );
+  }
+
   try {
     // Dynamic import to access internal getDb (not in public types)
     const emdashInternal = await import("emdash");
@@ -18,7 +45,7 @@ export const POST: APIRoute = async () => {
 
     if (!getDb) {
       return new Response(
-        JSON.stringify({ success: false, error: "getDb not available in this Emdash version" }),
+        JSON.stringify({ error: "getDb not available in this Emdash version" }),
         { status: 500, headers: { "Content-Type": "application/json" } },
       );
     }
@@ -39,7 +66,7 @@ export const POST: APIRoute = async () => {
   } catch (error) {
     const message = error instanceof Error ? error.message : "Seed failed";
     return new Response(
-      JSON.stringify({ success: false, error: message }),
+      JSON.stringify({ error: message }),
       { status: 500, headers: { "Content-Type": "application/json" } },
     );
   }

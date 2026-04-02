@@ -35,6 +35,7 @@ Apartmani Pašman is a server-side rendered Astro site deployed as a Cloudflare 
 | `src/lib/media.ts` | R2 URL builder (`buildMediaUrl`) and srcset helper |
 | `src/lib/resend.ts` | Fetch-based Resend email client |
 | `src/lib/turnstile.ts` | Server-side Turnstile token verification |
+| `src/lib/content.ts` | Emdash CMS helpers — `getLocalizedCollection`, `getLocalizedEntry`, `getSettings` with locale fallback to Croatian |
 | `src/lib/sanitize.ts` | Input sanitization — HTML stripping, email header injection prevention |
 | `src/schemas/inquiry.ts` | Zod schemas for booking and quick-question form submissions |
 | `src/middleware/` | Request pipeline: redirects → locale → security headers |
@@ -158,23 +159,20 @@ Overlap detection is embedded in the INSERT statement itself (`INSERT...WHERE NO
 
 ## Seed Data Structure
 
-The `seed/` directory holds structured JSON files used to bootstrap the database before launch. Records with `"placeholder": true` indicate content that must be replaced with real data before going live.
+`seed/seed.json` is a single Emdash-format seed file that defines all CMS collections and their initial entries. It is loaded at build time by `src/pages/api/admin/seed.ts` and applied to the Emdash database via `applySeed`. The file also carries global site `settings` (title, URL, timezone).
 
-### Apartments (`seed/content/apartments.json`)
+### Collections
 
-Each apartment record contains structured fields (not rich text): `capacity`, `bedrooms`, `bathrooms`, `areaSqm`, `distanceToBeachMeters`, `seaView`, `amenities` (object), `bedConfig` (array), `bestFor` (array), `cleaningFee`, and a `localized` map keyed by locale (`hr`/`de`/`sl`/`en`). Each locale entry has `name`, `slug`, `shortDescription`, `valueProp`, `seoTitle`, `seoDescription`. Apartment IDs (`apt-lavanda`, `apt-tramuntana`) are referenced by seasons and testimonials.
+| Collection slug | Entries | Description |
+|---|---|---|
+| `pages` | ~32 | Static editorial pages in all 4 locales — Why Pašman, Getting Here, About, Privacy, Impressum, etc. Each entry has `locale`, `page_key`, `title`, `subtitle`, `body` (richtext), and `hero_image`. |
+| `apartments` | 2 | Apartment detail pages per locale — `apt-lavanda` and `apt-tramuntana`. Structured fields: capacity, bedrooms, amenities, bed config, distances, per-locale name/description/SEO. |
+| `faq` | ~20 | FAQ entries in all 4 locales — `locale`, `question`, `answer` (richtext), `sort_order`. |
+| `guide` | ~16 | Local guide entries (beaches, food, activities, day trips) per locale — `locale`, `category`, `title`, `description`, `image_url`. |
+| `testimonials` | 6 | Guest testimonials linked to apartments — `guest_name`, `country`, `rating`, `quote`, `apartment_id`, `is_featured`. |
+| `amenities` | ~10 | Amenity definitions — `slug`, `icon`, `label` per locale. |
 
-### Seasons (`seed/content/seasons.json`)
-
-Each season record has `apartmentId`, `name` (Off-peak/Peak/Shoulder), `startDate`, `endDate`, `pricePerNight`, and `minStay`. Seasons are used by the pricing model in `src/lib/pricing.ts` to compute stay costs.
-
-### Testimonials (`seed/content/testimonials.json`)
-
-Each testimonial has `guestName`, `country`, `travelType`, `season`, `year`, `rating`, `source`, `isFeatured`, `mostLovedFor` (tag array), `apartmentId`, and a `quote` map localized across all 4 locales.
-
-### Site Settings (`seed/content/site-settings.json`)
-
-A single object with `propertyName`, `email`, `checkInTime`, `checkOutTime`, `touristTaxRate`, `activeLocales`, `heroPhotoKeys`, and `sectionToggles` (feature flags for homepage sections).
+All content is loaded at runtime via `src/lib/content.ts` helpers (`getLocalizedCollection`, `getLocalizedEntry`), which filter entries by locale and fall back to Croatian (`hr`) if the requested locale has no entries.
 
 ## Design System
 
@@ -187,7 +185,7 @@ The entire visual language lives in `src/styles/global.css` as CSS custom proper
 | Colors (palette) | `--color-azure`, `--color-navy`, `--color-stone`, `--color-cream`, `--color-sand`, `--color-terracotta`, `--color-olive` |
 | Colors (semantic) | `--color-text`, `--color-text-heading`, `--color-text-light`, `--color-text-muted`, `--color-bg`, `--color-bg-alt`, `--color-bg-dark`, `--color-accent`, `--color-border` |
 | Typography (scale) | `--font-size-xs` (11px) through `--font-size-5xl` (60px) plus `--font-size-display` (`clamp(3rem, 7vw, 6rem)`) |
-| Typography (faces) | `--font-serif` (Cormorant Garamond → Playfair Display → Georgia), `--font-sans` (Inter → system stack) |
+| Typography (faces) | `--font-serif` (DM Serif Display → Playfair Display → Georgia), `--font-sans` (Inter → system stack) |
 | Spacing | `--space-xs` through `--space-4xl`; `--space-section` (`clamp(5rem, 12vw, 10rem)`) for section vertical rhythm |
 | Layout | `--max-width` (1280px), `--max-width-narrow` (720px), `--max-width-text` (60ch), `--nav-height` (80px) |
 | Motion | `--ease-out`, `--ease-in-out`, `--duration-fast` (0.15s), `--duration-normal` (0.4s), `--duration-slow` (0.8s) |

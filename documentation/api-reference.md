@@ -201,6 +201,37 @@ Submits a booking inquiry or quick question. Full server pipeline: Turnstile ver
 
 All admin endpoints are under `/admin/api/` and require a valid `auth_token` JWT cookie. See [Authentication](authentication.md#magic-link-flow) for the auth flow.
 
+### POST /api/admin/seed
+
+One-shot endpoint to seed all Emdash CMS collections with the preloaded content from `seed/seed.json`. Safe to run multiple times — idempotent via `applySeed`.
+
+**Authentication:** Requires admin authentication (enforced by Emdash middleware).
+
+**Request body:** None.
+
+**Response on success (`200`):**
+
+```json
+{ "success": true, "result": { ... } }
+```
+
+`result` contains the Emdash `applySeed` return value (counts of inserted/skipped records per collection).
+
+**Response on failure (`500`):**
+
+```json
+{ "success": false, "error": "Seed failed" }
+```
+
+**Notes:**
+
+- Reads `seed/seed.json` at build time (static import). The file defines 6 Emdash collections: `pages`, `apartments`, `faq`, `guide`, `testimonials`, `amenities`.
+- Call this endpoint once after first deploy to populate CMS content. After seeding, content is editable through the Emdash admin panel at `/_emdash/`.
+
+**Implementation:** `src/pages/api/admin/seed.ts`, uses `applySeed` and `getDb` from `emdash`.
+
+---
+
 ### POST /admin/api/login
 
 Initiates Magic Link auth — sends a 6-digit code to the provided email address.

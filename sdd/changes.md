@@ -1,5 +1,34 @@
 # Changelog
 
+## 2026-04-02 — Revision 20: Emdash CMS Wiring, Seed Data, Design Polish (f4485a5)
+
+All pages wired to Emdash CMS with locale-aware queries and Croatian fallback. Comprehensive seed data (6 collections in 4 locales). Apartment listing page redesigned from "coming soon" to real card grid. Testimonials rendered on homepage. Ken Burns hero animation. Font swap to DM Serif Display. Admin nav link. Custom domain configured. Alt text on all images.
+
+### AC updated
+- **REQ-SF-1:** Added Ken Burns CSS animation on hero background (scale 1 to 1.08, 20s alternating). Updated future enhancement note to clarify single-photo Ken Burns is the current state, multi-image slideshow is planned.
+- **REQ-SF-3:** Added admin link AC. Navigation now includes `/_emdash/admin/` link in both desktop and mobile menus. Fixed stale AC: hamburger button now uses CSS class `.nav__hamburger` (not inline styles as previously stated).
+- **REQ-VD-2:** Font swap from Cormorant Garamond to DM Serif Display (transitional serif, 400 weight). Inter changed to variable font (100-900 weight range). Both self-hosted as woff2 with preload.
+- **REQ-VD-3:** Added Ken Burns keyframe documentation.
+- **REQ-AP-2:** Replaced "coming soon" lifestyle layout AC with card grid implementation. Cards show hero photo (3:2), name, tagline, meta row, "Best for" badge, price, and inquiry CTA. Added fallback behavior (two hardcoded example apartments when CMS is empty).
+- **REQ-CMS-1:** Updated content query mechanism from "Astro Live Collections" to Emdash content loader with locale-aware abstraction layer. Updated collection list to reflect current seed state.
+- **REQ-CMS-6:** Added seed API endpoint (`POST /api/admin/seed`) and comprehensive seed data documentation (6 collections, 4 locales).
+- **REQ-SP-1:** Added homepage testimonials implementation: 3-column grid, blockquote cards, locale-filtered with Croatian fallback, hidden when empty.
+- **CON-STACK:** Added custom domain `apartmani.novoselec.ch`.
+
+### Status changes
+- **REQ-AP-2:** Remains Implemented (AC updated from coming-soon to card grid).
+- **REQ-SF-3:** Remains Planned (focus trapping still missing).
+
+### No status changes
+- REQ-CMS-1 remains Planned (full admin walkthrough, Magic Link auth, failure modes not yet verified).
+- REQ-CMS-6 remains Planned (placeholder marking, dashboard checklist, stock media files not yet delivered).
+- REQ-SP-1 remains Planned (carousel, contextual placement on apartment detail pages, "most loved for" tags not yet implemented).
+- REQ-VD-2 remains Implemented (font swap is a design refinement, not a regression).
+- REQ-VD-3 remains Implemented (Ken Burns keyframe is an addition to existing animation system).
+
+### Glossary
+- Added "DM Serif Display" term.
+
 ## 2026-04-02 — Revision 19: Switch i18n to Manual Routing (980f49c)
 
 Astro i18n routing changed from `prefixDefaultLocale: true` to manual mode. This prevents Astro's built-in i18n middleware from intercepting non-locale paths (e.g., `/_emdash/`) as locale params, which was the root cause of the Emdash admin 404 fixed in Revisions 17-18. With manual routing, the underscore-prefix guards added in Revision 18 and the `_emdash` catch-all page added in Revision 17 are no longer needed and were removed.

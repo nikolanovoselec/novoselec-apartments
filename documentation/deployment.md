@@ -23,22 +23,36 @@ Note: local dev does not emulate D1 or R2 bindings. For full Worker runtime test
 
 ## Seed Data
 
-The `seed/` directory contains structured JSON files used to pre-populate the database and plan media assets before the site launches. All apartment and testimonial records are marked `"placeholder": true` and should be replaced with real content before going live.
+`seed/seed.json` contains the full Emdash CMS seed: all 6 collections, ~80 entries across all 4 locales, and global site settings. It is the source of truth for initial CMS content.
 
-### Content seed files
+### Running the seed
 
-| File | Contents |
+After first deploy, call the seed endpoint once to populate all Emdash collections:
+
+```bash
+curl -X POST https://apartmani.novoselec.ch/api/admin/seed
+```
+
+The endpoint is idempotent — it is safe to call multiple times. After seeding, content can be edited through the Emdash admin panel at `/_emdash/`.
+
+### Collections in seed.json
+
+| Collection | Description |
 |---|---|
-| `seed/content/apartments.json` | 2 apartments (Lavanda, Tramuntana) — structured fields: capacity, amenities, bed config, distances, `localized` names/descriptions/SEO in all 4 locales |
-| `seed/content/seasons.json` | Pricing seasons per apartment: off-peak, peak, shoulder — `pricePerNight`, `minStay`, date ranges |
-| `seed/content/testimonials.json` | 3 placeholder guest testimonials — localized quotes, ratings, `mostLovedFor` tags, apartment association |
-| `seed/content/site-settings.json` | Default site config — check-in/out times, tourist tax rate (1.35 EUR/person/night), `activeLocales`, section toggles |
+| `pages` | Editorial pages (Why Pašman, Getting Here, About, Privacy, Impressum) in all 4 locales |
+| `apartments` | Lavanda and Tramuntana — structured fields + per-locale names, descriptions, SEO |
+| `faq` | FAQ entries per locale with sort order |
+| `guide` | Local guide entries by category (beaches, food, activities, day trips) per locale |
+| `testimonials` | Guest testimonials linked to apartments |
+| `amenities` | Amenity definitions with icons and localized labels |
 
-These files are the source of truth for initial data shape. Seeding is performed by running an import script (not yet implemented) against the D1 database using the Wrangler D1 execute command.
+See [Architecture](architecture.md#seed-data-structure) for full field-level details.
 
 ### Media seed plan
 
 `seed/media/README.md` tracks royalty-free stock photo sources (Pexels, Pixabay, Unsplash) organized by category: hero/landscape, apartment interiors, editorial, local guide. Stock photos will be uploaded to R2 with descriptive slug keys (e.g., `hero-turquoise-sea.jpg`) once the `/media/:key` routing issue is resolved. Until then, homepage stock photos are served as direct Pexels CDN URLs. Owner-uploaded apartment photos use UUID keys. See [Media Pipeline](architecture.md#media-pipeline) for the full current state.
+
+
 
 ## Apply D1 Migrations
 
@@ -96,7 +110,7 @@ src/
   components/     # Astro + React components
   i18n/           # Locale config and translation files
   layouts/        # Page layout shells
-  lib/            # Business logic (auth, availability, pricing, media, email)
+  lib/            # Business logic (auth, availability, pricing, media, email, content)
   middleware/     # Request pipeline (redirects, locale, headers)
   pages/          # Astro file-based routing
     [locale]/     # Public locale-prefixed pages
@@ -107,7 +121,7 @@ src/
   styles/         # Global CSS design system
 migrations/       # D1 SQL migration files (applied via wrangler)
 seed/
-  content/        # JSON seed data (apartments, seasons, testimonials, site-settings)
+  seed.json       # Emdash CMS seed — 6 collections, ~80 entries, all 4 locales
   media/          # Stock media sourcing plan (README.md)
 public/           # Static assets
 wrangler.jsonc    # Cloudflare Worker configuration
