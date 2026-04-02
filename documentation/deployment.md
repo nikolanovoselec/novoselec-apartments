@@ -38,7 +38,7 @@ These files are the source of truth for initial data shape. Seeding is performed
 
 ### Media seed plan
 
-`seed/media/README.md` tracks royalty-free stock photo sources (Pexels, Pixabay, Unsplash) organized by category: hero/landscape, apartment interiors, editorial, local guide. Stock photos are uploaded to R2 with descriptive slug keys (e.g., `hero-turquoise-sea.jpg`). Owner-uploaded apartment photos use UUID keys. See [Media Pipeline](architecture.md#media-pipeline) for the key naming convention.
+`seed/media/README.md` tracks royalty-free stock photo sources (Pexels, Pixabay, Unsplash) organized by category: hero/landscape, apartment interiors, editorial, local guide. Stock photos will be uploaded to R2 with descriptive slug keys (e.g., `hero-turquoise-sea.jpg`) once the `/media/:key` routing issue is resolved. Until then, homepage stock photos are served as direct Pexels CDN URLs. Owner-uploaded apartment photos use UUID keys. See [Media Pipeline](architecture.md#media-pipeline) for the full current state.
 
 ## Apply D1 Migrations
 
