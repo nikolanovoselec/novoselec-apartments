@@ -16,7 +16,7 @@ The homepage and visual shell — hero, navigation, footer, language switcher, a
 - **Applies To:** Visitor
 - **Acceptance Criteria:**
   - Hero fills 100vh (100svh on mobile) with min-height 600px
-  - **Layered gradient background:** radial gradients (azure at top-left, warm terracotta at bottom-right) over linear navy gradient, creating atmospheric depth without photography dependency
+  - **Background:** Stock hero photograph (`center/cover`) with semi-transparent linear gradient overlay (navy at 60% top, 40% mid, 70% bottom) providing contrast for text. Gradient-only fallback remains available when no hero photo is configured.
   - Stone grain SVG noise overlay at 3% opacity for tactile texture
   - Two-line title: property name on first line, location on second line in italic at reduced opacity (0.65)
   - `.text-label` location tag above title (localized per locale, e.g. "Otok Pasman, Hrvatska" for Croatian) at 0.7 opacity with wide letter-spacing
@@ -26,7 +26,7 @@ The homepage and visual shell — hero, navigation, footer, language switcher, a
   - Title and subtitle fade up with staggered CSS animation (0.3s and 0.6s delay)
   - On `prefers-reduced-motion`: all animations disabled, content immediately visible
   - Mobile: title scales down via clamp, subtitle uses smaller font size
-  - **Future enhancement:** Ken Burns photo slideshow can layer over the gradient background when CMS hero photos are configured. Current gradient serves as the "no hero photos configured" fallback described in original spec.
+  - **Future enhancement:** Ken Burns photo slideshow with crossfade can replace the single static hero photo when CMS hero photo management is available. Current single-photo hero serves as the intermediate step between gradient-only fallback and full slideshow.
 - **Constraints:** CON-PERF, CON-A11Y
 - **Priority:** P0
 - **Dependencies:** None
@@ -58,6 +58,7 @@ The homepage and visual shell — hero, navigation, footer, language switcher, a
   - Logo, language switcher, and nav links always visible
   - "Inquire" CTA button always visible in nav
   - Hamburger menu on mobile with fullscreen overlay
+  - Hamburger button: explicit `z-index: 101` and `position: relative` to stay above overlay, three `<span>` elements with CSS transform morph to X on `.is-open` (translateY + rotate)
   - Menu items stagger in with animation
   - Focus trapping when fullscreen menu is open
   - Transition driven by IntersectionObserver (0.4s ease)
@@ -91,17 +92,20 @@ The homepage and visual shell — hero, navigation, footer, language switcher, a
 - **Intent:** Emotionally sell the destination, not just the apartment
 - **Applies To:** Visitor
 - **Acceptance Criteria:**
+  - **Photo strip** between hero and Why Pasman: 3-image grid (equal columns, 16:9 aspect, 4px gap), hover zoom effect, stacks to single column on mobile (21:9 aspect)
   - 3-4 selling points: crystal sea, quiet island, 25-min ferry, authentic Dalmatia
   - Brief Ždrelac village introduction below (REQ-ED-6) — where exactly on the island the apartments are
   - Each point has a brief poetic line + supporting photo
   - Scroll-triggered fade-up reveal per point
   - Links to full editorial content
   - Responsive: stacks vertically on mobile
+  - **Apartments preview** section with side-by-side layout (text left, asymmetric image grid right on desktop), localized descriptive copy, ghost CTA to apartments page
+  - **Food & experience teaser** (REQ-ED-4): 3-column image grid with overlay labels (food, olive oil, beaches), 4:5 portrait aspect, hover zoom, gradient label overlay at bottom
   - Toggleable via CMS section settings (REQ-CMS-5)
   - CMS-managed content per locale
 - **Constraints:** CON-PERF, CON-I18N
 - **Priority:** P1
-- **Dependencies:** REQ-ED-1, REQ-CMS-5
+- **Dependencies:** REQ-ED-1, REQ-ED-4, REQ-ED-6, REQ-CMS-5
 - **Verification:** Visual review, test toggle off/on
 - **Status:** Planned
 

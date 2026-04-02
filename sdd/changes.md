@@ -1,5 +1,22 @@
 # Changelog
 
+## 2026-04-02 — Revision 14: Stock Photography, Rich Homepage Content, Hamburger Fix (7efb9cd)
+
+Spec synced with commit adding stock photos to hero and homepage sections, redesigned homepage layout with photo strip, Zdrelac village section, food/experience teaser grid, apartments preview with images, and hamburger menu CSS fix.
+
+### AC updated
+- **REQ-SF-1:** Hero background changed from layered gradient to stock photograph with semi-transparent gradient overlay. Future enhancement note updated: single-photo hero is now intermediate step between gradient fallback and Ken Burns slideshow.
+- **REQ-SF-3:** Hamburger button AC expanded with implementation details: explicit z-index 101, position relative, three span elements with CSS transform morph to X on `.is-open` state.
+- **REQ-SF-5:** AC expanded significantly. Added: photo strip section (3-image grid between hero and Why Pasman), apartments preview layout (side-by-side text + asymmetric image grid), food & experience teaser grid (3-column with overlay labels). Added dependencies on REQ-ED-4 and REQ-ED-6.
+
+### Implementation progress noted (statuses remain unchanged)
+- **REQ-SF-1:** Hero now uses stock photo background instead of gradient-only. Ken Burns slideshow still deferred to CMS integration. Status remains Implemented (AC updated to match).
+- **REQ-SF-3:** Hamburger menu CSS improved with proper span sizing, z-index layering, and `.is-open` transform animations. Still missing: focus trapping in fullscreen menu. Status remains Planned.
+- **REQ-SF-5:** Major homepage content additions — photo strip, Zdrelac image section, apartments preview with images, experience teaser grid. Still missing: CMS integration, section toggle, links to editorial pages. Status remains Planned.
+- **REQ-ED-6:** Zdrelac village section now appears on homepage as full-width image with text overlay between Why Pasman and apartments sections. Localized to all 4 locales. Still missing: CMS integration, section toggle, appearance on Why Pasman page. Status remains Planned.
+- **REQ-ED-4:** Food/experience teaser visible on homepage (grilled fish, olive oil, beaches). Preview only — full guide page with entries, filtering, and CMS not yet implemented. Status remains Planned.
+- **REQ-CMS-6:** 9 stock photos now deployed on homepage (hero-turquoise-sea, hero-pine-sea, hero-stone-village, hero-sunset-islands, editorial-pebble-beach, editorial-grilled-fish, editorial-olive-grove, apt-terrace-view, apt-living-room). Progress toward "30-40 curated stock photos" AC. Status remains Planned.
+
 ## 2026-04-02 — Revision 13: WCAG AA Contrast Fix & Hero Localization (a8fa3a1)
 
 Spec synced with contrast accessibility fix. Opacity values raised across hero and homepage dark sections to meet WCAG AA contrast ratios. Dead `heroImageUrl` prop removed. Hero location label localized to all 4 locales.

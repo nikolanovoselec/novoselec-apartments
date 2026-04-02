@@ -21,6 +21,7 @@ Decisions made during implementation with rationale.
 | AD9 | Locale prefix on all routes including default (hr) | Architecture | 2026-04-02 |
 | AD10 | Input sanitization layer separate from Zod schema validation | Architecture | 2026-04-02 |
 | AD11 | Scroll animations gated on `.reveal-ready` JS class | UI/Frontend | 2026-04-02 |
+| AD12 | Stock photos stored in R2 with descriptive slug keys, not bundled as static assets | Storage | 2026-04-02 |
 
 ---
 
@@ -83,6 +84,12 @@ Proxying large binary uploads through a Worker consumes egress bandwidth, adds l
 **Decision:** Form inputs go through a dedicated sanitization module (`src/lib/sanitize.ts`) in addition to Zod schema validation. Sanitization runs before or alongside schema validation, not as a Zod transform.
 
 Zod validates shape and types. Sanitization addresses content safety concerns orthogonal to schema validity: HTML injection, email header injection, URL spam in message bodies. Keeping them separate makes each responsibility testable in isolation and avoids coupling content-security logic to schema definitions.
+
+### AD12: Stock photos stored in R2 with descriptive slug keys, not bundled as static assets
+
+**Decision:** Homepage stock photography (hero backgrounds, photo strips, image sections) is stored in the `apartmani-media` R2 bucket and served via `/media/:key`, using descriptive slug keys (e.g., `hero-turquoise-sea.jpg`). Images are not committed to the repo or served from `public/`.
+
+Bundling high-resolution stock photos as static assets would bloat the Worker bundle and slow deploys. Storing them in R2 keeps the Worker bundle small, puts images behind the same CDN cache (`immutable, max-age=31536000`) as other media, and means photos can be swapped without a redeploy. Descriptive slug keys (vs. UUIDs) make markup readable and the asset inventory auditable from the R2 dashboard without a lookup table.
 
 ### AD11: Scroll animations gated on `.reveal-ready` JS class
 
