@@ -78,7 +78,7 @@ Key settings in `astro.config.mjs`:
 | `adapter` | `cloudflare()` | Deploys as Cloudflare Worker |
 | `i18n.defaultLocale` | `"hr"` | Croatian is the default locale |
 | `i18n.locales` | `["hr", "de", "sl", "en"]` | Supported languages |
-| `i18n.routing.prefixDefaultLocale` | `true` | All locales including default are prefixed (e.g. `/hr/`) |
+| `i18n.routing` | `"manual"` | Manual routing — locale prefixing via `[locale]` file-based routes, not Astro's automatic system. Required for Emdash integration compatibility (see [AD13](decisions/README.md#ad13)). |
 
 ## D1 Migrations
 

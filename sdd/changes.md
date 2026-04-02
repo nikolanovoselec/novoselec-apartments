@@ -1,5 +1,17 @@
 # Changelog
 
+## 2026-04-02 — Revision 19: Switch i18n to Manual Routing (980f49c)
+
+Astro i18n routing changed from `prefixDefaultLocale: true` to manual mode. This prevents Astro's built-in i18n middleware from intercepting non-locale paths (e.g., `/_emdash/`) as locale params, which was the root cause of the Emdash admin 404 fixed in Revisions 17-18. With manual routing, the underscore-prefix guards added in Revision 18 and the `_emdash` catch-all page added in Revision 17 are no longer needed and were removed.
+
+### No AC changes
+- **REQ-I18N-1:** No acceptance criteria change. The observable routing behavior (locale-prefixed URLs, invalid-locale redirect to `/hr/`) is unchanged. The routing mode is an implementation detail not captured in the spec.
+- **REQ-CMS-1:** No change. The admin panel at `/_emdash/admin/` continues to work; the conflict between locale routing and CMS paths is resolved at the framework level rather than with route guards.
+
+### No status changes
+- REQ-I18N-1 remains Planned.
+- REQ-CMS-1 remains Planned.
+
 ## 2026-04-02 — Revision 18: Fix Emdash Admin 404 (16a445e)
 
 Trailing-slash redirect middleware was stripping slashes from `/_emdash/` paths, causing the admin panel to return 404. Middleware now excludes `/_emdash/` paths from slash normalization. Additionally, all `[locale]` dynamic routes now early-return 404 for underscore-prefixed params (e.g., `_emdash`) so Astro does not treat CMS paths as locale routes.

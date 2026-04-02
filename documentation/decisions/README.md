@@ -22,7 +22,7 @@ Decisions made during implementation with rationale.
 | AD10 | Input sanitization layer separate from Zod schema validation | Architecture | 2026-04-02 |
 | AD11 | Scroll animations gated on `.reveal-ready` JS class | UI/Frontend | 2026-04-02 |
 | AD12 | Stock photos will be served from R2 pending routing fix; currently direct Pexels URLs | Storage | 2026-04-02 |
-| AD13 | `[locale]` pages return 404 for `_`-prefixed params to let Emdash admin routes through | Architecture | 2026-04-02 |
+| AD13 | Switch to manual i18n routing to prevent Astro from rewriting integration-injected routes | Architecture | 2026-04-02 |
 
 ---
 
@@ -78,7 +78,7 @@ Proxying large binary uploads through a Worker consumes egress bandwidth, adds l
 
 **Decision:** All public page routes include a locale prefix — including the default Croatian locale (`/hr/`). The root `/` redirects to the detected locale.
 
-`prefixDefaultLocale: true` avoids having two canonical URLs for the same content (`/` and `/hr/`), which would require explicit canonical tag management. It also makes locale-switching symmetric and keeps URL structure consistent across all languages. The redirect at `/` uses `Accept-Language` for initial detection.
+Prefixing the default locale avoids two canonical URLs for the same content (`/` and `/hr/`), which would require explicit canonical tag management. It also makes locale-switching symmetric and keeps URL structure consistent across all languages. The redirect at `/` uses `Accept-Language` for initial detection. Astro's i18n is configured with `routing: "manual"` (see [AD13](#ad13-switch-to-manual-i18n-routing-to-prevent-astro-from-rewriting-integration-injected-routes)) — locale prefixing is enforced by the file layout under `src/pages/[locale]/`, not by Astro's automatic routing.
 
 ### AD10: Input sanitization layer separate from Zod schema validation
 
@@ -100,8 +100,8 @@ Zod validates shape and types. Sanitization addresses content safety concerns or
 
 If JS is blocked or slow, visitors see all content immediately — no hidden headings, no invisible sections. This avoids the most common progressive-enhancement failure mode where CSS animations make content invisible until a script runs. The pattern also ensures crawlers and no-JS users receive fully readable pages with zero layout shift.
 
-### AD13: `[locale]` pages return 404 for `_`-prefixed params to let Emdash admin routes through
+### AD13: Switch to manual i18n routing to prevent Astro from rewriting integration-injected routes
 
-**Decision:** Every `[locale]` page handler checks `locale?.startsWith("_")` and returns a 404 response immediately if true, before the locale validity check or any redirect.
+**Decision:** Astro's i18n is configured with `routing: "manual"` in `astro.config.mjs`. The `[locale]` file-based directory structure handles all locale routing; Astro performs no automatic route prefixing or rewriting.
 
-Astro's file-based router matches `/_emdash/admin/` against `src/pages/[locale]/index.astro` because `_emdash` is a valid dynamic segment. Without the guard, the locale validation falls through to `Astro.redirect("/hr/", 302)`, sending the browser to the Croatian homepage instead of the CMS admin. Returning 404 lets the request fall through to Emdash's own request handler. The alternative — restructuring the route tree to exclude `/_emdash/` at the file-system level — would require renaming or splitting the `[locale]` directory and is disproportionate for a single-prefix exclusion. A check in each page file is explicit, consistent, and carries its own inline comment explaining the intent.
+With Astro's automatic `prefixDefaultLocale` routing enabled, Astro localizes every route it knows about — including pages injected by integrations such as Emdash. This moved `/_emdash/admin` to `/hr/_emdash/admin`. Requests to `/_emdash/admin` then hit the `[locale]` handler with `locale="_emdash"`, which returned 404 instead of reaching Emdash's request handler. Manual mode stops Astro from touching integration-injected routes while leaving file-based `[locale]` routing unchanged. The previous workaround — a `src/pages/_emdash/[...path].ts` catch-all and per-page underscore-prefix guards — was removed when manual routing was adopted.
