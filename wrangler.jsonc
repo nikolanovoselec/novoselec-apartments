@@ -1,21 +1,20 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "apartmani",
-  "account_id": "eac400a0a3a3638c7c91fe2e7875756d",
+  "account_id": "ab75f75941a21a81db27bf12e99c620b",
   "compatibility_date": "2026-04-01",
   "compatibility_flags": ["nodejs_compat"],
   "d1_databases": [
     {
       "binding": "DB",
       "database_name": "apartmani-db",
-      "database_id": "1b519a56-0c60-475b-a30d-34f845bcff41"
+      "database_id": "dd28856a-60e0-48d2-bb91-2b91ba8a0603"
     }
   ],
-  // R2 bucket — uncomment after enabling R2 in Cloudflare dashboard
-  // "r2_buckets": [
-  //   {
-  //     "binding": "MEDIA",
-  //     "bucket_name": "apartmani-media"
-  //   }
-  // ]
+  "r2_buckets": [
+    {
+      "binding": "MEDIA",
+      "bucket_name": "apartmani-media"
+    }
+  ]
 }
