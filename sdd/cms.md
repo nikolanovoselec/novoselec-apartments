@@ -52,7 +52,7 @@ Emdash CMS integration, media library, authentication, mobile admin UX, section 
   - Max 15MB per image. Warning if image resolution below 1200px wide (minimum for hero use).
   - Warning if aspect ratio is portrait and used in landscape hero slot.
   - Corrupt/unreadable uploads: clear error message, not silent failure
-  - Supported: JPEG, PNG, HEIC, WebP
+  - Supported: JPEG, PNG, HEIC, HEIF, WebP, AVIF
 - **Constraints:** CON-PERF, CON-MEDIA
 - **Priority:** P0
 - **Dependencies:** REQ-CMS-1
@@ -73,7 +73,7 @@ Emdash CMS integration, media library, authentication, mobile admin UX, section 
   - Login page mobile-friendly, large tap targets
   - Session expiry mid-edit: autosave draft, prompt re-login, restore state after
   - **Failure modes:**
-    - Resend email delivery failure: show "Code not received? Try again in 60 seconds" with retry button. Log failure.
+    - Resend email delivery failure: endpoint returns success (identical to sent-successfully response) to prevent admin email enumeration via timing differences. Client shows standard "check your email" message. Log failure server-side.
     - Code expires after 10 minutes: clear message, one-tap resend
     - Brute force protection: max 5 code attempts per email per hour, then lockout with "Try again in 1 hour"
   - **Sessions:** Short-lived JWT (1 hour) + long-lived refresh token (30 days) in `Secure, HttpOnly, SameSite=Lax` cookies. JWT validated without D1 on each request. Refresh token validated against D1 `sessions` table when JWT expires. **Revocation:** owner or developer can delete session rows in D1 to force re-login (e.g., if phone stolen). Session list visible in admin settings.

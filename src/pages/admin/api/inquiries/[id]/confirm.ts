@@ -1,7 +1,6 @@
 import type { APIRoute } from "astro";
 import { getEnv } from "~/lib/env";
 import { verifyJWT } from "~/lib/auth";
-import { stripHtml } from "~/lib/sanitize";
 
 /**
  * POST /admin/api/inquiries/:id/confirm
@@ -11,11 +10,16 @@ import { stripHtml } from "~/lib/sanitize";
 export const POST: APIRoute = async ({ params, cookies, locals }) => {
   // Auth check
   const env = getEnv(locals);
+  const jwtSecret = env.JWT_SECRET;
+  if (!jwtSecret) {
+    return jsonResponse({ error: "Server misconfigured" }, 500);
+  }
+
   const authToken = cookies.get("auth_token")?.value;
   if (!authToken) {
     return jsonResponse({ error: "Authentication required" }, 401);
   }
-  const payload = await verifyJWT(authToken, env.JWT_SECRET ?? "");
+  const payload = await verifyJWT(authToken, jwtSecret);
   if (!payload) {
     return jsonResponse({ error: "Invalid or expired session" }, 401);
   }
@@ -52,9 +56,8 @@ export const POST: APIRoute = async ({ params, cookies, locals }) => {
     return jsonResponse({ error: "Cannot confirm a non-booking inquiry" }, 400);
   }
 
-  // Atomic confirm: INSERT WHERE NOT EXISTS to prevent TOCTOU race condition
-  // D1 batch runs all statements in a single transaction
-  const batchResults = await db.batch([
+  // Step 1: Atomic INSERT — only inserts if no overlap exists
+  const [insertResult] = await db.batch([
     db.prepare(`
       INSERT INTO availability_blocks (apartment_id, check_in, check_out, source, inquiry_id)
       SELECT ?, ?, ?, 'inquiry', ?
@@ -66,19 +69,21 @@ export const POST: APIRoute = async ({ params, cookies, locals }) => {
       inquiry.apartment_id, inquiry.check_in, inquiry.check_out, inquiry.id,
       inquiry.apartment_id, inquiry.check_out, inquiry.check_in,
     ),
-    db.prepare(
-      "UPDATE inquiries SET status = 'confirmed', updated_at = datetime('now') WHERE id = ? AND status != 'confirmed'",
-    ).bind(inquiry.id),
   ]);
 
-  // Check if the INSERT actually inserted (0 rows = conflict)
-  const insertResult = batchResults[0];
+  // If INSERT was a no-op, dates conflict — do NOT update inquiry status
   if (insertResult.meta && insertResult.meta.changes === 0) {
     return jsonResponse({
       error: "date_conflict",
       message: "These dates overlap with an existing booking",
     }, 409);
   }
+
+  // Step 2: Only update status after confirmed block was inserted
+  await db
+    .prepare("UPDATE inquiries SET status = 'confirmed', updated_at = datetime('now') WHERE id = ? AND status != 'confirmed'")
+    .bind(inquiry.id)
+    .run();
 
   return jsonResponse({ success: true, message: "Inquiry confirmed, dates blocked" });
 };

@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-04-02 — Revision 8: Spec Sync for e5dfff9 Bugfix Commit
+
+### AC updated
+- **REQ-CMS-2:** Supported formats updated from "JPEG, PNG, HEIC, WebP" to "JPEG, PNG, HEIC, HEIF, WebP, AVIF" — matches server-side extension allowlist added in upload endpoint.
+- **REQ-CMS-3:** Resend failure mode AC updated. Previous wording implied client-visible error ("Code not received? Try again"). Implementation returns success on Resend failure to prevent admin email enumeration via timing differences. AC now specifies identical success response regardless of send outcome, with server-side logging.
+
 ## 2026-04-02 — Revision 7: Security & Atomicity Fixes (4ea1d35)
 
 ### AC updated

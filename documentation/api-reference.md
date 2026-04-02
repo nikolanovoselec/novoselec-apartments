@@ -205,11 +205,35 @@ Generates a presigned R2 PUT URL for direct browser-to-R2 uploads.
 
 **Authentication:** JWT required.
 
-**Response:**
+**Request body (JSON):**
+
+| Field | Type | Required | Description |
+|---|---|---|---|
+| `filename` | `string max 200` | Yes | Original filename — extension used for the R2 object key |
+| `contentType` | `string` | No | MIME type. Defaults to `application/octet-stream` if omitted |
+
+**Allowed content types:** `image/jpeg`, `image/png`, `image/heic`, `image/heif`, `image/webp`, `image/avif`.
+
+**Allowed file extensions:** `jpg`, `jpeg`, `png`, `heic`, `heif`, `webp`, `avif`. The extension is extracted from `filename` and validated against this allowlist independently of `contentType` to prevent arbitrary key suffixes on the R2 object.
+
+**Response on success (`200`):**
 
 ```json
-{ "url": "https://...", "key": "uuid-here" }
+{ "presignedUrl": "https://...", "key": "uuid.ext" }
 ```
+
+- `presignedUrl` — signed PUT URL valid for use directly from the browser
+- `key` — opaque `UUID.ext` object key; use this as the media reference after upload completes
+
+**Errors:**
+
+| Status | Condition |
+|---|---|
+| `400` | Missing `filename`, or `filename` exceeds 200 characters |
+| `400` | `contentType` not in the allowed MIME type list |
+| `400` | Extension extracted from `filename` not in the allowed extension list |
+| `401` | Missing or invalid `auth_token` cookie |
+| `503` | R2 credentials not configured |
 
 See [Architecture](architecture.md#media-pipeline) for the full upload flow.
 

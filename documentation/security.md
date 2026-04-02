@@ -51,7 +51,7 @@ The relaxed admin CSP accommodates the Emdash CMS which requires `unsafe-inline`
 
 ### Auth Code Requests
 
-Login attempts are rate-limited per email address: maximum 5 code sends per rolling hour, enforced in D1. The lockout is silent — the endpoint always returns `{ success: true }` to prevent enumeration of both email validity and lockout state.
+Login attempts are rate-limited per email address: maximum 5 code sends per rolling hour, enforced in D1. `POST /admin/api/login` always returns `{ success: true }` regardless of outcome to prevent enumeration across three branches: non-admin email, rate-limit lockout, and Resend delivery failure. When Resend fails the stored code is deleted (so it does not consume the brute-force quota) and success is returned — the caller cannot distinguish a delivery failure from a successful send.
 
 See [Authentication](authentication.md#rate-limiting) for implementation detail.
 
