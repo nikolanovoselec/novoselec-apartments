@@ -1,0 +1,62 @@
+[
+  {
+    "id": "t1",
+    "placeholder": true,
+    "guestName": "Maria K.",
+    "country": "DE",
+    "travelType": "family",
+    "season": "August",
+    "year": 2025,
+    "rating": 5,
+    "source": "direct",
+    "isFeatured": true,
+    "mostLovedFor": ["sea_view", "quiet", "child_friendly"],
+    "apartmentId": "apt-lavanda",
+    "quote": {
+      "hr": "Predivan pogled, mirno okruženje i savršeno za obitelj. Definitivno se vraćamo!",
+      "de": "Wunderschöne Aussicht, ruhige Umgebung und perfekt für Familien. Wir kommen definitiv wieder!",
+      "sl": "Čudovit razgled, mirno okolje in popolno za družine. Zagotovo se vračamo!",
+      "en": "Beautiful view, peaceful surroundings, and perfect for families. We're definitely coming back!"
+    }
+  },
+  {
+    "id": "t2",
+    "placeholder": true,
+    "guestName": "Peter H.",
+    "country": "AT",
+    "travelType": "couple",
+    "season": "September",
+    "year": 2025,
+    "rating": 5,
+    "source": "direct",
+    "isFeatured": false,
+    "mostLovedFor": ["sea_view", "terrace", "location"],
+    "apartmentId": "apt-lavanda",
+    "quote": {
+      "hr": "Savršeno mjesto za odmor u dvoje. Terasa s pogledom na more je bila highlight.",
+      "de": "Perfekter Ort für einen Urlaub zu zweit. Die Terrasse mit Meerblick war das Highlight.",
+      "sl": "Popolno mesto za počitnice v dvoje. Terasa s pogledom na morje je bila vrhunec.",
+      "en": "Perfect spot for a couple's getaway. The sea view terrace was the highlight."
+    }
+  },
+  {
+    "id": "t3",
+    "placeholder": true,
+    "guestName": "Ana P.",
+    "country": "SI",
+    "travelType": "family",
+    "season": "July",
+    "year": 2025,
+    "rating": 5,
+    "source": "direct",
+    "isFeatured": false,
+    "mostLovedFor": ["child_friendly", "quiet", "food"],
+    "apartmentId": "apt-tramuntana",
+    "quote": {
+      "hr": "Djeca su obožavala vrt i blizinu plaže. Domaćini su bili izuzetno ljubazni.",
+      "de": "Die Kinder liebten den Garten und die Strandnähe. Die Gastgeber waren äußerst freundlich.",
+      "sl": "Otroci so obožovali vrt in bližino plaže. Gostitelji so bili izjemno prijazni.",
+      "en": "The kids loved the garden and the proximity to the beach. The hosts were extremely kind."
+    }
+  }
+]

@@ -1,0 +1,55 @@
+---
+import Page from "~/layouts/Page.astro";
+import HeroSimple from "~/components/ui/HeroSimple.astro";
+import { isValidLocale, type Locale } from "~/i18n/config";
+import { t } from "~/i18n/t";
+
+const { locale } = Astro.params;
+if (!locale || !isValidLocale(locale)) return Astro.redirect("/hr/", 302);
+const typedLocale = locale as Locale;
+
+const content = {
+  hr: {
+    title: "Pristupačnost",
+    body: "Nastojimo da naša web stranica bude pristupačna svim korisnicima, uključujući osobe s invaliditetom.\n\nCiljamo na usklađenost s WCAG 2.1 AA standardima.\n\nAko imate problema s pristupačnošću naše stranice, molimo kontaktirajte nas putem emaila i rado ćemo vam pomoći.",
+  },
+  de: {
+    title: "Barrierefreiheit",
+    body: "Wir bemühen uns, unsere Website für alle Benutzer zugänglich zu machen, einschließlich Menschen mit Behinderungen.\n\nWir streben die Einhaltung der WCAG 2.1 AA-Standards an.\n\nWenn Sie Probleme mit der Barrierefreiheit unserer Seite haben, kontaktieren Sie uns bitte per E-Mail und wir helfen Ihnen gerne.",
+  },
+  sl: {
+    title: "Dostopnost",
+    body: "Prizadevamo si, da bi bila naša spletna stran dostopna vsem uporabnikom, vključno z invalidi.\n\nCiljamo na skladnost s standardi WCAG 2.1 AA.\n\nČe imate težave z dostopnostjo naše strani, nas prosimo kontaktirajte po e-pošti in z veseljem vam bomo pomagali.",
+  },
+  en: {
+    title: "Accessibility",
+    body: "We strive to make our website accessible to all users, including people with disabilities.\n\nWe target compliance with WCAG 2.1 AA standards.\n\nIf you experience any accessibility issues with our site, please contact us by email and we will be happy to help.",
+  },
+};
+
+const page = content[typedLocale] ?? content.hr;
+---
+
+<Page title={page.title} locale={typedLocale}>
+  <HeroSimple title={page.title} />
+
+  <section class="section">
+    <div class="container legal-content">
+      {page.body.split("\n\n").map((paragraph) => (
+        <p>{paragraph}</p>
+      ))}
+    </div>
+  </section>
+</Page>
+
+<style>
+  .legal-content {
+    max-width: 700px;
+    margin-inline: auto;
+  }
+
+  .legal-content p {
+    margin-bottom: var(--space-lg);
+    line-height: 1.7;
+  }
+</style>

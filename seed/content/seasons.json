@@ -1,0 +1,9 @@
+[
+  { "id": "s1-lavanda", "apartmentId": "apt-lavanda", "name": "Off-peak", "startDate": "2026-05-01", "endDate": "2026-06-30", "pricePerNight": 80, "minStay": 3 },
+  { "id": "s2-lavanda", "apartmentId": "apt-lavanda", "name": "Peak", "startDate": "2026-07-01", "endDate": "2026-08-31", "pricePerNight": 130, "minStay": 7 },
+  { "id": "s3-lavanda", "apartmentId": "apt-lavanda", "name": "Shoulder", "startDate": "2026-09-01", "endDate": "2026-09-30", "pricePerNight": 90, "minStay": 3 },
+
+  { "id": "s1-tramuntana", "apartmentId": "apt-tramuntana", "name": "Off-peak", "startDate": "2026-05-01", "endDate": "2026-06-30", "pricePerNight": 100, "minStay": 3 },
+  { "id": "s2-tramuntana", "apartmentId": "apt-tramuntana", "name": "Peak", "startDate": "2026-07-01", "endDate": "2026-08-31", "pricePerNight": 160, "minStay": 7 },
+  { "id": "s3-tramuntana", "apartmentId": "apt-tramuntana", "name": "Shoulder", "startDate": "2026-09-01", "endDate": "2026-09-30", "pricePerNight": 110, "minStay": 3 }
+]

@@ -1,0 +1,165 @@
+[
+  {
+    "id": "apt-lavanda",
+    "placeholder": true,
+    "sortOrder": 1,
+    "capacity": 4,
+    "maxChildren": 2,
+    "bedrooms": 2,
+    "bathrooms": 1,
+    "areaSqm": 55,
+    "floor": 1,
+    "distanceToBeachMeters": 150,
+    "beachType": "pebble",
+    "distanceToShopMeters": 300,
+    "distanceToRestaurantMeters": 200,
+    "distanceToTkonKm": 12,
+    "distanceToZdrelacBridgeKm": 0.5,
+    "seaView": true,
+    "seaViewQuality": "full",
+    "cleaningFee": 40,
+    "bestFor": ["couples", "families"],
+    "amenities": {
+      "ac": true,
+      "acType": "split",
+      "wifi": true,
+      "parking": true,
+      "parkingType": "private",
+      "washingMachine": true,
+      "dishwasher": false,
+      "balconyTerrace": true,
+      "balconySizeSqm": 12,
+      "bbq": true,
+      "bbqType": "stone",
+      "petFriendly": true,
+      "childFriendly": true,
+      "tv": true,
+      "coffeeType": "espresso",
+      "kitchen": "full"
+    },
+    "bedConfig": [
+      { "room": "Bedroom 1", "bedType": "double", "dimensions": "160x200cm", "count": 1 },
+      { "room": "Bedroom 2", "bedType": "single", "dimensions": "90x200cm", "count": 2 }
+    ],
+    "localized": {
+      "hr": {
+        "name": "Apartman Lavanda",
+        "slug": "lavanda",
+        "shortDescription": "Prostrani apartman s pogledom na more i kamenom terasom.",
+        "valueProp": "Idealno za parove i obitelji koje traže mir i pogled",
+        "seoTitle": "Apartman Lavanda — Pogled na more, Ždrelac, Pašman",
+        "seoDescription": "Dvosobni apartman s terasom i pogledom na more u Ždrelacu na otoku Pašmanu. Klima, WiFi, parking, blizina plaže.",
+        "published": true
+      },
+      "de": {
+        "name": "Ferienwohnung Lavanda",
+        "slug": "lavanda",
+        "shortDescription": "Geräumige Ferienwohnung mit Meerblick und Steinterrasse.",
+        "valueProp": "Ideal für Paare und Familien, die Ruhe und Aussicht suchen",
+        "seoTitle": "Ferienwohnung Lavanda — Meerblick, Ždrelac, Pašman",
+        "seoDescription": "Zwei-Zimmer-Ferienwohnung mit Terrasse und Meerblick in Ždrelac auf der Insel Pašman. Klimaanlage, WLAN, Parkplatz, Strandnähe.",
+        "published": true
+      },
+      "sl": {
+        "name": "Apartma Lavanda",
+        "slug": "lavanda",
+        "shortDescription": "Prostoren apartma s pogledom na morje in kamnito teraso.",
+        "valueProp": "Idealno za pare in družine, ki iščejo mir in razgled",
+        "seoTitle": "Apartma Lavanda — Pogled na morje, Ždrelac, Pašman",
+        "seoDescription": "Dvosobni apartma s teraso in pogledom na morje v Ždrelacu na otoku Pašman. Klima, WiFi, parkirišče, bližina plaže.",
+        "published": true
+      },
+      "en": {
+        "name": "Apartment Lavanda",
+        "slug": "lavanda",
+        "shortDescription": "Spacious apartment with sea view and stone terrace.",
+        "valueProp": "Perfect for couples and families seeking peace and views",
+        "seoTitle": "Apartment Lavanda — Sea View, Ždrelac, Pašman Island",
+        "seoDescription": "Two-bedroom apartment with terrace and sea view in Ždrelac on Pašman island. AC, WiFi, parking, near beach.",
+        "published": true
+      }
+    }
+  },
+  {
+    "id": "apt-tramuntana",
+    "placeholder": true,
+    "sortOrder": 2,
+    "capacity": 6,
+    "maxChildren": 3,
+    "bedrooms": 3,
+    "bathrooms": 2,
+    "areaSqm": 80,
+    "floor": 0,
+    "distanceToBeachMeters": 150,
+    "beachType": "pebble",
+    "distanceToShopMeters": 300,
+    "distanceToRestaurantMeters": 200,
+    "distanceToTkonKm": 12,
+    "distanceToZdrelacBridgeKm": 0.5,
+    "seaView": true,
+    "seaViewQuality": "partial",
+    "cleaningFee": 50,
+    "bestFor": ["families", "groups"],
+    "amenities": {
+      "ac": true,
+      "acType": "split",
+      "wifi": true,
+      "parking": true,
+      "parkingType": "private",
+      "washingMachine": true,
+      "dishwasher": true,
+      "balconyTerrace": true,
+      "balconySizeSqm": 20,
+      "bbq": true,
+      "bbqType": "stone",
+      "petFriendly": false,
+      "childFriendly": true,
+      "tv": true,
+      "coffeeType": "filter",
+      "kitchen": "full"
+    },
+    "bedConfig": [
+      { "room": "Bedroom 1", "bedType": "double", "dimensions": "180x200cm", "count": 1 },
+      { "room": "Bedroom 2", "bedType": "double", "dimensions": "160x200cm", "count": 1 },
+      { "room": "Bedroom 3", "bedType": "single", "dimensions": "90x200cm", "count": 2 }
+    ],
+    "localized": {
+      "hr": {
+        "name": "Apartman Tramuntana",
+        "slug": "tramuntana",
+        "shortDescription": "Veći apartman u prizemlju s vrtom i prostorom za obitelj.",
+        "valueProp": "Savršen za obitelji s djecom i veće grupe",
+        "seoTitle": "Apartman Tramuntana — Obiteljski, Ždrelac, Pašman",
+        "seoDescription": "Trosobni apartman u prizemlju s vrtom u Ždrelacu na Pašmanu. Klima, WiFi, parking, perilica suđa, roštilj.",
+        "published": true
+      },
+      "de": {
+        "name": "Ferienwohnung Tramuntana",
+        "slug": "tramuntana",
+        "shortDescription": "Größere Erdgeschosswohnung mit Garten und Platz für die Familie.",
+        "valueProp": "Perfekt für Familien mit Kindern und größere Gruppen",
+        "seoTitle": "Ferienwohnung Tramuntana — Familienfreundlich, Ždrelac, Pašman",
+        "seoDescription": "Drei-Zimmer-Erdgeschosswohnung mit Garten in Ždrelac auf Pašman. Klimaanlage, WLAN, Parkplatz, Geschirrspüler, Grill.",
+        "published": true
+      },
+      "sl": {
+        "name": "Apartma Tramuntana",
+        "slug": "tramuntana",
+        "shortDescription": "Večji apartma v pritličju z vrtom in prostorom za družino.",
+        "valueProp": "Popoln za družine z otroki in večje skupine",
+        "seoTitle": "Apartma Tramuntana — Družinam prijazen, Ždrelac, Pašman",
+        "seoDescription": "Trisobni apartma v pritličju z vrtom v Ždrelacu na Pašmanu. Klima, WiFi, parkirišče, pomivalni stroj, žar.",
+        "published": true
+      },
+      "en": {
+        "name": "Apartment Tramuntana",
+        "slug": "tramuntana",
+        "shortDescription": "Larger ground-floor apartment with garden and family space.",
+        "valueProp": "Perfect for families with children and larger groups",
+        "seoTitle": "Apartment Tramuntana — Family-Friendly, Ždrelac, Pašman Island",
+        "seoDescription": "Three-bedroom ground-floor apartment with garden in Ždrelac on Pašman. AC, WiFi, parking, dishwasher, BBQ.",
+        "published": true
+      }
+    }
+  }
+]

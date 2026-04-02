@@ -1,0 +1,20 @@
+{
+  "propertyName": "Apartmani Ždrelac",
+  "email": "info@apartmani-zdrelac.hr",
+  "phone": "",
+  "whatsappNumber": "",
+  "activeLocales": ["hr"],
+  "heroPhotoKeys": [],
+  "checkInTime": "14:00",
+  "checkOutTime": "10:00",
+  "touristTaxRate": 1.35,
+  "sectionToggles": {
+    "whyPasman": true,
+    "aboutZdrelac": true,
+    "dayOnPasman": true,
+    "localGuide": true,
+    "testimonials": true,
+    "hostStory": true,
+    "directBookingBenefits": true
+  }
+}
