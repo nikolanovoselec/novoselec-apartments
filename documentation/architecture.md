@@ -65,6 +65,8 @@ Browser → Cloudflare edge
 
 All public pages are prefixed with the locale: `/hr/`, `/de/`, `/sl/`, `/en/`. Croatian (`hr`) is the default. The root path `/` redirects to the detected locale via `Accept-Language` header. The locale middleware sets `locals.locale` for downstream use. API, media, and admin routes bypass locale middleware entirely.
 
+Route parameters beginning with `_` are passed through — every `[locale]` page handler returns 404 immediately for a `locale` value starting with `_`. This allows Emdash admin routes (mounted at `/_emdash/`) to pass through the Astro file-based router without being caught and redirected to `/hr/`.
+
 ### Public Page Routes
 
 | Route | File | Description |

@@ -8,8 +8,13 @@ import type { MiddlewareHandler } from "astro";
 export const redirectsMiddleware: MiddlewareHandler = async (context, next) => {
   const { pathname } = context.url;
 
-  // Remove trailing slash (except for root / and /_emdash/ paths)
-  if (pathname.length > 1 && pathname.endsWith("/") && !pathname.startsWith("/_emdash/")) {
+  // Let Emdash handle its own routes — bypass all our routing
+  if (pathname.startsWith("/_emdash")) {
+    return next();
+  }
+
+  // Remove trailing slash (except for root /)
+  if (pathname.length > 1 && pathname.endsWith("/")) {
     const cleaned = pathname.slice(0, -1);
     const target = new URL(cleaned + context.url.search, context.url.origin);
     return context.redirect(target.toString(), 301);

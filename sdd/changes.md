@@ -1,14 +1,16 @@
 # Changelog
 
-## 2026-04-02 — Revision 18: Fix Emdash Admin 404 (a42a329)
+## 2026-04-02 — Revision 18: Fix Emdash Admin 404 (b69301c)
 
-Trailing-slash redirect middleware was stripping slashes from `/_emdash/` paths, causing the admin panel to return 404. Middleware now excludes `/_emdash/` paths from slash normalization.
+Trailing-slash redirect middleware was stripping slashes from `/_emdash/` paths, causing the admin panel to return 404. Middleware now excludes `/_emdash/` paths from slash normalization. Additionally, all `[locale]` dynamic routes now early-return 404 for underscore-prefixed params (e.g., `_emdash`) so Astro does not treat CMS paths as locale routes.
 
 ### AC clarified
-- **REQ-CMS-1:** No change to acceptance criteria or status. The admin panel route `/_emdash/admin/` was already specified; this fix ensures the middleware does not interfere with it. REQ-CMS-1 remains Planned because the full CMS integration (D1, R2, collections, authentication) is not yet implemented.
+- **REQ-CMS-1:** No change to acceptance criteria or status. The admin panel route `/_emdash/admin/` was already specified; this fix ensures middleware and locale routing do not interfere with it. REQ-CMS-1 remains Planned because the full CMS integration (D1, R2, collections, authentication) is not yet implemented.
+- **REQ-I18N-1:** No AC change needed. The locale validation already implies non-locale prefixes return 404. The route guards are an implementation detail ensuring `[locale]` catch-all routes do not intercept reserved CMS paths.
 
 ### No status changes
 - REQ-CMS-1 remains Planned.
+- REQ-I18N-1 remains Planned.
 
 ## 2026-04-02 — Revision 17: Local Guide & Apartment Listing Redesign (52627b7)
 

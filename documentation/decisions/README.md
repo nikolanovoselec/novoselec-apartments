@@ -22,6 +22,7 @@ Decisions made during implementation with rationale.
 | AD10 | Input sanitization layer separate from Zod schema validation | Architecture | 2026-04-02 |
 | AD11 | Scroll animations gated on `.reveal-ready` JS class | UI/Frontend | 2026-04-02 |
 | AD12 | Stock photos will be served from R2 pending routing fix; currently direct Pexels URLs | Storage | 2026-04-02 |
+| AD13 | `[locale]` pages return 404 for `_`-prefixed params to let Emdash admin routes through | Architecture | 2026-04-02 |
 
 ---
 
@@ -92,6 +93,12 @@ Zod validates shape and types. Sanitization addresses content safety concerns or
 **Current state (temporary workaround):** Stock photos are hardcoded as direct `images.pexels.com` URLs. The `/media/:key` route returns 404 for keys with file extensions because Astro's file-based router intercepts `.jpg`-suffixed paths before the API handler fires. Fix options: use a catch-all wildcard route, or strip the extension from stock photo keys and infer the MIME type server-side. Until this is fixed, stock photos are fetched from Pexels with no edge caching or performance controls.
 
 **Rationale for R2 end state:** Bundling high-resolution stock photos as static assets would bloat the Worker bundle and slow deploys. R2 keeps the bundle small, places images behind the same CDN cache (`immutable, max-age=31536000`) as other media, and allows photo swaps without a redeploy. Descriptive slug keys (vs. UUIDs) keep markup readable and the asset inventory auditable from the R2 dashboard without a lookup table.
+
+### AD13: `[locale]` pages return 404 for `_`-prefixed params to let Emdash admin routes through
+
+**Decision:** Every `[locale]` page handler checks `locale?.startsWith("_")` and returns a 404 response immediately if true, before the locale validity check or any redirect.
+
+Astro's file-based router matches `/_emdash/admin/` against `src/pages/[locale]/index.astro` because `_emdash` is a valid dynamic segment. Without the guard, the locale validation falls through to `Astro.redirect("/hr/", 302)`, sending the browser to the Croatian homepage instead of the CMS admin. Returning 404 lets the request fall through to Emdash's own request handler. The alternative — restructuring the route tree to exclude `/_emdash/` at the file-system level — would require renaming or splitting the `[locale]` directory and is disproportionate for a single-prefix exclusion. A check in each page file is explicit, consistent, and carries its own inline comment explaining the intent.
 
 ### AD11: Scroll animations gated on `.reveal-ready` JS class
 
