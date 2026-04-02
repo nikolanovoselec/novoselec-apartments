@@ -46,7 +46,7 @@ Apartmani Pašman is a server-side rendered Astro site deployed as a Cloudflare 
 | `src/pages/api/track.ts` | Analytics API — cookieless event logging to D1 |
 | `src/layouts/` | Base and Page layout shells |
 | `src/components/shell/` | Navigation, Footer, LanguageSwitcher, WhatsAppButton, StickyMobileCTA |
-| `src/styles/` | Global CSS design system, animations, reduced-motion overrides |
+| `src/styles/global.css` | Design system — CSS custom properties, typography scale, layout utilities, component classes, animation utilities |
 
 ## Request Lifecycle
 
@@ -163,6 +163,45 @@ Each testimonial has `guestName`, `country`, `travelType`, `season`, `year`, `ra
 ### Site Settings (`seed/content/site-settings.json`)
 
 A single object with `propertyName`, `email`, `checkInTime`, `checkOutTime`, `touristTaxRate`, `activeLocales`, `heroPhotoKeys`, and `sectionToggles` (feature flags for homepage sections).
+
+## Design System
+
+The entire visual language lives in `src/styles/global.css` as CSS custom properties on `:root`. No CSS-in-JS, no utility framework — component classes are defined once and composed in markup.
+
+### Token Categories
+
+| Category | Key Tokens |
+|---|---|
+| Colors (palette) | `--color-azure`, `--color-navy`, `--color-stone`, `--color-cream`, `--color-sand`, `--color-terracotta`, `--color-olive` |
+| Colors (semantic) | `--color-text`, `--color-text-heading`, `--color-text-light`, `--color-text-muted`, `--color-bg`, `--color-bg-alt`, `--color-bg-dark`, `--color-accent`, `--color-border` |
+| Typography (scale) | `--font-size-xs` (11px) through `--font-size-5xl` (60px) plus `--font-size-display` (`clamp(3rem, 7vw, 6rem)`) |
+| Typography (faces) | `--font-serif` (Cormorant Garamond → Playfair Display → Georgia), `--font-sans` (Inter → system stack) |
+| Spacing | `--space-xs` through `--space-4xl`; `--space-section` (`clamp(5rem, 12vw, 10rem)`) for section vertical rhythm |
+| Layout | `--max-width` (1280px), `--max-width-narrow` (720px), `--max-width-text` (60ch), `--nav-height` (80px) |
+| Motion | `--ease-out`, `--ease-in-out`, `--duration-fast` (0.15s), `--duration-normal` (0.4s), `--duration-slow` (0.8s) |
+| Radius | `--radius-sm` (2px), `--radius-md` (6px), `--radius-lg` (12px) |
+| Shadows | `--shadow-sm` through `--shadow-xl` — warm, low-opacity (0.04–0.10 alpha) |
+
+### Component Classes
+
+| Class | Purpose |
+|---|---|
+| `.btn` | Base button — outlined, uppercase tracking, fill-on-hover via `::before` pseudo-element |
+| `.btn--primary` | Solid navy fill, azure on hover |
+| `.btn--ghost` | White border/text for use on dark backgrounds |
+| `.text-lead` | Refined body copy — `--font-size-xl`, 1.65 line-height |
+| `.text-label` | Small-caps label above headings — `--font-size-xs`, wide tracking, muted color |
+| `.section` | Section padding via `--space-section` |
+| `.section--alt` | Stone background (`--color-bg-alt`) |
+| `.section--dark` | Navy background with white headings |
+| `.container` | Centered max-width wrapper with fluid inline padding |
+| `.container--narrow` | Constrained to `--max-width-narrow` (720px) |
+| `.texture-stone` | SVG fractal-noise grain overlay via `::before` pseudo-element (opacity 0.02) |
+| `.section-divider` | 120px × 1px sand-colored horizontal rule |
+
+### Progressive Enhancement
+
+Scroll reveal animations are gated on a `.reveal-ready` class that JavaScript adds to `<body>` after the page loads. Without JS, all content is visible at full opacity — no layout shift, no hidden text. See [AD11](decisions/README.md#ad11-scroll-animations-gated-on-reveal-ready-class) for the rationale.
 
 ---
 

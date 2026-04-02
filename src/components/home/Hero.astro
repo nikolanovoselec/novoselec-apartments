@@ -4,10 +4,9 @@ import { t } from "~/i18n/t";
 
 interface Props {
   locale: Locale;
-  heroImageUrl?: string;
 }
 
-const { locale, heroImageUrl } = Astro.props;
+const { locale } = Astro.props;
 ---
 
 <section class="hero">
@@ -16,7 +15,12 @@ const { locale, heroImageUrl } = Astro.props;
   <div class="hero__overlay"></div>
 
   <div class="hero__content">
-    <p class="hero__label text-label">Pašman Island, Croatia</p>
+    <p class="hero__label text-label">
+      {locale === "hr" ? "Otok Pašman, Hrvatska" :
+       locale === "de" ? "Insel Pašman, Kroatien" :
+       locale === "sl" ? "Otok Pašman, Hrvaška" :
+       "Pašman Island, Croatia"}
+    </p>
     <h1 class="hero-title">
       <span class="hero-title__line">Apartmani</span>
       <span class="hero-title__line hero-title__line--accent">Ždrelac</span>
@@ -79,7 +83,7 @@ const { locale, heroImageUrl } = Astro.props;
   }
 
   .hero__label {
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.7);
     margin-bottom: var(--space-xl);
     letter-spacing: 0.2em;
     font-size: var(--font-size-xs);
@@ -110,7 +114,7 @@ const { locale, heroImageUrl } = Astro.props;
     font-weight: 400;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    opacity: 0.5;
+    opacity: 0.7;
     max-width: 400px;
     margin-inline: auto;
     margin-bottom: var(--space-2xl);

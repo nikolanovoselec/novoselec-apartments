@@ -20,6 +20,7 @@ Decisions made during implementation with rationale.
 | AD8 | R2 presigned uploads via aws4fetch, not Worker-proxied | Storage | 2026-04-02 |
 | AD9 | Locale prefix on all routes including default (hr) | Architecture | 2026-04-02 |
 | AD10 | Input sanitization layer separate from Zod schema validation | Architecture | 2026-04-02 |
+| AD11 | Scroll animations gated on `.reveal-ready` JS class | UI/Frontend | 2026-04-02 |
 
 ---
 
@@ -82,3 +83,9 @@ Proxying large binary uploads through a Worker consumes egress bandwidth, adds l
 **Decision:** Form inputs go through a dedicated sanitization module (`src/lib/sanitize.ts`) in addition to Zod schema validation. Sanitization runs before or alongside schema validation, not as a Zod transform.
 
 Zod validates shape and types. Sanitization addresses content safety concerns orthogonal to schema validity: HTML injection, email header injection, URL spam in message bodies. Keeping them separate makes each responsibility testable in isolation and avoids coupling content-security logic to schema definitions.
+
+### AD11: Scroll animations gated on `.reveal-ready` JS class
+
+**Decision:** Scroll-triggered reveal animations only activate when JavaScript adds a `.reveal-ready` class to `<body>` via IntersectionObserver. CSS selectors scope all animation rules under `.reveal-ready`, so without JS, all content renders at full opacity in its final position.
+
+If JS is blocked or slow, visitors see all content immediately — no hidden headings, no invisible sections. This avoids the most common progressive-enhancement failure mode where CSS animations make content invisible until a script runs. The pattern also ensures crawlers and no-JS users receive fully readable pages with zero layout shift.

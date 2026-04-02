@@ -1,5 +1,25 @@
 # Changelog
 
+## 2026-04-02 — Revision 12: Visual Design Refinement (2a49348)
+
+Spec synced with visual design overhaul commit. Color palette refined, typography redone with dramatic scale, scroll animations upgraded with progressive enhancement gate, new button variants, stone grain texture implemented, hero completely redesigned.
+
+### Status changes: Planned -> Implemented
+- **REQ-VD-7:** Stone grain SVG noise texture implemented as `.texture-stone` utility class and hero overlay. Section dividers use sand color. Remaining planned items: olive branch silhouettes, Galesnjak brand element.
+- **REQ-SF-1:** Hero section implemented. Redesigned from photo slideshow concept to layered gradient hero with two-line title, location label, ghost CTA, and scroll indicator. Ken Burns photo slideshow deferred as future enhancement when CMS hero photos are available.
+
+### AC updated
+- **REQ-VD-1:** Color hex values updated to match refined palette. Azure `#1B6B93` -> `#1A6B8F`, stone `#F5F0E8` -> `#EDE8DE`, navy `#0C2D48` -> `#0A1F33`, olive `#6B7F3B` -> `#5C6E3B`, terracotta `#C67B5C` -> `#C2714E`, cream `#FAF7F2` -> `#F8F5EF`, warm gray `#4A4A4A` -> `#3D3D3D`. Added sand accent `#D4C9B8`, black `#111111`, and semantic color tokens.
+- **REQ-VD-2:** Typography AC revised. Letter-spacing changed from "generous" to negative (-0.02em headings, -0.03em display). Font size scale changed from "48-80px" to dramatic clamp scale. Body size 15px (was 16-18px), line-height 1.7 (was 1.6), max-width 60ch (was 65ch). Added `.text-lead` and `.text-label` utility class descriptions.
+- **REQ-VD-3:** Added progressive enhancement gate mechanism (`.reveal-ready` class). Added `data-reveal`, `data-reveal-clip`, `data-reveal-stagger` attribute descriptions. Added section divider line-extend animation. Removed `will-change` AC (not used in implementation). Stagger increments corrected from "80-120ms" to "100ms".
+- **REQ-VD-4:** Button variants expanded: default outline with scaleX fill-sweep, `--primary` solid fill, `--ghost` for dark backgrounds. Image hover timing specified (0.6s). Form focus mechanism specified (`.focus-line` element). Hamburger morph mechanism specified (three spans with transform). Focus states specified (`:focus-visible` with 2px accent outline).
+- **REQ-SF-1:** Completely rewritten. Changed from "Hero Photo Slideshow" to "Hero Section" with layered gradient background, two-line title, text-label, ghost CTA. Ken Burns slideshow noted as future enhancement. Dependencies simplified (no CMS dependency for current implementation).
+- **REQ-A11Y-1:** Updated to reflect progressive enhancement model. Content visibility now guaranteed in three scenarios (reduced motion, JS disabled, JS load failure) via `.reveal-ready` class gate. Ken Burns reference replaced with gradient hero. Verification expanded to include JS-disabled testing.
+
+### AC deviations noted
+- **REQ-SF-1:** Original spec envisioned a Ken Burns photo slideshow as the primary hero. Implementation delivers a gradient-based hero instead. This is an intentional design decision — the gradient hero works without CMS/photo dependencies and serves as the foundation for future photo integration.
+- **REQ-VD-2:** Spec previously said "generous letter-spacing" for headings. Implementation uses tight/negative letter-spacing for a more contemporary editorial feel. This is an intentional design refinement.
+
 ## 2026-04-02 — Revision 11: Phase 7 Content Seed Data & Accessibility Statement (3b56701)
 
 Spec synced with Phase 7 commit (seed data for apartments, seasons, testimonials, site-settings, stock media plan, accessibility statement page).

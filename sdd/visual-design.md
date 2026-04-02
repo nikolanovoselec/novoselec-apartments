@@ -15,11 +15,13 @@ Color system, typography, scroll animations, micro-interactions, and Croatian vi
 - **Intent:** Cohesive Croatian Mediterranean palette
 - **Applies To:** System
 - **Acceptance Criteria:**
-  - Primary: Adriatic azure `#1B6B93`, warm stone `#F5F0E8`, deep navy `#0C2D48`
-  - Accents: olive `#6B7F3B`, terracotta `#C67B5C`
-  - Neutrals: warm cream `#FAF7F2`, warm gray `#4A4A4A`, white `#FFFFFF`
+  - Primary: Adriatic azure `#1A6B8F`, warm stone `#EDE8DE`, deep navy `#0A1F33`
+  - Accents: olive `#5C6E3B`, terracotta `#C2714E`
+  - Neutrals: warm cream `#F8F5EF`, warm gray `#3D3D3D`, white `#FFFFFF`, black `#111111`
+  - Sand accent `#D4C9B8` for dividers and muted elements
+  - Semantic color tokens: `--color-text`, `--color-text-heading`, `--color-text-light`, `--color-text-muted`, `--color-bg`, `--color-bg-alt`, `--color-bg-dark`, `--color-accent`, `--color-accent-warm`, `--color-border`
   - CSS custom properties on `:root`
-  - Dark backgrounds used sparingly for contrast sections
+  - Dark backgrounds used sparingly for contrast sections (`.section--dark`)
   - All text/background combinations pass WCAG AA contrast
 - **Constraints:** CON-A11Y
 - **Priority:** P0
@@ -32,12 +34,13 @@ Color system, typography, scroll animations, micro-interactions, and Croatian vi
 - **Intent:** Elegant, readable type with Croatian editorial feel
 - **Applies To:** System
 - **Acceptance Criteria:**
-  - Display/headings: serif with Venetian/Roman proportions, light weight (300) at 48-80px, generous letter-spacing
-  - Body: humanist sans-serif, regular weight, 16-18px, 1.6 line-height
-  - Max 2 typefaces loaded
-  - Full glyph coverage verified: Croatian (č, ć, đ, š, ž), Slovenian (č, š, ž), German (ä, ö, ü, ß)
+  - Display/headings: serif with Venetian/Roman proportions, light weight (300), dramatic clamp scale (`clamp(3rem, 7vw, 6rem)` for display, `clamp(2rem, 4vw, 3.5rem)` for h2), negative letter-spacing (-0.02em headings, -0.03em display)
+  - Body: humanist sans-serif, regular weight, 15px base, 1.7 line-height
+  - Utility classes: `.text-lead` (19px, 1.65 line-height) for introductory paragraphs, `.text-label` (11px, 600 weight, 0.12em tracking, uppercase) for small-caps section labels
+  - Max 2 typefaces loaded (Cormorant Garamond + Inter)
+  - Full glyph coverage verified: Croatian (c, c, d, s, z), Slovenian (c, s, z), German (a, o, u, ss)
   - `font-display: swap` with size-adjusted fallback system font stack
-  - Body max-width: 65ch
+  - Body max-width: 60ch
   - No ultra-thin fonts below 24px
   - **Long German strings:** heading wrapping and hyphenation tested. `hyphens: auto` for German body text. Max heading length tested with typical German translations (30-50% longer than English).
   - Line length controlled on desktop split layouts to prevent ultra-wide text blocks
@@ -53,14 +56,15 @@ Color system, typography, scroll animations, micro-interactions, and Croatian vi
 - **Applies To:** Visitor
 - **Acceptance Criteria:**
   - **CSS-first approach:** All standard animations via CSS transitions + IntersectionObserver. No JS animation library required for most effects.
-  - Fade-up reveal: CSS `opacity` + `transform: translateY()` triggered by IntersectionObserver
-  - Image clip-path reveal: CSS `clip-path: inset()` transition on scroll-triggered class
-  - Staggered entry: CSS `transition-delay` per card (80-120ms increments)
+  - **Progressive enhancement gate:** Animation CSS hidden behind `.reveal-ready` class on `<html>`. JS adds this class at runtime. Without JS, all content remains fully visible (no opacity:0, no hidden clip-paths). This is the primary accessibility and resilience mechanism.
+  - Fade-up reveal: CSS `opacity` + `transform: translateY()` triggered by IntersectionObserver via `data-reveal` attribute
+  - Image clip-path reveal: CSS `clip-path: inset()` transition on scroll-triggered class via `data-reveal-clip` attribute
+  - Staggered entry: CSS `transition-delay` per child (100ms increments) via `data-reveal-stagger` attribute
+  - Section divider line extends from 0 to 120px width on scroll entry
   - **GSAP optional:** Max 1 signature moment per page if CSS cannot achieve it (e.g., pinned "A Day on Pašman" timeline on desktop). If GSAP adds >20KB to bundle, skip it and use CSS-only alternative.
   - No parallax (complexity vs. value tradeoff for this project)
-  - Only animate `transform` and `opacity` (GPU-composited)
-  - `will-change` applied just before, removed after
-  - `prefers-reduced-motion`: all animations disabled, content immediately visible
+  - Only animate `transform` and `opacity` (GPU-composited), plus `clip-path` and `width` for specific reveal types
+  - `prefers-reduced-motion`: all animation durations set to 0.01ms, content immediately visible
   - Mobile: simple fade-in only, no scroll-triggered complexity
   - **Art direction rules:**
     - Max 1 animated reveal per viewport height
@@ -77,13 +81,14 @@ Color system, typography, scroll animations, micro-interactions, and Croatian vi
 - **Intent:** Premium tactile details
 - **Applies To:** Visitor
 - **Acceptance Criteria:**
-  - Button hover: fill-sweep from left, text color inversion (0.4s)
-  - Image hover: subtle zoom (1.05x) within overflow:hidden
-  - Form focus: bottom-border animates from center, label floats up
+  - Default button: outline with fill-sweep from left via `scaleX` pseudo-element, text color inversion on hover (0.4s)
+  - Button variants: `--primary` (solid navy fill, azure on hover), `--ghost` (white text, translucent border, subtle backdrop fill on hover)
+  - Image hover: subtle zoom (1.05x) within overflow:hidden (0.6s ease-out)
+  - Form focus: bottom-border animates from center via `.focus-line` element
   - Nav: smooth transparent-to-solid transition
-  - Hamburger: morphs to X via CSS transition
-  - Section dividers: thin line extends from center on scroll
-  - All hover effects have equivalent focus states for keyboard
+  - Hamburger: morphs to X via CSS transform transitions on three `<span>` elements
+  - Section dividers: thin line extends from 0 to 120px on scroll-triggered reveal
+  - All hover effects have equivalent focus states for keyboard (`:focus-visible` with 2px accent outline)
 - **Constraints:** CON-A11Y, CON-PERF
 - **Priority:** P1
 - **Dependencies:** None
@@ -131,8 +136,9 @@ Color system, typography, scroll animations, micro-interactions, and Croatian vi
 - **Intent:** Unmistakably Pašman/Dalmatian, not generic Mediterranean
 - **Applies To:** System
 - **Acceptance Criteria:**
-  - Stone texture: ultra-low-opacity SVG noise on solid background sections
-  - Section dividers: dry-stone wall or coastal contour geometry
+  - Stone texture: inline SVG fractalNoise filter at 2-3% opacity applied via `.texture-stone` utility class on background sections. Uses `feTurbulence` with `baseFrequency` 0.9, 4 octaves, `stitchTiles`.
+  - Hero uses same noise texture overlay at 3% opacity for depth
+  - Section dividers: sand-colored line (`--color-sand`) at 0.6 opacity, 120px width
   - Decorative: olive branch silhouettes (max 2-3 per page)
   - No cliche anchors, seashells, compass roses, or folk patterns
   - Galešnjak (heart island in Pašman channel) as potential brand element
@@ -141,7 +147,7 @@ Color system, typography, scroll animations, micro-interactions, and Croatian vi
 - **Priority:** P2
 - **Dependencies:** None
 - **Verification:** Visual review
-- **Status:** Planned
+- **Status:** Implemented
 
 ## Out of Scope
 

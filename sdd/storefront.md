@@ -10,27 +10,28 @@ The homepage and visual shell — hero, navigation, footer, language switcher, a
 
 ## Requirements
 
-### REQ-SF-1: Hero Photo Slideshow
+### REQ-SF-1: Hero Section
 
 - **Intent:** Instantly immerse the visitor in Pašman's atmosphere
 - **Applies To:** Visitor
 - **Acceptance Criteria:**
-  - Hero fills 100vh with 3-5 photos crossfading via Ken Burns (slow zoom + pan)
-  - **Only first image preloaded** (`<link rel="preload">` + `fetchpriority="high"`). Subsequent images lazy-loaded in background after first paint.
-  - Each photo displays 6-8 seconds
-  - Muted color overlay (gradient) ensures text contrast (WCAG AA) regardless of image brightness
-  - Property name + one-line tagline fade up with CSS staggered animation
-  - Scroll indicator pulses at bottom
-  - On `prefers-reduced-motion`: static single photo, no animation
-  - Mobile: static hero photo (no slideshow) to save bandwidth
-  - Hero photos managed in CMS site-settings
-  - **Failure mode — image load error:** If hero images fail to load, blurhash placeholder fills hero area. Property name and tagline still visible over placeholder. No broken image icons, no empty hero.
-  - **Failure mode — no hero photos configured:** If CMS has no hero photos, display a solid gradient using brand colors (Adriatic azure to deep navy) with property name centered. Site remains functional.
+  - Hero fills 100vh (100svh on mobile) with min-height 600px
+  - **Layered gradient background:** radial gradients (azure at top-left, warm terracotta at bottom-right) over linear navy gradient, creating atmospheric depth without photography dependency
+  - Stone grain SVG noise overlay at 3% opacity for tactile texture
+  - Two-line title: property name on first line, location on second line in italic at reduced opacity (0.6)
+  - `.text-label` location tag above title ("Pasman Island, Croatia") at 0.5 opacity with wide letter-spacing
+  - Tagline in uppercase sans-serif at 0.5 opacity below title
+  - Ghost CTA button linking to apartments listing
+  - Scroll indicator pulses at bottom (CSS keyframe animation)
+  - Title and subtitle fade up with staggered CSS animation (0.3s and 0.6s delay)
+  - On `prefers-reduced-motion`: all animations disabled, content immediately visible
+  - Mobile: title scales down via clamp, subtitle uses smaller font size
+  - **Future enhancement:** Ken Burns photo slideshow can layer over the gradient background when CMS hero photos are configured. Current gradient serves as the "no hero photos configured" fallback described in original spec.
 - **Constraints:** CON-PERF, CON-A11Y
 - **Priority:** P0
-- **Dependencies:** REQ-CMS-1, REQ-CMS-6
+- **Dependencies:** None
 - **Verification:** Visual + Lighthouse
-- **Status:** Planned
+- **Status:** Implemented
 
 ### REQ-SF-2: Optional Ambient Video Hero
 

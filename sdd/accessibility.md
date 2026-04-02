@@ -16,15 +16,15 @@ Reduced motion, keyboard navigation, screen reader support, and color contrast.
 - **Intent:** Respect preferences, prevent vestibular discomfort
 - **Applies To:** Visitor
 - **Acceptance Criteria:**
-  - `prefers-reduced-motion: reduce`: all CSS animation durations to 0.01ms
+  - `prefers-reduced-motion: reduce`: all CSS animation durations set to 0.01ms, iteration count forced to 1, transition durations set to 0.01ms, scroll-behavior set to auto
   - GSAP: check matchMedia, skip all ScrollTrigger
-  - Ken Burns: static single image
+  - Hero: gradient background always visible, no motion dependency
   - Pinned sections: normal document flow
-  - Content always visible regardless of animation state
+  - **Progressive enhancement:** Content always visible without JS. Animation CSS gated behind `.reveal-ready` class which JS adds at runtime. Without JS, no `opacity:0` or `clip-path` hiding is applied. This ensures content visibility in three scenarios: (1) reduced motion preference, (2) JS disabled, (3) JS load failure.
 - **Constraints:** CON-A11Y
 - **Priority:** P0
 - **Dependencies:** REQ-VD-3
-- **Verification:** Enable reduced-motion, verify full site
+- **Verification:** Enable reduced-motion, verify full site; disable JS, verify all content visible
 - **Status:** Implemented
 
 ### REQ-A11Y-2: Keyboard Navigation
