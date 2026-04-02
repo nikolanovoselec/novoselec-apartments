@@ -8,23 +8,33 @@ interface Props {
 }
 
 const { locale, heroImageUrl } = Astro.props;
-
-// Fallback gradient if no image
-const bgStyle = heroImageUrl
-  ? `background-image: linear-gradient(180deg, rgba(12,45,72,0.35) 0%, rgba(12,45,72,0.5) 100%), url('${heroImageUrl}'); background-size: cover; background-position: center;`
-  : `background: linear-gradient(135deg, var(--color-navy) 0%, var(--color-azure) 100%);`;
 ---
 
-<section class="hero" style={bgStyle}>
+<section class="hero">
+  {/* Layered background for depth */}
+  <div class="hero__bg"></div>
+  <div class="hero__overlay"></div>
+
   <div class="hero__content">
-    <h1 class="hero-title">Apartmani Ždrelac</h1>
+    <p class="hero__label text-label">Pašman Island, Croatia</p>
+    <h1 class="hero-title">
+      <span class="hero-title__line">Apartmani</span>
+      <span class="hero-title__line hero-title__line--accent">Ždrelac</span>
+    </h1>
     <p class="hero-subtitle">{t(locale, "hero.tagline")}</p>
+    <div class="hero__cta">
+      <a href={`/${locale}/apartmani`} class="btn btn--ghost">
+        {t(locale, "nav.apartments")}
+      </a>
+    </div>
   </div>
 
-  <div class="hero__scroll scroll-indicator" aria-hidden="true">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-      <path d="M12 5v14M19 12l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
+  <div class="hero__bottom">
+    <div class="hero__scroll scroll-indicator" aria-hidden="true">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+        <path d="M12 5v14M19 12l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
   </div>
 </section>
 
@@ -32,6 +42,7 @@ const bgStyle = heroImageUrl
   .hero {
     position: relative;
     height: 100vh;
+    height: 100svh;
     min-height: 600px;
     display: flex;
     flex-direction: column;
@@ -42,31 +53,91 @@ const bgStyle = heroImageUrl
     overflow: hidden;
   }
 
+  .hero__bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 30% 20%, rgba(26, 107, 143, 0.4) 0%, transparent 60%),
+      radial-gradient(ellipse at 70% 80%, rgba(194, 113, 78, 0.15) 0%, transparent 50%),
+      linear-gradient(170deg, #0A1F33 0%, #122E47 30%, #1A4060 60%, #0A1F33 100%);
+    z-index: 0;
+  }
+
+  .hero__overlay {
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    z-index: 1;
+    pointer-events: none;
+  }
+
   .hero__content {
-    max-width: 800px;
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
     padding: 0 var(--space-lg);
+  }
+
+  .hero__label {
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: var(--space-xl);
+    letter-spacing: 0.2em;
+    font-size: var(--font-size-xs);
   }
 
   .hero-title {
     font-family: var(--font-serif);
-    font-size: var(--font-size-display);
+    font-size: clamp(3.5rem, 9vw, 8rem);
     font-weight: 300;
     color: var(--color-white);
-    letter-spacing: 0.02em;
-    margin-bottom: var(--space-md);
+    letter-spacing: -0.03em;
+    line-height: 0.95;
+    margin-bottom: var(--space-xl);
+  }
+
+  .hero-title__line {
+    display: block;
+  }
+
+  .hero-title__line--accent {
+    color: rgba(255, 255, 255, 0.6);
+    font-style: italic;
   }
 
   .hero-subtitle {
-    font-size: var(--font-size-xl);
-    font-weight: 300;
-    opacity: 0.9;
-    max-width: 500px;
+    font-family: var(--font-sans);
+    font-size: var(--font-size-base);
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    opacity: 0.5;
+    max-width: 400px;
     margin-inline: auto;
+    margin-bottom: var(--space-2xl);
+  }
+
+  .hero__cta {
+    margin-top: var(--space-lg);
+  }
+
+  .hero__bottom {
+    position: absolute;
+    bottom: var(--space-2xl);
+    z-index: 2;
   }
 
   .hero__scroll {
-    position: absolute;
-    bottom: var(--space-2xl);
-    color: rgba(255, 255, 255, 0.6);
+    color: rgba(255, 255, 255, 0.3);
+  }
+
+  /* Mobile refinements */
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: clamp(2.5rem, 12vw, 4.5rem);
+    }
+
+    .hero-subtitle {
+      font-size: var(--font-size-xs);
+    }
   }
 </style>

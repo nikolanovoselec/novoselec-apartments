@@ -5,11 +5,7 @@ import { isValidLocale, type Locale } from "~/i18n/config";
 import { t } from "~/i18n/t";
 
 const { locale } = Astro.params;
-
-if (!locale || !isValidLocale(locale)) {
-  return Astro.redirect("/hr/", 302);
-}
-
+if (!locale || !isValidLocale(locale)) return Astro.redirect("/hr/", 302);
 const typedLocale = locale as Locale;
 
 const titles: Record<Locale, string> = {
@@ -18,51 +14,151 @@ const titles: Record<Locale, string> = {
   sl: "Apartmaji Ždrelac — Otok Pašman",
   en: "Apartments Ždrelac — Pašman Island",
 };
+
+const whyItems = [
+  { icon: "◆", key: "crystal", hr: "Kristalno čisto more", de: "Kristallklares Meer", sl: "Kristalno čisto morje", en: "Crystal-clear sea" },
+  { icon: "◆", key: "peace", hr: "Mir otoka", de: "Inselruhe", sl: "Mir otoka", en: "Island tranquility" },
+  { icon: "◆", key: "ferry", hr: "25 min trajektom", de: "25 Min. Fähre", sl: "25 min s trajektom", en: "25 min by ferry" },
+  { icon: "◆", key: "dalmatia", hr: "Autentična Dalmacija", de: "Authentisches Dalmatien", sl: "Pristna Dalmacija", en: "Authentic Dalmatia" },
+];
 ---
 
-<Page
-  title={titles[typedLocale]}
-  locale={typedLocale}
-  hasHero={true}
->
+<Page title={titles[typedLocale]} locale={typedLocale} hasHero={true}>
   <Hero locale={typedLocale} />
 
-  {/* Why Pašman section */}
+  {/* Why Pašman — refined editorial layout */}
   <section class="section" data-reveal>
-    <div class="container text-center">
-      <h2>{t(typedLocale, "nav.whyPasman")}</h2>
-      <div class="section-divider"></div>
-      <p style="margin-inline: auto; margin-top: var(--space-lg);">
-        {typedLocale === "hr" && "Kristalno čisto more, mir otoka i autentična Dalmacija — samo 25 minuta trajektom od kopna."}
-        {typedLocale === "de" && "Kristallklares Meer, die Ruhe einer Insel und authentisches Dalmatien — nur 25 Minuten mit der Fähre vom Festland."}
-        {typedLocale === "sl" && "Kristalno čisto morje, mir otoka in pristna Dalmacija — le 25 minut s trajektom od kopna."}
-        {typedLocale === "en" && "Crystal-clear sea, island tranquility, and authentic Dalmatia — just 25 minutes by ferry from the mainland."}
-      </p>
+    <div class="container">
+      <div class="why-section">
+        <div class="why-section__header">
+          <p class="text-label">{t(typedLocale, "nav.whyPasman")}</p>
+          <h2>
+            {typedLocale === "hr" ? "Otok koji vrijeme zaboravilo" :
+             typedLocale === "de" ? "Die Insel, die die Zeit vergessen hat" :
+             typedLocale === "sl" ? "Otok, ki ga je čas pozabil" :
+             "The island time forgot"}
+          </h2>
+        </div>
+        <div class="why-section__body">
+          <p class="text-lead">
+            {typedLocale === "hr" ? "Daleko od gužvi, Pašman nudi ono što je Dalmacija nekada bila — kamene kuće, maslinovi nasadi, konobe s domaćom hranom i more koje oduzima dah. Samo 25 minuta trajektom od kopna, a opet dovoljno daleko da se osjetite kao na pravom odmoru." :
+             typedLocale === "de" ? "Fernab vom Trubel bietet Pašman das, was Dalmatien einst war — Steinhäuser, Olivenhaine, Konobas mit hausgemachtem Essen und ein atemberaubendes Meer. Nur 25 Minuten mit der Fähre vom Festland, aber weit genug für einen echten Urlaub." :
+             typedLocale === "sl" ? "Daleč od gneče Pašman ponuja tisto, kar je bila nekoč Dalmacija — kamnite hiše, oljčni nasadi, konobe z domačo hrano in morje, ki jemlje dih. Le 25 minut s trajektom od kopna, a vseeno dovolj daleč za pravi dopust." :
+             "Far from the crowds, Pašman offers what Dalmatia once was — stone houses, olive groves, konobas with homemade food, and a sea that takes your breath away. Just 25 minutes by ferry from the mainland, yet far enough to feel like a real escape."}
+          </p>
+          <div class="why-grid">
+            {whyItems.map((item) => (
+              <div class="why-grid__item">
+                <span class="why-grid__icon">{item.icon}</span>
+                <span class="why-grid__text">{item[typedLocale]}</span>
+              </div>
+            ))}
+          </div>
+          <a href={`/${typedLocale}/zasto-pasman`} class="btn" style="margin-top: var(--space-2xl);">
+            {t(typedLocale, "nav.whyPasman")}
+          </a>
+        </div>
+      </div>
     </div>
   </section>
 
-  {/* Apartments preview */}
-  <section class="section" style="background: var(--color-bg-alt);" data-reveal>
+  {/* Apartments — dark section for contrast */}
+  <section class="section section--dark" data-reveal>
     <div class="container text-center">
-      <h2>{t(typedLocale, "apartments.title")}</h2>
-      <div class="section-divider"></div>
-      <p style="margin-inline: auto; margin-top: var(--space-lg);">
+      <p class="text-label" style="color: rgba(255,255,255,0.4);">{t(typedLocale, "apartments.title")}</p>
+      <h2 style="margin-top: var(--space-md);">
+        {typedLocale === "hr" ? "Vaš dom na Jadranu" :
+         typedLocale === "de" ? "Ihr Zuhause an der Adria" :
+         typedLocale === "sl" ? "Vaš dom na Jadranu" :
+         "Your home on the Adriatic"}
+      </h2>
+      <p class="text-lead" style="margin-inline: auto; margin-top: var(--space-lg); color: rgba(255,255,255,0.6);">
         {t(typedLocale, "apartments.comingSoon")}
       </p>
-      <a href={`/${typedLocale}/apartmani`} class="btn" style="margin-top: var(--space-xl);">
+      <a href={`/${typedLocale}/apartmani`} class="btn btn--ghost" style="margin-top: var(--space-2xl);">
         {t(typedLocale, "nav.apartments")}
       </a>
     </div>
   </section>
 
-  {/* Contact / inquiry CTA */}
+  {/* Inquiry CTA */}
   <section class="section" id="inquiry" data-reveal>
     <div class="container text-center">
-      <h2>{t(typedLocale, "booking.title")}</h2>
-      <div class="section-divider"></div>
-      <p style="margin-inline: auto; margin-top: var(--space-lg);">
+      <p class="text-label">{t(typedLocale, "nav.contact")}</p>
+      <h2 style="margin-top: var(--space-md);">
+        {typedLocale === "hr" ? "Javite nam se" :
+         typedLocale === "de" ? "Kontaktieren Sie uns" :
+         typedLocale === "sl" ? "Pišite nam" :
+         "Get in touch"}
+      </h2>
+      <p style="margin-inline: auto; margin-top: var(--space-lg); color: var(--color-text-light);">
         {t(typedLocale, "trust.responseTime")}
       </p>
+      <div style="margin-top: var(--space-2xl);">
+        <a href={`/${typedLocale}/apartmani#inquiry`} class="btn btn--primary">
+          {t(typedLocale, "booking.title")}
+        </a>
+      </div>
     </div>
   </section>
 </Page>
+
+<style>
+  .why-section {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-2xl);
+    max-width: 900px;
+    margin-inline: auto;
+  }
+
+  @media (min-width: 768px) {
+    .why-section {
+      grid-template-columns: 1fr 1.5fr;
+      gap: var(--space-3xl);
+      max-width: none;
+    }
+  }
+
+  .why-section__header {
+    position: sticky;
+    top: calc(var(--nav-height) + var(--space-xl));
+    align-self: start;
+  }
+
+  .why-section__header h2 {
+    margin-top: var(--space-md);
+    font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+  }
+
+  .why-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+    margin-top: var(--space-2xl);
+  }
+
+  .why-grid__item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+  }
+
+  .why-grid__icon {
+    color: var(--color-terracotta);
+    font-size: var(--font-size-xs);
+  }
+
+  .why-grid__text {
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    color: var(--color-navy);
+    letter-spacing: 0.02em;
+  }
+
+  @media (max-width: 480px) {
+    .why-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
