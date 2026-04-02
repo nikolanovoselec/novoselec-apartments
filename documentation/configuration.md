@@ -54,7 +54,7 @@ Defined in `wrangler.jsonc`.
 }
 ```
 
-Accessed as `locals.runtime.env.DB` (type `D1Database`). Holds auth codes, sessions, and inquiry log.
+Accessed as `locals.runtime.env.DB` (type `D1Database`). Holds auth codes, sessions, inquiries, availability blocks, analytics events, and slug redirects.
 
 ### R2 Bucket (Media)
 
@@ -91,6 +91,7 @@ npx wrangler d1 migrations apply apartmani-db --remote
 | File | Contents |
 |---|---|
 | `migrations/0001_auth.sql` | `auth_codes` and `sessions` tables with indexes |
+| `migrations/0002_availability.sql` | `availability_blocks`, `inquiries`, `events`, and `redirects` tables with indexes |
 
 ---
 

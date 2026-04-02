@@ -62,7 +62,7 @@ Apartment listings, detail pages, photo galleries, amenities, seasonal pricing, 
 - **Priority:** P0
 - **Dependencies:** REQ-AP-1
 - **Verification:** Visual review with 1 and 3+ apartments
-- **Status:** Planned
+- **Status:** Implemented
 
 ### REQ-AP-3: Apartment Detail Page
 
@@ -112,7 +112,7 @@ Apartment listings, detail pages, photo galleries, amenities, seasonal pricing, 
 - **Priority:** P0
 - **Dependencies:** REQ-AP-1, REQ-CMS-1
 - **Verification:** Test price computation across season boundaries
-- **Status:** Planned
+- **Status:** Implemented
 
 ### REQ-AP-5: Availability Calendar
 

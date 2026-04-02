@@ -27,7 +27,7 @@ Schema.org structured data, Open Graph, multilingual sitemap, keyword strategy, 
 - **Priority:** P1
 - **Dependencies:** REQ-AP-1, REQ-ED-7, REQ-SP-1
 - **Verification:** Google Rich Results Test for all page types
-- **Status:** Planned
+- **Status:** Implemented
 
 ### REQ-SEO-2: Open Graph & Social
 
@@ -66,7 +66,7 @@ Schema.org structured data, Open Graph, multilingual sitemap, keyword strategy, 
 - **Priority:** P1
 - **Dependencies:** None
 - **Verification:** Verify beacon and events in dashboard
-- **Status:** Planned
+- **Status:** Implemented
 
 ### REQ-SEO-4: Multilingual Sitemap
 

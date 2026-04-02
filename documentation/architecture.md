@@ -17,7 +17,7 @@ Apartmani Pašman is a server-side rendered Astro site deployed as a Cloudflare 
 | Component | Role |
 |---|---|
 | Cloudflare Worker | Hosts the entire application (Astro SSR via `@astrojs/cloudflare`) |
-| Cloudflare D1 | SQLite-compatible edge database — auth codes, sessions, inquiry log |
+| Cloudflare D1 | SQLite-compatible edge database — auth codes, sessions, inquiries, availability blocks, analytics events, slug redirects |
 | Cloudflare R2 | Private object storage for uploaded media (`apartmani-media` bucket) |
 | Cloudflare Image Resizing | Edge image transforms — AVIF/WebP conversion, resizing, HEIC support |
 | Resend | Transactional email — magic link codes, inquiry notifications |
@@ -40,6 +40,8 @@ Apartmani Pašman is a server-side rendered Astro site deployed as a Cloudflare 
 | `src/middleware/` | Request pipeline: redirects → locale → security headers |
 | `src/pages/media/[key].ts` | Image serving route — fetches from R2, applies cache headers |
 | `src/pages/admin/api/` | Auth API endpoints (login, verify, upload-url) |
+| `src/pages/api/apartments/[id]/availability.ts` | Availability API — returns booked dates for calendar display |
+| `src/pages/api/track.ts` | Analytics API — cookieless event logging to D1 |
 | `src/layouts/` | Base and Page layout shells |
 | `src/components/shell/` | Navigation, Footer, LanguageSwitcher, WhatsAppButton, StickyMobileCTA |
 | `src/styles/` | Global CSS design system, animations, reduced-motion overrides |
@@ -77,12 +79,21 @@ Season-based pricing supports cross-season stays. Tourist tax is applied per tax
 
 ## Availability Model
 
-Bookings are stored as half-open intervals `[checkIn, checkOut)`. The checkout day is available for new check-ins. Overlap detection uses the condition: `proposed.checkIn < block.checkOut AND proposed.checkOut > block.checkIn`.
+Bookings are stored as half-open intervals `[checkIn, checkOut)`. The checkout day is available for new check-ins. Overlap detection uses the condition: `proposed.checkIn < block.checkOut AND proposed.checkOut > block.checkIn`. The `availability_blocks` table stores blocks by apartment ID with `source` tracking (`manual | ics | inquiry`). The calendar API at `GET /api/apartments/:id/availability` expands blocks into individual booked dates for display.
+
+## Analytics Model
+
+Cookieless analytics events are logged to the D1 `events` table via `POST /api/track`. No PII is stored — only event type, apartment slug, locale, page path, and timestamp. Valid event types: `inquiry_submit`, `question_submit`, `whatsapp_click`, `call_click`, `apartment_view`, `gallery_open`, `language_switch`, `calendar_select`.
+
+## Inquiry Pipeline
+
+Inquiries are stored in D1 `inquiries` table covering the full lifecycle: `new → read → responded → confirmed | declined | spam`. Email delivery status is tracked separately (`pending → sent | retry | failed`) with retry metadata. The D1 record is the source of truth for status; email is the primary notification channel (see [AD6](decisions/README.md#ad6-inquiry-lifecycle-via-email-first-d1-as-backup-log)).
 
 ---
 
 ## Related Documentation
 
+- [API Reference](api-reference.md) — All endpoint signatures and response formats
 - [Configuration](configuration.md#environment-variables) — All env vars and bindings
 - [Authentication](authentication.md#magic-link-flow) — Auth flow detail
 - [Security](security.md#content-security-policy) — CSP and header policy

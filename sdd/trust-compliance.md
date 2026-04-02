@@ -122,7 +122,10 @@ GDPR, privacy policy, Impressum, house rules, cancellation policy, security head
     - `img-src 'self' data: blob: https:` (Image Resizing, external maps)
     - `style-src 'self' 'unsafe-inline'` (required for Astro island hydration; nonce-based if feasible)
     - `connect-src 'self'` (API endpoints)
-    - Admin panel may use a relaxed CSP (separate route-level policy)
+    - `font-src 'self'` (self-hosted fonts)
+    - `object-src 'none'` (no plugins)
+    - `base-uri 'self'` (prevent base tag hijacking)
+    - Admin panel uses a relaxed CSP (separate route-level policy: `'unsafe-inline' 'unsafe-eval' https:` for admin tooling)
   - X-Frame-Options: DENY
   - X-Content-Type-Options: nosniff
   - Referrer-Policy: strict-origin-when-cross-origin

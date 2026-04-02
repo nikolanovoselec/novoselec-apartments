@@ -135,7 +135,7 @@ Color system, typography, scroll animations, micro-interactions, and Croatian vi
   - Section dividers: dry-stone wall or coastal contour geometry
   - Decorative: olive branch silhouettes (max 2-3 per page)
   - No cliche anchors, seashells, compass roses, or folk patterns
-  - Galesnjak (heart island in Pašman channel) as potential brand element
+  - Galešnjak (heart island in Pašman channel) as potential brand element
   - All decorative SVGs inline, minimal file size
 - **Constraints:** CON-PERF
 - **Priority:** P2

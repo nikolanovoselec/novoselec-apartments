@@ -11,6 +11,7 @@ Documentation for the vacation rental website for apartments in Ždrelac, Pašma
 | Document | Description | Audience |
 |----------|-------------|----------|
 | [Architecture](architecture.md) | System overview, components, data flow, request lifecycle | Developers |
+| [API Reference](api-reference.md) | All API endpoints — public, admin, request/response formats | Developers |
 | [Authentication](authentication.md) | Magic Link auth flow, JWT, refresh tokens, D1 schema | Developers |
 | [Configuration](configuration.md) | Environment variables, secrets, Cloudflare bindings, migrations | Developers, Operators |
 | [Security](security.md) | Security headers, CSP, Turnstile, input sanitization, rate limiting | Developers, Security |
