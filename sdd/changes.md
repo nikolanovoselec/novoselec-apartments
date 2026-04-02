@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-04-02 — Revision 18: Fix Emdash Admin 404 (a42a329)
+
+Trailing-slash redirect middleware was stripping slashes from `/_emdash/` paths, causing the admin panel to return 404. Middleware now excludes `/_emdash/` paths from slash normalization.
+
+### AC clarified
+- **REQ-CMS-1:** No change to acceptance criteria or status. The admin panel route `/_emdash/admin/` was already specified; this fix ensures the middleware does not interfere with it. REQ-CMS-1 remains Planned because the full CMS integration (D1, R2, collections, authentication) is not yet implemented.
+
+### No status changes
+- REQ-CMS-1 remains Planned.
+
 ## 2026-04-02 — Revision 17: Local Guide & Apartment Listing Redesign (52627b7)
 
 Local guide page redesigned from emoji icon category cards to alternating image+text layout with per-locale descriptions. Apartment listing page redesigned from placeholder card grid to lifestyle "coming soon" layout with duo images and inquiry CTA.

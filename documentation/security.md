@@ -113,7 +113,7 @@ See [Authentication](authentication.md) for the full model. Key properties:
 
 ## URL Normalization
 
-The redirects middleware enforces canonical URLs: trailing slashes are removed with a 301 redirect. This prevents duplicate content and reduces attack surface from path normalization issues.
+The redirects middleware enforces canonical URLs: trailing slashes are removed with a 301 redirect. This prevents duplicate content and reduces attack surface from path normalization issues. `/_emdash/` paths are excluded from this rule — the CMS mounts under that prefix and requires the trailing slash to function correctly.
 
 ---
 

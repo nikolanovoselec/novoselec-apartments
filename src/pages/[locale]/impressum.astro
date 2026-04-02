@@ -4,6 +4,7 @@ import HeroSimple from "~/components/ui/HeroSimple.astro";
 import { isValidLocale, type Locale } from "~/i18n/config";
 
 const { locale } = Astro.params;
+if (locale?.startsWith("_")) return new Response(null, { status: 404 });
 if (!locale || !isValidLocale(locale)) return Astro.redirect("/hr/", 302);
 const typedLocale = locale as Locale;
 

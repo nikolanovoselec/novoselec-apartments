@@ -5,6 +5,8 @@ import { isValidLocale, type Locale } from "~/i18n/config";
 import { t } from "~/i18n/t";
 
 const { locale } = Astro.params;
+// Let Emdash handle its own routes — don't intercept _emdash as a locale
+if (locale?.startsWith("_")) return new Response(null, { status: 404 });
 if (!locale || !isValidLocale(locale)) return Astro.redirect("/hr/", 302);
 const typedLocale = locale as Locale;
 
