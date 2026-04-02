@@ -1,18 +1,30 @@
 import type { APIRoute } from "astro";
 import { getEnv } from "~/lib/env";
+import { verifyJWT } from "~/lib/auth";
+import { stripHtml } from "~/lib/sanitize";
 
 /**
  * POST /admin/api/inquiries/:id/confirm
- * Confirm inquiry and block dates in a D1 transaction.
- * Requires authenticated admin session.
+ * Confirm inquiry and block dates atomically.
+ * Requires authenticated admin session (JWT in cookie).
  */
-export const POST: APIRoute = async ({ params, locals }) => {
+export const POST: APIRoute = async ({ params, cookies, locals }) => {
+  // Auth check
+  const env = getEnv(locals as Record<string, unknown>);
+  const authToken = cookies.get("auth_token")?.value;
+  if (!authToken) {
+    return jsonResponse({ error: "Authentication required" }, 401);
+  }
+  const payload = await verifyJWT(authToken, env.JWT_SECRET ?? "");
+  if (!payload) {
+    return jsonResponse({ error: "Invalid or expired session" }, 401);
+  }
+
   const inquiryId = params.id;
   if (!inquiryId) {
     return jsonResponse({ error: "Missing inquiry ID" }, 400);
   }
 
-  const env = getEnv(locals as Record<string, unknown>);
   const db = env.DB;
 
   // Get the inquiry
@@ -40,29 +52,33 @@ export const POST: APIRoute = async ({ params, locals }) => {
     return jsonResponse({ error: "Cannot confirm a non-booking inquiry" }, 400);
   }
 
-  // Check for date overlap (D1 transaction)
-  const overlapping = await db
-    .prepare("SELECT id FROM availability_blocks WHERE apartment_id = ? AND check_in < ? AND check_out > ?")
-    .bind(inquiry.apartment_id, inquiry.check_out, inquiry.check_in)
-    .first<{ id: number }>();
+  // Atomic confirm: INSERT WHERE NOT EXISTS to prevent TOCTOU race condition
+  // D1 batch runs all statements in a single transaction
+  const batchResults = await db.batch([
+    db.prepare(`
+      INSERT INTO availability_blocks (apartment_id, check_in, check_out, source, inquiry_id)
+      SELECT ?, ?, ?, 'inquiry', ?
+      WHERE NOT EXISTS (
+        SELECT 1 FROM availability_blocks
+        WHERE apartment_id = ? AND check_in < ? AND check_out > ?
+      )
+    `).bind(
+      inquiry.apartment_id, inquiry.check_in, inquiry.check_out, inquiry.id,
+      inquiry.apartment_id, inquiry.check_out, inquiry.check_in,
+    ),
+    db.prepare(
+      "UPDATE inquiries SET status = 'confirmed', updated_at = datetime('now') WHERE id = ? AND status != 'confirmed'",
+    ).bind(inquiry.id),
+  ]);
 
-  if (overlapping) {
+  // Check if the INSERT actually inserted (0 rows = conflict)
+  const insertResult = batchResults[0];
+  if (insertResult.meta && insertResult.meta.changes === 0) {
     return jsonResponse({
       error: "date_conflict",
       message: "These dates overlap with an existing booking",
-      conflictingBlockId: overlapping.id,
     }, 409);
   }
-
-  // D1 batch: insert availability block + update inquiry status
-  await db.batch([
-    db.prepare(
-      "INSERT INTO availability_blocks (apartment_id, check_in, check_out, source, inquiry_id) VALUES (?, ?, ?, 'inquiry', ?)",
-    ).bind(inquiry.apartment_id, inquiry.check_in, inquiry.check_out, inquiry.id),
-    db.prepare(
-      "UPDATE inquiries SET status = 'confirmed', updated_at = datetime('now') WHERE id = ?",
-    ).bind(inquiry.id),
-  ]);
 
   return jsonResponse({ success: true, message: "Inquiry confirmed, dates blocked" });
 };

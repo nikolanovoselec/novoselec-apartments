@@ -3,7 +3,7 @@ import { getEnv } from "~/lib/env";
 import { inquirySchema, type Inquiry } from "~/schemas/inquiry";
 import { verifyTurnstileToken, isTokenExpired } from "~/lib/turnstile";
 import { hasOverlap } from "~/lib/availability";
-import { sanitizeMessage, sanitizeName, sanitizeEmail, sanitizePhone } from "~/lib/sanitize";
+import { sanitizeMessage, sanitizeName, sanitizeEmail, sanitizePhone, stripHtml } from "~/lib/sanitize";
 import { computeStayPrice, type Season } from "~/lib/pricing";
 import { sendEmail } from "~/lib/resend";
 
@@ -55,11 +55,10 @@ export const POST: APIRoute = async ({ request, locals }) => {
   const turnstileResult = await verifyTurnstileToken(data.turnstileToken, turnstileSecret, clientIp);
 
   if (!turnstileResult.success) {
-    const status = isTokenExpired(turnstileResult.errorCodes) ? 403 : 403;
     return jsonResponse({
       error: isTokenExpired(turnstileResult.errorCodes) ? "turnstile_expired" : "turnstile_failed",
       message: "Security verification failed",
-    }, status);
+    }, 403);
   }
 
   // Sanitize inputs
@@ -252,8 +251,8 @@ function buildOwnerEmail(
   if (data.type === "booking") {
     lines.push(`<p><strong>Dates:</strong> ${data.checkIn} to ${data.checkOut}</p>`);
     lines.push(`<p><strong>Guests:</strong> ${data.adults} adults, ${data.childrenUnder12} children (<12), ${data.children12to17} children (12-17)</p>`);
-    lines.push(`<p><strong>Apartment:</strong> ${data.apartmentId}</p>`);
-    if (data.hasPets) lines.push(`<p><strong>Pets:</strong> Yes${data.petNote ? ` — ${data.petNote}` : ""}</p>`);
+    lines.push(`<p><strong>Apartment:</strong> ${stripHtml(data.apartmentId)}</p>`);
+    if (data.hasPets) lines.push(`<p><strong>Pets:</strong> Yes${data.petNote ? ` — ${stripHtml(data.petNote)}` : ""}</p>`);
     if (priceEstimate) lines.push(`<p><strong>Price estimate:</strong> €${priceEstimate.toFixed(2)}</p>`);
   }
 
