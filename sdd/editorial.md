@@ -71,7 +71,8 @@ Content pages that sell the destination and build emotional connection — Why P
 - **Intent:** Curated recommendations that build trust and drive SEO
 - **Applies To:** Visitor
 - **Acceptance Criteria:**
-  - Categories: Beaches, Food & Drink, Restaurants & Konobas, Activities, Day Trips
+  - **Pre-CMS state (current):** Standalone guide page (`/[locale]/vodic`) with `HeroSimple` header. Four categories displayed in alternating image+text layout: Beaches, Food & Drink, Activities, Day Trips. Each category: landscape photo (3:2 aspect), uppercase label, per-locale descriptive paragraph. Alternating layout: odd items show image left / text right, even items reverse (image right / text left on desktop). Single-column stacking on mobile. No filtering, no "coming soon" message — content is visible but static.
+  - **With CMS (planned):** Categories expanded to: Beaches, Food & Drink, Restaurants & Konobas, Activities, Day Trips
   - **Food & Drink** is a featured category: local specialties (grilled fish, octopus peka, lamb, olive oil, island wine, figs), appetizing full-bleed food photography, where to buy/eat
   - Each entry: name, short description, photo, distance from property, category tags
   - Emdash collection — owner adds/edits from phone
@@ -83,8 +84,8 @@ Content pages that sell the destination and build emotional connection — Why P
 - **Constraints:** CON-CMS, CON-I18N
 - **Priority:** P1
 - **Dependencies:** REQ-CMS-1, REQ-CMS-5, REQ-I18N-4
-- **Verification:** Create guide entries, verify rendering and filtering
-- **Status:** Planned
+- **Verification:** Visual review of guide page layout; later: create guide entries, verify rendering and filtering
+- **Status:** Implemented
 
 ### REQ-ED-5: "About Your Hosts" Page
 

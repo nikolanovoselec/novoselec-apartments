@@ -1,5 +1,30 @@
 # Changelog
 
+## 2026-04-02 — Revision 17: Local Guide & Apartment Listing Redesign (52627b7)
+
+Local guide page redesigned from emoji icon category cards to alternating image+text layout with per-locale descriptions. Apartment listing page redesigned from placeholder card grid to lifestyle "coming soon" layout with duo images and inquiry CTA.
+
+### AC updated
+- **REQ-ED-4:** Added "Pre-CMS state (current)" AC documenting the alternating image+text layout with 4 categories (Beaches, Food & Drink, Activities, Day Trips), 3:2 landscape photos, and per-locale text. "Restaurants & Konobas" deferred to CMS phase. Status changed from Planned to Implemented.
+- **REQ-AP-2:** Added "Pre-CMS state (current)" AC documenting the lifestyle coming-soon layout with duo-image grid (3:4, 4px gap), localized teaser text, heading, and inquiry CTA. Old card grid AC preserved under "With CMS (planned)". Zero-apartment handling updated to reference new layout.
+
+### Status changes
+- **REQ-ED-4:** Planned -> Implemented (pre-CMS static guide page is live with content)
+
+## 2026-04-02 — Revision 16: Uniform Photo System & Hamburger Inline Styles (f5d0069)
+
+Homepage photo treatment redesigned with a uniform edge-to-edge system. All homepage images now use no border-radius, no gaps (except duo-image 4px), and bleed to viewport edges. Hamburger button hardened with inline styles to prevent CSS cascade issues.
+
+### AC updated
+- **REQ-SF-5:** Photo strip changed from 16:9 with 4px gap and hover zoom to 3:2 edge-to-edge with no gaps and no hover zoom. Why Pasman selling points changed from icon+text grid to uppercase bordered tag pills in a tag row. Zdrelac section changed from fixed-height (60vh) to aspect-ratio-based full-bleed image (21:9 desktop, 16:9 mobile). Apartments preview changed from asymmetric image grid (1.2fr/0.8fr with border-radius) to uniform duo-image (1fr/1fr, no border-radius). Experience teaser renamed to "triptych" — edge-to-edge, no border-radius, hover zoom retained at 1.03x.
+- **REQ-SF-3:** Hamburger button AC updated. Now uses inline styles on button and span elements for bulletproof rendering independent of CSS cascade. Selected via `#hamburger-btn` ID instead of `.nav__hamburger` class.
+- **REQ-VD-6:** Added "Homepage photos (uniform system)" AC item. All homepage photo treatments are edge-to-edge with no border-radius. Padding/shadow note scoped to non-homepage contexts. Mobile note updated for single-column stacking with adjusted aspect ratios.
+
+### No status changes
+- REQ-SF-5 remains Planned (CMS integration, section toggles still missing).
+- REQ-SF-3 remains Planned (focus trapping still missing).
+- REQ-VD-6 remains Planned (CMS-managed frame styles, arch clip-path not yet implemented).
+
 ## 2026-04-02 — Revision 15: Pexels CDN Workaround for Stock Photos (3c72571)
 
 Stock photo `src` attributes switched from `/media/:key` Worker route (which returns 404 due to R2 routing bug) to direct Pexels CDN URLs as a temporary workaround. All 9 homepage images now hotlinked from `images.pexels.com` with `?auto=compress&w=` query params for basic size optimization. This is a stopgap — images will move back to R2 + Image Resizing once the `/media/` route bug is resolved.

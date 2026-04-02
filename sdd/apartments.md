@@ -49,19 +49,20 @@ Apartment listings, detail pages, photo galleries, amenities, seasonal pricing, 
 - **Intent:** Let visitors browse and compare all apartments at a glance
 - **Applies To:** Visitor
 - **Acceptance Criteria:**
-  - Card per apartment: hero photo, name, capacity, distance to beach, "from €X/night", sea view badge if applicable, "Best for" label (couples/families/etc.), one-line value proposition
+  - **Pre-CMS state (current):** Lifestyle "coming soon" layout with duo-image grid (2-col, 1fr/1fr, 3:4 portrait aspect, 4px gap) on left, localized teaser text and heading on right (desktop). Inquiry CTA button links to homepage inquiry section. Uses `HeroSimple` header. Text side: uppercase label ("Coming soon" per locale), heading, lead paragraph describing the apartments. Single-column stacking on mobile.
+  - **With CMS (planned):** Card per apartment: hero photo, name, capacity, distance to beach, "from €X/night", sea view badge if applicable, "Best for" label (couples/families/etc.), one-line value proposition
   - Cards link to detail page
   - Quick-compare key facts visible on cards without clicking through
   - Image hover: subtle zoom within overflow:hidden
   - Scroll-triggered staggered fade-up entry
   - If only 1 apartment exists, listing page redirects to detail page
-  - **If zero apartments published in current locale:** show branded "Coming soon" message with contact info, not empty page or 404
-  - 2-column grid on desktop, single column on mobile
+  - **If zero apartments published in current locale:** lifestyle coming-soon layout (described above) with inquiry CTA, not empty page or 404
+  - 2-column grid on desktop (cards), single column on mobile
   - Only shows apartments published in current locale
 - **Constraints:** CON-PERF, CON-I18N
 - **Priority:** P0
 - **Dependencies:** REQ-AP-1
-- **Verification:** Visual review with 1 and 3+ apartments
+- **Verification:** Visual review with 0, 1, and 3+ apartments
 - **Status:** Implemented
 
 ### REQ-AP-3: Apartment Detail Page

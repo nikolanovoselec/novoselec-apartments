@@ -70,13 +70,13 @@ All public pages are prefixed with the locale: `/hr/`, `/de/`, `/sl/`, `/en/`. C
 | Route | File | Description |
 |---|---|---|
 | `/:locale/` | `src/pages/[locale]/index.astro` | Homepage |
-| `/:locale/apartmani` | `src/pages/[locale]/apartmani.astro` | Apartment listing |
-| `/:locale/apartmani/:slug` | `src/pages/[locale]/apartmani/[slug].astro` | Apartment detail |
+| `/:locale/apartmani` | `src/pages/[locale]/apartmani/index.astro` | Apartment listing — pre-launch split layout: duo photos + editorial text + inquiry CTA |
+| `/:locale/apartmani/:slug` | `src/pages/[locale]/apartmani/[slug].astro` | Apartment detail (not yet created) |
 | `/:locale/zasto-pasman` | `src/pages/[locale]/zasto-pasman.astro` | Why Pašman — 4 selling-point sections |
 | `/:locale/dolazak` | `src/pages/[locale]/dolazak.astro` | Getting Here — ferry, airport, map links |
 | `/:locale/faq` | `src/pages/[locale]/faq.astro` | FAQ — accordion with Schema.org FAQPage markup |
 | `/:locale/o-nama` | `src/pages/[locale]/o-nama.astro` | About Us — host story |
-| `/:locale/vodic` | `src/pages/[locale]/vodic.astro` | Local Guide — category grid (beaches, food, activities) |
+| `/:locale/vodic` | `src/pages/[locale]/vodic.astro` | Local Guide — alternating image+text rows for 4 categories (beaches, food, activities, day trips), localized in all 4 locales |
 | `/:locale/privatnost` | `src/pages/[locale]/privatnost.astro` | Privacy Policy (GDPR) |
 | `/:locale/impressum` | `src/pages/[locale]/impressum.astro` | Legal notice |
 | `/:locale/pristupacnost` | `src/pages/[locale]/pristupacnost.astro` | Accessibility statement — WCAG 2.1 AA compliance target, localized in all 4 locales |
@@ -223,6 +223,17 @@ These layout components are defined as scoped styles in `src/pages/[locale]/inde
 | `.split-section` | Two-column layout: text (`__left`) + content (`__right`) | 50/50 columns on desktop, stacked on mobile; `.split-section--reverse` swaps column order |
 | `.tag-row` | Horizontal wrapping row of inline tag chips | `display: flex; flex-wrap: wrap; gap: var(--space-sm)` |
 | `.tag` | Individual chip inside a `.tag-row` | `border: 1px solid var(--color-border)`, small padding, `--font-size-xs` |
+
+### Page-Specific Layout Classes
+
+These classes are defined as scoped styles inside individual page components. They follow the same design conventions as Homepage Photo Patterns (no rounded corners, edge-to-edge images, 4px gaps) but are not shared across pages.
+
+| Class | Page | Pattern |
+|---|---|---|
+| `.apartments-coming` | `apartmani/index.astro` | Two-column grid: duo photos (`1fr`) + editorial text (`1.2fr`); stacks on mobile. Pre-launch placeholder layout. |
+| `.apartments-coming__images` | `apartmani/index.astro` | Two images side by side, 3:4 aspect ratio, 4px gap |
+| `.guide-grid` | `vodic.astro` | Flex column of `.guide-item` rows, spaced by `--space-3xl` |
+| `.guide-item` | `vodic.astro` | Alternating two-column row: photo (`1fr`) + text (`1fr`), 3:2 photo aspect; odd rows reverse column order via `.guide-item--reverse` |
 
 ### Progressive Enhancement
 
