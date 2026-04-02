@@ -10,7 +10,7 @@ import { stripHtml } from "~/lib/sanitize";
  */
 export const POST: APIRoute = async ({ params, cookies, locals }) => {
   // Auth check
-  const env = getEnv(locals as Record<string, unknown>);
+  const env = getEnv(locals);
   const authToken = cookies.get("auth_token")?.value;
   if (!authToken) {
     return jsonResponse({ error: "Authentication required" }, 401);

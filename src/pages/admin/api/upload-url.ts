@@ -20,7 +20,7 @@ const MAX_FILENAME_LENGTH = 200;
  * Requires authenticated admin session (JWT in cookie).
  */
 export const POST: APIRoute = async ({ request, cookies, locals }) => {
-  const env = getEnv(locals as Record<string, unknown>);
+  const env = getEnv(locals);
 
   // Auth check — verify JWT from cookie
   const authToken = cookies.get("auth_token")?.value;
@@ -54,8 +54,12 @@ export const POST: APIRoute = async ({ request, cookies, locals }) => {
     return jsonResponse({ error: "File type not allowed. Supported: JPEG, PNG, HEIC, WebP, AVIF" }, 400);
   }
 
-  // Generate opaque UUID key
+  // Generate opaque UUID key with validated extension
+  const ALLOWED_EXTENSIONS = new Set(["jpg", "jpeg", "png", "heic", "heif", "webp", "avif"]);
   const extension = body.filename.split(".").pop()?.toLowerCase() ?? "";
+  if (!ALLOWED_EXTENSIONS.has(extension)) {
+    return jsonResponse({ error: "Invalid file extension" }, 400);
+  }
   const objectKey = `${crypto.randomUUID()}.${extension}`;
 
   const r2Client = new AwsClient({

@@ -239,12 +239,12 @@ Confirms a booking inquiry and atomically blocks the dates in `availability_bloc
 | `400` | Inquiry is not a booking type, or is missing apartment/date fields |
 | `404` | Inquiry not found |
 | `409` | Inquiry is already confirmed |
-| `409` | Date conflict — returns `{ "error": "date_conflict", "conflictingBlockId": N }` |
+| `409` | Date conflict — returns `{ "error": "date_conflict", "message": "These dates overlap with an existing booking" }` |
 
 **Notes:**
 
-- Uses a D1 `batch()` to insert the `availability_blocks` row and update `inquiries.status = 'confirmed'` atomically.
-- Overlap is checked against existing `availability_blocks` immediately before the batch — a `409` is returned if another block was created in the interim.
+- Overlap detection and the availability block insert are combined into a single atomic `INSERT...WHERE NOT EXISTS` statement, executed inside a D1 `batch()` together with the status update. There is no separate pre-check — the INSERT itself is the guard.
+- If `meta.changes === 0` after the INSERT, a conflict existed and `409 date_conflict` is returned with no partial state written.
 - The inserted block carries `source = 'inquiry'` and `inquiry_id` referencing the confirmed inquiry.
 
 **Implementation:** `src/pages/admin/api/inquiries/[id]/confirm.ts`.

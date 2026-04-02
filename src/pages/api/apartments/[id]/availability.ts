@@ -22,7 +22,7 @@ export const GET: APIRoute = async ({ params, url, locals }) => {
     return jsonResponse({ error: "Valid start and end dates required (YYYY-MM-DD)" }, 400);
   }
 
-  const env = getEnv(locals as Record<string, unknown>);
+  const env = getEnv(locals);
   const db = env.DB;
 
   try {

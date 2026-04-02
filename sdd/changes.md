@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-04-02 — Revision 7: Security & Atomicity Fixes (4ea1d35)
+
+### AC updated
+- **REQ-BK-7:** "Confirm + Block Dates" AC updated from "D1 transaction: 1) verify no date overlap, 2) insert availability block, 3) update inquiry status" to "D1 batch (atomic): overlap check and availability block insertion happen in a single statement to prevent race conditions (TOCTOU)." Previous wording implied 3 sequential steps; implementation correctly uses INSERT...WHERE NOT EXISTS for atomic overlap prevention.
+- **REQ-BK-2:** Input sanitization AC broadened from "no HTML in message" to "all user-supplied fields stripped of HTML before rendering in email output." Commit adds `stripHtml()` to apartmentId and petNote in owner notification email, not just the message field.
+
+### Implementation progress noted (REQ-BK-7, status remains Planned)
+- JWT authentication now wired into confirm endpoint (was comment-only in Phase 5). Verifies `auth_token` cookie via `verifyJWT`. Returns 401 for missing or invalid tokens.
+- Remaining gaps from Revision 6 still apply: no CSRF token validation, no signed single-use URL token, no decline/spam actions, no admin inquiry list UI, no unread count badge.
+
+### Previous gap partially resolved
+- Revision 6 noted "authentication middleware not wired (comment-only)" for REQ-BK-7. JWT auth is now implemented. CSRF token remains unimplemented.
+
 ## 2026-04-02 — Revision 6: Phase 5 Implementation Sync
 
 Spec synced with Phase 5 commit (inquiry server pipeline, confirm+block dates, email delivery, GDPR consent, analytics events).

@@ -100,7 +100,7 @@ All API inputs are validated with Zod before any business logic runs. The inquir
 
 On booking inquiries, `POST /api/inquiry` re-queries `availability_blocks` for overlap immediately before the D1 insert. This guards against the race condition where dates appeared available on the client but were taken between page load and form submission. A `409 stale_availability` is returned to the guest if overlap is detected.
 
-The same overlap check runs on `POST /admin/api/inquiries/:id/confirm` before the atomic D1 batch, returning `409 date_conflict` if another block was created in the interim.
+On `POST /admin/api/inquiries/:id/confirm`, overlap detection is built into the D1 batch itself using `INSERT...WHERE NOT EXISTS`. The INSERT and the status update execute atomically — if the INSERT finds a conflicting block it writes zero rows, and the endpoint returns `409 date_conflict` with no partial state written. There is no separate pre-check step.
 
 ## Authentication Security
 

@@ -19,7 +19,7 @@ import { sendEmail } from "~/lib/resend";
  * 7. Return appropriate status code
  */
 export const POST: APIRoute = async ({ request, locals }) => {
-  const env = getEnv(locals as Record<string, unknown>);
+  const env = getEnv(locals);
   const db = env.DB;
   const turnstileSecret = env.TURNSTILE_SECRET_KEY ?? "";
   const resendKey = env.RESEND_API_KEY ?? "";

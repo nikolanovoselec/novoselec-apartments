@@ -112,17 +112,18 @@ Browser submits form
 
 ```
 Admin triggers confirm
+  → JWT auth check (auth_token cookie) → 401 if missing or invalid
   → Lookup inquiry by ID → 404 if missing
   → Guard: type must be 'booking' → 400 if question
   → Guard: status must not be 'confirmed' → 409 if already done
-  → Overlap check against availability_blocks → 409 if conflict
   → D1 batch (atomic):
-      INSERT INTO availability_blocks (source='inquiry', inquiry_id=N)
+      INSERT INTO availability_blocks ... WHERE NOT EXISTS (overlap)
+        → 0 rows inserted = 409 date_conflict, no partial write
       UPDATE inquiries SET status='confirmed'
   → 200 success
 ```
 
-The D1 `batch()` call ensures the availability block and status update either both succeed or both fail — there is no window where dates appear unblocked after confirmation.
+Overlap detection is embedded in the INSERT statement itself (`INSERT...WHERE NOT EXISTS`), not as a separate pre-check. The D1 `batch()` makes the insert and the status update a single atomic operation — no window exists between overlap detection and the block being written.
 
 ---
 

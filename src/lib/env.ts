@@ -19,7 +19,7 @@ export interface CloudflareEnv {
 /**
  * Extract Cloudflare env bindings from Astro locals.
  */
-export function getEnv(locals: Record<string, unknown>): CloudflareEnv {
-  const runtime = locals.runtime as { env: CloudflareEnv } | undefined;
-  return runtime?.env ?? ({} as CloudflareEnv);
+export function getEnv(locals: unknown): CloudflareEnv {
+  const obj = locals as { runtime?: { env?: CloudflareEnv } };
+  return obj?.runtime?.env ?? ({} as CloudflareEnv);
 }

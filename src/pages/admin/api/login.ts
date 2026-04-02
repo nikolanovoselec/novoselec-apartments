@@ -8,7 +8,7 @@ import { sendEmail } from "~/lib/resend";
  * Send a 6-digit magic link code to the owner's email.
  */
 export const POST: APIRoute = async ({ request, locals }) => {
-  const env = getEnv(locals as Record<string, unknown>);
+  const env = getEnv(locals);
   const adminEmails = env.ADMIN_EMAILS ?? "";
   const resendKey = env.RESEND_API_KEY ?? "";
 
@@ -67,7 +67,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
       .prepare("DELETE FROM auth_codes WHERE email = ? AND code_hash = ?")
       .bind(email, codeHash)
       .run();
-    return jsonResponse({ error: "Failed to send code. Please try again." }, 503);
+    // Return success to prevent admin email enumeration via Resend failure timing
   }
 
   return jsonResponse({ success: true });

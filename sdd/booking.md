@@ -60,7 +60,7 @@ Request-to-book inquiry flow, business rules, server pipeline, WhatsApp integrat
   - **Availability revalidated server-side at submit time** — rejects if dates booked since page load
   - Turnstile token verified server-side via Cloudflare API
   - Inquiry persisted to D1 `inquiries` table before email attempt with status `new`
-  - Input sanitized: no HTML in message, email header injection prevented, URLs stripped from message body
+  - Input sanitized: all user-supplied fields stripped of HTML before rendering in email output, email header injection prevented, URLs stripped from message body
   - Honeypot hidden field for bot detection (in addition to Turnstile)
   - Email to owner via Resend: formatted HTML with all inquiry details, computed price, guest contact, one-tap "Confirm & Block Dates" link (deep link to admin action)
   - Auto-reply to guest via Resend: confirmation with apartment name, dates, **explicit disclaimer: "This is a request, not a confirmed booking. Dates are not held automatically."**, response time promise
@@ -181,7 +181,7 @@ Request-to-book inquiry flow, business rules, server pipeline, WhatsApp integrat
   - Admin shows inquiry list: guest name, apartment, dates, status, timestamp. Sorted newest first.
   - One-tap actions on phone: "Confirm + Block Dates", "Decline", "Mark Spam"
   - **"Confirm + Block Dates" security:** Email contains link to authenticated admin confirmation page (not a direct state-changing GET). Requires valid admin session + CSRF token. Optional signed single-use token in URL preselects the inquiry (expires 48h). If session expired, prompts login, then returns to confirmation page.
-  - "Confirm + Block Dates" runs as a **D1 transaction:** 1) verify no date overlap, 2) insert availability block, 3) update inquiry status to `confirmed`. If overlap detected: conflict resolution screen showing both bookings.
+  - "Confirm + Block Dates" runs as a **D1 batch (atomic):** overlap check and availability block insertion happen in a single statement to prevent race conditions (TOCTOU), inquiry status updated to `confirmed` in same batch. If overlap detected: conflict resolution screen showing both bookings.
   - Conflict warning if confirming dates that overlap an existing booking
   - Unread count badge in admin nav
 - **Constraints:** CON-CMS

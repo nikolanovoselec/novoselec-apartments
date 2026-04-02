@@ -11,7 +11,7 @@ export const GET: APIRoute = async ({ params, url, locals }) => {
     return new Response("Missing key", { status: 400 });
   }
 
-  const env = getEnv(locals as Record<string, unknown>);
+  const env = getEnv(locals);
   const bucket = env.MEDIA;
   if (!bucket) {
     return new Response("Storage not configured", { status: 503 });
