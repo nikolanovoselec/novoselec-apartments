@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-04-02 — Revision 13: WCAG AA Contrast Fix & Hero Localization (a8fa3a1)
+
+Spec synced with contrast accessibility fix. Opacity values raised across hero and homepage dark sections to meet WCAG AA contrast ratios. Dead `heroImageUrl` prop removed. Hero location label localized to all 4 locales.
+
+### AC updated
+- **REQ-SF-1:** Hero label opacity corrected from 0.5 to 0.7. Tagline opacity corrected from 0.5 to 0.7. Location label changed from hardcoded English to locale-aware string (Croatian, German, Slovenian, English).
+- **REQ-A11Y-4:** AC expanded from vague "contrast guaranteed via overlay" to specify minimum alpha thresholds: 0.65 for large text, 0.7 for normal text on dark backgrounds.
+
 ## 2026-04-02 — Revision 12: Visual Design Refinement (2a49348)
 
 Spec synced with visual design overhaul commit. Color palette refined, typography redone with dramatic scale, scroll animations upgraded with progressive enhancement gate, new button variants, stone grain texture implemented, hero completely redesigned.

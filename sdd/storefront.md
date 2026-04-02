@@ -19,8 +19,8 @@ The homepage and visual shell — hero, navigation, footer, language switcher, a
   - **Layered gradient background:** radial gradients (azure at top-left, warm terracotta at bottom-right) over linear navy gradient, creating atmospheric depth without photography dependency
   - Stone grain SVG noise overlay at 3% opacity for tactile texture
   - Two-line title: property name on first line, location on second line in italic at reduced opacity (0.6)
-  - `.text-label` location tag above title ("Pasman Island, Croatia") at 0.5 opacity with wide letter-spacing
-  - Tagline in uppercase sans-serif at 0.5 opacity below title
+  - `.text-label` location tag above title (localized per locale, e.g. "Otok Pasman, Hrvatska" for Croatian) at 0.7 opacity with wide letter-spacing
+  - Tagline in uppercase sans-serif at 0.7 opacity below title
   - Ghost CTA button linking to apartments listing
   - Scroll indicator pulses at bottom (CSS keyframe animation)
   - Title and subtitle fade up with staggered CSS animation (0.3s and 0.6s delay)

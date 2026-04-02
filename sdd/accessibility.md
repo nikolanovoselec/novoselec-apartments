@@ -70,7 +70,7 @@ Reduced motion, keyboard navigation, screen reader support, and color contrast.
 - **Applies To:** Visitor
 - **Acceptance Criteria:**
   - WCAG AA: 4.5:1 normal text, 3:1 large text
-  - Hero text: contrast guaranteed via overlay
+  - Hero text: contrast guaranteed via gradient overlay. Light-on-dark text elements use minimum 0.65 alpha (large text) or 0.7 alpha (normal text) to meet AA ratios against dark backgrounds.
   - Transparent nav: gradient ensures text contrast
   - No color-only information (calendar uses color + pattern)
   - Tested with color blindness simulators
