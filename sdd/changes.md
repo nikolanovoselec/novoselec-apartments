@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-04-03 — Revision 46: Documentation Additions
+
+Three missing documentation files created (`cms-guide.md`, `content-guide.md`, `troubleshooting.md`) and `authentication.md` updated with Cloudflare Access details. All files listed in `sdd/README.md` Documentation section now exist. No requirement status changes — no REQ-* entries were gated on documentation file existence.
+
 ## 2026-04-03 — Revision 45: Apartment Detail Enhancements + 404 Localization
 
 Synced spec with commits 447c227 (apartment detail: Schema.org VacationRental, breadcrumbs, wave, lowestPrice) and a4db0c5 (localize 404 page). All statuses remain Partial pending live verification.

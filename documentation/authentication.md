@@ -1,6 +1,6 @@
 # Authentication
 
-Authentication for the owner admin panel (custom) and Emdash CMS (Cloudflare Access).
+Authentication for the Emdash CMS admin panel via Cloudflare Access.
 
 **Audience:** Developers
 
@@ -14,7 +14,7 @@ Admin authentication is handled by **Cloudflare Access** — a zero-trust proxy 
 |---|---|---|
 | Emdash CMS (`/_emdash/admin`) | Cloudflare Access → `access()` adapter | JWT validated via `CF_ACCESS_AUDIENCE`; users auto-provisioned |
 
-**Deprecated:** The custom Magic Link admin panel (`/admin/*`) was removed. Cloudflare Access handles all admin authentication.
+**Deprecated:** The custom Magic Link admin panel (`/admin/*`) is no longer the primary auth mechanism. Cloudflare Access handles all admin authentication. The Magic Link code (`src/lib/auth.ts`) still exists in the codebase for JWT/session utilities but is not used for CMS login.
 
 ## Cloudflare Access Authentication
 
@@ -137,6 +137,6 @@ Then redeploy. The check is case-insensitive. There is no UI for managing this l
 ## Related Documentation
 
 - [Security](security.md#rate-limiting) — Rate limiting policy
-- [Configuration](configuration.md#secrets) — JWT_SECRET, ADMIN_EMAILS, RESEND_API_KEY
+- [Configuration](configuration.md#secrets) — Secrets and environment variables
 - [Architecture](architecture.md#authentication-model) — Where auth fits in the system
-- [Decisions](decisions/README.md#ad2-magic-link-auth-via-resend-instead-of-google-oauth) — Why Magic Link over OAuth
+- [Decisions](decisions/README.md#ad14-emdash-cms-auth-switched-to-cloudflare-access) — Why CF Access replaced Magic Link
