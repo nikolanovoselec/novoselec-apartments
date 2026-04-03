@@ -219,9 +219,22 @@ const l = labels[typedLocale];
   }
 </style>
 
-<script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
 
 <script is:inline>
+  // Explicit Turnstile rendering — wait for API to load
+  function renderTurnstile() {
+    if (window.turnstile && document.getElementById("turnstile-container")) {
+      window.turnstile.render("#turnstile-container", {
+        sitekey: "0x4AAAAAAAiYAz_U5JnMbfRB",
+        theme: "light",
+      });
+    } else {
+      setTimeout(renderTurnstile, 500);
+    }
+  }
+  document.addEventListener("DOMContentLoaded", renderTurnstile);
+
   document.addEventListener("DOMContentLoaded", function() {
     var form = document.getElementById("inquiry-form");
     var btn = document.getElementById("submit-btn");
