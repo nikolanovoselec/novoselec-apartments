@@ -21,6 +21,10 @@ export function buildHreflangLinks(
   const match = pathname.match(/^\/([a-z]{2})(\/.*)?$/);
   if (!match) return [];
 
+  // Only generate hreflang for valid locales
+  const extractedLocale = match[1];
+  if (!locales.includes(extractedLocale as Locale)) return [];
+
   const rest = match[2] ?? "";
 
   const links: HreflangLink[] = locales.map((loc) => ({

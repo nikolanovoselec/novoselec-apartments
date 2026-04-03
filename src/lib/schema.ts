@@ -20,7 +20,6 @@ interface BreadcrumbItem {
  */
 export function buildVacationRentalSchema(
   apartment: ApartmentData,
-  locale: string,
 ): Record<string, unknown> {
   return {
     "@context": "https://schema.org",
@@ -62,16 +61,11 @@ export function buildBreadcrumbSchema(
   return {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    itemListElement: items.map((item, index) => {
-      const element: Record<string, unknown> = {
-        "@type": "ListItem",
-        position: index + 1,
-        name: item.label,
-      };
-      if (item.href) {
-        element.item = item.href;
-      }
-      return element;
-    }),
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.label,
+      ...(item.href ? { item: item.href } : {}),
+    })),
   };
 }

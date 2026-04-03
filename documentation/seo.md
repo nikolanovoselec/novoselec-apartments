@@ -43,6 +43,8 @@ Each page is emitted once per locale, producing 64 `<url>` entries (16 pages × 
 
 Every `<url>` entry contains `xhtml:link rel="alternate"` elements for all four locales plus an `x-default` pointing to the Croatian (`hr`) variant. This tells Google which URL to serve for each language/region combination and prevents duplicate content penalties across locales.
 
+In addition to the sitemap, every page `<head>` carries `<link rel="alternate" hreflang="...">` tags for runtime crawling. These are built by `buildHreflangLinks(pathname, siteOrigin)` in `src/lib/hreflang.ts`. The function accepts the current page pathname (e.g. `/hr/apartmani`), strips the locale prefix, and returns an array of `{ hreflang, href }` objects for all four locales plus `x-default` (always pointing to the `hr` variant). The array is consumed by the base layout's `<head>`.
+
 ```xml
 <url>
   <loc>https://example.com/de/faq</loc>
@@ -83,13 +85,26 @@ The `Sitemap:` directive in robots.txt points to `/sitemap.xml` using the reques
 
 Schema.org JSON-LD is injected via `src/components/seo/SchemaOrg.astro`. The component accepts a `type` and a `data` object and emits a single `<script type="application/ld+json">` tag. `<` characters in serialized JSON are escaped as `\u003c` to prevent XSS.
 
+### Builder layer
+
+`src/lib/schema.ts` provides two pure builder functions that construct the JSON-LD objects consumed by `SchemaOrg.astro`:
+
+| Function | Output type | Used on |
+|---|---|---|
+| `buildVacationRentalSchema(apartment, locale)` | `VacationRental` | Apartment detail pages |
+| `buildBreadcrumbSchema(items)` | `BreadcrumbList` | Apartment detail pages |
+
+`buildVacationRentalSchema` accepts an `ApartmentData` object (`name`, `description`, `image`, `sleeps`, `bedrooms`, `bathrooms`, `size`, `priceFrom`, `amenities`) and a locale string, and returns a Schema.org `VacationRental` object with a hardcoded `PostalAddress` for Ždrelac, Zadar County, HR.
+
+`buildBreadcrumbSchema` accepts an array of `{ label, href? }` items and returns a `BreadcrumbList`. Items without `href` are emitted without an `item` property — the convention for the current (last) page in a trail.
+
 ### Supported schema types
 
-| Type | Used on | Purpose |
-|---|---|---|
-| `FAQPage` | `/:locale/faq` | Enables FAQ rich results in Google Search |
-| `VacationRental` | Apartment detail pages | Enables rental rich results |
-| `BreadcrumbList` | Apartment detail pages | Breadcrumb trail in search results |
+| Type | Builder | Used on | Purpose |
+|---|---|---|---|
+| `FAQPage` | Inline in `faq.astro` | `/:locale/faq` | Enables FAQ rich results in Google Search |
+| `VacationRental` | `buildVacationRentalSchema` | Apartment detail pages | Enables rental rich results |
+| `BreadcrumbList` | `buildBreadcrumbSchema` | Apartment detail pages | Breadcrumb trail in search results |
 
 ### FAQPage markup
 

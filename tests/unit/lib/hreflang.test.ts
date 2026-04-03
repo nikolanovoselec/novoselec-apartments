@@ -1,6 +1,3 @@
-// TDD tests for Phase 3 — src/lib/hreflang.ts does not exist yet.
-// These tests WILL FAIL until the module is implemented.
-
 import { describe, it, expect } from "vitest";
 import { buildHreflangLinks } from "~/lib/hreflang";
 
@@ -90,9 +87,25 @@ describe("buildHreflangLinks()", () => {
   it("returns hrefs with no double slashes in the path", () => {
     const links = buildHreflangLinks("/hr/apartmani", ORIGIN);
     for (const link of links) {
-      // Strip the protocol (https://) before checking for double slashes in path
       const pathPart = link.href.replace(/^https?:\/\//, "");
       expect(pathPart).not.toContain("//");
     }
+  });
+
+  it("returns empty array for invalid locale prefix", () => {
+    const links = buildHreflangLinks("/fr/page", ORIGIN);
+    expect(links).toHaveLength(0);
+  });
+
+  it("returns empty array for non-locale path", () => {
+    const links = buildHreflangLinks("/api/inquiry", ORIGIN);
+    expect(links).toHaveLength(0);
+  });
+
+  it("handles bare locale path /hr without trailing slash", () => {
+    const links = buildHreflangLinks("/hr", ORIGIN);
+    expect(links).toHaveLength(5);
+    const hrLink = links.find((l) => l.hreflang === "hr");
+    expect(hrLink?.href).toBe("https://apartmani.novoselec.ch/hr");
   });
 });
