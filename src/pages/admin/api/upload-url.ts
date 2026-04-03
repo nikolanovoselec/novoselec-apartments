@@ -1,5 +1,6 @@
 import type { APIRoute } from "astro";
 import { env } from "cloudflare:workers";
+import "~/lib/env";
 import { verifyJWT } from "~/lib/auth";
 import { AwsClient } from "aws4fetch";
 

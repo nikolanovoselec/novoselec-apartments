@@ -1,5 +1,6 @@
 import type { APIRoute } from "astro";
 import { env } from "cloudflare:workers";
+import "~/lib/env";
 import { generateCode, hashCode, isAdminEmail } from "~/lib/auth";
 import { sendEmail } from "~/lib/resend";
 

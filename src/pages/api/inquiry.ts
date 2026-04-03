@@ -1,5 +1,6 @@
 import type { APIRoute } from "astro";
 import { env } from "cloudflare:workers";
+import "~/lib/env";
 import { inquirySchema, type Inquiry } from "~/schemas/inquiry";
 import { verifyTurnstileToken, isTokenExpired } from "~/lib/turnstile";
 import { hasOverlap } from "~/lib/availability";

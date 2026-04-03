@@ -1,5 +1,6 @@
 import type { APIRoute } from "astro";
 import { env } from "cloudflare:workers";
+import "~/lib/env";
 import { getBookedDatesInRange } from "~/lib/availability";
 
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
