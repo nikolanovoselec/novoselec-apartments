@@ -1,5 +1,22 @@
 # Changelog
 
+## 2026-04-03 — Revision 38: Sitemap Completeness Fix + Requirements Audit
+
+Sitemap (`src/pages/sitemap.xml.ts`) updated to include 4 missing public pages: `/hrana`, `/aktivnosti`, `/plaze`, `/kontakt`. All 16 public routes are now in the sitemap with per-locale alternates. A 260-line missed requirements audit (`seed/missed-requirements.md`) was added documenting 20 gaps between user requests and current implementation. The audit confirms the spec is accurate in its status markings -- most flagged gaps correspond to requirements already marked `Status: Planned`.
+
+### Status updated
+- **REQ-SEO-4:** `Planned` -> `Implemented`. Acceptance criteria updated with full page list, response headers, and planned enhancements (dynamic apartment URLs, locale filtering from site-settings).
+
+### Audit alignment notes (no spec changes needed)
+- Items #6 (content via CMS), #7 (detail pages), #11 (section toggles), #12 (preloaded content) are covered by existing Planned requirements: REQ-CMS-1, REQ-CMS-5, REQ-CMS-6, REQ-AP-3
+- Items #3 (Emdash auth) addressed in Revision 37 (REQ-CMS-3 AC updated)
+- Items #10 (admin nav link) covered by REQ-SF-3 AC (Status: Planned)
+- Item #2 (calendar date picker) covered by REQ-BK-1 (Status: Planned); interim contact page (REQ-BK-8) uses native date inputs
+- Item #4 (photo lightbox) covered by REQ-AP-6 (Status: Planned)
+- Items #5, #14, #19, #20 (visual polish: animations, hero fade, organic images, color transitions) relate to REQ-VD-3, REQ-VD-6, REQ-VD-9 implementation refinements
+- Item #15 (panoramic video) covered by REQ-SF-2 (Status: Planned, P2)
+- Item #17 (sitemap) resolved in this commit
+
 ## 2026-04-03 — Revision 37: Resend Email Plugin for Emdash Magic Link Auth
 
 Custom Emdash plugin (`resend-email`) registered in Astro config to handle `email:deliver` hook. Sends magic link codes via Resend API. API key stored in Emdash plugin KV store (key: `resend_api_key`) to work around the Vite build-time limitation where `cloudflare:workers` bindings are unavailable. Key is cached in-memory after first fetch. This replaces the previous "login bypass mode" — Emdash admin panel now has a working email delivery gate.
