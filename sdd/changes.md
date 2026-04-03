@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-04-03 — Revision 35: Contact Form Date Picker Inputs
+
+The contact inquiry page (`/{locale}/kontakt`) now uses two native `type="date"` inputs (check-in and check-out) instead of a single freeform text field for preferred dates. Labels are localized across all 4 locales (Dolazak/Odlazak, Anreise/Abreise, Prihod/Odhod, Check-in/Check-out). The dates row uses a 3-column grid layout (check-in, check-out, guests). On submission, the date range and guest count are appended to the message body so the owner sees complete details in the email. Added `@mdi/js` dependency.
+
+### AC updated
+- **REQ-BK-8:** "preferred dates (freeform text)" replaced with "check-in date and check-out date (native date inputs)". Added detail on date concatenation into message body for API payload.
+
 ## 2026-04-03 — Revision 34: Wave Dividers on Food & Drink and Zdrelac Hero Sections
 
 Food & Drink (`hrana`) and Zdrelac pages now have wavy line dividers at the bottom of their hero sections, matching the wave transition pattern established in REQ-VD-9. These pages use custom hero markup (`.page-hero`, `.village-hero`) rather than the shared `HeroSimple` component, so the wave is implemented via CSS `::after` pseudo-element with SVG `mask-image` instead of inline SVG. Same wave path, same cream fill (`#F8F5EF`), same responsive height. Activities and Beaches pages use the same hero class but do not yet have the wave divider.

@@ -235,6 +235,7 @@ p {
   padding-block: var(--space-section);
 }
 
+
 .section--alt {
   background:
     radial-gradient(1200px 600px at 20% 10%, var(--tint-terracotta), transparent 60%),

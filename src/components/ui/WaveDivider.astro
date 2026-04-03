@@ -19,20 +19,22 @@ const { fill = "#F8F5EF", bg = "transparent", flip = false, class: className = "
   </svg>
 </div>
 
-<style>
+<style is:global>
   .wave-divider {
     display: block;
     width: 100%;
     line-height: 0;
     overflow: hidden;
-    margin: 0;
+    margin: -1px 0;
     padding: 0;
+    position: relative;
+    z-index: 2;
   }
 
   .wave-divider svg {
     display: block;
     width: 100%;
-    height: clamp(40px, 6vw, 80px);
+    height: clamp(50px, 8vw, 100px);
   }
 
   .wave-divider--flip {

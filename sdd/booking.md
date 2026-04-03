@@ -198,7 +198,8 @@ Request-to-book inquiry flow, business rules, server pipeline, WhatsApp integrat
 - **Applies To:** Visitor
 - **Acceptance Criteria:**
   - Standalone page at `/{locale}/kontakt` with photo-backed hero (REQ-VD-12) and two-column layout (info + form)
-  - Form fields: name (required), email (required), phone (optional), preferred dates (freeform text, optional), number of guests (number input, optional), message (required)
+  - Form fields: name (required), email (required), phone (optional), check-in date (native date input, optional), check-out date (native date input, optional), number of guests (number input, optional), message (required)
+  - Check-in and check-out are separate `type="date"` inputs; the browser renders its native date picker per locale. Dates and guest count are appended to the message body in the API payload so the owner sees all details in a single field.
   - All field labels localized in 4 locales (hr, de, sl, en) — labels are visible, not placeholder-only
   - Honeypot hidden field (`website`) for bot filtering, off-screen with `aria-hidden`
   - GDPR consent checkbox (unchecked by default, required to submit)
