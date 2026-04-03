@@ -233,6 +233,7 @@ p {
 /* ---------- Sections ---------- */
 .section {
   padding-block: var(--space-section);
+  background-color: var(--color-bg);
 }
 
 
@@ -478,7 +479,7 @@ p {
     radial-gradient(1200px 800px at 20% 10%, rgba(255, 214, 170, 0.45), transparent 60%),
     radial-gradient(900px 600px at 80% 20%, rgba(130, 210, 255, 0.35), transparent 55%),
     linear-gradient(120deg,
-      #0a2342 0%, #0b3b64 18%, #2a6f97 35%,
+      #0A1F33 0%, #0b3b64 18%, #2a6f97 35%,
       #f1c27d 55%, #c2714e 70%, #2b1b3b 100%);
   background-size: 200% 200%;
   background-position: 0% 50%;
