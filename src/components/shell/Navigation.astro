@@ -19,7 +19,9 @@ const navItems = [
 ];
 
 function getLocalizedPath(targetLocale: string): string {
-  return `/${targetLocale}`;
+  const currentPath = Astro.url.pathname;
+  const pathWithoutLocale = currentPath.replace(/^\/[a-z]{2}(\/|$)/, "/");
+  return `/${targetLocale}${pathWithoutLocale === "/" ? "" : pathWithoutLocale}`;
 }
 ---
 

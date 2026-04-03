@@ -49,22 +49,14 @@
   clip-path: inset(0 0 0 0);
 }
 
-/* ---------- Section divider line extend ---------- */
-.section-divider {
-  width: 120px;
-  height: 1px;
-  background: currentColor;
-  opacity: 0.2;
-  margin: var(--space-2xl) auto;
-  transition: width 1.2s var(--ease-out);
-}
-
+/* ---------- Section divider wavy reveal ---------- */
 .reveal-ready .section-divider {
-  width: 0;
+  opacity: 0;
+  transition: opacity 1.2s var(--ease-out);
 }
 
 .reveal-ready .section-divider.is-visible {
-  width: 120px;
+  opacity: 0.3;
 }
 
 /* ---------- Image hover zoom ---------- */

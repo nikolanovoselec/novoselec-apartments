@@ -102,7 +102,7 @@ const oliveOilLabel: Record<Locale, string> = {
 
   {/* Wave separator */}
   <svg class="wave-sep" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true">
-    <path d="M0,40 C360,0 720,60 1080,20 S1440,40 1440,40 L1440,60 L0,60 Z" fill="var(--color-cream)"/>
+    <path d="M0,40 C360,0 720,60 1080,20 S1440,40 1440,40 L1440,60 L0,60 Z" fill="#F8F5EF"/>
   </svg>
 
   {/* Why Pašman */}
@@ -130,7 +130,7 @@ const oliveOilLabel: Record<Locale, string> = {
 
   {/* Wave separator */}
   <svg class="wave-sep wave-sep--flip" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true">
-    <path d="M0,20 C360,60 720,0 1080,40 S1440,20 1440,20 L1440,0 L0,0 Z" fill="var(--color-cream)"/>
+    <path d="M0,20 C360,60 720,0 1080,40 S1440,20 1440,20 L1440,0 L0,0 Z" fill="#F8F5EF"/>
   </svg>
 
   {/* Full-width image — Ždrelac — with curved corners inside container */}
@@ -335,12 +335,6 @@ const oliveOilLabel: Record<Locale, string> = {
     border: 1px solid var(--color-sand);
     border-radius: 20px;
     color: var(--color-navy);
-    transition: background 0.3s, color 0.3s;
-  }
-
-  .tag:hover {
-    background: var(--color-navy);
-    color: var(--color-white);
   }
 
   /* ============================================================
@@ -528,15 +522,19 @@ const oliveOilLabel: Record<Locale, string> = {
     transform: translateY(0);
   }
 
+  /* Always show labels on touch devices (no hover) */
+  @media (hover: none) {
+    .triptych__label {
+      transform: translateY(0);
+    }
+  }
+
   @media (max-width: 640px) {
     .triptych {
       grid-template-columns: 1fr;
     }
     .triptych__item img {
       aspect-ratio: 16 / 9;
-    }
-    .triptych__label {
-      transform: translateY(0);
     }
   }
 </style>
