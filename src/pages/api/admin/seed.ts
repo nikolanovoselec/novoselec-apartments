@@ -1,5 +1,5 @@
 import type { APIRoute } from "astro";
-import { getEnv } from "~/lib/env";
+import { env } from "cloudflare:workers";
 import { verifyJWT } from "~/lib/auth";
 
 /**
@@ -11,7 +11,6 @@ import { verifyJWT } from "~/lib/auth";
  */
 export const POST: APIRoute = async ({ cookies, locals }) => {
   // Auth check — same pattern as other admin endpoints
-  const env = getEnv(locals);
   const jwtSecret = env.JWT_SECRET;
   if (!jwtSecret) {
     return new Response(

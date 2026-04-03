@@ -1,5 +1,23 @@
 # Changelog
 
+## 2026-04-03 — Revision 28: WaveDivider Component, Apartment Detail Fix
+
+Reusable `WaveDivider` component replaces the `.water-flow` CSS utility class approach for section transitions. Three wave dividers added to homepage: cream-to-dark before apartments, dark-to-cream after apartments, cream-to-dark before sunset CTA. The component uses inline SVG with organic bezier curves, configurable fill color, optional vertical flip, and responsive height. Apartment detail page data loading fixed — switched from broken `getLocalizedEntry` wrapper to direct `getEmDashEntry` call with proper data unwrapping.
+
+### AC updated
+- **REQ-VD-9:** Rewritten from water-flow CSS utility (mask-image wave + caustics shimmer on apartments section) to standalone WaveDivider component approach. Previous water-flow class marked as superseded. Now describes reusable SVG component with fill/flip props and 3 homepage placements.
+- **REQ-VD-7:** Wave separator reference updated to cite REQ-VD-9 and reflect new responsive height.
+- **REQ-VD-4:** Section divider micro-interaction updated — now always-visible WaveDivider, no longer scroll-triggered reveal.
+
+### Glossary
+- Added "Wave Divider" term.
+
+### Stale content cleaned
+- **REQ-VD-3:** Removed "caustics drift" from reduced-motion effects list — caustics are no longer rendered (water-flow class superseded by WaveDivider).
+
+### Bug fixes (no spec change)
+- Apartment detail page (`/{locale}/apartmani/{slug}`) data loading fixed. Was using `getLocalizedEntry` (undefined/broken), now uses `getEmDashEntry` directly. REQ-AP-3 acceptance criteria unchanged — the fix makes behavior match the existing spec.
+
 ## 2026-04-03 — Revision 27: Remove Resend Plugin, Continuous Hero Zoom
 
 Removed Emdash Resend email plugin (`resendEmailPlugin`) from Astro config due to Vite build incompatibility — `cloudflare:workers` module cannot be resolved at build time. Emdash admin panel reverts to login bypass mode. The custom Magic Link auth flow (`/admin/api/login` + `/admin/api/verify`) is unaffected as it uses Resend directly via fetch. Hero carousel Ken Burns effect upgraded from a one-shot 8s CSS transition (scale 1 to 1.08) to a continuous 12s keyframe animation (scale 1 to 1.1 with translate3d drift, infinite alternate), ensuring the hero image is never static.

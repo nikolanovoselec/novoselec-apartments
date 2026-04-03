@@ -1,5 +1,5 @@
 import type { APIRoute } from "astro";
-import { getEnv } from "~/lib/env";
+import { env } from "cloudflare:workers";
 import { verifyJWT } from "~/lib/auth";
 
 /**
@@ -9,7 +9,6 @@ import { verifyJWT } from "~/lib/auth";
  */
 export const POST: APIRoute = async ({ params, cookies, locals }) => {
   // Auth check
-  const env = getEnv(locals);
   const jwtSecret = env.JWT_SECRET;
   if (!jwtSecret) {
     return jsonResponse({ error: "Server misconfigured" }, 500);

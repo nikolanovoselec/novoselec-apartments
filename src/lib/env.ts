@@ -1,6 +1,12 @@
 /**
- * Helper to safely access Cloudflare runtime bindings from Astro locals.
- * Avoids type casting issues across different Astro versions.
+ * Cloudflare env type declaration.
+ *
+ * Usage in API routes:
+ *   import { env } from "cloudflare:workers";
+ *   const key = (env as CloudflareEnv).RESEND_API_KEY;
+ *
+ * The cloudflare:workers module is marked as external by @astrojs/cloudflare
+ * and resolved at runtime by the Worker.
  */
 export interface CloudflareEnv {
   DB: D1Database;
@@ -11,15 +17,4 @@ export interface CloudflareEnv {
   ADMIN_EMAILS?: string;
   JWT_SECRET?: string;
   EMDASH_AUTH_SECRET?: string;
-  R2_ACCESS_KEY_ID?: string;
-  R2_SECRET_ACCESS_KEY?: string;
-  CLOUDFLARE_ACCOUNT_ID?: string;
-}
-
-/**
- * Extract Cloudflare env bindings from Astro locals.
- */
-export function getEnv(locals: unknown): CloudflareEnv {
-  const obj = locals as { runtime?: { env?: CloudflareEnv } };
-  return obj?.runtime?.env ?? ({} as CloudflareEnv);
 }

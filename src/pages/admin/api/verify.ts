@@ -1,5 +1,5 @@
 import type { APIRoute } from "astro";
-import { getEnv } from "~/lib/env";
+import { env } from "cloudflare:workers";
 import { hashCode, createJWT, generateRefreshToken, isAdminEmail } from "~/lib/auth";
 
 /**
@@ -7,7 +7,6 @@ import { hashCode, createJWT, generateRefreshToken, isAdminEmail } from "~/lib/a
  * Verify the 6-digit code and issue JWT + refresh token.
  */
 export const POST: APIRoute = async ({ request, locals }) => {
-  const env = getEnv(locals);
   const jwtSecret = env.JWT_SECRET ?? "";
   const adminEmails = env.ADMIN_EMAILS ?? "";
   const db = env.DB;

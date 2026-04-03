@@ -1,5 +1,5 @@
 import type { APIRoute } from "astro";
-import { getEnv } from "~/lib/env";
+import { env } from "cloudflare:workers";
 import { getBookedDatesInRange } from "~/lib/availability";
 
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
@@ -22,7 +22,6 @@ export const GET: APIRoute = async ({ params, url, locals }) => {
     return jsonResponse({ error: "Valid start and end dates required (YYYY-MM-DD)" }, 400);
   }
 
-  const env = getEnv(locals);
   const db = env.DB;
 
   try {

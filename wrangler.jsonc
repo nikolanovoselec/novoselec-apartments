@@ -15,6 +15,10 @@
       "database_id": "dd28856a-60e0-48d2-bb91-2b91ba8a0603"
     }
   ],
+  "vars": {
+    "ADMIN_EMAILS": "hello@graymatter.ch",
+    "TURNSTILE_SITE_KEY": "0x4AAAAAAAiYAz_U5JnMbfRB"
+  },
   "r2_buckets": [
     {
       "binding": "MEDIA",

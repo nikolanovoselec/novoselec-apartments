@@ -1,5 +1,5 @@
 import type { APIRoute } from "astro";
-import { getEnv } from "~/lib/env";
+import { env } from "cloudflare:workers";
 
 const validEventTypes = [
   "inquiry_submit",
@@ -18,7 +18,6 @@ const validEventTypes = [
  * No PII stored — only event type, apartment slug, locale, timestamp, page path.
  */
 export const POST: APIRoute = async ({ request, locals }) => {
-  const env = getEnv(locals);
   const db = env.DB;
 
   const body = await request.json().catch(() => null) as {

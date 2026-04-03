@@ -37,4 +37,5 @@
 | **Masonry Grid** | A layout pattern where items of varying heights are arranged in columns with no fixed row boundaries, creating a staggered brickwork effect. The gallery page uses alternating aspect ratios (4:3, 3:4, 1:1) to approximate this pattern with CSS Grid. |
 | **Caustics** | Light patterns produced by refraction through a water surface. Simulated with overlapping radial gradients and slow horizontal drift animation to evoke underwater light play. |
 | **Glassmorphism** | UI design trend using frosted-glass effect: translucent background + backdrop-filter blur + subtle border. Used on breathing card figcaptions. |
+| **Wave Divider** | A decorative SVG component placed between page sections to create organic, flowing color transitions. Uses a bezier-curve wave path with configurable fill color and optional vertical flip. Responsive height via CSS clamp. |
 | **WCAG** | Web Content Accessibility Guidelines — international standard for web accessibility. This site targets WCAG 2.1 Level AA compliance. |

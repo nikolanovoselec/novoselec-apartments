@@ -1,5 +1,5 @@
 import type { APIRoute } from "astro";
-import { getEnv } from "~/lib/env";
+import { env } from "cloudflare:workers";
 
 /**
  * Image serving route: fetches from private R2, applies Cloudflare Image Resizing.
@@ -11,7 +11,6 @@ export const GET: APIRoute = async ({ params, url, locals }) => {
     return new Response("Missing key", { status: 400 });
   }
 
-  const env = getEnv(locals);
   const bucket = env.MEDIA;
   if (!bucket) {
     return new Response("Storage not configured", { status: 503 });

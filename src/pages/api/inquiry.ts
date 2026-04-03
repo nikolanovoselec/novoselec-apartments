@@ -1,5 +1,5 @@
 import type { APIRoute } from "astro";
-import { getEnv } from "~/lib/env";
+import { env } from "cloudflare:workers";
 import { inquirySchema, type Inquiry } from "~/schemas/inquiry";
 import { verifyTurnstileToken, isTokenExpired } from "~/lib/turnstile";
 import { hasOverlap } from "~/lib/availability";
@@ -18,8 +18,7 @@ import { sendEmail } from "~/lib/resend";
  * 6. Resend emails (outbox pattern)
  * 7. Return appropriate status code
  */
-export const POST: APIRoute = async ({ request, locals }) => {
-  const env = getEnv(locals);
+export const POST: APIRoute = async ({ request }) => {
   const db = env.DB;
   const turnstileSecret = env.TURNSTILE_SECRET_KEY ?? "";
   const resendKey = env.RESEND_API_KEY ?? "";
@@ -166,7 +165,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
       html: buildOwnerEmail(data, cleanName, cleanEmail, cleanPhone, cleanMessage, priceEstimate),
       replyTo: cleanEmail,
       apiKey: resendKey,
-      from: "Apartmani Novoselec <noreply@apartmani.hr>",
+      from: "Apartmani Novoselec <noreply@graymatter.ch>",
     });
 
     // Guest auto-reply
@@ -181,7 +180,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
         : "Vaš upit — Apartmani Novoselec",
       html: buildGuestEmail(data, data.locale),
       apiKey: resendKey,
-      from: "Apartmani Novoselec <noreply@apartmani.hr>",
+      from: "Apartmani Novoselec <noreply@graymatter.ch>",
     });
 
     emailSent = ownerResult.success;

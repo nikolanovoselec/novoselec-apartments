@@ -1,5 +1,5 @@
 import type { APIRoute } from "astro";
-import { getEnv } from "~/lib/env";
+import { env } from "cloudflare:workers";
 import { generateCode, hashCode, isAdminEmail } from "~/lib/auth";
 import { sendEmail } from "~/lib/resend";
 
@@ -8,7 +8,6 @@ import { sendEmail } from "~/lib/resend";
  * Send a 6-digit magic link code to the owner's email.
  */
 export const POST: APIRoute = async ({ request, locals }) => {
-  const env = getEnv(locals);
   const adminEmails = env.ADMIN_EMAILS ?? "";
   const resendKey = env.RESEND_API_KEY ?? "";
 
@@ -58,7 +57,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
       </div>
     `,
     apiKey: resendKey,
-    from: "Apartmani Novoselec <noreply@apartmani.hr>",
+    from: "Apartmani Novoselec <noreply@graymatter.ch>",
   });
 
   if (!emailResult.success) {

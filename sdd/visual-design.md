@@ -60,13 +60,13 @@ Color system, typography, scroll animations, micro-interactions, and Croatian vi
   - Fade-up reveal: CSS `opacity` + `transform: translateY()` triggered by IntersectionObserver via `data-reveal` attribute
   - Image clip-path reveal: CSS `clip-path: inset()` transition on scroll-triggered class via `data-reveal-clip` attribute
   - Staggered entry: CSS `transition-delay` per child (100ms increments) via `data-reveal-stagger` attribute
-  - Section divider wavy SVG fades in on scroll entry
+  - ~~Section divider wavy SVG fades in on scroll entry~~ — Wave dividers are now always visible (REQ-VD-9), not scroll-triggered
   - **Ken Burns:** Hero carousel uses a continuous CSS keyframe animation (`heroZoom`, 12s ease-in-out infinite alternate) on slide images — scaling from 1.0 to 1.1 with a subtle translate3d drift (-1%, -1%). Animation is paused by default (`animation-play-state: paused`) and plays only on `.is-active` slides. The infinite alternating cycle ensures the hero image is never static, replacing the previous one-shot 8s transition.
   - **Breathing/floating keyframes:** `@keyframes breathe` (scale 1 to 1.02, 6s infinite), `@keyframes float` (translateY 0 to -8px, 5s infinite), `@keyframes slowZoom` (scale 1 to 1.05). Utility classes `.animate-breathe` and `.animate-float` available for decorative elements.
   - **GSAP optional:** Max 1 signature moment per page if CSS cannot achieve it (e.g., pinned "A Day on Pašman" timeline on desktop). If GSAP adds >20KB to bundle, skip it and use CSS-only alternative.
   - No parallax (complexity vs. value tradeoff for this project)
   - Only animate `transform` and `opacity` (GPU-composited), plus `clip-path` and `width` for specific reveal types
-  - `prefers-reduced-motion`: all animation durations set to 0.01ms, content immediately visible. Premium effects (sunset gradient shift, haze drift, caustics drift, breathing cards) explicitly disabled via dedicated `@media (prefers-reduced-motion: reduce)` block.
+  - `prefers-reduced-motion`: all animation durations set to 0.01ms, content immediately visible. Premium effects (sunset gradient shift, haze drift, breathing cards) explicitly disabled via dedicated `@media (prefers-reduced-motion: reduce)` block.
   - Mobile: simple fade-in only, no scroll-triggered complexity
   - **Art direction rules:**
     - Max 1 animated reveal per viewport height
@@ -92,7 +92,7 @@ Color system, typography, scroll animations, micro-interactions, and Croatian vi
   - Form focus: bottom-border animates from center via `.focus-line` element
   - Nav: smooth transparent-to-solid transition
   - Hamburger: morphs to X via CSS transform transitions on three `<span>` elements
-  - Section dividers: wavy SVG divider fades in on scroll-triggered reveal
+  - Section dividers: standalone WaveDivider components between sections (always visible, `aria-hidden`, no scroll-triggered reveal)
   - All hover effects have equivalent focus states for keyboard (`:focus-visible` with 2px accent outline)
 - **Constraints:** CON-A11Y, CON-PERF
 - **Priority:** P1
@@ -144,7 +144,7 @@ Color system, typography, scroll animations, micro-interactions, and Croatian vi
 - **Acceptance Criteria:**
   - Stone texture: inline SVG fractalNoise filter at 2-3% opacity applied via `.texture-stone` utility class on background sections. Uses `feTurbulence` with `baseFrequency` 0.9, 4 octaves, `stitchTiles`.
   - Hero uses same noise texture overlay at 3% opacity for depth
-  - Section dividers: wavy SVG path (`currentColor`) at 0.3 opacity, 200px width, using CSS mask-image. Full-width wave separators (60px height) between major sections using inline SVG with organic bezier curves.
+  - Section dividers: wavy SVG path (`currentColor`) at 0.3 opacity, 200px width, using CSS mask-image. Full-width wave separators (REQ-VD-9) between major sections using inline SVG with organic bezier curves, responsive height `clamp(40px, 6vw, 80px)`.
   - Decorative: olive branch silhouettes (max 2-3 per page)
   - No cliche anchors, seashells, compass roses, or folk patterns
   - Galešnjak (heart island in Pašman channel) as potential brand element
@@ -173,21 +173,23 @@ Color system, typography, scroll animations, micro-interactions, and Croatian vi
 - **Verification:** Visual review across sections, reduced-motion test
 - **Status:** Implemented
 
-### REQ-VD-9: Water-Flow Section Divider
+### REQ-VD-9: Wave Section Dividers
 
-- **Intent:** Organic, liquid transition between page sections evoking the Adriatic sea surface
+- **Intent:** Organic, flowing transitions between page sections evoking the Adriatic coastline
 - **Applies To:** Visitor
 - **Acceptance Criteria:**
-  - `.water-flow` CSS utility class applicable to any section
-  - Top-edge wave: CSS `mask-image` with inline SVG organic bezier path, cream background fill, responsive height (`clamp(56px, 8vw, 100px)`)
-  - Caustics shimmer: radial-gradient pseudo-element (`::after`) with 4 overlapping light spots, 200px height, drifting horizontally on a 9s infinite animation
-  - Caustics are subtle (0.5 opacity) and purely decorative (`pointer-events: none`)
-  - `prefers-reduced-motion: reduce`: caustics animation disabled, opacity reduced to 0.3
-  - Applied to the homepage apartments section (dark background)
+  - Reusable `WaveDivider` component: standalone SVG wave shape placed between sections to create organic color transitions
+  - Inline SVG with `viewBox="0 0 1440 80"`, `preserveAspectRatio="none"`, organic bezier curve path
+  - Responsive height via `clamp(40px, 6vw, 80px)`
+  - Configurable fill color to match the target section background (e.g., dark navy for transition into dark section, cream for transition back to light)
+  - `flip` prop for vertical mirror (top-of-section vs bottom-of-section placement)
+  - `aria-hidden="true"` — purely decorative
+  - Homepage uses 3 wave dividers: cream-to-dark before apartments section, dark-to-cream after apartments section, cream-to-dark before sunset CTA section
+  - ~~`.water-flow` CSS utility class with caustics shimmer~~ — **Superseded:** the previous water-flow approach (CSS mask-image wave + caustics radial-gradient animation on the apartments section) has been replaced by standalone WaveDivider components. The `.water-flow` CSS class is no longer applied to any section.
 - **Constraints:** CON-PERF, CON-A11Y
 - **Priority:** P2
 - **Dependencies:** REQ-VD-7
-- **Verification:** Visual review, reduced-motion test
+- **Verification:** Visual review, responsive test
 - **Status:** Implemented
 
 ### REQ-VD-10: Breathing Image Cards

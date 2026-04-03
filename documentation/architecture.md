@@ -48,6 +48,7 @@ Apartmani Pašman is a server-side rendered Astro site deployed as a Cloudflare 
 | `src/layouts/` | Base and Page layout shells |
 | `src/components/shell/` | Navigation (desktop nav + mobile hamburger menu with `is:inline` script to avoid Astro bundler stripping), Footer, LanguageSwitcher, WhatsAppButton, StickyMobileCTA |
 | `src/components/home/Hero.astro` | Hero carousel — 4 Pexels images, crossfade (1.8s CSS transition), continuous zoom animation (`heroZoom` keyframe: 12s ease-in-out infinite alternate, scale 1→1.1 with -1%/-1% translate, paused until slide is active), auto-advance every 6 s, dot navigation, hover-pause; implemented as `is:inline` script |
+| `src/components/ui/WaveDivider.astro` | Full-width SVG wave divider between sections. Props: `fill` (wave color, default `#F8F5EF`), `flip` (boolean, flips vertically via `scaleY(-1)` for wave-out effect), `class`. Height is fluid: `clamp(40px, 6vw, 80px)`. Used in pairs on the homepage to bracket the dark navy section and the sunset CTA section. |
 | `src/styles/global.css` | Design system — CSS custom properties, typography scale, layout utilities, component classes, animation utilities |
 
 ## Request Lifecycle
@@ -75,7 +76,7 @@ Astro's i18n is configured with `routing: "manual"`. File-based `[locale]` direc
 |---|---|---|
 | `/:locale/` | `src/pages/[locale]/index.astro` | Homepage |
 | `/:locale/apartmani` | `src/pages/[locale]/apartmani/index.astro` | Apartment listing — card grid (2 columns desktop, 1 mobile); falls back to hardcoded data when CMS not seeded; each card links to detail page |
-| `/:locale/apartmani/:slug` | `src/pages/[locale]/apartmani/[slug].astro` | Apartment detail — hero image, description, meta grid (sleeps/bedrooms/size/beach distance), price card, amenity list; reads from `apartments` CMS collection via `getLocalizedEntry`; redirects to listing on missing slug |
+| `/:locale/apartmani/:slug` | `src/pages/[locale]/apartmani/[slug].astro` | Apartment detail — hero image, description, meta grid (sleeps/bedrooms/size/beach distance), price card, amenity list; fetches entry directly by slug via `getEmDashEntry("apartments", slug)` with no locale filtering (locale is applied in rendering, not in lookup); redirects to listing on missing slug |
 | `/:locale/zdrelac` | `src/pages/[locale]/zdrelac.astro` | Ždrelac village — 4 editorial sections (bridge, beaches, Dalmatian life, olive groves), localized in all 4 locales; linked from main nav |
 | `/:locale/galerija` | `src/pages/[locale]/galerija.astro` | Gallery — masonry grid of location and apartment photos with lightbox; linked from main nav |
 | `/:locale/zasto-pasman` | `src/pages/[locale]/zasto-pasman.astro` | Why Pašman — 4 selling-point sections (not in main nav) |
@@ -216,6 +217,7 @@ The entire visual language lives in `src/styles/global.css` as CSS custom proper
 | `.texture-stone` | SVG fractal-noise grain overlay via `::before` pseudo-element (opacity 0.02) |
 | `.section-divider` | Wavy SVG divider — 200px wide, 20px tall, rendered via CSS `mask-image` over a `currentColor` background; replaces the former 120px × 1px rule |
 | `.wave-separator` | Full-width SVG wave between sections — 60px tall container with an absolutely positioned inline SVG child; used in pairs (normal + `.wave-sep--flip`) to create a wave-in / wave-out effect |
+| `.wave-divider` | Styles produced by `src/components/ui/WaveDivider.astro` — full-width block, `line-height: 0`, `overflow: hidden`; child SVG fills 100% width at `clamp(40px, 6vw, 80px)` height; `.wave-divider--flip` applies `scaleY(-1)` for the wave-out direction |
 | `.img-organic` | Image wrapper with alternating corner radii (`20px 4px 20px 4px`) for an organic, hand-cut feel; child `<img>` fills 100% with `object-fit: cover` |
 | `.img-blob` | Image wrapper with a CSS blob radius (`30% 70% 70% 30% / 30% 30% 70% 70%`) for fluid, asymmetric masking |
 | `.img-padded` | Image wrapper with `--space-md` padding; child `<img>` gets `border-radius: 16px` and `--shadow-lg` |

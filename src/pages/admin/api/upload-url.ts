@@ -1,5 +1,5 @@
 import type { APIRoute } from "astro";
-import { getEnv } from "~/lib/env";
+import { env } from "cloudflare:workers";
 import { verifyJWT } from "~/lib/auth";
 import { AwsClient } from "aws4fetch";
 
@@ -20,7 +20,6 @@ const MAX_FILENAME_LENGTH = 200;
  * Requires authenticated admin session (JWT in cookie).
  */
 export const POST: APIRoute = async ({ request, cookies, locals }) => {
-  const env = getEnv(locals);
 
   // Auth check — verify JWT from cookie
   const authToken = cookies.get("auth_token")?.value;
