@@ -58,10 +58,14 @@ const l = labels[typedLocale];
             <input type="tel" id="phone" name="phone" autocomplete="tel" />
           </div>
 
-          <div class="form-row">
+          <div class="form-row form-row--3">
             <div class="form-group">
-              <label for="dates">{l.dates}</label>
-              <input type="text" id="dates" name="dates" placeholder="01.07 — 15.07" />
+              <label for="checkin">{typedLocale === "hr" ? "Dolazak" : typedLocale === "de" ? "Anreise" : typedLocale === "sl" ? "Prihod" : "Check-in"}</label>
+              <input type="date" id="checkin" name="checkin" />
+            </div>
+            <div class="form-group">
+              <label for="checkout">{typedLocale === "hr" ? "Odlazak" : typedLocale === "de" ? "Abreise" : typedLocale === "sl" ? "Odhod" : "Check-out"}</label>
+              <input type="date" id="checkout" name="checkout" />
             </div>
             <div class="form-group">
               <label for="guests">{l.guests}</label>
@@ -158,6 +162,10 @@ const l = labels[typedLocale];
     gap: var(--space-md);
   }
 
+  .form-row--3 {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
   .checkbox-label {
     display: flex;
     align-items: flex-start;
@@ -231,13 +239,16 @@ const l = labels[typedLocale];
         status.style.display = "none";
 
         var data = new FormData(form);
+        var checkin = data.get("checkin") || "";
+        var checkout = data.get("checkout") || "";
+        var dateStr = checkin && checkout ? checkin + " — " + checkout : "";
         var body = {
           type: "question",
           name: data.get("name"),
           email: data.get("email"),
           phone: data.get("phone") || "",
-          message: data.get("message"),
-          dates: data.get("dates") || "",
+          message: data.get("message") + (dateStr ? "\n\nDates: " + dateStr : "") + (data.get("guests") ? "\nGuests: " + data.get("guests") : ""),
+          dates: dateStr,
           guests: data.get("guests") || "",
           locale: locale,
           gdprConsent: !!data.get("gdpr"),
