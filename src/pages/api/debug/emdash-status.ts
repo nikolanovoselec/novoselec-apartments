@@ -9,6 +9,10 @@ export const GET: APIRoute = async ({ locals }) => {
   const emdash = (locals as unknown as Record<string, unknown>).emdash;
   const emdashManifest = (locals as unknown as Record<string, unknown>).emdashManifest;
 
+  // Check Cloudflare runtime env
+  const cfContext = (locals as unknown as Record<string, unknown>).cfContext as Record<string, unknown> | undefined;
+  const env = cfContext?.env as Record<string, unknown> | undefined;
+
   const info: Record<string, unknown> = {
     hasEmdash: !!emdash,
     emdashType: typeof emdash,
@@ -16,6 +20,13 @@ export const GET: APIRoute = async ({ locals }) => {
     hasDb: !!(emdash as Record<string, unknown>)?.db,
     hasManifest: !!emdashManifest,
     localsKeys: Object.keys(locals as unknown as Record<string, unknown>),
+    hasCfContext: !!cfContext,
+    cfContextKeys: cfContext ? Object.keys(cfContext) : null,
+    hasEnv: !!env,
+    envKeys: env ? Object.keys(env) : null,
+    hasD1Binding: !!(env?.DB),
+    hasR2Binding: !!(env?.MEDIA),
+    d1Type: typeof env?.DB,
   };
 
   // Try to query the database directly
