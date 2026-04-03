@@ -57,7 +57,7 @@
   "booking.privacyPolicy": "Politici privatnosti",
   "booking.submit": "Pošalji upit",
   "booking.submitQuestion": "Pošalji pitanje",
-  "booking.success": "Hvala! Vaš upit je zaprimljen. Ovo je zahtjev, ne potvrđena rezervacija. Datumi nisu rezervirani dok ne potvrdimo. Obično odgovaramo unutar 2 sata.",
+  "booking.success": "Hvala! Vaš upit je uspješno poslan.",
   "booking.errorRequired": "Obavezno polje",
   "booking.errorEmail": "Nevažeća email adresa",
   "booking.errorDates": "Datum odlaska mora biti nakon dolaska",

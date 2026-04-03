@@ -57,7 +57,7 @@
   "booking.privacyPolicy": "Privacy Policy",
   "booking.submit": "Send inquiry",
   "booking.submitQuestion": "Send question",
-  "booking.success": "Thank you! Your inquiry has been received. This is a request, not a confirmed booking. Dates are not secured until we confirm. We typically respond within 2 hours.",
+  "booking.success": "Thank you! Your inquiry has been sent successfully.",
   "booking.errorRequired": "Required field",
   "booking.errorEmail": "Invalid email address",
   "booking.errorDates": "Check-out date must be after check-in",

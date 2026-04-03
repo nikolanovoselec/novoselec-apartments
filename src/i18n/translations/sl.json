@@ -57,7 +57,7 @@
   "booking.privacyPolicy": "Politiko zasebnosti",
   "booking.submit": "Pošlji povpraševanje",
   "booking.submitQuestion": "Pošlji vprašanje",
-  "booking.success": "Hvala! Vaše povpraševanje je bilo prejeto. To je zahtevek, ne potrjena rezervacija. Datumi niso rezervirani, dokler ne potrdimo. Običajno odgovorimo v 2 urah.",
+  "booking.success": "Hvala! Vaše povpraševanje je bilo uspešno poslano.",
   "booking.errorRequired": "Obvezno polje",
   "booking.errorEmail": "Neveljaven e-poštni naslov",
   "booking.errorDates": "Datum odhoda mora biti po datumu prihoda",

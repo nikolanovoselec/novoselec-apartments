@@ -57,7 +57,7 @@
   "booking.privacyPolicy": "Datenschutzerklärung",
   "booking.submit": "Anfrage senden",
   "booking.submitQuestion": "Frage senden",
-  "booking.success": "Vielen Dank! Ihre Anfrage wurde empfangen. Dies ist eine Anfrage, keine bestätigte Buchung. Die Termine sind nicht reserviert, bis wir bestätigen. Wir antworten in der Regel innerhalb von 2 Stunden.",
+  "booking.success": "Vielen Dank! Ihre Anfrage wurde erfolgreich gesendet.",
   "booking.errorRequired": "Pflichtfeld",
   "booking.errorEmail": "Ungültige E-Mail-Adresse",
   "booking.errorDates": "Das Abreisedatum muss nach dem Anreisedatum liegen",
