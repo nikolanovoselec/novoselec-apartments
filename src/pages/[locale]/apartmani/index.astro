@@ -55,7 +55,7 @@ const displayApartments = apartments.length > 0 ? apartments : fallbackApartment
     <div class="container">
       <div class="apartments-grid" data-reveal-stagger>
         {displayApartments.map((apt) => (
-          <a href={`/${typedLocale}/apartmani/${apt.slug}`} class="apartment-card-link" data-reveal>
+          <div class="apartment-card" data-reveal>
             <div class="apartment-card__image">
               <img
                 src={apt.data.hero_image as string}
@@ -80,12 +80,12 @@ const displayApartments = apartments.length > 0 ? apartments : fallbackApartment
                 <span class="apartment-card__price">
                   {t(typedLocale, "apartments.fromPrice").replace("{price}", String(apt.data.price_from))}
                 </span>
-                <span class="btn btn--primary">
-                  {t(typedLocale, "nav.inquire")}
-                </span>
+                <a href={`/${typedLocale}/apartmani/${apt.slug}`} class="btn btn--primary">
+                  {typedLocale === "hr" ? "Pogledaj" : typedLocale === "de" ? "Ansehen" : typedLocale === "sl" ? "Poglej" : "View"}
+                </a>
               </div>
             </div>
-          </a>
+          </div>
         ))}
       </div>
     </div>
@@ -106,7 +106,7 @@ const displayApartments = apartments.length > 0 ? apartments : fallbackApartment
 </Page>
 
 <style>
-  .apartment-card-link {
+  .apartment-card {
     text-decoration: none;
     color: inherit;
     display: block;
@@ -124,14 +124,14 @@ const displayApartments = apartments.length > 0 ? apartments : fallbackApartment
     }
   }
 
-  .apartment-card-link {
+  .apartment-card {
     background: var(--color-white);
     overflow: hidden;
     border-radius: 12px;
     transition: box-shadow var(--duration-normal) var(--ease-out), transform 0.4s var(--ease-out);
   }
 
-  .apartment-card-link:hover {
+  .apartment-card:hover {
     box-shadow: var(--shadow-lg);
     transform: translateY(-3px);
   }
@@ -149,7 +149,7 @@ const displayApartments = apartments.length > 0 ? apartments : fallbackApartment
     transition: transform var(--duration-slow) var(--ease-out);
   }
 
-  .apartment-card-link:hover .apartment-card__image img {
+  .apartment-card:hover .apartment-card__image img {
     transform: scale(1.03);
   }
 
