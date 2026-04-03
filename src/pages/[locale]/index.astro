@@ -114,9 +114,9 @@ const oliveOilLabel: Record<Locale, string> = {
     <a href={`/${typedLocale}/zdrelac`} class="feature-image" data-reveal style="text-decoration:none; color:inherit; display:block;">
       <div class="feature-image__wrap" style="border-radius: 16px; overflow: hidden;">
         <img src="/photos/zdrelac-from-sea.jpg" alt="Aerial view of Ždrelac village on Pašman island" width="1920" height="1080" loading="lazy" />
-        <div class="feature-image__overlay" style="display: flex; flex-direction: column; justify-content: flex-end; padding: var(--space-xl);">
-          <p class="text-label" style="color: rgba(255,255,255,0.7);">Ždrelac</p>
-          <h2>{zdrelacTitle}</h2>
+        <div class="card-overlay">
+          <span class="card-overlay__label">Ždrelac</span>
+          <span class="card-overlay__title">{zdrelacTitle}</span>
         </div>
       </div>
     </a>
@@ -188,23 +188,23 @@ const oliveOilLabel: Record<Locale, string> = {
       <div class="triptych">
         <a href={`/${typedLocale}/hrana`} class="triptych__item">
           <img src="https://images.pexels.com/photos/2374946/pexels-photo-2374946.jpeg?auto=compress&w=600" alt="Fresh Mediterranean seafood platter" width="600" height="750" loading="lazy" />
-          <div class="triptych__overlay">
-            <span class="triptych__title">{t(typedLocale, "guide.foodDrink")}</span>
-            <span class="triptych__subtitle">{t(typedLocale, "homepage.triptych.foodSubtitle")}</span>
+          <div class="card-overlay">
+            <span class="card-overlay__label">{t(typedLocale, "guide.foodDrink")}</span>
+            <span class="card-overlay__title">{t(typedLocale, "homepage.triptych.foodSubtitle")}</span>
           </div>
         </a>
         <a href={`/${typedLocale}/aktivnosti`} class="triptych__item">
           <img src="https://images.pexels.com/photos/17196604/pexels-photo-17196604.jpeg?auto=compress&w=600" alt="Coastal hiking trail on Adriatic island" width="600" height="750" loading="lazy" />
-          <div class="triptych__overlay">
-            <span class="triptych__title">{t(typedLocale, "homepage.triptych.activities")}</span>
-            <span class="triptych__subtitle">{t(typedLocale, "homepage.triptych.activitiesSubtitle")}</span>
+          <div class="card-overlay">
+            <span class="card-overlay__label">{t(typedLocale, "homepage.triptych.activities")}</span>
+            <span class="card-overlay__title">{t(typedLocale, "homepage.triptych.activitiesSubtitle")}</span>
           </div>
         </a>
         <a href={`/${typedLocale}/plaze`} class="triptych__item">
           <img src="https://images.pexels.com/photos/31934689/pexels-photo-31934689.jpeg?auto=compress&w=600" alt="Croatian pebble beach with turquoise water" width="600" height="750" loading="lazy" />
-          <div class="triptych__overlay">
-            <span class="triptych__title">{t(typedLocale, "guide.beaches")}</span>
-            <span class="triptych__subtitle">{t(typedLocale, "homepage.triptych.beachesSubtitle")}</span>
+          <div class="card-overlay">
+            <span class="card-overlay__label">{t(typedLocale, "guide.beaches")}</span>
+            <span class="card-overlay__title">{t(typedLocale, "homepage.triptych.beachesSubtitle")}</span>
           </div>
         </a>
       </div>

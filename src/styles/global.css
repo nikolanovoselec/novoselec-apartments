@@ -230,6 +230,42 @@ p {
   max-width: var(--max-width-narrow);
 }
 
+/* ---------- Card Overlay (unified text-on-image style) ---------- */
+.card-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 24px;
+  background: linear-gradient(transparent 40%, rgba(10, 31, 51, 0.75));
+}
+
+@media (max-width: 768px) {
+  .card-overlay {
+    padding: 16px;
+  }
+}
+
+.card-overlay__label {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1;
+}
+
+.card-overlay__title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: 400;
+  color: #fff;
+  line-height: 1.2;
+  margin-top: 6px;
+}
+
 /* ---------- Sections ---------- */
 .section {
   padding-block: var(--space-section);
