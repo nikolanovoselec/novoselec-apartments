@@ -1,0 +1,128 @@
+---
+import Page from "~/layouts/Page.astro";
+import { isValidLocale, type Locale } from "~/i18n/config";
+import { t } from "~/i18n/t";
+import { getLocalizedCollection } from "~/lib/content";
+
+const { locale } = Astro.params;
+if (!locale || !isValidLocale(locale)) return Astro.redirect("/hr/", 302);
+const typedLocale = locale as Locale;
+
+const title: Record<Locale, string> = {
+  hr: "Hrana i piće", de: "Essen & Trinken", sl: "Hrana in pijača", en: "Food & Drink",
+};
+
+const intro: Record<Locale, string> = {
+  hr: "Na Pašmanu i Ugljanu kuhinja je jednostavna i samouvjerena: kvalitetna riba s gradela, domaće maslinovo ulje, lagano dalmatinsko vino i ritam života koji se mjeri u obrocima uz more.",
+  de: "Auf Pašman und Ugljan ist die Küche einfach und selbstbewusst: frischer Fisch vom Grill, hausgemachtes Olivenöl, leichter dalmatinischer Wein und ein Lebensrhythmus, der sich an Mahlzeiten am Meer misst.",
+  sl: "Na Pašmanu in Ugljanu je kuhinja preprosta in samozavestna: kakovostna riba z žara, domače oljčno olje, rahlo dalmatinsko vino in ritem življenja, ki se meri v obrokih ob morju.",
+  en: "On Pašman and Ugljan, the cuisine is simple and self-assured: quality grilled fish, homemade olive oil, light Dalmatian wine, and a pace of life measured in meals by the sea.",
+};
+
+type Section = { title: string; text: string; image: string; alt: string };
+
+const sections: Record<Locale, Section[]> = {
+  hr: [
+    { title: "Konobe na Pašmanu", text: "Konoba Bokolj u Ždrelacu (0-1 km) je lokalna adresa za ribu i školjke u opuštenom dalmatinskom stilu. U Tkonu (10-12 km) naći ćete Konobu Lanterna s najsvježijom ribom i dalmatinskim klasicima. U naselju Pašman (6-8 km) ugodna mjesta uz rivu idealna su za ručak nakon kupanja.", image: "https://images.pexels.com/photos/1267320/pexels-photo-1267320.jpeg?auto=compress&w=800", alt: "Dalmatinska riba s gradela" },
+    { title: "Restorani na Ugljanu", text: "Preko mosta ste za nekoliko minuta na Ugljanu. Konoba Dardin u mjestu Ugljan (8-10 km) pouzdan je izbor za ribu i domaću kuhinju. Konoba Intrada u Kalima (10-12 km) nudi autentičnu ribarsku atmosferu — Kali su jedno od najpoznatijih ribarskih mjesta u Hrvatskoj. Riva u Preku (12-14 km) savršena je za koktel pri zalasku sunca.", image: "https://images.pexels.com/photos/2880507/pexels-photo-2880507.jpeg?auto=compress&w=800", alt: "Riva uz more na Ugljanu" },
+    { title: "Dalmatinski specijaliteti", text: "Riba s gradela (orada, brancin, lokarda) s blitvom i krumpirom. Crni rižot od sipe — najbolji kad je kremast. Buzara od škampi ili dagnji uz bijelo vino. Janjetina ispod peke (uz prethodnu narudžbu). I obavezno: tanjur lokalnog maslinovog ulja.", image: "https://images.pexels.com/photos/1267320/pexels-photo-1267320.jpeg?auto=compress&w=800", alt: "Crni rižot" },
+    { title: "Lokalni proizvodi", text: "Ugljan i Pašman poznati su po maslinarstvu — ulje je intenzivno, zeleno i svježe. Kupujte direktno od OPG-ova ili na lokalnim sajmićima. Uz ribu se najčešće pije Pošip, Maraština ili lagana lokalna bijela vina. Za meso — Plavac mali. Ljeti su suhe smokve i bademi savršen suvenir.", image: "https://images.pexels.com/photos/4992828/pexels-photo-4992828.jpeg?auto=compress&w=800", alt: "Maslinovo ulje i lokalni proizvodi" },
+    { title: "Tržnice i opskrba", text: "Studenac u Ždrelacu praktičan je za osnovno. Veća opskrba u Preku, Ugljanu ili Kalima (10-15 km) nudi više izbora svježeg voća i povrća. Za 'veliki shopping' idealan je Zadar preko trajekta iz Preka. Savjet: nabavu obavite ujutro, popodne ostavite za more.", image: "https://images.pexels.com/photos/2440061/pexels-photo-2440061.jpeg?auto=compress&w=800", alt: "Svježe voće i povrće" },
+  ],
+  de: [
+    { title: "Konobas auf Pašman", text: "Die Konoba Bokolj in Ždrelac (0-1 km) ist die lokale Adresse für Fisch und Meeresfrüchte im entspannten dalmatinischen Stil. In Tkon (10-12 km) finden Sie die Konoba Lanterna mit frischestem Fisch. Im Ort Pašman (6-8 km) gibt es gemütliche Plätze an der Promenade.", image: "https://images.pexels.com/photos/1267320/pexels-photo-1267320.jpeg?auto=compress&w=800", alt: "Dalmatinischer Fisch vom Grill" },
+    { title: "Restaurants auf Ugljan", text: "Über die Brücke sind Sie in wenigen Minuten auf Ugljan. Die Konoba Dardin im Ort Ugljan (8-10 km) ist eine zuverlässige Wahl. Die Konoba Intrada in Kali (10-12 km) bietet authentische Fischeratmosphäre. Die Promenade in Preko (12-14 km) ist perfekt für einen Cocktail bei Sonnenuntergang.", image: "https://images.pexels.com/photos/2880507/pexels-photo-2880507.jpeg?auto=compress&w=800", alt: "Promenade auf Ugljan" },
+    { title: "Dalmatinische Spezialitäten", text: "Fisch vom Grill (Dorade, Wolfsbarsch) mit Mangold und Kartoffeln. Schwarzes Risotto von der Tintenfisch. Buzara mit Garnelen oder Muscheln. Lamm unter der Peka (Vorbestellung). Und unbedingt: ein Teller lokales Olivenöl.", image: "https://images.pexels.com/photos/1267320/pexels-photo-1267320.jpeg?auto=compress&w=800", alt: "Schwarzes Risotto" },
+    { title: "Lokale Produkte", text: "Ugljan und Pašman sind bekannt für Olivenanbau — das Öl ist intensiv, grün und frisch. Zum Fisch trinkt man Pošip, Maraština oder leichte lokale Weißweine. Getrocknete Feigen und Mandeln sind das perfekte Souvenir.", image: "https://images.pexels.com/photos/4992828/pexels-photo-4992828.jpeg?auto=compress&w=800", alt: "Olivenöl und lokale Produkte" },
+    { title: "Märkte und Einkaufen", text: "Der Studenac in Ždrelac ist praktisch für Grundlegendes. Größere Auswahl in Preko, Ugljan oder Kali (10-15 km). Für den großen Einkauf ist Zadar ideal (Fähre ab Preko). Tipp: Einkäufe morgens erledigen, den Nachmittag für das Meer aufheben.", image: "https://images.pexels.com/photos/2440061/pexels-photo-2440061.jpeg?auto=compress&w=800", alt: "Frisches Obst und Gemüse" },
+  ],
+  sl: [
+    { title: "Konobe na Pašmanu", text: "Konoba Bokolj v Ždrelacu (0-1 km) je lokalni naslov za ribo in školjke. V Tkonu (10-12 km) najdete Konobo Lanterna z najsvežejšo ribo. V kraju Pašman (6-8 km) prijetna mesta ob rivi.", image: "https://images.pexels.com/photos/1267320/pexels-photo-1267320.jpeg?auto=compress&w=800", alt: "Dalmatinska riba z žara" },
+    { title: "Restavracije na Ugljanu", text: "Čez most ste v nekaj minutah na Ugljanu. Konoba Dardin v kraju Ugljan (8-10 km). Konoba Intrada v Kalih (10-12 km) ponuja pristno ribiško vzdušje. Riva v Preku (12-14 km) je popolna za koktejl ob sončnem zahodu.", image: "https://images.pexels.com/photos/2880507/pexels-photo-2880507.jpeg?auto=compress&w=800", alt: "Riva ob morju na Ugljanu" },
+    { title: "Dalmatinski specijaliteti", text: "Riba z žara z blitvo in krompirjem. Črn rižoto iz sipe. Buzara iz škampov ali dagnjic. Jagnjetina izpod peke (po predhodnem naročilu). In obvezno: krožnik domačega oljčnega olja.", image: "https://images.pexels.com/photos/1267320/pexels-photo-1267320.jpeg?auto=compress&w=800", alt: "Črn rižoto" },
+    { title: "Lokalni izdelki", text: "Ugljan in Pašman sta znana po oljkarstvu. Ob ribi se najpogosteje pije Pošip, Maraština ali lahka lokalna bela vina. Suhe smokve in mandlji so popoln spomin.", image: "https://images.pexels.com/photos/4992828/pexels-photo-4992828.jpeg?auto=compress&w=800", alt: "Oljčno olje in lokalni izdelki" },
+    { title: "Tržnice in nakupovanje", text: "Studenac v Ždrelacu za osnovno. Večja ponudba v Preku, Ugljanu ali Kalih (10-15 km). Za večji nakup Zadar s trajektom iz Preka.", image: "https://images.pexels.com/photos/2440061/pexels-photo-2440061.jpeg?auto=compress&w=800", alt: "Sveže sadje in zelenjava" },
+  ],
+  en: [
+    { title: "Konobas on Pašman", text: "Konoba Bokolj in Ždrelac (0-1 km) is the local go-to for fish and shellfish in relaxed Dalmatian style. In Tkon (10-12 km), Konoba Lanterna serves the freshest fish with Dalmatian classics. In the village of Pašman (6-8 km), cozy spots along the promenade are perfect for lunch after swimming.", image: "https://images.pexels.com/photos/1267320/pexels-photo-1267320.jpeg?auto=compress&w=800", alt: "Dalmatian grilled fish" },
+    { title: "Restaurants on Ugljan", text: "Cross the bridge and you're on Ugljan in minutes. Konoba Dardin in Ugljan village (8-10 km) is reliable for fish and local cuisine. Konoba Intrada in Kali (10-12 km) offers authentic fishing village atmosphere — Kali is one of Croatia's most famous fishing villages. The promenade in Preko (12-14 km) is perfect for sunset cocktails.", image: "https://images.pexels.com/photos/2880507/pexels-photo-2880507.jpeg?auto=compress&w=800", alt: "Waterfront promenade on Ugljan" },
+    { title: "Dalmatian specialties", text: "Grilled fish (sea bream, sea bass) with Swiss chard and potatoes. Black risotto made with cuttlefish — best when creamy. Buzara with shrimp or mussels paired with white wine. Lamb under the peka (pre-order required). And always: a plate of local olive oil.", image: "https://images.pexels.com/photos/1267320/pexels-photo-1267320.jpeg?auto=compress&w=800", alt: "Black risotto" },
+    { title: "Local products", text: "Ugljan and Pašman are famous for olive growing — the oil is intense, green, and fresh. With fish, locals drink Pošip, Maraština, or light local white wines. Dried figs and almonds make the perfect souvenir.", image: "https://images.pexels.com/photos/4992828/pexels-photo-4992828.jpeg?auto=compress&w=800", alt: "Olive oil and local products" },
+    { title: "Markets and shopping", text: "Studenac in Ždrelac covers basics. Larger selection in Preko, Ugljan, or Kali (10-15 km). For serious grocery runs, Zadar is ideal via ferry from Preko. Tip: shop in the morning, save afternoons for the sea.", image: "https://images.pexels.com/photos/2440061/pexels-photo-2440061.jpeg?auto=compress&w=800", alt: "Fresh fruit and vegetables" },
+  ],
+};
+
+const page = sections[typedLocale];
+---
+
+<Page title={title[typedLocale]} locale={typedLocale}>
+  <section class="page-hero">
+    <img src="https://images.pexels.com/photos/1267320/pexels-photo-1267320.jpeg?auto=compress&w=1920" alt={title[typedLocale]} width="1920" height="1080" fetchpriority="high" />
+    <div class="page-hero__overlay">
+      <div class="container">
+        <h1>{title[typedLocale]}</h1>
+        <p class="page-hero__intro">{intro[typedLocale]}</p>
+      </div>
+    </div>
+  </section>
+
+  {page.map((section, i) => (
+    <section class:list={["section", { "section--alt": i % 2 === 1 }]} data-reveal>
+      <div class="container">
+        <div class:list={["content-row", { "content-row--reverse": i % 2 === 1 }]}>
+          <div class="content-row__image">
+            <img src={section.image} alt={section.alt} width="800" height="600" loading="lazy" />
+          </div>
+          <div class="content-row__text">
+            <h2>{section.title}</h2>
+            <p class="text-lead">{section.text}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  ))}
+</Page>
+
+<style is:global>
+  .page-hero {
+    position: relative;
+    height: 60vh;
+    min-height: 400px;
+    overflow: hidden;
+  }
+  .page-hero img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+  }
+  .page-hero__overlay {
+    position: absolute; inset: 0;
+    display: flex; align-items: flex-end;
+    background: linear-gradient(transparent 30%, rgba(10,31,51,0.8));
+    padding-bottom: var(--space-3xl);
+  }
+  .page-hero__overlay h1 {
+    color: var(--color-white);
+    font-size: clamp(2.5rem, 6vw, 5rem);
+  }
+  .page-hero__intro {
+    color: rgba(255,255,255,0.8);
+    font-size: var(--font-size-lg);
+    max-width: 600px;
+    margin-top: var(--space-md);
+    line-height: 1.7;
+  }
+  .content-row {
+    display: grid; grid-template-columns: 1fr; gap: var(--space-2xl); align-items: center;
+  }
+  @media (min-width: 768px) {
+    .content-row { grid-template-columns: 1fr 1fr; gap: var(--space-3xl); }
+    .content-row--reverse .content-row__text { order: 1; }
+    .content-row--reverse .content-row__image { order: 2; }
+  }
+  .content-row__image { overflow: hidden; border-radius: 16px; }
+  .content-row__image img {
+    width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block;
+    transition: transform 0.8s cubic-bezier(0.16,1,0.3,1);
+  }
+  .content-row:hover .content-row__image img { transform: scale(1.03); }
+  .content-row__text h2 { font-size: clamp(1.5rem, 3vw, 2.5rem); margin-bottom: var(--space-md); }
+</style>
