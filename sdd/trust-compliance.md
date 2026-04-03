@@ -68,7 +68,7 @@ GDPR, privacy policy, Impressum, house rules, cancellation policy, security head
 - **Priority:** P1
 - **Dependencies:** REQ-CMS-1
 - **Verification:** Verify 1-click access from all pages, verify German version exists
-- **Status:** Partial — Page exists at `/{locale}/impressum` with hardcoded fallback content in all 4 locales plus CMS override (queries `editorial` collection with `page_key === "impressum"`). Footer links to it (1-click access). Contains template with placeholder values (`[Owner name]`, `+385 XX XXX XXXX`). German version exists. German-always-available exception not enforced when DE locale is disabled.
+- **Status:** Deprecated - not legally required in Croatia, page removed
 
 ### REQ-TC-4: House Rules & Booking Terms
 

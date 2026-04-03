@@ -42,7 +42,7 @@ Apartment listings, detail pages, photo galleries, amenities, seasonal pricing, 
 - **Priority:** P0
 - **Dependencies:** REQ-CMS-1, REQ-I18N-4
 - **Verification:** Create test apartment in admin on phone, verify all fields render
-- **Status:** Planned
+- **Status:** Deprecated - not needed for MVP
 
 ### REQ-AP-2: Apartment Listing Page
 
@@ -145,7 +145,7 @@ Apartment listings, detail pages, photo galleries, amenities, seasonal pricing, 
 - **Priority:** P0
 - **Dependencies:** REQ-AP-1, REQ-CMS-1
 - **Verification:** Test date selection, test across month boundaries
-- **Status:** Planned
+- **Status:** Deprecated - not needed for MVP
 
 ### REQ-AP-6: Photo Gallery
 
@@ -165,7 +165,7 @@ Apartment listings, detail pages, photo galleries, amenities, seasonal pricing, 
 - **Priority:** P0
 - **Dependencies:** REQ-AP-1, REQ-CMS-2
 - **Verification:** Lighthouse image audit + keyboard nav test
-- **Status:** Planned
+- **Status:** Deprecated - not needed for MVP
 
 ### REQ-AP-7: ICS Calendar Sync (Future)
 
@@ -180,7 +180,7 @@ Apartment listings, detail pages, photo galleries, amenities, seasonal pricing, 
 - **Priority:** P2
 - **Dependencies:** REQ-AP-5, REQ-CMS-1
 - **Verification:** Test with real Airbnb ICS export
-- **Status:** Planned
+- **Status:** Deprecated - not needed for MVP
 
 ### REQ-AP-8: Apartment Comparison (Future)
 
@@ -193,7 +193,7 @@ Apartment listings, detail pages, photo galleries, amenities, seasonal pricing, 
 - **Priority:** P3
 - **Dependencies:** REQ-AP-1, REQ-AP-2
 - **Verification:** Visual review
-- **Status:** Planned
+- **Status:** Deprecated - not needed for MVP
 
 ## Out of Scope
 

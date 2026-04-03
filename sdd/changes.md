@@ -1,5 +1,36 @@
 # Changelog
 
+## 2026-04-04 - Revision 50: User decisions - deprecate skipped features, finalize target state
+
+### Requirements deprecated
+- **REQ-AP-5** (Availability Calendar): Deprecated. Availability handled through inquiry form.
+- **REQ-AP-6** (Photo Gallery Lightbox): Deprecated. Horizontal scroll gallery is sufficient.
+- **REQ-AP-7** (ICS Calendar Sync): Deprecated. Not needed for MVP.
+- **REQ-BK-1** (Request-to-Book Widget): Deprecated. Simple contact form is the booking entry point.
+- **REQ-BK-3** (WhatsApp Button): Deprecated. Only inquiry via contact form.
+- **REQ-BK-4** (Click-to-Call): Deprecated. Contact form only.
+- **REQ-BK-7** (Inquiry Lifecycle): Deprecated. Email-based workflow sufficient.
+- **REQ-CMS-5** (Section Toggles): Deprecated. All sections always visible.
+- **REQ-SF-7** (Sticky Mobile CTA): Keep as is - "Check availability" linking to contact.
+
+### Requirements updated
+- **REQ-AP-4** (Seasonal Pricing): If no pricing data in CMS, hide pricing entirely. Customers ask via inquiry.
+- **REQ-TC-3** (Impressum): Deprecated. Not legally required in Croatia. Page removed.
+- **REQ-TC-5** (GDPR): Consent text must link to Privacy Policy page.
+- **REQ-SEO-2** (OG Images): Promoted to do now - set og:image per page using hero photos.
+- **REQ-SEO-3** (Analytics): CF Web Analytics - enabled in dashboard, auto-injected.
+- **REQ-BK-2** (Inquiry Pipeline): Email retry cron removed from scope. Single send attempt sufficient.
+
+### Decisions
+- Root URL keeps browser language detection (not forced to /hr/)
+- Admin link stays in footer only
+- Dead components removed: WhatsAppButton, AmenityGrid, PhotoGallery, PricingTable, WaveDivider
+- All content managed via Emdash CMS, minimize hardcoded fallbacks
+- Real island photos sourced and wired via CMS
+
+---
+
+
 ## 2026-04-03 — Revision 49: Full Spec Audit — Status Corrections and Gap Identification
 
 Comprehensive audit of all 87 requirements against actual codebase. Found 15 status inaccuracies where implementation state did not match spec status. No new requirements added; no requirements deprecated. All 87 IDs confirmed unique, all cross-references resolve, all CON-* references valid.

@@ -47,7 +47,7 @@ Request-to-book inquiry flow, business rules, server pipeline, WhatsApp integrat
 - **Priority:** P0
 - **Dependencies:** REQ-AP-1, REQ-AP-4, REQ-AP-5, REQ-BK-6
 - **Verification:** Submit test inquiry, verify email delivery, test Turnstile, test min stay enforcement, test cross-season pricing, test capacity rejection
-- **Status:** Planned
+- **Status:** Deprecated - email-based workflow sufficient
 
 > **Note:** The interim contact page (REQ-BK-8) currently serves as the primary inquiry entry point. REQ-BK-1's full two-tab widget with date picker, pricing, and availability will replace it.
 
@@ -106,7 +106,7 @@ Request-to-book inquiry flow, business rules, server pipeline, WhatsApp integrat
 - **Priority:** P0
 - **Dependencies:** REQ-CMS-1
 - **Verification:** Test on mobile (actual WhatsApp open), test per locale
-- **Status:** Partial — WhatsAppButton component implemented as fixed-position bottom-right floating button with 3s slide-in animation. Opens `wa.me` link with pre-filled localized message (apartment context or generic). Accepts `whatsappNumber` prop -- hidden when no number configured. WhatsApp number is currently passed as prop, not CMS-managed in site-settings. CMS format validation not implemented.
+- **Status:** Deprecated - only inquiry via contact form
 
 ### REQ-BK-4: Click-to-Call
 
@@ -122,7 +122,7 @@ Request-to-book inquiry flow, business rules, server pipeline, WhatsApp integrat
 - **Priority:** P1
 - **Dependencies:** REQ-CMS-1
 - **Verification:** Test on mobile
-- **Status:** Planned
+- **Status:** Deprecated - email-based workflow sufficient
 
 ### REQ-BK-5: Direct Booking Benefits Strip
 
@@ -138,7 +138,7 @@ Request-to-book inquiry flow, business rules, server pipeline, WhatsApp integrat
 - **Priority:** P1
 - **Dependencies:** REQ-CMS-1, REQ-CMS-5
 - **Verification:** Visual review
-- **Status:** Planned
+- **Status:** Deprecated - email-based workflow sufficient
 
 ### REQ-BK-6: Booking Business Rules
 
@@ -191,7 +191,7 @@ Request-to-book inquiry flow, business rules, server pipeline, WhatsApp integrat
 - **Priority:** P1
 - **Dependencies:** REQ-BK-2, REQ-CMS-1, REQ-AP-5
 - **Verification:** Full lifecycle test: submit inquiry -> owner confirms -> dates blocked -> calendar updated
-- **Status:** Planned
+- **Status:** Deprecated - email-based workflow sufficient
 
 ### REQ-BK-8: Contact Inquiry Page
 

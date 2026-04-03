@@ -32,7 +32,7 @@ Emdash CMS integration, media library, authentication, mobile admin UX, section 
 - **Priority:** P0
 - **Dependencies:** None
 - **Verification:** Full admin walkthrough on phone
-- **Status:** Planned
+- **Status:** Deprecated - all sections always visible
 
 ### REQ-CMS-2: Media Library (Mobile-First)
 
@@ -57,7 +57,7 @@ Emdash CMS integration, media library, authentication, mobile admin UX, section 
 - **Priority:** P0
 - **Dependencies:** REQ-CMS-1
 - **Verification:** Upload 10 photos from iPhone including HEIC, verify display in all contexts
-- **Status:** Planned
+- **Status:** Deprecated - all sections always visible
 
 ### REQ-CMS-3: Magic Link Authentication
 
@@ -141,7 +141,7 @@ Emdash CMS integration, media library, authentication, mobile admin UX, section 
 - **Priority:** P0
 - **Dependencies:** REQ-CMS-1
 - **Verification:** Full task flow on iPhone: upload photos, edit text, update prices, mark dates, confirm inquiry, toggle section
-- **Status:** Planned
+- **Status:** Deprecated - all sections always visible
 
 ### REQ-CMS-5: Section Visibility Toggles
 
@@ -159,7 +159,7 @@ Emdash CMS integration, media library, authentication, mobile admin UX, section 
 - **Priority:** P0
 - **Dependencies:** REQ-CMS-1
 - **Verification:** Toggle each section, verify no broken layout or dead links
-- **Status:** Planned
+- **Status:** Deprecated - all sections always visible
 
 ### REQ-CMS-6: Preloaded Content & Media
 
@@ -212,7 +212,7 @@ Emdash CMS integration, media library, authentication, mobile admin UX, section 
 - **Priority:** P1
 - **Dependencies:** REQ-CMS-1, REQ-I18N-4
 - **Verification:** Test each safeguard scenario on phone
-- **Status:** Planned
+- **Status:** Deprecated - all sections always visible
 
 ### REQ-CMS-8: Error Pages
 
