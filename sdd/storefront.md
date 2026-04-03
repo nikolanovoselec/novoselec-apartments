@@ -59,7 +59,7 @@ The homepage and visual shell — hero, navigation, footer, language switcher, a
   - Transitions to warm cream background with `backdrop-filter: blur(10px)` after scrolling past hero
   - Logo, language switcher, and nav links always visible
   - "Inquire" CTA button always visible in nav
-  - Hamburger menu on mobile with fullscreen overlay
+  - Hamburger menu on mobile with fullscreen overlay, including inline language picker (locale links with active state highlight)
   - Hamburger button: `.nav__hamburger` class with CSS styles (display flex, flex-direction column, gap 6px, no background/border, cursor pointer, padding 12px, z-index 101, position relative), three `<span>` elements (block, 24x2px, currentColor background, 1px border-radius, transform/opacity transitions). Selected via `#hamburger-btn` ID. CSS transform morph to X on `.is-open` (translateY + rotate).
   - **Admin link:** Navigation includes a link to the Emdash admin panel (`/_emdash/admin/`) labeled with the `nav.admin` translation key. Visible in both desktop nav and mobile menu. No authentication gate on the link itself (Emdash handles auth).
   - Menu items stagger in with animation
@@ -95,14 +95,15 @@ The homepage and visual shell — hero, navigation, footer, language switcher, a
 - **Intent:** Emotionally sell the destination, not just the apartment
 - **Applies To:** Visitor
 - **Acceptance Criteria:**
-  - **Photo strip** between hero and Why Pasman: 3-image edge-to-edge grid (equal columns, 3:2 aspect, no gaps, no border-radius), no hover zoom, stacks to single column on mobile (21:9 aspect). Uniform treatment — images bleed to viewport edges.
-  - Split-section layout: heading + label on left, body text + tag row on right (desktop). Selling points displayed as uppercase bordered tag pills (not icon+text grid).
-  - Brief Ždrelac village introduction as full-bleed image with bottom text overlay (aspect-ratio 21:9 desktop, 16:9 mobile, gradient overlay from transparent to navy at bottom)
+  - **Photo strip** between hero and Why Pasman: 3-image grid within container (equal columns, 3:2 aspect, gap spacing, 16px border-radius, subtle shadow), hover zoom (1.04x), stacks to single column on mobile (16:9 aspect).
+  - Split-section layout: heading + label on left, body text + tag row on right (desktop). Selling points displayed as uppercase bordered pill-shaped tags (20px border-radius, navy fill on hover with white text, not icon+text grid).
+  - Brief Ždrelac village introduction as contained feature image with 24px border-radius (16px mobile), bottom text overlay (aspect-ratio 21:9 desktop, 16:9 mobile, gradient overlay from transparent to navy at bottom), subtle shadow, slow zoom on hover
+  - Wavy SVG separators between major homepage sections (organic bezier curves, cream fill, 60px height, flippable)
   - Scroll-triggered fade-up reveal per section
   - Links to full editorial content
   - Responsive: stacks vertically on mobile
-  - **Apartments preview** section with split-section layout (text + duo-image grid), duo-image is uniform 1:1 column grid with 4px gap, 3:4 portrait aspect, no border-radius. Ghost CTA to apartments page.
-  - **Experience triptych** (REQ-ED-4): 3-column edge-to-edge image grid with overlay labels (food, olive oil, beaches), 4:5 portrait aspect, hover zoom (1.03x), gradient label overlay at bottom, no border-radius. Stacks to single column (16:9 aspect) on mobile.
+  - **Apartments preview** section with split-section layout (text + duo-image grid), duo-image is 2-col grid with spacing gap, 3:4 portrait aspect, organic asymmetric border-radius (`20px 4px 20px 4px`), hover zoom (1.03x). Ghost CTA to apartments page.
+  - **Experience triptych** (REQ-ED-4): 3-column image grid within container with gaps (food, olive oil, beaches), 4:5 portrait aspect, hover zoom (1.05x), 16px border-radius, subtle shadow, gradient label overlay that slides in from bottom on hover (always visible on mobile). Stacks to single column (16:9 aspect) on mobile. Wrapped in warm gradient background section.
   - Toggleable via CMS section settings (REQ-CMS-5)
   - CMS-managed content per locale
 - **Constraints:** CON-PERF, CON-I18N

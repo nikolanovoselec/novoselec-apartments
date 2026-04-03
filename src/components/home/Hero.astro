@@ -73,7 +73,8 @@ const { locale } = Astro.props;
     position: absolute;
     inset: 0;
     background:
-      linear-gradient(180deg, rgba(10, 31, 51, 0.55) 0%, rgba(10, 31, 51, 0.3) 40%, rgba(10, 31, 51, 0.7) 100%);
+      radial-gradient(1200px 800px at 50% 30%, rgba(10, 31, 51, 0.3), rgba(10, 31, 51, 0.65)),
+      linear-gradient(180deg, rgba(10, 31, 51, 0.4) 0%, rgba(10, 31, 51, 0.2) 40%, rgba(10, 31, 51, 0.8) 100%);
     z-index: 1;
     pointer-events: none;
   }
@@ -135,6 +136,19 @@ const { locale } = Astro.props;
 
   .hero__scroll {
     color: rgba(255, 255, 255, 0.3);
+  }
+
+  /* Gradient blending hero into next section */
+  .hero::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 140px;
+    background: linear-gradient(180deg, rgba(248, 245, 239, 0), var(--color-cream));
+    z-index: 2;
+    pointer-events: none;
   }
 
   /* Mobile refinements */

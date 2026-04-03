@@ -46,7 +46,7 @@ Apartmani Pašman is a server-side rendered Astro site deployed as a Cloudflare 
 | `src/pages/api/inquiry.ts` | Inquiry submission — full booking pipeline (validate, persist, email) |
 | `src/pages/api/track.ts` | Analytics API — cookieless event logging to D1 |
 | `src/layouts/` | Base and Page layout shells |
-| `src/components/shell/` | Navigation, Footer, LanguageSwitcher, WhatsAppButton, StickyMobileCTA |
+| `src/components/shell/` | Navigation (desktop nav + mobile hamburger menu with inline language picker), Footer, LanguageSwitcher, WhatsAppButton, StickyMobileCTA |
 | `src/styles/global.css` | Design system — CSS custom properties, typography scale, layout utilities, component classes, animation utilities |
 
 ## Request Lifecycle
@@ -207,26 +207,35 @@ The entire visual language lives in `src/styles/global.css` as CSS custom proper
 | `.container` | Centered max-width wrapper with fluid inline padding |
 | `.container--narrow` | Constrained to `--max-width-narrow` (720px) |
 | `.texture-stone` | SVG fractal-noise grain overlay via `::before` pseudo-element (opacity 0.02) |
-| `.section-divider` | 120px × 1px sand-colored horizontal rule |
+| `.section-divider` | Wavy SVG divider — 200px wide, 20px tall, rendered via CSS `mask-image` over a `currentColor` background; replaces the former 120px × 1px rule |
+| `.wave-separator` | Full-width SVG wave between sections — 60px tall container with an absolutely positioned inline SVG child; used in pairs (normal + `.wave-sep--flip`) to create a wave-in / wave-out effect |
+| `.img-organic` | Image wrapper with alternating corner radii (`20px 4px 20px 4px`) for an organic, hand-cut feel; child `<img>` fills 100% with `object-fit: cover` |
+| `.img-blob` | Image wrapper with a CSS blob radius (`30% 70% 70% 30% / 30% 30% 70% 70%`) for fluid, asymmetric masking |
+| `.img-padded` | Image wrapper with `--space-md` padding; child `<img>` gets `border-radius: 16px` and `--shadow-lg` |
+| `.animate-breathe` | Applies the `breathe` keyframe — subtle 1.02× scale pulse over 6 s, infinite |
+| `.animate-float` | Applies the `float` keyframe — 8px vertical translation over 5 s, infinite |
+| `.gradient-warm` | Section background — 135° diagonal from terracotta-tinted to azure-tinted at 5% opacity each |
+| `.gradient-azure` | Section background — top-to-transparent azure wash at 3% opacity |
+| `.gradient-sunset` | Section background — cream → sand → cream horizontal sweep |
 | `.image-hover-zoom` | Wrapper that scales the child `<img>` to 1.05× on hover with a slow ease — used on apartment cards and gallery items |
 
 ### Homepage Photo Patterns
 
-These layout components are defined as scoped styles in `src/pages/[locale]/index.astro`. They enforce a unified photo aesthetic: no rounded corners, no padding on photo sections (edge-to-edge), and uniform aspect ratios per pattern.
+These layout components are defined as scoped styles in `src/pages/[locale]/index.astro`. They use organic rounded corners (not flat edge-to-edge) and uniform aspect ratios per pattern.
 
 | Class | Pattern | Key rules |
 |---|---|---|
-| `.photo-strip` | Horizontal strip of three images at uniform 3:2 aspect ratio, edge-to-edge | `display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px` |
+| `.photo-strip` | Horizontal strip of three images at uniform 3:2 aspect ratio with rounded corners | `display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-md)`; each `.photo-strip__item` has `border-radius: 16px` (desktop 20px) and `overflow: hidden` |
 | `.full-bleed-image` | Single image at 21:9 aspect with a gradient overlay and centered text | `aspect-ratio: 21/9`; child `.full-bleed-image__text` is absolute-positioned |
-| `.duo-image` | Two images side by side at uniform 3:4 aspect, 4px gap | `display: grid; grid-template-columns: 1fr 1fr; gap: 4px` |
-| `.triptych` | Three-column edge-to-edge grid at uniform 4:5 aspect with label overlays | `display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px`; `.triptych__label` is absolute-positioned |
+| `.duo-image` | Two images side by side at uniform 3:4 aspect, using `.img-organic` wrappers for curved corners | `display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md)`; images wrapped in `.img-organic` which supplies alternating-corner radii |
+| `.triptych` | Three-column grid at uniform 4:5 aspect with label overlays and rounded corners | `display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-md)`; `.triptych__label` is absolute-positioned; items have `border-radius: 16px` |
 | `.split-section` | Two-column layout: text (`__left`) + content (`__right`) | 50/50 columns on desktop, stacked on mobile; `.split-section--reverse` swaps column order |
 | `.tag-row` | Horizontal wrapping row of inline tag chips | `display: flex; flex-wrap: wrap; gap: var(--space-sm)` |
 | `.tag` | Individual chip inside a `.tag-row` | `border: 1px solid var(--color-border)`, small padding, `--font-size-xs` |
 
 ### Page-Specific Layout Classes
 
-These classes are defined as scoped styles inside individual page components. They follow the same design conventions as Homepage Photo Patterns (no rounded corners, edge-to-edge images, 4px gaps) but are not shared across pages.
+These classes are defined as scoped styles inside individual page components. They are not shared across pages.
 
 | Class | Page | Pattern |
 |---|---|---|

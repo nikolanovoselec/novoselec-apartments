@@ -182,7 +182,7 @@ const oliveOilLabel: Record<Locale, string> = {
         <div class="testimonials-grid">
           {testimonials.slice(0, 3).map((test) => (
             <blockquote class="testimonial-card">
-              <p class="testimonial-card__quote">"{test.data.quote}"</p>
+              <p class="testimonial-card__quote">{test.data.quote}</p>
               <footer class="testimonial-card__footer">
                 <cite class="testimonial-card__name">{test.data.guest_name}</cite>
                 {test.data.country && <span class="testimonial-card__country">{test.data.country}</span>}
@@ -245,7 +245,8 @@ const oliveOilLabel: Record<Locale, string> = {
   .photo-strip__item {
     overflow: hidden;
     border-radius: 16px;
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-hairline), var(--shadow-md);
+    border: 1px solid rgba(255, 255, 255, 0.35);
   }
 
   .photo-strip__item img {
@@ -258,7 +259,8 @@ const oliveOilLabel: Record<Locale, string> = {
   }
 
   .photo-strip__item:hover img {
-    transform: scale(1.04);
+    transform: scale(1.05);
+    filter: saturate(1.05) contrast(1.03);
   }
 
   @media (max-width: 640px) {
@@ -352,7 +354,8 @@ const oliveOilLabel: Record<Locale, string> = {
     position: relative;
     overflow: hidden;
     border-radius: 24px;
-    box-shadow: var(--shadow-xl);
+    box-shadow: var(--shadow-hairline), var(--shadow-xl);
+    border: 1px solid rgba(255, 255, 255, 0.2);
   }
 
   .feature-image__wrap img {
@@ -360,7 +363,7 @@ const oliveOilLabel: Record<Locale, string> = {
     display: block;
     aspect-ratio: 21 / 9;
     object-fit: cover;
-    transition: transform 8s linear;
+    transition: transform 1.2s var(--ease-lux), filter 1.2s var(--ease-lux);
   }
 
   .feature-image__wrap:hover img {
@@ -431,17 +434,17 @@ const oliveOilLabel: Record<Locale, string> = {
   }
 
   .testimonial-card {
+    position: relative;
     padding: var(--space-xl);
     background: var(--color-white);
     border-radius: 16px;
-    box-shadow: var(--shadow-sm);
-    border: 1px solid var(--color-border);
-    transition: transform 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out);
+    box-shadow: var(--shadow-hairline), var(--shadow-md);
+    transition: transform 0.5s var(--ease-lux), box-shadow 0.5s var(--ease-lux);
   }
 
   .testimonial-card:hover {
-    transform: translateY(-6px);
-    box-shadow: var(--shadow-lg);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hairline), var(--shadow-float);
   }
 
   .testimonial-card__quote {
@@ -450,7 +453,11 @@ const oliveOilLabel: Record<Locale, string> = {
     line-height: 1.6;
     color: var(--color-navy);
     font-style: italic;
+    quotes: "\201C" "\201D" "\2018" "\2019";
   }
+
+  .testimonial-card__quote::before { content: open-quote; }
+  .testimonial-card__quote::after { content: close-quote; }
 
   .testimonial-card__footer {
     margin-top: var(--space-lg);
@@ -484,7 +491,8 @@ const oliveOilLabel: Record<Locale, string> = {
     position: relative;
     overflow: hidden;
     border-radius: 16px;
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-hairline), var(--shadow-md);
+    border: 1px solid rgba(255, 255, 255, 0.25);
   }
 
   .triptych__item img {
@@ -492,11 +500,12 @@ const oliveOilLabel: Record<Locale, string> = {
     display: block;
     aspect-ratio: 4 / 5;
     object-fit: cover;
-    transition: transform 0.8s var(--ease-out);
+    transition: transform 1.2s var(--ease-lux), filter 1.2s var(--ease-lux);
   }
 
   .triptych__item:hover img {
-    transform: scale(1.05);
+    transform: scale(1.06);
+    filter: saturate(1.05) contrast(1.02);
   }
 
   .triptych__label {

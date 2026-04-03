@@ -1,5 +1,30 @@
 # Changelog
 
+## 2026-04-02 — Revision 21: Organic Visual Polish (e437ff7)
+
+Homepage visual system overhauled from edge-to-edge flat imagery to organic curved containers. All homepage photo treatments now use rounded corners (16-24px), gaps, shadows, and hover interactions. Wavy SVG section dividers replace straight lines. Triptych labels slide in on hover. Gradient utility classes added. Mobile navigation gains inline language picker. New favicon.
+
+### AC updated
+- **REQ-VD-3:** Added breathing/floating keyframes (breathe, float, slowZoom) and utility classes. Updated section divider animation from line-extend to wavy SVG fade-in.
+- **REQ-VD-4:** Added triptych label slide-in, testimonial card lift, tag pill hover fill, image hover zoom ranges. Updated section divider micro-interaction.
+- **REQ-VD-6:** Rewrote homepage photo system from edge-to-edge/no-radius to organic curved containers (16-24px radius, gaps, shadows, hover zoom). Photo strip, feature image, duo-image, and triptych all updated.
+- **REQ-VD-7:** Section dividers changed from 120px straight line at 0.6 opacity to wavy SVG mask at 0.3 opacity plus full-width wave separators between sections.
+- **REQ-SF-3:** Mobile hamburger menu now includes inline language picker with active locale highlighting.
+- **REQ-SF-5:** Photo strip, Zdrelac feature image, duo images, triptych, and tags all updated from edge-to-edge flat to contained organic style. Wave separators added between sections. Triptych wrapped in gradient background section.
+
+### Requirements added
+- **REQ-VD-8:** Gradient Utility System — warm, azure, and sunset gradient utility classes for section backgrounds.
+
+### Status changes
+- **REQ-VD-6:** Planned -> Implemented (homepage photo treatments now fully built with organic curved style).
+
+### No status changes
+- REQ-VD-3 remains Implemented (keyframe additions).
+- REQ-VD-4 remains Implemented (new hover effects added).
+- REQ-VD-7 remains Implemented (divider style updated).
+- REQ-SF-3 remains Planned (focus trapping still missing).
+- REQ-SF-5 remains Planned (CMS toggle, full editorial content not yet wired).
+
 ## 2026-04-02 — Revision 20: Emdash CMS Wiring, Seed Data, Design Polish (f4485a5)
 
 All pages wired to Emdash CMS with locale-aware queries and Croatian fallback. Comprehensive seed data (6 collections in 4 locales). Apartment listing page redesigned from "coming soon" to real card grid. Testimonials rendered on homepage. Ken Burns hero animation. Font swap to DM Serif Display. Admin nav link. Custom domain configured. Alt text on all images.
