@@ -87,24 +87,6 @@ const oliveOilLabel: Record<Locale, string> = {
 <Page title={titles[typedLocale]} locale={typedLocale} hasHero={true}>
   <Hero locale={typedLocale} />
 
-  {/* Photo strip — padded with rounded corners */}
-  <div class="photo-strip container">
-    <div class="photo-strip__item">
-      <img src="https://images.pexels.com/photos/1450353/pexels-photo-1450353.jpeg?auto=compress&w=700" alt="Turquoise Adriatic coastline" width="700" height="467" loading="lazy" />
-    </div>
-    <div class="photo-strip__item">
-      <img src="https://images.pexels.com/photos/2880507/pexels-photo-2880507.jpeg?auto=compress&w=700" alt="Mediterranean stone village" width="700" height="467" loading="lazy" />
-    </div>
-    <div class="photo-strip__item">
-      <img src="https://images.pexels.com/photos/2440061/pexels-photo-2440061.jpeg?auto=compress&w=700" alt="Sunset over the Adriatic islands" width="700" height="467" loading="lazy" />
-    </div>
-  </div>
-
-  {/* Wave separator */}
-  <svg class="wave-sep" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true">
-    <path d="M0,40 C360,0 720,60 1080,20 S1440,40 1440,40 L1440,60 L0,60 Z" fill="#F8F5EF"/>
-  </svg>
-
   {/* Why Pašman */}
   <section class="section" data-reveal>
     <div class="container">
@@ -127,11 +109,6 @@ const oliveOilLabel: Record<Locale, string> = {
       </div>
     </div>
   </section>
-
-  {/* Wave separator */}
-  <svg class="wave-sep wave-sep--flip" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true">
-    <path d="M0,20 C360,60 720,0 1080,40 S1440,20 1440,20 L1440,0 L0,0 Z" fill="#F8F5EF"/>
-  </svg>
 
   {/* Full-width image — Ždrelac — with curved corners inside container */}
   <div class="feature-image container" data-reveal>

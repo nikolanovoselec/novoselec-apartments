@@ -1,0 +1,242 @@
+---
+import Page from "~/layouts/Page.astro";
+import { isValidLocale, type Locale } from "~/i18n/config";
+import { t } from "~/i18n/t";
+import { getLocalizedEntry } from "~/lib/content";
+
+const { locale, slug } = Astro.params;
+if (!locale || !isValidLocale(locale)) return Astro.redirect("/hr/", 302);
+if (!slug) return Astro.redirect(`/${locale}/apartmani`, 302);
+const typedLocale = locale as Locale;
+
+const entry = await getLocalizedEntry("apartments", slug, typedLocale);
+if (!entry) return Astro.redirect(`/${locale}/apartmani`, 302);
+
+const d = entry.data;
+const name = d.name as string;
+const tagline = (d.tagline as string) ?? "";
+const description = (d.description as string) ?? "";
+const heroImage = (d.hero_image as string) ?? "";
+const sleeps = d.sleeps as number | undefined;
+const bedrooms = d.bedrooms as number | undefined;
+const sizeSqm = d.size_sqm as number | undefined;
+const bestFor = (d.best_for as string) ?? "";
+const beachDistance = d.beach_distance_m as number | undefined;
+const priceFrom = d.price_from as number | undefined;
+
+let amenities: string[] = [];
+try {
+  const raw = d.amenities_json;
+  if (Array.isArray(raw)) amenities = raw as string[];
+  else if (typeof raw === "string") amenities = JSON.parse(raw);
+} catch { /* ignore */ }
+---
+
+<Page title={name} description={tagline} locale={typedLocale}>
+  {/* Hero */}
+  {heroImage && (
+    <section class="apt-hero">
+      <img src={heroImage} alt={name} width="1920" height="1080" />
+      <div class="apt-hero__overlay">
+        <div class="container">
+          <h1>{name}</h1>
+          {tagline && <p class="apt-hero__tagline">{tagline}</p>}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {/* Details */}
+  <section class="section" data-reveal>
+    <div class="container">
+      <div class="apt-detail">
+        <div class="apt-detail__main">
+          {description && <p class="text-lead">{description}</p>}
+
+          {/* Meta grid */}
+          <div class="apt-meta">
+            {sleeps && <div class="apt-meta__item"><span class="apt-meta__label">{t(typedLocale, "apartments.sleeps").replace("{count}", String(sleeps))}</span></div>}
+            {bedrooms && <div class="apt-meta__item"><span class="apt-meta__label">{bedrooms} {typedLocale === "hr" ? "spavaće sobe" : typedLocale === "de" ? "Schlafzimmer" : typedLocale === "sl" ? "spalnic" : "bedrooms"}</span></div>}
+            {sizeSqm && <div class="apt-meta__item"><span class="apt-meta__label">{sizeSqm} m²</span></div>}
+            {beachDistance && <div class="apt-meta__item"><span class="apt-meta__label">{t(typedLocale, "apartments.beachDistance").replace("{meters}", String(beachDistance))}</span></div>}
+          </div>
+
+          {bestFor && (
+            <p class="apt-best-for">
+              <strong>{t(typedLocale, "apartments.bestFor")}:</strong> {bestFor}
+            </p>
+          )}
+        </div>
+
+        <div class="apt-detail__sidebar">
+          {/* Price card */}
+          {priceFrom && (
+            <div class="apt-price-card">
+              <p class="apt-price-card__label">{typedLocale === "hr" ? "Cijena od" : typedLocale === "de" ? "Preis ab" : typedLocale === "sl" ? "Cena od" : "Price from"}</p>
+              <p class="apt-price-card__amount">{priceFrom} &euro;<span>/{typedLocale === "hr" ? "noć" : typedLocale === "de" ? "Nacht" : typedLocale === "sl" ? "noč" : "night"}</span></p>
+              <a href={`/${typedLocale}/apartmani#inquiry`} class="btn btn--primary" style="width:100%; margin-top: var(--space-lg);">
+                {t(typedLocale, "nav.inquire")}
+              </a>
+            </div>
+          )}
+
+          {/* Amenities */}
+          {amenities.length > 0 && (
+            <div class="apt-amenities">
+              <h3>{typedLocale === "hr" ? "Sadržaj" : typedLocale === "de" ? "Ausstattung" : typedLocale === "sl" ? "Oprema" : "Amenities"}</h3>
+              <ul>
+                {amenities.map((a) => <li>{a}</li>)}
+              </ul>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* Back to apartments */}
+  <section class="section section--alt" data-reveal>
+    <div class="container text-center">
+      <a href={`/${typedLocale}/apartmani`} class="btn">
+        {t(typedLocale, "nav.apartments")}
+      </a>
+    </div>
+  </section>
+</Page>
+
+<style is:global>
+  .apt-hero {
+    position: relative;
+    height: 60vh;
+    min-height: 400px;
+    overflow: hidden;
+  }
+
+  .apt-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .apt-hero__overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: flex-end;
+    background: linear-gradient(transparent 40%, rgba(10, 31, 51, 0.75));
+    padding-bottom: var(--space-3xl);
+  }
+
+  .apt-hero__overlay h1 {
+    color: var(--color-white);
+    font-size: clamp(2rem, 5vw, 4rem);
+  }
+
+  .apt-hero__tagline {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: var(--font-size-lg);
+    margin-top: var(--space-sm);
+    font-style: italic;
+    max-width: none;
+  }
+
+  .apt-detail {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-2xl);
+  }
+
+  @media (min-width: 768px) {
+    .apt-detail {
+      grid-template-columns: 1.5fr 1fr;
+      gap: var(--space-3xl);
+    }
+  }
+
+  .apt-meta {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+    margin-top: var(--space-xl);
+    padding: var(--space-lg);
+    background: var(--color-stone);
+    border-radius: 12px;
+  }
+
+  .apt-meta__label {
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    color: var(--color-navy);
+  }
+
+  .apt-best-for {
+    margin-top: var(--space-lg);
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+  }
+
+  .apt-price-card {
+    padding: var(--space-xl);
+    background: var(--color-white);
+    border-radius: 16px;
+    box-shadow: 0 0 0 1px rgba(10,31,51,0.06), 0 20px 60px rgba(10,31,51,0.10);
+    text-align: center;
+  }
+
+  .apt-price-card__label {
+    font-size: var(--font-size-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-text-light);
+    max-width: none;
+  }
+
+  .apt-price-card__amount {
+    font-family: var(--font-serif);
+    font-size: var(--font-size-4xl);
+    color: var(--color-navy);
+    margin-top: var(--space-sm);
+    max-width: none;
+  }
+
+  .apt-price-card__amount span {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-light);
+  }
+
+  .apt-amenities {
+    margin-top: var(--space-xl);
+    padding: var(--space-xl);
+    background: var(--color-stone);
+    border-radius: 12px;
+  }
+
+  .apt-amenities h3 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-md);
+  }
+
+  .apt-amenities ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-sm);
+  }
+
+  .apt-amenities li {
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+    padding-left: 1.2em;
+    position: relative;
+  }
+
+  .apt-amenities li::before {
+    content: "\2713";
+    position: absolute;
+    left: 0;
+    color: var(--color-olive);
+    font-weight: 700;
+  }
+</style>

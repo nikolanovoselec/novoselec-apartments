@@ -317,45 +317,47 @@ function getLocalizedPath(targetLocale: string): string {
   }
 </style>
 
-<script>
+<script is:inline>
   // Transparent-to-solid on scroll
-  const nav = document.getElementById("site-nav");
-  const heroSentinel = document.querySelector(".hero-sentinel");
+  (function() {
+    var nav = document.getElementById("site-nav");
+    var heroSentinel = document.querySelector(".hero-sentinel");
 
-  if (nav && heroSentinel) {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        nav.classList.toggle("is-scrolled", !entry.isIntersecting);
-      },
-      { threshold: 0 }
-    );
-    observer.observe(heroSentinel);
-  } else if (nav) {
-    nav.classList.add("is-scrolled");
-  }
+    if (nav && heroSentinel) {
+      var observer = new IntersectionObserver(
+        function(entries) {
+          nav.classList.toggle("is-scrolled", !entries[0].isIntersecting);
+        },
+        { threshold: 0 }
+      );
+      observer.observe(heroSentinel);
+    } else if (nav) {
+      nav.classList.add("is-scrolled");
+    }
 
-  // Mobile menu toggle
-  const hamburger = document.getElementById("hamburger-btn");
-  const mobileMenu = document.getElementById("mobile-menu");
+    // Mobile menu toggle
+    var hamburger = document.getElementById("hamburger-btn");
+    var mobileMenu = document.getElementById("mobile-menu");
 
-  if (hamburger && mobileMenu) {
-    hamburger.addEventListener("click", () => {
-      const isOpen = mobileMenu.classList.toggle("is-open");
-      hamburger.classList.toggle("is-open", isOpen);
-      hamburger.setAttribute("aria-expanded", String(isOpen));
-      mobileMenu.setAttribute("aria-hidden", String(!isOpen));
-      document.body.style.overflow = isOpen ? "hidden" : "";
-    });
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener("click", function() {
+        var isOpen = mobileMenu.classList.toggle("is-open");
+        hamburger.classList.toggle("is-open", isOpen);
+        hamburger.setAttribute("aria-expanded", String(isOpen));
+        mobileMenu.setAttribute("aria-hidden", String(!isOpen));
+        document.body.style.overflow = isOpen ? "hidden" : "";
+      });
 
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && mobileMenu.classList.contains("is-open")) {
-        mobileMenu.classList.remove("is-open");
-        hamburger.classList.remove("is-open");
-        hamburger.setAttribute("aria-expanded", "false");
-        mobileMenu.setAttribute("aria-hidden", "true");
-        document.body.style.overflow = "";
-        (hamburger as HTMLElement).focus();
-      }
-    });
-  }
+      document.addEventListener("keydown", function(e) {
+        if (e.key === "Escape" && mobileMenu.classList.contains("is-open")) {
+          mobileMenu.classList.remove("is-open");
+          hamburger.classList.remove("is-open");
+          hamburger.setAttribute("aria-expanded", "false");
+          mobileMenu.setAttribute("aria-hidden", "true");
+          document.body.style.overflow = "";
+          hamburger.focus();
+        }
+      });
+    }
+  })();
 </script>

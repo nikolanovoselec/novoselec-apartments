@@ -55,7 +55,7 @@ const displayApartments = apartments.length > 0 ? apartments : fallbackApartment
     <div class="container">
       <div class="apartments-grid" data-reveal-stagger>
         {displayApartments.map((apt) => (
-          <article class="apartment-card" data-reveal>
+          <a href={`/${typedLocale}/apartmani/${apt.slug}`} class="apartment-card-link" data-reveal>
             <div class="apartment-card__image">
               <img
                 src={apt.data.hero_image as string}
@@ -85,7 +85,7 @@ const displayApartments = apartments.length > 0 ? apartments : fallbackApartment
                 </a>
               </div>
             </div>
-          </article>
+          </a>
         ))}
       </div>
     </div>
@@ -106,6 +106,12 @@ const displayApartments = apartments.length > 0 ? apartments : fallbackApartment
 </Page>
 
 <style>
+  .apartment-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
   .apartments-grid {
     display: grid;
     grid-template-columns: 1fr;
