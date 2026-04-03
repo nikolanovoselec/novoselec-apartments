@@ -9,9 +9,18 @@ export const GET: APIRoute = async ({ locals }) => {
   const emdash = (locals as unknown as Record<string, unknown>).emdash;
   const emdashManifest = (locals as unknown as Record<string, unknown>).emdashManifest;
 
-  // Check Cloudflare runtime env
+  // Check Cloudflare runtime env - try multiple access patterns
   const cfContext = (locals as unknown as Record<string, unknown>).cfContext as Record<string, unknown> | undefined;
-  const env = cfContext?.env as Record<string, unknown> | undefined;
+  const runtime = (locals as unknown as Record<string, unknown>).runtime as Record<string, unknown> | undefined;
+  const env = (cfContext?.env ?? runtime?.env ?? (cfContext?.props as Record<string, unknown>)?.env) as Record<string, unknown> | undefined;
+
+  // Deep inspect cfContext
+  const cfContextDeep: Record<string, unknown> = {};
+  if (cfContext) {
+    for (const [k, v] of Object.entries(cfContext)) {
+      cfContextDeep[k] = typeof v === "object" && v !== null ? Object.keys(v) : typeof v;
+    }
+  }
 
   const info: Record<string, unknown> = {
     hasEmdash: !!emdash,
@@ -22,6 +31,9 @@ export const GET: APIRoute = async ({ locals }) => {
     localsKeys: Object.keys(locals as unknown as Record<string, unknown>),
     hasCfContext: !!cfContext,
     cfContextKeys: cfContext ? Object.keys(cfContext) : null,
+    cfContextDeep,
+    hasRuntime: !!runtime,
+    runtimeKeys: runtime ? Object.keys(runtime) : null,
     hasEnv: !!env,
     envKeys: env ? Object.keys(env) : null,
     hasD1Binding: !!(env?.DB),
