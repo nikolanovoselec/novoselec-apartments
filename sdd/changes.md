@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-04-03 — Revision 44: REQ-I18N-1 Hreflang Status Update
+
+Updated REQ-I18N-1 status to reflect that `<link rel="alternate" hreflang>` tags are now rendered in the HTML `<head>` via the base layout (commit 001b2aa). Status remains Partial because disabled-locale 404 behavior and content fallback policy have not been verified live.
+
+### Requirements updated
+- **REQ-I18N-1** (Locale-Prefixed Routing): Status text updated — hreflang tags no longer missing from HTML head; remaining gaps are disabled-locale 404s and fallback policy verification.
+
+---
+
 ## 2026-04-03 — Revision 43: Inline SVG Wave Spec Sync
 
 Synced spec with code change replacing CSS `::after` mask-image waves with inline SVG waves on homepage hero and 4 editorial page heroes (hrana, aktivnosti, plaze, zdrelac). All statuses remain Partial pending live site verification.

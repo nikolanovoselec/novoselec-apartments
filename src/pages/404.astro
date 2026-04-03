@@ -1,7 +1,11 @@
 ---
 import Page from "~/layouts/Page.astro";
+import { isValidLocale, type Locale, defaultLocale } from "~/i18n/config";
+import { t } from "~/i18n/t";
 
-const locale = "hr" as const;
+// Detect locale from URL path prefix (e.g., /de/nonexistent → "de")
+const pathLocale = Astro.url.pathname.match(/^\/([a-z]{2})(\/|$)/)?.[1];
+const locale: Locale = pathLocale && isValidLocale(pathLocale) ? pathLocale : defaultLocale;
 ---
 
 <Page title="404" locale={locale}>
@@ -9,13 +13,12 @@ const locale = "hr" as const;
     <div class="container text-center">
       <h1 style="font-size: clamp(4rem, 10vw, 8rem); font-weight: 200; color: var(--color-navy); opacity: 0.3;">404</h1>
       <p style="font-size: var(--font-size-xl); margin-top: var(--space-lg);">
-        This page could not be found.
+        {t(locale, "error.404.message")}
       </p>
       <div style="margin-top: var(--space-2xl); display: flex; flex-wrap: wrap; gap: var(--space-md); justify-content: center;">
-        <a href="/hr/" class="btn">Početna (HR)</a>
-        <a href="/de/" class="btn">Startseite (DE)</a>
-        <a href="/en/" class="btn">Home (EN)</a>
-        <a href="/sl/" class="btn">Domov (SL)</a>
+        <a href={`/${locale}/`} class="btn btn--primary">{t(locale, "error.404.home")}</a>
+        <a href={`/${locale}/apartmani`} class="btn">{t(locale, "nav.apartments")}</a>
+        <a href={`/${locale}/kontakt`} class="btn">{t(locale, "nav.contact")}</a>
       </div>
     </div>
   </section>
