@@ -232,8 +232,8 @@ Color system, typography, scroll animations, micro-interactions, and Croatian vi
 - **Acceptance Criteria:**
   - Reusable `HeroSimple` component accepts optional `image` prop (URL string)
   - When `image` is provided: full-width background photo (`object-fit: cover`, `width: 100%`, `height: 100%`, absolute positioned) replaces the gradient fallback
-  - When no `image` is provided: original gradient background preserved as fallback
-  - Dark overlay: linear gradient from `rgba(10, 31, 51, 0.5)` at top to `rgba(10, 31, 51, 0.7)` at bottom, ensuring white text contrast over any photo
+  - When no `image` is provided: original gradient background preserved as fallback (overlay and wave still render)
+  - Dark overlay (always present): linear gradient from `rgba(10, 31, 51, 0.5)` at top to `rgba(10, 31, 51, 0.7)` at bottom, ensuring white text contrast over any photo or gradient
   - Ken Burns animation on hero image: continuous CSS keyframe (`scale(1)` to `scale(1.06)`, 20s ease-in-out infinite alternate) — subtler and slower than the homepage hero carousel (12s, 1.1x)
   - Minimum height 280px, vertically centered content
   - Title (`h1`) and optional subtitle rendered over the overlay
