@@ -64,8 +64,8 @@ Request-to-book inquiry flow, business rules, server pipeline, WhatsApp integrat
   - Inquiry persisted to D1 `inquiries` table before email attempt with status `new`
   - Input sanitized: all user-supplied fields stripped of HTML before rendering in email output, email header injection prevented, URLs stripped from message body
   - Honeypot hidden field for bot detection (in addition to Turnstile)
-  - Email to owner via Resend: formatted HTML with all inquiry details, computed price, guest contact, one-tap "Confirm & Block Dates" link (deep link to admin action)
-  - Auto-reply to guest via Resend: confirmation with apartment name, dates, **explicit disclaimer: "This is a request, not a confirmed booking. Dates are not held automatically."**, response time promise
+  - Email to owner via Resend: formatted HTML with all inquiry details, computed price, guest contact, one-tap "Confirm & Block Dates" link (deep link to admin action). Sent from `noreply@graymatter.ch`.
+  - Auto-reply to guest via Resend: confirmation with apartment name, dates, **explicit disclaimer: "This is a request, not a confirmed booking. Dates are not held automatically."**, response time promise. Sent from `noreply@graymatter.ch`.
   - **Email delivery via outbox pattern:**
     - Inquiry persisted to D1 with `email_status: pending`
     - Immediate send attempt (one try in request lifecycle)

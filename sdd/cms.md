@@ -65,7 +65,7 @@ Emdash CMS integration, media library, authentication, mobile admin UX, section 
 - **Applies To:** Owner
 - **Acceptance Criteria:**
   - Owner enters email address on login page
-  - System sends 6-digit code via Resend to whitelisted email
+  - System sends 6-digit code via Resend (from `noreply@graymatter.ch`) to whitelisted email
   - Owner enters code, session created
   - Only whitelisted email(s) can receive codes (1-2 emails: owner + optional backup family member)
   - Session persists 30 days

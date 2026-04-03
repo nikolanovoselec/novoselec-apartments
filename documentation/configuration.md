@@ -8,7 +8,7 @@ Environment variables, secrets, and Cloudflare resource bindings.
 
 ## Environment Variables
 
-All variables are accessed via `locals.runtime.env` in Astro server-side code. Types are declared in `src/env.d.ts`.
+All variables are accessed via `import { env } from "cloudflare:workers"` in API routes. Types are declared in `src/env.d.ts` as the `CloudflareEnv` interface. The `cloudflare:workers` module is marked as external by `@astrojs/cloudflare` and resolved at runtime by the Worker.
 
 ### Secrets
 
@@ -18,18 +18,18 @@ Set via `npx wrangler secret put <NAME>`. Never commit these values.
 |---|---|---|
 | `RESEND_API_KEY` | Yes | Resend API key — used for magic link codes and inquiry emails |
 | `JWT_SECRET` | Yes | HMAC-SHA-256 signing secret for auth JWTs — minimum 32 random bytes |
-| `ADMIN_EMAILS` | Yes | Comma-separated list of authorized admin email addresses (case-insensitive) |
 | `TURNSTILE_SECRET_KEY` | Yes | Cloudflare Turnstile secret key — server-side form verification |
 | `R2_ACCESS_KEY_ID` | Yes | R2 S3-compatible access key ID — used for presigned upload URLs |
 | `R2_SECRET_ACCESS_KEY` | Yes | R2 S3-compatible secret access key — used for presigned upload URLs |
 | `EMDASH_AUTH_SECRET` | Yes | Emdash CMS auth secret — set by Emdash integration |
 
-### Public (non-secret)
+### Plain Vars (non-secret)
 
-These can be embedded in client-side code.
+Defined in the `vars` block of `wrangler.jsonc`. Safe to commit — no sensitive values.
 
 | Variable | Required | Description |
 |---|---|---|
+| `ADMIN_EMAILS` | Yes | Comma-separated list of authorized admin email addresses (case-insensitive). Current value: `hello@graymatter.ch` |
 | `TURNSTILE_SITE_KEY` | Yes | Cloudflare Turnstile site key — embedded in forms |
 
 ### Setting Secrets
@@ -37,8 +37,13 @@ These can be embedded in client-side code.
 ```bash
 printf '%s' "re_..." | npx wrangler secret put RESEND_API_KEY
 printf '%s' "$(openssl rand -hex 32)" | npx wrangler secret put JWT_SECRET
-printf '%s' "owner@example.com" | npx wrangler secret put ADMIN_EMAILS
 ```
+
+To update `ADMIN_EMAILS`, edit the `vars` block in `wrangler.jsonc` and redeploy — it is not a secret.
+
+## Email Sender Address
+
+All outbound emails use `Apartmani Novoselec <noreply@graymatter.ch>` as the from-address. This applies to both owner notifications and guest auto-replies sent from `POST /api/inquiry` and the admin confirm/magic-link endpoints. The sending domain (`graymatter.ch`) must remain verified in the Resend dashboard.
 
 ## Cloudflare Bindings
 
@@ -54,7 +59,7 @@ Defined in `wrangler.jsonc`.
 }
 ```
 
-Accessed as `locals.runtime.env.DB` (type `D1Database`). Holds auth codes, sessions, inquiries, availability blocks, analytics events, and slug redirects.
+Accessed as `env.DB` (type `D1Database`) via `import { env } from "cloudflare:workers"`. Holds auth codes, sessions, inquiries, availability blocks, analytics events, and slug redirects.
 
 ### R2 Bucket (Media)
 
@@ -66,7 +71,7 @@ Accessed as `locals.runtime.env.DB` (type `D1Database`). Holds auth codes, sessi
 }
 ```
 
-The R2 bucket binding is defined but commented out in `wrangler.jsonc` pending R2 enablement in the Cloudflare dashboard. Accessed as `locals.runtime.env.MEDIA` (type `R2Bucket`). Also uncomment the corresponding line in `astro.config.mjs`.
+The R2 bucket binding is defined but commented out in `wrangler.jsonc` pending R2 enablement in the Cloudflare dashboard. Accessed as `env.MEDIA` (type `R2Bucket`) via `import { env } from "cloudflare:workers"`. Also uncomment the corresponding line in `astro.config.mjs`.
 
 ## Custom Domain Route
 

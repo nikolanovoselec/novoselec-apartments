@@ -1,5 +1,19 @@
 # Changelog
 
+## 2026-04-03 — Revision 29: Astro v6 Env Migration, Email Sender Domain
+
+All API routes migrated from `getEnv(locals)` helper (extracting env from `locals.runtime.env`) to direct `import { env } from "cloudflare:workers"` module import (Astro v6 pattern). The `getEnv()` function is removed. Non-secret config (`ADMIN_EMAILS`, `TURNSTILE_SITE_KEY`) moved to `wrangler.jsonc` `vars` block. Email sender address changed from `noreply@apartmani.hr` to `noreply@graymatter.ch` across all transactional emails (inquiry notifications, magic link codes, guest auto-replies). New bindings declared in env types: `SESSION` (KVNamespace), `IMAGES`, `ASSETS` (Fetcher). R2 presigned URL auth credentials (`R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`) removed from env interface.
+
+### Constraints updated
+- **CON-STACK:** Documented Astro v6 env access pattern (`cloudflare:workers` module import), non-secret vs secret config split, and email sender domain (`noreply@graymatter.ch`).
+
+### AC updated
+- **REQ-BK-2:** Added sender address (`noreply@graymatter.ch`) to owner notification and guest auto-reply email criteria.
+- **REQ-CMS-3:** Added sender address to magic link email delivery criterion.
+
+### Glossary
+- **Caustics:** Marked as superseded (no longer rendered, replaced by Wave Divider).
+
 ## 2026-04-03 — Revision 28: WaveDivider Component, Apartment Detail Fix
 
 Reusable `WaveDivider` component replaces the `.water-flow` CSS utility class approach for section transitions. Three wave dividers added to homepage: cream-to-dark before apartments, dark-to-cream after apartments, cream-to-dark before sunset CTA. The component uses inline SVG with organic bezier curves, configurable fill color, optional vertical flip, and responsive height. Apartment detail page data loading fixed — switched from broken `getLocalizedEntry` wrapper to direct `getEmDashEntry` call with proper data unwrapping.

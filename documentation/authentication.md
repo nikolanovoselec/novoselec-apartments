@@ -72,13 +72,17 @@ Migration file: `migrations/0001_auth.sql`
 
 ## Admin Email Management
 
-Authorized emails are stored in the `ADMIN_EMAILS` environment variable as a comma-separated list. To add or remove an admin email, update the secret via Wrangler:
+Authorized emails are stored in the `ADMIN_EMAILS` plain var as a comma-separated list. It is defined in the `vars` block of `wrangler.jsonc` (not a Wrangler secret) and takes effect on the next deploy. Current value: `hello@graymatter.ch`.
 
-```bash
-printf '%s' "owner@example.com" | npx wrangler secret put ADMIN_EMAILS
+To add or remove an admin email, edit `wrangler.jsonc`:
+
+```jsonc
+"vars": {
+  "ADMIN_EMAILS": "hello@graymatter.ch,other@example.com"
+}
 ```
 
-The check is case-insensitive. There is no UI for managing this list.
+Then redeploy. The check is case-insensitive. There is no UI for managing this list.
 
 ## Security Properties
 
