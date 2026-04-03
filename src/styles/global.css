@@ -488,7 +488,7 @@ p {
 .sunset-gradient::before {
   content: "";
   position: absolute;
-  inset: -30%;
+  inset: -10%;
   background: radial-gradient(closest-side, rgba(255, 255, 255, 0.12), transparent 70%);
   mix-blend-mode: overlay;
   opacity: 0.3;
@@ -572,7 +572,6 @@ p {
   object-fit: cover;
   transform: translate3d(0, 0, 0) scale(1.03);
   filter: saturate(1.05) contrast(1.05);
-  will-change: transform;
   animation: breatheCard 7.5s ease-in-out infinite;
 }
 
@@ -620,10 +619,3 @@ p {
   background-size: 100% 1px;
 }
 
-/* ---------- Reduced Motion ---------- */
-@media (prefers-reduced-motion: reduce) {
-  .sunset-gradient { animation: none; }
-  .sunset-gradient::before { animation: none; }
-  .water-flow::after { animation: none; opacity: 0.3; }
-  .breath-card img { animation: none; }
-}

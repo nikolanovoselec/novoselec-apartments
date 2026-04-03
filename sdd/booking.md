@@ -49,6 +49,8 @@ Request-to-book inquiry flow, business rules, server pipeline, WhatsApp integrat
 - **Verification:** Submit test inquiry, verify email delivery, test Turnstile, test min stay enforcement, test cross-season pricing, test capacity rejection
 - **Status:** Planned
 
+> **Note:** The interim contact page (REQ-BK-8) currently serves as the primary inquiry entry point. REQ-BK-1's full two-tab widget with date picker, pricing, and availability will replace it.
+
 ### REQ-BK-2: Inquiry Server Pipeline
 
 - **Intent:** Reliably process and deliver inquiries

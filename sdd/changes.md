@@ -1,5 +1,19 @@
 # Changelog
 
+## 2026-04-03 — Revision 26: Contact Page with Inquiry Form
+
+Standalone contact page at `/{locale}/kontakt` implementing the Quick Question path from the booking domain. Simplified inquiry form with name, email, phone, dates (freeform text), guests, and message — localized labels in all 4 locales. Turnstile CAPTCHA (invisible mode), honeypot field, GDPR consent checkbox. Submits to `/api/inquiry` as JSON. All site CTA links (navigation, homepage, apartment detail) updated from anchor-based `#inquiry` targets to the dedicated `/kontakt` page. This is an interim implementation ahead of the full two-tab request-to-book widget (REQ-BK-1).
+
+### Requirements added
+- **REQ-BK-8:** Contact inquiry page — standalone `/kontakt` route with simplified inquiry form as interim booking entry point.
+
+### AC updated
+- **REQ-BK-1:** Status remains Planned; added note that the interim contact page (REQ-BK-8) serves as the primary inquiry path until the full widget is built.
+- **REQ-SF-3:** CTA destination updated from `#inquiry` anchor to `/kontakt` page.
+
+### Quality issues noted
+- GDPR consent checkbox text does not link to Privacy Policy page (required by REQ-TC-5 AC and REQ-BK-1 AC). Flagged for follow-up fix.
+
 ## 2026-04-03 — Revision 25: Premium CSS Effects (Sunset Gradient, Water-Flow Divider, Breathing Cards, Animated Links)
 
 Homepage upgraded with four premium CSS-only effects: animated sunset gradient on CTA section (18s color-shifting cycle with haze overlay), water-flow liquid divider on apartments section (SVG wave mask + caustics shimmer), breathing image card component (7.5s scale/drift cycle with glassmorphism caption), and animated link underline utility. All effects include dedicated `prefers-reduced-motion` handling. CTA section button changed from primary to ghost variant for contrast on gradient background.

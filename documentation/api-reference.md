@@ -16,7 +16,9 @@ Dynamic multilingual sitemap. Generates one `<url>` entry per locale per page, w
 
 **Response:** `application/xml` — a Sitemap Protocol 0.9 document with `xmlns:xhtml` alternates.
 
-**Included pages:** `/`, `/apartmani`, `/zasto-pasman`, `/dolazak`, `/vodic`, `/o-nama`, `/faq`, `/privatnost`, `/impressum` — each emitted once per locale.
+**Included pages:** `/`, `/apartmani`, `/zdrelac`, `/galerija`, `/zasto-pasman`, `/dolazak`, `/vodic`, `/o-nama`, `/faq`, `/privatnost`, `/impressum`, `/pristupacnost` — each emitted once per locale.
+
+**Note:** `/kontakt` is not currently included in the sitemap. Add it to the `pages` array in `src/pages/sitemap.xml.ts` to include it.
 
 **Cache:** `Cache-Control: public, max-age=3600`.
 
@@ -125,7 +127,7 @@ Cookieless analytics event logging. Writes to the D1 `events` table. No PII is s
 
 ### POST /api/inquiry
 
-Submits a booking inquiry or quick question. Full server pipeline: Turnstile verification, honeypot check, Zod validation, server-side availability revalidation (booking type only), D1 persistence, and dual-email dispatch (owner notification + guest auto-reply).
+Submits a booking inquiry or quick question. Used by apartment detail page booking forms (`type: "booking"`), apartment quick-question modals (`type: "question"`), and the standalone contact page at `/:locale/kontakt` (`type: "question"`). Full server pipeline: Turnstile verification, honeypot check, Zod validation, server-side availability revalidation (booking type only), D1 persistence, and dual-email dispatch (owner notification + guest auto-reply).
 
 **Authentication:** None required.
 
