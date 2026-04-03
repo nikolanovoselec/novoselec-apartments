@@ -78,7 +78,7 @@ Astro's i18n is configured with `routing: "manual"`. File-based `[locale]` direc
 | `/:locale/` | `src/pages/[locale]/index.astro` | Homepage |
 | `/:locale/apartmani` | `src/pages/[locale]/apartmani/index.astro` | Apartment listing — card grid (2 columns desktop, 1 mobile); falls back to hardcoded data when CMS not seeded; each card links to detail page |
 | `/:locale/apartmani/:slug` | `src/pages/[locale]/apartmani/[slug].astro` | Apartment detail — hero image, description, meta grid (sleeps/bedrooms/size/beach distance), price card, amenity list; fetches entry directly by slug via `getEmDashEntry("apartments", slug)` with no locale filtering (locale is applied in rendering, not in lookup); redirects to listing on missing slug |
-| `/:locale/zdrelac` | `src/pages/[locale]/zdrelac.astro` | Ždrelac village — 4 editorial sections (bridge, beaches, Dalmatian life, olive groves), localized in all 4 locales; linked from main nav |
+| `/:locale/zdrelac` | `src/pages/[locale]/zdrelac.astro` | Ždrelac village — CMS-first: queries `editorial` collection for `page_key === "zdrelac"`, sorted by `sort_order`; falls back to hardcoded content (bridge, beaches, Dalmatian life, olive groves) when no CMS entries exist; localized in all 4 locales; linked from main nav |
 | `/:locale/galerija` | `src/pages/[locale]/galerija.astro` | Gallery — masonry grid of location and apartment photos with lightbox; linked from main nav |
 | `/:locale/zasto-pasman` | `src/pages/[locale]/zasto-pasman.astro` | Why Pašman — 4 selling-point sections (not in main nav) |
 | `/:locale/dolazak` | `src/pages/[locale]/dolazak.astro` | Getting Here — ferry, airport, map links |
@@ -174,7 +174,7 @@ Overlap detection is embedded in the INSERT statement itself (`INSERT...WHERE NO
 
 | Collection slug | Entries | Description |
 |---|---|---|
-| `pages` | ~32 | Static editorial pages in all 4 locales — Why Pašman, Getting Here, About, Privacy, Impressum, etc. Each entry has `locale`, `page_key`, `title`, `subtitle`, `body` (richtext), and `hero_image`. |
+| `pages` | ~32 | Static editorial pages in all 4 locales — Why Pašman, Getting Here, About, Privacy, Impressum, etc. Each entry has `locale`, `page_key`, `title`, `subtitle`, `body` (richtext), and `hero_image`. Note: `zdrelac.astro` queries this collection as slug `editorial` with `page_key === "zdrelac"`; no such entries exist in the current seed, so the page renders hardcoded fallback content until they are added. |
 | `apartments` | 2 | Apartment detail pages per locale — `apt-lavanda` and `apt-tramuntana`. Structured fields: capacity, bedrooms, amenities, bed config, distances, per-locale name/description/SEO. |
 | `faq` | ~20 | FAQ entries in all 4 locales — `locale`, `question`, `answer` (richtext), `sort_order`. |
 | `guide` | ~16 | Local guide entries (beaches, food, activities, day trips) per locale — `locale`, `category`, `title`, `description`, `image_url`. |

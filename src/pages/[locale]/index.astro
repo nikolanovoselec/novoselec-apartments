@@ -123,8 +123,8 @@ const oliveOilLabel: Record<Locale, string> = {
     </div>
   </div>
 
-  {/* Wave transition to dark section */}
-  <WaveDivider fill="#0A1F33" />
+  {/* Wave transition to dark section — bg matches cream above, fill matches navy below */}
+  <WaveDivider fill="#0A1F33" bg="#F8F5EF" />
 
   {/* Apartments */}
   <section class="section section--dark" data-reveal>
@@ -154,8 +154,8 @@ const oliveOilLabel: Record<Locale, string> = {
     </div>
   </section>
 
-  {/* Wave from dark back to cream */}
-  <WaveDivider fill="#F8F5EF" flip />
+  {/* Wave from dark back to cream — bg matches navy above, fill matches cream below */}
+  <WaveDivider fill="#F8F5EF" bg="#0A1F33" flip />
 
   {/* Testimonials */}
   {testimonials.length > 0 && (
@@ -212,8 +212,8 @@ const oliveOilLabel: Record<Locale, string> = {
     </div>
   </section>
 
-  {/* Wave into sunset CTA */}
-  <WaveDivider fill="#0a2342" />
+  {/* Wave into sunset CTA — bg matches cream above, fill matches sunset start */}
+  <WaveDivider fill="#0a2342" bg="#F8F5EF" />
 
   {/* CTA — sunset gradient */}
   <section class="section sunset-gradient" id="inquiry" data-reveal>

@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-04-03 — Revision 32: Zdrelac Page CMS Wiring and Encyclopedic Content
+
+The Zdrelac village page now queries the CMS `editorial` collection (filtered by `page_key === "zdrelac"`, sorted by `sort_order`) with graceful fallback to hardcoded content. Croatian fallback content expanded from 4 generic sections to 6 encyclopedic sections covering the bridge, Veliki Bokolj peak, Benedictine monastery Cokovac, olive groves, St. Michael's Fortress, and Galovac islet with caves. DE/SL/EN fallback content retained at 4 sections. The `editorial` collection is now queried by multiple pages (homepage, zdrelac, and others) but is not yet present in seed data.
+
+### AC updated
+- **REQ-ED-6:** Updated to document CMS wiring via editorial collection with page_key filter, expanded Croatian fallback content (6 encyclopedic sections), and CMS-override behavior (suppresses intro paragraph). Added REQ-CMS-1 dependency.
+- **REQ-CMS-1:** Added `editorial` to collection list as a queried-but-not-yet-seeded collection.
+
 ## 2026-04-03 — Revision 31: Subpage Hero Images and Wave Dividers
 
 All 11 subpages now display full-width background photography in their hero sections via the enhanced `HeroSimple` component. The component accepts an optional `image` prop, rendering a photo with dark gradient overlay, subtle Ken Burns animation (20s, 1.06x scale), and a bottom wave SVG divider that bridges into page content. When no image is provided, the original gradient fallback is preserved. Stock photos from Pexels CDN used as temporary placeholders.
