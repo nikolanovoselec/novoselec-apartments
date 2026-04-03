@@ -6,8 +6,8 @@ import type { APIRoute } from "astro";
  * Remove before production.
  */
 export const GET: APIRoute = async ({ locals }) => {
-  const emdash = (locals as Record<string, unknown>).emdash;
-  const emdashManifest = (locals as Record<string, unknown>).emdashManifest;
+  const emdash = (locals as unknown as Record<string, unknown>).emdash;
+  const emdashManifest = (locals as unknown as Record<string, unknown>).emdashManifest;
 
   const info: Record<string, unknown> = {
     hasEmdash: !!emdash,
@@ -15,7 +15,7 @@ export const GET: APIRoute = async ({ locals }) => {
     emdashKeys: emdash && typeof emdash === "object" ? Object.keys(emdash) : null,
     hasDb: !!(emdash as Record<string, unknown>)?.db,
     hasManifest: !!emdashManifest,
-    localsKeys: Object.keys(locals as Record<string, unknown>),
+    localsKeys: Object.keys(locals as unknown as Record<string, unknown>),
   };
 
   // Try to query the database directly
