@@ -103,6 +103,7 @@ Key settings in `astro.config.mjs`:
 | `i18n.defaultLocale` | `"hr"` | Croatian is the default locale |
 | `i18n.locales` | `["hr", "de", "sl", "en"]` | Supported languages |
 | `i18n.routing` | `"manual"` | Manual routing — locale prefixing via `[locale]` file-based routes, not Astro's automatic system. Required for Emdash integration compatibility (see [AD13](decisions/README.md#ad13-switch-to-manual-i18n-routing-to-prevent-astro-from-rewriting-integration-injected-routes)). |
+| `auth.teamDomain` | `"m4f1j0z0.cloudflareaccess.com"` | Cloudflare Access team domain — used by the `access()` adapter from `@emdash-cms/cloudflare` to validate Access JWTs on `/_emdash/admin` requests. |
 
 ## D1 Migrations
 

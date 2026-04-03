@@ -151,7 +151,7 @@ Content pages that sell the destination and build emotional connection — Why P
   - Practical info: Studenac for basics, larger shops in Preko/Kali, Zadar for full shopping
   - All content hardcoded per locale (4 languages) with culturally adapted tone
   - Alternating layout: odd sections image-left/text-right, even sections reversed (desktop); single column on mobile
-  - Images: 4:3 aspect, 16px border-radius, hover zoom (1.03x)
+  - Images: 4:3 aspect, organic asymmetric border-radius (`20px 4px 20px 4px`) with subtle box-shadow, hover zoom (1.03x)
   - Scroll-triggered reveal via `data-reveal`
   - Linked from homepage triptych (REQ-SF-5)
 - **Constraints:** CON-I18N, CON-PERF
@@ -168,7 +168,8 @@ Content pages that sell the destination and build emotional connection — Why P
   - Standalone page at `/{locale}/aktivnosti` with 60vh hero image, gradient overlay, locale-aware title and introductory paragraph
   - 6 content sections: walks and viewpoints (Bokolj hill 8-10 km), cycling (25-40 km loop route), Kornati National Park (departures 10-15 km), Telascica Nature Park, water sports (kayak, SUP, snorkeling, diving), history and culture (St. Michael's Fortress 12-14 km, Galevac monastery)
   - Each section includes distances from Zdrelac and practical tips
-  - All content hardcoded per locale (4 languages) with culturally adapted tone
+  - **CMS wiring:** Page queries the `editorial` collection filtered by `page_key === "aktivnosti"`, sorted by `sort_order`. When CMS entries exist, they replace the hardcoded fallback sections. When no CMS entries exist, hardcoded per-locale content is rendered.
+  - Hardcoded fallback content available per locale (4 languages) with culturally adapted tone
   - Same alternating row layout, image styling, and reveal animations as REQ-ED-8
   - Linked from homepage triptych (REQ-SF-5)
 - **Constraints:** CON-I18N, CON-PERF
@@ -185,7 +186,8 @@ Content pages that sell the destination and build emotional connection — Why P
   - Standalone page at `/{locale}/plaze` with 60vh hero image, gradient overlay, locale-aware title and introductory paragraph
   - 5 content sections organized by proximity: Zdrelac coves (0-2 km, Mali Zdrelac bay, bridge area), northern Pasman beaches (5-15 km, Matlovac, Soline), Ugljan beaches (10-20 km, Jaz, Kali, Muline), hidden coves (by boat/kayak), practical beach day tips (parking, shade, maestral wind patterns)
   - Each section includes named beaches with distances from Zdrelac
-  - All content hardcoded per locale (4 languages) with culturally adapted tone
+  - **CMS wiring:** Page queries the `editorial` collection filtered by `page_key === "plaze"`, sorted by `sort_order`. When CMS entries exist, they replace the hardcoded fallback sections. When no CMS entries exist, hardcoded per-locale content is rendered.
+  - Hardcoded fallback content available per locale (4 languages) with culturally adapted tone
   - Same alternating row layout, image styling, and reveal animations as REQ-ED-8
   - Linked from homepage triptych (REQ-SF-5)
 - **Constraints:** CON-I18N, CON-PERF

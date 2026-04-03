@@ -1,5 +1,17 @@
 # Changelog
 
+## 2026-04-03 — Revision 40: CMS Wiring for Activities/Beaches, Hero Overlay, Organic Images
+
+Activities (`aktivnosti`) and Beaches (`plaze`) pages now query the `editorial` CMS collection (filtered by `page_key`, sorted by `sort_order`), falling back to hardcoded content when no CMS entries exist. This matches the pattern already established by the Zdrelac page (REQ-ED-6). Hero overlay gradient tuned to reduce bottom opacity (0.8 to 0.5) for better photo visibility. Food & Drink page images switched to organic asymmetric border-radius with box-shadow. Contact form gets mobile-responsive grid fix.
+
+### AC updated
+- **REQ-SF-1:** Hero overlay description updated from single linear gradient to dual-layer radial + linear overlay with reduced bottom opacity (50% instead of 70%).
+- **REQ-ED-9:** Added CMS wiring acceptance criterion (editorial collection, page_key "aktivnosti", sort_order, hardcoded fallback).
+- **REQ-ED-10:** Added CMS wiring acceptance criterion (editorial collection, page_key "plaze", sort_order, hardcoded fallback).
+- **REQ-ED-8:** Image border-radius updated from 16px to organic asymmetric (`20px 4px 20px 4px`) with box-shadow.
+
+---
+
 ## 2026-04-03 — Revision 39: Cloudflare Access Replaces Magic Link Auth
 
 Admin authentication switched from Emdash magic link (Resend email plugin) to Cloudflare Access zero-trust proxy. The `access()` plugin from `@emdash-cms/cloudflare` is configured in Astro config with team domain, AUD env var, and auto-provisioning. The custom login page (`admin-login.astro`) and Resend email delivery plugin for auth are removed. Resend remains for inquiry notifications and guest auto-replies.

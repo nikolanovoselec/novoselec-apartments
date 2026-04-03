@@ -87,8 +87,8 @@ Astro's i18n is configured with `routing: "manual"`. File-based `[locale]` direc
 | `/:locale/o-nama` | `src/pages/[locale]/o-nama.astro` | About Us — host story |
 | `/:locale/vodic` | `src/pages/[locale]/vodic.astro` | Local Guide — alternating image+text rows for 4 categories (beaches, food, activities, day trips), localized in all 4 locales |
 | `/:locale/hrana` | `src/pages/[locale]/hrana.astro` | Food & Drink — 5 sections (konobas on Pašman, restaurants on Ugljan, Dalmatian specialties, local products, markets); page-hero + alternating content-row layout; localized in all 4 locales; linked from homepage triptych |
-| `/:locale/aktivnosti` | `src/pages/[locale]/aktivnosti.astro` | Nature & Activities — 6 sections (walks/viewpoints, cycling, Kornati, Telašćica, water sports, history); page-hero + alternating content-row layout; localized in all 4 locales; linked from homepage triptych |
-| `/:locale/plaze` | `src/pages/[locale]/plaze.astro` | Beaches — 5 sections (Ždrelac coves, northern Pašman, Ugljan beaches, hidden coves, tips); page-hero + alternating content-row layout; localized in all 4 locales; linked from homepage triptych |
+| `/:locale/aktivnosti` | `src/pages/[locale]/aktivnosti.astro` | Nature & Activities — CMS-first: queries `editorial` collection for `page_key === "aktivnosti"`, sorted by `sort_order`; falls back to 6 hardcoded sections (walks/viewpoints, cycling, Kornati, Telašćica, water sports, history) when no CMS entries exist; page-hero + alternating content-row layout; localized in all 4 locales; linked from homepage triptych |
+| `/:locale/plaze` | `src/pages/[locale]/plaze.astro` | Beaches — CMS-first: queries `editorial` collection for `page_key === "plaze"`, sorted by `sort_order`; falls back to 5 hardcoded sections (Ždrelac coves, northern Pašman, Ugljan beaches, hidden coves, tips) when no CMS entries exist; page-hero + alternating content-row layout; localized in all 4 locales; linked from homepage triptych |
 | `/:locale/kontakt` | `src/pages/[locale]/kontakt.astro` | Contact — standalone inquiry form with Turnstile CAPTCHA, honeypot, and GDPR consent checkbox; submits as `type: "question"` to `POST /api/inquiry`; all CTA links across the site point here |
 | `/:locale/privatnost` | `src/pages/[locale]/privatnost.astro` | Privacy Policy (GDPR) |
 | `/:locale/impressum` | `src/pages/[locale]/impressum.astro` | Legal notice |
@@ -175,7 +175,7 @@ Overlap detection is embedded in the INSERT statement itself (`INSERT...WHERE NO
 
 | Collection slug | Entries | Description |
 |---|---|---|
-| `pages` | ~32 | Static editorial pages in all 4 locales — Why Pašman, Getting Here, About, Privacy, Impressum, etc. Each entry has `locale`, `page_key`, `title`, `subtitle`, `body` (richtext), and `hero_image`. Note: `zdrelac.astro` queries this collection as slug `editorial` with `page_key === "zdrelac"`; no such entries exist in the current seed, so the page renders hardcoded fallback content until they are added. |
+| `pages` | ~32 | Static editorial pages in all 4 locales — Why Pašman, Getting Here, About, Privacy, Impressum, etc. Each entry has `locale`, `page_key`, `title`, `subtitle`, `body` (richtext), and `hero_image`. Note: `zdrelac.astro`, `aktivnosti.astro`, and `plaze.astro` all query the `editorial` collection (not `pages`) by `page_key` (`"zdrelac"`, `"aktivnosti"`, `"plaze"` respectively). No such entries exist in the current seed, so all three pages render hardcoded fallback content until the entries are added. |
 | `apartments` | 2 | Apartment detail pages per locale — `apt-lavanda` and `apt-tramuntana`. Structured fields: capacity, bedrooms, amenities, bed config, distances, per-locale name/description/SEO. |
 | `faq` | ~20 | FAQ entries in all 4 locales — `locale`, `question`, `answer` (richtext), `sort_order`. |
 | `guide` | ~16 | Local guide entries (beaches, food, activities, day trips) per locale — `locale`, `category`, `title`, `description`, `image_url`. |
@@ -260,7 +260,7 @@ These classes are defined as `is:global` styles inside `hrana.astro` and reused 
 | `.page-hero__overlay` | Absolute-positioned overlay container aligning content to bottom-left via flexbox |
 | `.page-hero__intro` | Intro paragraph beneath the `<h1>` — `--font-size-lg`, `max-width: 600px`, 80% white opacity |
 | `.content-row` | Two-column alternating layout: image (`1fr`) + text (`1fr`) on desktop, stacked on mobile; odd-indexed rows use `.content-row--reverse` to swap order |
-| `.content-row__image` | Image wrapper with `border-radius: 16px`, overflow hidden, 4:3 aspect ratio, hover zoom (1.03×) |
+| `.content-row__image` | Image wrapper with organic corner radii (`20px 4px 20px 4px`), overflow hidden, box shadow, 4:3 aspect ratio, hover zoom (1.03×) |
 | `.content-row__text` | Text column with responsive heading (`clamp(1.5rem, 3vw, 2.5rem)`) |
 
 ### Page-Specific Layout Classes
