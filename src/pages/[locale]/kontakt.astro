@@ -93,13 +93,10 @@ const l = labels[typedLocale];
           {/* Turnstile widget */}
           <div class="cf-turnstile" data-sitekey="0x4AAAAAAAiYAz_U5JnMbfRB" data-theme="light" data-size="normal"></div>
           <script is:inline>
-            // Load Turnstile script dynamically to ensure it's in the document
             (function() {
-              if (document.querySelector('script[src*="turnstile"]')) return;
               var s = document.createElement('script');
               s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
               s.async = true;
-              s.defer = true;
               document.head.appendChild(s);
             })();
           </script>
