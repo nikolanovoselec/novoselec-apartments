@@ -133,5 +133,28 @@
   "calendar.months": "Januar,Februar,März,April,Mai,Juni,Juli,August,September,Oktober,November,Dezember",
   "calendar.weekdays": "Mo,Di,Mi,Do,Fr,Sa,So",
 
-  "fallback.banner": "Einige Inhalte auf dieser Seite werden auf Kroatisch angezeigt, da die Übersetzung noch nicht verfügbar ist."
+  "fallback.banner": "Einige Inhalte auf dieser Seite werden auf Kroatisch angezeigt, da die Übersetzung noch nicht verfügbar ist.",
+
+  "homepage.ourGuests": "Unsere Gäste",
+  "homepage.experiences": "Erlebnisse",
+  "homepage.discoverIsland": "Entdecken Sie die Insel",
+  "homepage.triptych.food": "Essen & Trinken",
+  "homepage.triptych.foodSubtitle": "Frischer Fisch, Peka, hausgemachtes Öl",
+  "homepage.triptych.activities": "Natur & Aktivitäten",
+  "homepage.triptych.activitiesSubtitle": "Olivenhaine, Wanderwege, Kajak",
+  "homepage.triptych.beaches": "Strände",
+  "homepage.triptych.beachesSubtitle": "Versteckte Buchten, kristallklares Meer",
+  "homepage.cta.label": "Kontakt",
+  "homepage.cta.title": "Kontaktieren Sie uns",
+  "homepage.cta.subtitle": "Wir antworten in der Regel innerhalb von 2 Stunden",
+  "homepage.cta.button": "Anfrage senden",
+
+  "apartments.bedrooms": "{count} Schlafzimmer",
+  "apartments.night": "Nacht",
+  "apartments.amenitiesTitle": "Ausstattung",
+  "apartments.priceFromLabel": "Preis ab",
+  "apartments.viewButton": "Ansehen",
+  "apartments.viewApartments": "Ferienwohnungen ansehen",
+
+  "footer.tagline": "Ihr Urlaub an der Adria"
 }
