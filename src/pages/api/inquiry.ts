@@ -165,7 +165,7 @@ export const POST: APIRoute = async ({ request }) => {
     // Owner notification
     const ownerResult = await sendEmail({
       to: ownerEmails,
-      subject: `New inquiry${data.type === "booking" ? ` — ${data.checkIn} to ${data.checkOut}` : " — Quick question"}`,
+      subject: `Novi upit${data.type === "booking" ? ` - ${data.checkIn} do ${data.checkOut}` : " - Brzo pitanje"}`,
       html: buildOwnerEmail(data, cleanName, cleanEmail, cleanPhone, cleanMessage, priceEstimate),
       replyTo: cleanEmail,
       apiKey: resendKey,
@@ -175,14 +175,8 @@ export const POST: APIRoute = async ({ request }) => {
     // Guest auto-reply
     const guestResult = await sendEmail({
       to: [cleanEmail],
-      subject: data.locale === "de"
-        ? "Ihre Anfrage — Ferienwohnungen Ždrelac"
-        : data.locale === "sl"
-        ? "Vaše povpraševanje — Apartmaji Ždrelac"
-        : data.locale === "en"
-        ? "Your inquiry — Apartments Ždrelac"
-        : "Vaš upit — Apartmani Novoselec",
-      html: buildGuestEmail(data, data.locale),
+      subject: "Vaš upit - Apartmani Novoselec",
+      html: buildGuestEmail(data, "hr"),
       apiKey: resendKey,
       from: "Apartmani Novoselec <noreply@graymatter.ch>",
     });
@@ -246,23 +240,23 @@ function buildOwnerEmail(
   priceEstimate: number | null,
 ): string {
   const lines = [
-    `<h2 style="color:#0C2D48;font-weight:300;">New ${data.type === "booking" ? "Booking Inquiry" : "Quick Question"}</h2>`,
-    `<p><strong>Name:</strong> ${name}</p>`,
+    `<h2 style="color:#0C2D48;font-weight:300;">${data.type === "booking" ? "Novi upit za rezervaciju" : "Brzo pitanje"}</h2>`,
+    `<p><strong>Ime:</strong> ${name}</p>`,
     `<p><strong>Email:</strong> ${email}</p>`,
   ];
 
-  if (phone) lines.push(`<p><strong>Phone:</strong> ${phone}</p>`);
+  if (phone) lines.push(`<p><strong>Telefon:</strong> ${phone}</p>`);
 
   if (data.type === "booking") {
-    lines.push(`<p><strong>Dates:</strong> ${data.checkIn} to ${data.checkOut}</p>`);
-    lines.push(`<p><strong>Guests:</strong> ${data.adults} adults, ${data.childrenUnder12} children (<12), ${data.children12to17} children (12-17)</p>`);
-    lines.push(`<p><strong>Apartment:</strong> ${stripHtml(data.apartmentId)}</p>`);
-    if (data.hasPets) lines.push(`<p><strong>Pets:</strong> Yes${data.petNote ? ` — ${stripHtml(data.petNote)}` : ""}</p>`);
-    if (priceEstimate) lines.push(`<p><strong>Price estimate:</strong> €${priceEstimate.toFixed(2)}</p>`);
+    lines.push(`<p><strong>Datumi:</strong> ${data.checkIn} do ${data.checkOut}</p>`);
+    lines.push(`<p><strong>Gosti:</strong> ${data.adults} odraslih, ${data.childrenUnder12} djece (<12), ${data.children12to17} djece (12-17)</p>`);
+    lines.push(`<p><strong>Apartman:</strong> ${stripHtml(data.apartmentId)}</p>`);
+    if (data.hasPets) lines.push(`<p><strong>Kućni ljubimci:</strong> Da${data.petNote ? ` - ${stripHtml(data.petNote)}` : ""}</p>`);
+    if (priceEstimate) lines.push(`<p><strong>Procjena cijene:</strong> €${priceEstimate.toFixed(2)}</p>`);
   }
 
-  if (message) lines.push(`<p><strong>Message:</strong> ${message}</p>`);
-  lines.push(`<p style="color:#666;font-size:12px;">Locale: ${data.locale}</p>`);
+  if (message) lines.push(`<p><strong>Poruka:</strong> ${message}</p>`);
+  lines.push(`<p style="color:#666;font-size:12px;">Jezik: ${data.locale}</p>`);
 
   return `<div style="font-family:sans-serif;max-width:600px;">${lines.join("")}</div>`;
 }
