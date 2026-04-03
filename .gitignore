@@ -7,3 +7,5 @@ dist/
 *.log
 .DS_Store
 seed/media/photos/
+test-live.mjs
+test-site.mjs

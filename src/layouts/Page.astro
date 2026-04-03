@@ -4,7 +4,6 @@ import Base from "./Base.astro";
 import Navigation from "~/components/shell/Navigation.astro";
 import LanguageSwitcher from "~/components/shell/LanguageSwitcher.astro";
 import Footer from "~/components/shell/Footer.astro";
-import WhatsAppButton from "~/components/shell/WhatsAppButton.astro";
 import StickyMobileCTA from "~/components/shell/StickyMobileCTA.astro";
 
 interface Props {
@@ -14,8 +13,6 @@ interface Props {
   ogImage?: string;
   noIndex?: boolean;
   lowestPrice?: number;
-  whatsappNumber?: string;
-  apartmentName?: string;
   hasHero?: boolean;
 }
 
@@ -26,8 +23,6 @@ const {
   ogImage,
   noIndex,
   lowestPrice,
-  whatsappNumber,
-  apartmentName,
   hasHero = false,
 } = Astro.props;
 ---
@@ -45,6 +40,5 @@ const {
 
   <Footer locale={locale} />
 
-  <WhatsAppButton locale={locale} whatsappNumber={whatsappNumber} apartmentName={apartmentName} />
   <StickyMobileCTA locale={locale} lowestPrice={lowestPrice} />
 </Base>
