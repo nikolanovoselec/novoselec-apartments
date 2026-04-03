@@ -185,7 +185,7 @@ Color system, typography, scroll animations, micro-interactions, and Croatian vi
   - `flip` prop for vertical mirror (top-of-section vs bottom-of-section placement)
   - `aria-hidden="true"` — purely decorative
   - Homepage uses 3 wave dividers: cream-to-dark before apartments section, dark-to-cream after apartments section, cream-to-dark before sunset CTA section
-  - Subpage heroes: every `HeroSimple` with a background image includes an inline wave SVG at the bottom edge (cream fill `#F8F5EF`), creating an organic transition from hero photo into page content (REQ-VD-12)
+  - Subpage heroes: every `HeroSimple` with a background image includes an inline wave SVG at the bottom edge (cream fill `#F8F5EF`), creating an organic transition from hero photo into page content (REQ-VD-12). Pages with custom hero markup (not using HeroSimple) achieve the same effect via CSS `::after` pseudo-element with SVG `mask-image` — same wave path, same responsive height, same cream fill.
   - ~~`.water-flow` CSS utility class with caustics shimmer~~ — **Superseded:** the previous water-flow approach (CSS mask-image wave + caustics radial-gradient animation on the apartments section) has been replaced by standalone WaveDivider components. The `.water-flow` CSS class is no longer applied to any section.
 - **Constraints:** CON-PERF, CON-A11Y
 - **Priority:** P2

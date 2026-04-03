@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-04-03 — Revision 34: Wave Dividers on Food & Drink and Zdrelac Hero Sections
+
+Food & Drink (`hrana`) and Zdrelac pages now have wavy line dividers at the bottom of their hero sections, matching the wave transition pattern established in REQ-VD-9. These pages use custom hero markup (`.page-hero`, `.village-hero`) rather than the shared `HeroSimple` component, so the wave is implemented via CSS `::after` pseudo-element with SVG `mask-image` instead of inline SVG. Same wave path, same cream fill (`#F8F5EF`), same responsive height. Activities and Beaches pages use the same hero class but do not yet have the wave divider.
+
+### AC updated
+- **REQ-VD-9:** Documented the CSS `::after` + mask-image alternative for pages with custom hero markup (not using HeroSimple).
+- **REQ-ED-8:** Added wave divider to hrana page hero description.
+- **REQ-ED-6:** Added wave divider to zdrelac page hero description.
+
 ## 2026-04-03 — Revision 33: Apartment Listing CTA and CSP connect-src for Turnstile
 
 Apartment listing page CTA now links to `/{locale}/kontakt` instead of `mailto:`, aligning with REQ-BK-8 which requires all site CTAs to route through the contact inquiry page. CSP `connect-src` directive updated to allow `https://challenges.cloudflare.com` for Turnstile widget verification callbacks.
