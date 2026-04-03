@@ -133,5 +133,28 @@
   "calendar.months": "January,February,March,April,May,June,July,August,September,October,November,December",
   "calendar.weekdays": "Mon,Tue,Wed,Thu,Fri,Sat,Sun",
 
-  "fallback.banner": "Some content on this page is shown in Croatian because translation is not yet available."
+  "fallback.banner": "Some content on this page is shown in Croatian because translation is not yet available.",
+
+  "homepage.ourGuests": "Our guests",
+  "homepage.experiences": "Experiences",
+  "homepage.discoverIsland": "Discover the island",
+  "homepage.triptych.food": "Food & Drink",
+  "homepage.triptych.foodSubtitle": "Fresh fish, peka, homemade oil",
+  "homepage.triptych.activities": "Nature & Activities",
+  "homepage.triptych.activitiesSubtitle": "Olive groves, trails, kayaking",
+  "homepage.triptych.beaches": "Beaches",
+  "homepage.triptych.beachesSubtitle": "Hidden coves, crystal-clear sea",
+  "homepage.cta.label": "Contact",
+  "homepage.cta.title": "Get in touch",
+  "homepage.cta.subtitle": "We typically respond within 2 hours",
+  "homepage.cta.button": "Send inquiry",
+
+  "apartments.bedrooms": "{count} bedrooms",
+  "apartments.night": "night",
+  "apartments.amenitiesTitle": "Amenities",
+  "apartments.priceFromLabel": "Price from",
+  "apartments.viewButton": "View",
+  "apartments.viewApartments": "View apartments",
+
+  "footer.tagline": "Your Adriatic escape"
 }

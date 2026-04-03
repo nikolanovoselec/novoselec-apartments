@@ -133,5 +133,28 @@
   "calendar.months": "Siječanj,Veljača,Ožujak,Travanj,Svibanj,Lipanj,Srpanj,Kolovoz,Rujan,Listopad,Studeni,Prosinac",
   "calendar.weekdays": "Po,Ut,Sr,Če,Pe,Su,Ne",
 
-  "fallback.banner": "Dio sadržaja na ovoj stranici prikazan je na hrvatskom jer prijevod još nije dostupan."
+  "fallback.banner": "Dio sadržaja na ovoj stranici prikazan je na hrvatskom jer prijevod još nije dostupan.",
+
+  "homepage.ourGuests": "Naši gosti",
+  "homepage.experiences": "Doživljaji",
+  "homepage.discoverIsland": "Otkrijte otok",
+  "homepage.triptych.food": "Hrana i piće",
+  "homepage.triptych.foodSubtitle": "Svježa riba, peka, domaće ulje",
+  "homepage.triptych.activities": "Priroda i aktivnosti",
+  "homepage.triptych.activitiesSubtitle": "Maslinici, staze, kajak",
+  "homepage.triptych.beaches": "Plaže",
+  "homepage.triptych.beachesSubtitle": "Skrivene uvale, kristalno čisto more",
+  "homepage.cta.label": "Kontakt",
+  "homepage.cta.title": "Javite nam se",
+  "homepage.cta.subtitle": "Obično odgovaramo unutar 2 sata",
+  "homepage.cta.button": "Pošaljite upit",
+
+  "apartments.bedrooms": "{count} spavaće sobe",
+  "apartments.night": "noć",
+  "apartments.amenitiesTitle": "Sadržaj",
+  "apartments.priceFromLabel": "Cijena od",
+  "apartments.viewButton": "Pogledaj",
+  "apartments.viewApartments": "Pogledaj apartmane",
+
+  "footer.tagline": "Vaš odmor na Jadranu"
 }

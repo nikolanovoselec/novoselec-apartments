@@ -81,7 +81,7 @@ const displayApartments = apartments.length > 0 ? apartments : fallbackApartment
                   {t(typedLocale, "apartments.fromPrice").replace("{price}", String(apt.data.price_from))}
                 </span>
                 <a href={`/${typedLocale}/apartmani/${apt.slug}`} class="btn btn--primary">
-                  {typedLocale === "hr" ? "Pogledaj" : typedLocale === "de" ? "Ansehen" : typedLocale === "sl" ? "Poglej" : "View"}
+                  {t(typedLocale, "apartments.viewButton")}
                 </a>
               </div>
             </div>
@@ -94,7 +94,7 @@ const displayApartments = apartments.length > 0 ? apartments : fallbackApartment
   {/* Inquiry CTA */}
   <section class="section section--alt" id="inquiry" data-reveal>
     <div class="container text-center">
-      <h2>{typedLocale === "hr" ? "Javite nam se" : typedLocale === "de" ? "Kontaktieren Sie uns" : typedLocale === "sl" ? "Pišite nam" : "Get in touch"}</h2>
+      <h2>{t(typedLocale, "homepage.cta.title")}</h2>
       <p style="margin-top: var(--space-lg); margin-inline: auto; color: var(--color-text-light);">
         {t(typedLocale, "trust.responseTime")}
       </p>

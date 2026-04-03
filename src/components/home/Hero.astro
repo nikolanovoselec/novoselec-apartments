@@ -80,13 +80,13 @@ const heroImages = [
     justify-content: center;
     text-align: center;
     color: var(--color-white);
-    overflow: hidden;
     background: #0A1F33;
   }
 
-  /* Carousel slides — stacked, crossfade */
+  /* Carousel slides — stacked, crossfade. overflow:hidden here (not on .hero) to avoid clipping the wave */
   .hero__slide {
     position: absolute;
+    overflow: hidden;
     inset: 0;
     z-index: 0;
     opacity: 0;

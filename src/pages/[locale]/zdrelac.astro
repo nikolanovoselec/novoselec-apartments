@@ -1,6 +1,7 @@
 ---
 import Page from "~/layouts/Page.astro";
 import { isValidLocale, type Locale } from "~/i18n/config";
+import { t } from "~/i18n/t";
 import { getLocalizedCollection } from "~/lib/content";
 
 const { locale } = Astro.params;
@@ -109,7 +110,7 @@ const sections = useCms
   <section class="section" data-reveal>
     <div class="container text-center">
       <a href={`/${typedLocale}/apartmani`} class="btn btn--primary">
-        {typedLocale === "hr" ? "Pogledaj apartmane" : typedLocale === "de" ? "Apartments ansehen" : typedLocale === "sl" ? "Poglej apartmaje" : "View apartments"}
+        {t(typedLocale, "apartments.viewApartments")}
       </a>
     </div>
   </section>

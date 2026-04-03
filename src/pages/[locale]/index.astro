@@ -76,9 +76,7 @@ const aptsBody = (aptsSection?.data.body as string) ?? {
   en: "Comfortable apartments with sea views, a stone terrace for morning coffee, and everything you need for a perfect holiday.",
 }[typedLocale];
 
-const ctaTitle = (ctaSection?.data.title as string) ?? {
-  hr: "Javite nam se", de: "Kontaktieren Sie uns", sl: "Pišite nam", en: "Get in touch",
-}[typedLocale];
+const ctaTitle = (ctaSection?.data.title as string) ?? t(typedLocale, "homepage.cta.title");
 
 // Olive oil label
 const oliveOilLabel: Record<Locale, string> = {
@@ -162,7 +160,7 @@ const oliveOilLabel: Record<Locale, string> = {
     <section class="section" data-reveal>
       <div class="container">
         <p class="text-label text-center" style="margin-bottom: var(--space-md);">
-          {typedLocale === "hr" ? "Naši gosti" : typedLocale === "de" ? "Unsere Gäste" : typedLocale === "sl" ? "Naši gostje" : "Our guests"}
+          {t(typedLocale, "homepage.ourGuests")}
         </p>
         <div class="testimonials-grid">
           {testimonials.slice(0, 3).map((test) => (
@@ -182,30 +180,30 @@ const oliveOilLabel: Record<Locale, string> = {
   {/* Experience section — what to do on the island */}
   <section class="section gradient-warm" data-reveal>
     <div class="container">
-      <p class="text-label text-center">{typedLocale === "hr" ? "Doživljaji" : typedLocale === "de" ? "Erlebnisse" : typedLocale === "sl" ? "Doživetja" : "Experiences"}</p>
+      <p class="text-label text-center">{t(typedLocale, "homepage.experiences")}</p>
       <h2 class="text-center" style="margin-top: var(--space-md); margin-bottom: var(--space-2xl);">
-        {typedLocale === "hr" ? "Otkrijte otok" : typedLocale === "de" ? "Entdecken Sie die Insel" : typedLocale === "sl" ? "Odkrijte otok" : "Discover the island"}
+        {t(typedLocale, "homepage.discoverIsland")}
       </h2>
       <div class="triptych">
         <a href={`/${typedLocale}/hrana`} class="triptych__item">
           <img src="https://images.pexels.com/photos/1267320/pexels-photo-1267320.jpeg?auto=compress&w=600" alt="Fresh Mediterranean seafood platter" width="600" height="750" loading="lazy" />
           <div class="triptych__overlay">
             <span class="triptych__title">{t(typedLocale, "guide.foodDrink")}</span>
-            <span class="triptych__subtitle">{typedLocale === "hr" ? "Svježa riba, peka, domaće ulje" : typedLocale === "de" ? "Frischer Fisch, Peka, hausgemachtes Öl" : typedLocale === "sl" ? "Sveža riba, peka, domače olje" : "Fresh fish, peka, homemade oil"}</span>
+            <span class="triptych__subtitle">{t(typedLocale, "homepage.triptych.foodSubtitle")}</span>
           </div>
         </a>
         <a href={`/${typedLocale}/aktivnosti`} class="triptych__item">
           <img src="https://images.pexels.com/photos/4992828/pexels-photo-4992828.jpeg?auto=compress&w=600" alt="Olive grove on Pašman island" width="600" height="750" loading="lazy" />
           <div class="triptych__overlay">
-            <span class="triptych__title">{typedLocale === "hr" ? "Priroda i aktivnosti" : typedLocale === "de" ? "Natur & Aktivitäten" : typedLocale === "sl" ? "Narava in aktivnosti" : "Nature & Activities"}</span>
-            <span class="triptych__subtitle">{typedLocale === "hr" ? "Maslinici, staze, kayaking" : typedLocale === "de" ? "Olivenhaine, Wanderwege, Kajak" : typedLocale === "sl" ? "Oljčni nasadi, poti, kajak" : "Olive groves, trails, kayaking"}</span>
+            <span class="triptych__title">{t(typedLocale, "homepage.triptych.activities")}</span>
+            <span class="triptych__subtitle">{t(typedLocale, "homepage.triptych.activitiesSubtitle")}</span>
           </div>
         </a>
         <a href={`/${typedLocale}/plaze`} class="triptych__item">
           <img src="https://images.pexels.com/photos/1285625/pexels-photo-1285625.jpeg?auto=compress&w=600" alt="Hidden pebble beach in a cove" width="600" height="750" loading="lazy" />
           <div class="triptych__overlay">
             <span class="triptych__title">{t(typedLocale, "guide.beaches")}</span>
-            <span class="triptych__subtitle">{typedLocale === "hr" ? "Skrivene uvale, kristalno more" : typedLocale === "de" ? "Versteckte Buchten, kristallklares Meer" : typedLocale === "sl" ? "Skrite zalivčke, kristalno morje" : "Hidden coves, crystal-clear sea"}</span>
+            <span class="triptych__subtitle">{t(typedLocale, "homepage.triptych.beachesSubtitle")}</span>
           </div>
         </a>
       </div>

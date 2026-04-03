@@ -133,5 +133,28 @@
   "calendar.months": "Januar,Februar,Marec,April,Maj,Junij,Julij,Avgust,September,Oktober,November,December",
   "calendar.weekdays": "Po,To,Sr,Če,Pe,So,Ne",
 
-  "fallback.banner": "Del vsebine na tej strani je prikazan v hrvaščini, ker prevod še ni na voljo."
+  "fallback.banner": "Del vsebine na tej strani je prikazan v hrvaščini, ker prevod še ni na voljo.",
+
+  "homepage.ourGuests": "Naši gostje",
+  "homepage.experiences": "Doživetja",
+  "homepage.discoverIsland": "Odkrijte otok",
+  "homepage.triptych.food": "Hrana in pijača",
+  "homepage.triptych.foodSubtitle": "Sveža riba, peka, domače olje",
+  "homepage.triptych.activities": "Narava in aktivnosti",
+  "homepage.triptych.activitiesSubtitle": "Oljčni nasadi, poti, kajak",
+  "homepage.triptych.beaches": "Plaže",
+  "homepage.triptych.beachesSubtitle": "Skrite zalivčke, kristalno čisto morje",
+  "homepage.cta.label": "Kontakt",
+  "homepage.cta.title": "Pišite nam",
+  "homepage.cta.subtitle": "Običajno odgovorimo v 2 urah",
+  "homepage.cta.button": "Pošljite povpraševanje",
+
+  "apartments.bedrooms": "{count} spalnic",
+  "apartments.night": "noč",
+  "apartments.amenitiesTitle": "Oprema",
+  "apartments.priceFromLabel": "Cena od",
+  "apartments.viewButton": "Poglej",
+  "apartments.viewApartments": "Poglej apartmaje",
+
+  "footer.tagline": "Vaš oddih na Jadranu"
 }
