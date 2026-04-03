@@ -1,5 +1,21 @@
 # Changelog
 
+## 2026-04-03 — Revision 24: Content Detail Pages (Food, Activities, Beaches) + Triptych Links
+
+Three local guide categories expanded from summary entries on `/vodic` to standalone detail pages with full-screen heroes, real Croatian island content (named restaurants, beaches, parks with distances from Zdrelac), and 4-locale translations. Homepage experience triptych items converted from static divs to clickable links pointing to these detail pages.
+
+### Requirements added
+- **REQ-ED-8:** "Food & Drink" detail page at `/{locale}/hrana` — konobas, restaurants, specialties, local products, markets with distances.
+- **REQ-ED-9:** "Nature & Activities" detail page at `/{locale}/aktivnosti` — walks, cycling, Kornati, Telascica, water sports, history.
+- **REQ-ED-10:** "Beaches" detail page at `/{locale}/plaze` — Zdrelac coves, Pasman beaches, Ugljan beaches, hidden coves, practical tips.
+
+### AC updated
+- **REQ-ED-4:** Added note that three guide categories now have standalone detail pages (REQ-ED-8, REQ-ED-9, REQ-ED-10).
+- **REQ-SF-5:** Triptych items updated from static `<div>` to clickable `<a>` elements linking to food, activities, and beaches detail pages.
+
+### Glossary
+- Added "Maestral" term.
+
 ## 2026-04-03 — Revision 23: Gallery Page, Ždrelac Village Page, Navigation Restructuring
 
 Gallery page added with masonry-like grid layout and hover effects. Ždrelac village gets a full standalone page with aerial hero and alternating content rows. Navigation restructured: "Why Pašman" and FAQ removed from primary nav, replaced with Ždrelac and Gallery links.

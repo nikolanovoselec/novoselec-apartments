@@ -10,6 +10,7 @@
 | **Ždrelac** | Small village at the northern tip of Pašman island where the apartments are located. Connected to Ugljan island by bridge, providing alternative ferry access via the Zadar-Preko route. |
 | **Jadrolinija** | Croatian state ferry company operating the Biograd-Tkon route (~25 min). |
 | **Konoba** | Traditional Croatian tavern/restaurant, typically family-run, serving local food. |
+| **Maestral** | Afternoon onshore breeze typical of the Adriatic coast, picking up around midday and calming by evening. Relevant for beach and water sport planning. |
 | **Emdash** | Full-stack TypeScript CMS built as an Astro integration. Provides admin panel, REST API, media library, and content loader. |
 | **D1** | Cloudflare's serverless SQL database (SQLite-based). Used for content storage via Emdash. |
 | **R2** | Cloudflare's object storage (S3-compatible). Used for media (photos, video). |

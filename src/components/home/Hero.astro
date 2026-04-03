@@ -177,8 +177,7 @@ const heroImages = [
 </style>
 
 <script is:inline>
-  // Hero carousel — auto-crossfade with Ken Burns, no manual controls
-  (function() {
+  document.addEventListener("DOMContentLoaded", function() {
     var slides = document.querySelectorAll('.hero__slide');
     if (slides.length < 2) return;
 
@@ -192,5 +191,5 @@ const heroImages = [
     }
 
     setInterval(next, 6000);
-  })();
+  });
 </script>

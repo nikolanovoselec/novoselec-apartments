@@ -35,6 +35,16 @@ The sitemap is served at `/sitemap.xml` and generated at request time by `src/pa
 
 Each page is emitted once per locale, producing 48 `<url>` entries (12 pages × 4 locales).
 
+The following pages exist as routes but are not yet registered in `sitemap.xml.ts`:
+
+| Slug | Status |
+|---|---|
+| `/hrana` | Route exists, not in sitemap |
+| `/aktivnosti` | Route exists, not in sitemap |
+| `/plaze` | Route exists, not in sitemap |
+
+Add these slugs to the `pages` array in `src/pages/sitemap.xml.ts` to include them.
+
 ### hreflang alternates
 
 Every `<url>` entry contains `xhtml:link rel="alternate"` elements for all four locales plus an `x-default` pointing to the Croatian (`hr`) variant. This tells Google which URL to serve for each language/region combination and prevents duplicate content penalties across locales.
@@ -103,7 +113,10 @@ The Phase 6 editorial pages exist primarily to capture long-tail search intent a
 | `/dolazak` | "Fähre Pašman", "how to get to Pašman" — practical planning |
 | `/faq` | Common pre-booking questions — FAQ rich results |
 | `/o-nama` | Brand trust, host story |
-| `/vodic` | Local tips — "beaches near Pašman", "restaurants Pašman" |
+| `/vodic` | Local guide overview — links to detail pages |
+| `/hrana` | "Restaurants Pašman", "where to eat Pašman" — dining intent; linked from homepage triptych |
+| `/aktivnosti` | "Things to do Pašman", "Kornati tour", "kayaking Pašman" — activity intent; linked from homepage triptych |
+| `/plaze` | "Beaches Pašman", "Pašman swimming", "coves Ugljan" — beach intent; linked from homepage triptych |
 | `/privatnost` | GDPR legal requirement |
 | `/impressum` | German legal requirement (Impressumspflicht) |
 

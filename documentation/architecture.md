@@ -83,6 +83,9 @@ Astro's i18n is configured with `routing: "manual"`. File-based `[locale]` direc
 | `/:locale/faq` | `src/pages/[locale]/faq.astro` | FAQ — accordion with Schema.org FAQPage markup (not in main nav) |
 | `/:locale/o-nama` | `src/pages/[locale]/o-nama.astro` | About Us — host story |
 | `/:locale/vodic` | `src/pages/[locale]/vodic.astro` | Local Guide — alternating image+text rows for 4 categories (beaches, food, activities, day trips), localized in all 4 locales |
+| `/:locale/hrana` | `src/pages/[locale]/hrana.astro` | Food & Drink — 5 sections (konobas on Pašman, restaurants on Ugljan, Dalmatian specialties, local products, markets); page-hero + alternating content-row layout; localized in all 4 locales; linked from homepage triptych |
+| `/:locale/aktivnosti` | `src/pages/[locale]/aktivnosti.astro` | Nature & Activities — 6 sections (walks/viewpoints, cycling, Kornati, Telašćica, water sports, history); page-hero + alternating content-row layout; localized in all 4 locales; linked from homepage triptych |
+| `/:locale/plaze` | `src/pages/[locale]/plaze.astro` | Beaches — 5 sections (Ždrelac coves, northern Pašman, Ugljan beaches, hidden coves, tips); page-hero + alternating content-row layout; localized in all 4 locales; linked from homepage triptych |
 | `/:locale/privatnost` | `src/pages/[locale]/privatnost.astro` | Privacy Policy (GDPR) |
 | `/:locale/impressum` | `src/pages/[locale]/impressum.astro` | Legal notice |
 | `/:locale/pristupacnost` | `src/pages/[locale]/pristupacnost.astro` | Accessibility statement — WCAG 2.1 AA compliance target, localized in all 4 locales |
@@ -231,10 +234,23 @@ These layout components are defined as scoped styles in `src/pages/[locale]/inde
 | `.photo-strip` | Horizontal strip of three images at uniform 3:2 aspect ratio with rounded corners | `display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-md)`; each `.photo-strip__item` has `border-radius: 16px` (desktop 20px) and `overflow: hidden` |
 | `.full-bleed-image` | Single image at 21:9 aspect with a gradient overlay and centered text | `aspect-ratio: 21/9`; child `.full-bleed-image__text` is absolute-positioned |
 | `.duo-image` | Two images side by side at uniform 3:4 aspect, using `.img-organic` wrappers for curved corners | `display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md)`; images wrapped in `.img-organic` which supplies alternating-corner radii |
-| `.triptych` | Three-column grid at uniform 4:5 aspect with label overlays and rounded corners | `display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-md)`; `.triptych__label` is absolute-positioned; items have `border-radius: 16px` |
+| `.triptych` | Three-column grid at uniform 4:5 aspect with label overlays and rounded corners | `display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-md)`; `.triptych__label` is absolute-positioned; items have `border-radius: 16px`; items are `<a>` elements linking to `/hrana`, `/aktivnosti`, and `/plaze` |
 | `.split-section` | Two-column layout: text (`__left`) + content (`__right`) | 50/50 columns on desktop, stacked on mobile; `.split-section--reverse` swaps column order |
 | `.tag-row` | Horizontal wrapping row of inline tag chips | `display: flex; flex-wrap: wrap; gap: var(--space-sm)` |
 | `.tag` | Individual chip inside a `.tag-row` | `border: 1px solid var(--color-border)`, small padding, `--font-size-xs` |
+
+### Shared Editorial Page Layout Classes
+
+These classes are defined as `is:global` styles inside `hrana.astro` and reused by `aktivnosti.astro` and `plaze.astro` via the same pattern.
+
+| Class | Purpose |
+|---|---|
+| `.page-hero` | Full-bleed hero at `60vh` / min `400px` — image `object-fit: cover` with a navy gradient overlay anchored to bottom; used on editorial detail pages |
+| `.page-hero__overlay` | Absolute-positioned overlay container aligning content to bottom-left via flexbox |
+| `.page-hero__intro` | Intro paragraph beneath the `<h1>` — `--font-size-lg`, `max-width: 600px`, 80% white opacity |
+| `.content-row` | Two-column alternating layout: image (`1fr`) + text (`1fr`) on desktop, stacked on mobile; odd-indexed rows use `.content-row--reverse` to swap order |
+| `.content-row__image` | Image wrapper with `border-radius: 16px`, overflow hidden, 4:3 aspect ratio, hover zoom (1.03×) |
+| `.content-row__text` | Text column with responsive heading (`clamp(1.5rem, 3vw, 2.5rem)`) |
 
 ### Page-Specific Layout Classes
 

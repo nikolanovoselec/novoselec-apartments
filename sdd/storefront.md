@@ -104,7 +104,7 @@ The homepage and visual shell — hero, navigation, footer, language switcher, a
   - Links to full editorial content
   - Responsive: stacks vertically on mobile
   - **Apartments preview** section with split-section layout (text + duo-image grid), duo-image is 2-col grid with spacing gap, 3:4 portrait aspect, organic asymmetric border-radius (`20px 4px 20px 4px`), hover zoom (1.03x). Ghost CTA to apartments page.
-  - **Experience triptych** (REQ-ED-4): 3-column image grid within container with gaps (food, olive oil, beaches), 4:5 portrait aspect, hover zoom (1.05x), 16px border-radius, subtle shadow, gradient label overlay that slides in from bottom on hover (always visible on mobile). Stacks to single column (16:9 aspect) on mobile. Wrapped in warm gradient background section.
+  - **Experience triptych** (REQ-ED-4): 3-column image grid within container with gaps (food, activities, beaches), 4:5 portrait aspect, hover zoom (1.05x), 16px border-radius, subtle shadow, gradient label overlay that slides in from bottom on hover (always visible on mobile). Stacks to single column (16:9 aspect) on mobile. Wrapped in warm gradient background section. Each triptych item is a clickable `<a>` element linking to its detail page: Food & Drink -> `/{locale}/hrana` (REQ-ED-8), Nature & Activities -> `/{locale}/aktivnosti` (REQ-ED-9), Beaches -> `/{locale}/plaze` (REQ-ED-10).
   - Toggleable via CMS section settings (REQ-CMS-5)
   - CMS-managed content per locale
 - **Constraints:** CON-PERF, CON-I18N

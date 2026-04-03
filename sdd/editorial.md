@@ -71,7 +71,7 @@ Content pages that sell the destination and build emotional connection — Why P
 - **Intent:** Curated recommendations that build trust and drive SEO
 - **Applies To:** Visitor
 - **Acceptance Criteria:**
-  - **Pre-CMS state (current):** Standalone guide page (`/[locale]/vodic`) with `HeroSimple` header. Four categories displayed in alternating image+text layout: Beaches, Food & Drink, Activities, Day Trips. Each category: landscape photo (3:2 aspect), uppercase label, per-locale descriptive paragraph. Alternating layout: odd items show image left / text right, even items reverse (image right / text left on desktop). Single-column stacking on mobile. No filtering, no "coming soon" message — content is visible but static.
+  - **Pre-CMS state (current):** Standalone guide page (`/[locale]/vodic`) with `HeroSimple` header. Four categories displayed in alternating image+text layout: Beaches, Food & Drink, Activities, Day Trips. Each category: landscape photo (3:2 aspect), uppercase label, per-locale descriptive paragraph. Alternating layout: odd items show image left / text right, even items reverse (image right / text left on desktop). Single-column stacking on mobile. No filtering, no "coming soon" message — content is visible but static. Three categories expanded to standalone detail pages: Food & Drink (REQ-ED-8), Nature & Activities (REQ-ED-9), Beaches (REQ-ED-10).
   - **With CMS (planned):** Categories expanded to: Beaches, Food & Drink, Restaurants & Konobas, Activities, Day Trips
   - **Food & Drink** is a featured category: local specialties (grilled fish, octopus peka, lamb, olive oil, island wine, figs), appetizing full-bleed food photography, where to buy/eat
   - Each entry: name, short description, photo, distance from property, category tags
@@ -138,6 +138,60 @@ Content pages that sell the destination and build emotional connection — Why P
 - **Dependencies:** REQ-CMS-1, REQ-CMS-5, REQ-I18N-4
 - **Verification:** Test accordion, verify structured data
 - **Status:** Planned
+
+### REQ-ED-8: "Food & Drink" Detail Page
+
+- **Intent:** Showcase local cuisine and dining options to help visitors plan meals and discover the island's food culture
+- **Applies To:** Visitor
+- **Acceptance Criteria:**
+  - Standalone page at `/{locale}/hrana` with 60vh hero image, gradient overlay, locale-aware title and introductory paragraph
+  - 5 content sections in alternating image+text row layout: konobas on Pasman, restaurants on Ugljan, Dalmatian specialties, local products (olive oil, wine, figs), markets and shopping
+  - Each section: named restaurants/konobas with distance from Zdrelac in km (Konoba Bokolj 0-1 km, Lanterna 10-12 km, Dardin 8-10 km, Intrada 10-12 km)
+  - Practical info: Studenac for basics, larger shops in Preko/Kali, Zadar for full shopping
+  - All content hardcoded per locale (4 languages) with culturally adapted tone
+  - Alternating layout: odd sections image-left/text-right, even sections reversed (desktop); single column on mobile
+  - Images: 4:3 aspect, 16px border-radius, hover zoom (1.03x)
+  - Scroll-triggered reveal via `data-reveal`
+  - Linked from homepage triptych (REQ-SF-5)
+- **Constraints:** CON-I18N, CON-PERF
+- **Priority:** P1
+- **Dependencies:** REQ-ED-4, REQ-SF-5
+- **Verification:** Visual review across all 4 locales
+- **Status:** Implemented
+
+### REQ-ED-9: "Nature & Activities" Detail Page
+
+- **Intent:** Present outdoor activities and excursion options to help visitors plan active days on the islands
+- **Applies To:** Visitor
+- **Acceptance Criteria:**
+  - Standalone page at `/{locale}/aktivnosti` with 60vh hero image, gradient overlay, locale-aware title and introductory paragraph
+  - 6 content sections: walks and viewpoints (Bokolj hill 8-10 km), cycling (25-40 km loop route), Kornati National Park (departures 10-15 km), Telascica Nature Park, water sports (kayak, SUP, snorkeling, diving), history and culture (St. Michael's Fortress 12-14 km, Galevac monastery)
+  - Each section includes distances from Zdrelac and practical tips
+  - All content hardcoded per locale (4 languages) with culturally adapted tone
+  - Same alternating row layout, image styling, and reveal animations as REQ-ED-8
+  - Linked from homepage triptych (REQ-SF-5)
+- **Constraints:** CON-I18N, CON-PERF
+- **Priority:** P1
+- **Dependencies:** REQ-ED-4, REQ-SF-5
+- **Verification:** Visual review across all 4 locales
+- **Status:** Implemented
+
+### REQ-ED-10: "Beaches" Detail Page
+
+- **Intent:** Guide visitors to the best swimming spots, from nearby coves to hidden beaches reachable by boat
+- **Applies To:** Visitor
+- **Acceptance Criteria:**
+  - Standalone page at `/{locale}/plaze` with 60vh hero image, gradient overlay, locale-aware title and introductory paragraph
+  - 5 content sections organized by proximity: Zdrelac coves (0-2 km, Mali Zdrelac bay, bridge area), northern Pasman beaches (5-15 km, Matlovac, Soline), Ugljan beaches (10-20 km, Jaz, Kali, Muline), hidden coves (by boat/kayak), practical beach day tips (parking, shade, maestral wind patterns)
+  - Each section includes named beaches with distances from Zdrelac
+  - All content hardcoded per locale (4 languages) with culturally adapted tone
+  - Same alternating row layout, image styling, and reveal animations as REQ-ED-8
+  - Linked from homepage triptych (REQ-SF-5)
+- **Constraints:** CON-I18N, CON-PERF
+- **Priority:** P1
+- **Dependencies:** REQ-ED-4, REQ-SF-5
+- **Verification:** Visual review across all 4 locales
+- **Status:** Implemented
 
 ## Out of Scope
 

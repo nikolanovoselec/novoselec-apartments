@@ -318,8 +318,8 @@ function getLocalizedPath(targetLocale: string): string {
 </style>
 
 <script is:inline>
-  // Transparent-to-solid on scroll
-  (function() {
+  document.addEventListener("DOMContentLoaded", function() {
+    // Transparent-to-solid on scroll
     var nav = document.getElementById("site-nav");
     var heroSentinel = document.querySelector(".hero-sentinel");
 
@@ -359,5 +359,5 @@ function getLocalizedPath(targetLocale: string): string {
         }
       });
     }
-  })();
+  });
 </script>
