@@ -1,7 +1,5 @@
+import { env } from "cloudflare:workers";
 import type { APIRoute } from "astro";
-import { env as _env } from "cloudflare:workers";
-import type { Env } from "~/env";
-const env = _env as unknown as Env;
 import { verifyJWT } from "~/lib/auth";
 
 /**
