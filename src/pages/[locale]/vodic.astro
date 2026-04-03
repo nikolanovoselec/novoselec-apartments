@@ -9,8 +9,11 @@ const { locale } = Astro.params;
 if (!locale || !isValidLocale(locale)) return Astro.redirect("/hr/", 302);
 const typedLocale = locale as Locale;
 
-// Load from CMS
+// Load from CMS — guide collection + editorial entries with page_key=vodic
 const cmsGuide = await getLocalizedCollection("guide", typedLocale);
+const cmsEditorial = (await getLocalizedCollection("editorial", typedLocale))
+  .filter((e) => e.data.page_key === "vodic")
+  .sort((a, b) => ((a.data.sort_order as number) ?? 0) - ((b.data.sort_order as number) ?? 0));
 
 type GuideItem = { title: string; description: string; image: string };
 let categories: GuideItem[] = [];
@@ -62,7 +65,7 @@ const imageAlts = [
 ---
 
 <Page title={t(typedLocale, "guide.title")} locale={typedLocale}>
-  <HeroSimple title={t(typedLocale, "guide.title")} image="https://images.pexels.com/photos/4992828/pexels-photo-4992828.jpeg?auto=compress&w=1920" />
+  <HeroSimple title={t(typedLocale, "guide.title")} image="/photos/pine-forest-child.jpg" />
 
   <section class="section">
     <div class="container">
@@ -82,6 +85,25 @@ const imageAlts = [
       </div>
     </div>
   </section>
+
+  {/* Editorial content — history, culture, landmarks from CMS */}
+  {cmsEditorial.length > 0 && (
+    <section class="section section--alt">
+      <div class="container">
+        {cmsEditorial.map((entry, i) => (
+          <div class:list={["content-row", { "content-row--reverse": i % 2 === 1 }]} data-reveal style="margin-bottom: var(--space-2xl);">
+            <div class="content-row__image">
+              <img src={(entry.data.image as string) || "/photos/chapel-pines.jpg"} alt={(entry.data.title as string) || ""} width="800" height="600" loading="lazy" />
+            </div>
+            <div class="content-row__text">
+              <h2>{entry.data.title}</h2>
+              <p class="text-lead">{entry.data.body}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  )}
 </Page>
 
 <style>
