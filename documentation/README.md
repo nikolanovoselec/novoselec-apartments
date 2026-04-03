@@ -17,6 +17,9 @@ Documentation for the vacation rental website for apartments in Ždrelac, Pašma
 | [Security](security.md) | Security headers, CSP, Turnstile, input sanitization, rate limiting | Developers, Security |
 | [Deployment](deployment.md) | Dev setup, deployment steps, Cloudflare resources | Developers |
 | [SEO](seo.md) | Keyword targets, structured data, hreflang, local SEO setup | Developers, Operators |
+| [CMS Guide](cms-guide.md) | Owner's manual — managing content, photos, prices from phone | Owner, Operators |
+| [Content Guide](content-guide.md) | Tone per locale, photography guidelines, translation workflow | Owner, Developers |
+| [Troubleshooting](troubleshooting.md) | Common issues and diagnostics | Developers, Operators |
 | [Decisions](decisions/README.md) | Architecture Decision Records | Developers |
 
 ---

@@ -8,35 +8,49 @@ Authentication for the owner admin panel (custom) and Emdash CMS (Cloudflare Acc
 
 ## Overview
 
-The project has two separate admin auth systems:
+Admin authentication is handled by **Cloudflare Access** — a zero-trust proxy that requires identity verification before requests reach the Worker.
 
 | Surface | Mechanism | Notes |
 |---|---|---|
-| Custom admin panel (`/admin/*`) | Magic Link — 6-digit code via Resend | JWT + refresh token in HttpOnly cookies |
-| Emdash CMS (`/_emdash/admin`) | Cloudflare Access — `access()` adapter | Verified via `CF_ACCESS_AUDIENCE`; users auto-provisioned |
+| Emdash CMS (`/_emdash/admin`) | Cloudflare Access → `access()` adapter | JWT validated via `CF_ACCESS_AUDIENCE`; users auto-provisioned |
 
-## Emdash CMS — Cloudflare Access
+**Deprecated:** The custom Magic Link admin panel (`/admin/*`) was removed. Cloudflare Access handles all admin authentication.
+
+## Cloudflare Access Authentication
 
 Emdash CMS login is handled entirely by Cloudflare Access. The `access()` adapter from `@emdash-cms/cloudflare` is configured in `astro.config.mjs`:
 
 ```js
 auth: access({
-  teamDomain: "clusterfuck.cloudflareaccess.com",
+  teamDomain: "m4f1j0z0.cloudflareaccess.com",
   audienceEnvVar: "CF_ACCESS_AUDIENCE",
   autoProvision: true,
   defaultRole: 50, // Admin
 })
 ```
 
-When a request reaches `/_emdash/admin`, Access validates the `CF_Authorization` JWT against the audience tag stored in `CF_ACCESS_AUDIENCE`. If valid, the user is automatically provisioned in Emdash with role 50 (Admin). No separate login page or code-entry step exists for Emdash.
+### How it works
 
-The `CF_ACCESS_AUDIENCE` secret is set via Wrangler — see [Configuration](configuration.md#secrets).
+1. User navigates to `/_emdash/admin/`
+2. Cloudflare Access intercepts and prompts for identity (Google login)
+3. After authentication, Access sets `CF_Authorization` cookie with a signed JWT
+4. The `access()` plugin validates the JWT against `CF_ACCESS_AUDIENCE` (AUD tag)
+5. If valid, the user is auto-provisioned in Emdash with role 50 (Admin)
+
+### Configuration
+
+- **Team domain:** `m4f1j0z0.cloudflareaccess.com`
+- **CF_ACCESS_AUDIENCE:** Set as a `vars` entry in `wrangler.jsonc` (NOT a secret — the emdash plugin reads it via `process.env` which on Workers only has access to vars, not secrets)
+- **Authorized users:** Configured in CF Access dashboard (Google IdP)
+- **Auto-provision:** First authenticated user automatically becomes Admin
+
+### Important: CF_ACCESS_AUDIENCE must be a var, not a secret
+
+The `@emdash-cms/cloudflare` access plugin reads the audience tag via `process.env[envVarName]` at runtime. On Cloudflare Workers with `nodejs_compat`, `process.env` is populated from `wrangler.jsonc` vars — NOT from Worker secrets. If `CF_ACCESS_AUDIENCE` is set as a secret instead of a var, the plugin throws "Environment variable not found" and authentication fails.
+
+The AUD tag is not sensitive — it's a public identifier visible in every CF Access JWT.
 
 Decision rationale: [AD14](decisions/README.md#ad14-emdash-cms-auth-switched-to-cloudflare-access).
-
-## Custom Admin Panel — Magic Link
-
-The custom admin panel (`/admin`) uses email-based Magic Link authentication. A 6-digit one-time code is sent via Resend. On verification, the server issues a short-lived JWT and a long-lived refresh token stored in HttpOnly cookies. There is no password and no OAuth provider dependency.
 
 ## Magic Link Flow
 
