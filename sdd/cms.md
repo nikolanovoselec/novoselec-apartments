@@ -225,7 +225,7 @@ Emdash CMS integration, media library, authentication, mobile admin UX, section 
 - **Priority:** P1
 - **Dependencies:** REQ-VD-1, REQ-I18N-3
 - **Verification:** Trigger 404 in each locale (e.g., `/hr/xyz`, `/de/xyz`), verify page renders in correct language with nav and suggested links
-- **Status:** Partial — 404 page exists but shows English text regardless of URL locale
+- **Status:** Partial — 404 page now detects locale from URL path prefix (e.g., `/de/xyz` renders German), falls back to Croatian default, uses `t()` translation keys for message and CTA buttons, links to locale-appropriate homepage/apartments/contact. Still pending: live verification across all 4 locales; 500 page not yet implemented as hardcoded minimal fallback shell
 
 ## Out of Scope
 

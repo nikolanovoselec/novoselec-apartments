@@ -103,7 +103,7 @@ Apartment listings, detail pages, photo galleries, amenities, seasonal pricing, 
 - **Priority:** P0
 - **Dependencies:** REQ-AP-1, REQ-AP-4, REQ-AP-5, REQ-AP-6, REQ-BK-1
 - **Verification:** Full visual review + screen reader test. Verify detail page loads reliably for all apartment slugs in all 4 locales. Verify breadcrumbs, pricing table, and Schema.org render.
-- **Status:** Partial — basic detail page renders but: lightbox not implemented (REQ-AP-6), PricingTable component unused, Breadcrumbs component unused, Schema.org VacationRental not applied, reliability issues with slug resolution
+- **Status:** Partial — Breadcrumbs component now renders visible breadcrumb UI and BreadcrumbList schema on apartment detail pages; Schema.org VacationRental JSON-LD applied via SchemaOrg component; inline SVG wave added at hero bottom; lowestPrice passed to Page layout for sticky mobile CTA. Still missing: lightbox (REQ-AP-6), PricingTable component unused, reliability issues with slug resolution. Pending live verification.
 
 ### REQ-AP-4: Seasonal Pricing
 

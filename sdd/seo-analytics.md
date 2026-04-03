@@ -27,7 +27,7 @@ Schema.org structured data, Open Graph, multilingual sitemap, keyword strategy, 
 - **Priority:** P1
 - **Dependencies:** REQ-AP-1, REQ-ED-7, REQ-SP-1
 - **Verification:** Google Rich Results Test for all page types. Verify `VacationRental` JSON-LD on apartment detail pages. Verify `BreadcrumbList` on all pages.
-- **Status:** Partial — basic Schema.org exists but `VacationRental` not applied to apartment detail pages, `BreadcrumbList` not rendered, `FAQPage` not applied to FAQ section
+- **Status:** Partial — `VacationRental` JSON-LD applied to apartment detail pages via `buildVacationRentalSchema()` and `SchemaOrg.astro` component (includes name, description, image, occupancy, floorSize, amenityFeature, priceRange, address); `BreadcrumbList` JSON-LD rendered via `Breadcrumbs.astro` component on apartment detail pages (Home > Apartments > {name}). Still missing: `FAQPage` schema on FAQ sections; BreadcrumbList not yet on non-apartment pages; Google Rich Results Test validation pending
 
 ### REQ-SEO-2: Open Graph & Social
 
