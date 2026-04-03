@@ -2,11 +2,25 @@
  * Resend Email Provider Plugin for EmDash
  *
  * Sends emails via Resend API for magic link authentication.
- * Requires RESEND_API_KEY environment variable (set via wrangler secret).
+ * Requires RESEND_API_KEY set as a Cloudflare Worker secret.
+ *
+ * The API key is accessed at runtime via dynamic import of cloudflare:workers.
+ * The import is done with Function constructor to avoid Vite trying to resolve it at build time.
  */
 import { definePlugin } from "emdash";
 
 const FROM_EMAIL = "Apartmani Novoselec <noreply@graymatter.ch>";
+
+async function getResendKey(): Promise<string | undefined> {
+  try {
+    // Use Function constructor to create a truly dynamic import that Vite cannot analyze
+    const importFn = new Function("specifier", "return import(specifier)");
+    const mod = await importFn("cloudflare:workers");
+    return (mod.env as Record<string, string>)?.RESEND_API_KEY;
+  } catch {
+    return undefined;
+  }
+}
 
 export const resendEmailPlugin = definePlugin({
   id: "resend-email",
@@ -16,16 +30,7 @@ export const resendEmailPlugin = definePlugin({
     "email:deliver": async (event: { message: { to: string; subject: string; text: string; html?: string }; source: string }) => {
       const { message } = event;
 
-      // Read API key from environment at runtime (set via wrangler secret)
-      // On Cloudflare Workers, env vars are available via the cloudflare:workers module
-      let apiKey: string | undefined;
-      try {
-        const mod = await import("cloudflare:workers");
-        apiKey = (mod.env as unknown as Record<string, string>)["RESEND_API_KEY"];
-      } catch {
-        // Not on Cloudflare — try process.env fallback
-      }
-
+      const apiKey = await getResendKey();
       if (!apiKey) {
         console.error("[resend-email] RESEND_API_KEY not configured");
         throw new Error("Email provider not configured");
