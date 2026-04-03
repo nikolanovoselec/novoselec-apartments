@@ -45,13 +45,6 @@ const heroImages = [
     </div>
   </div>
 
-  {/* Progress dots */}
-  <div class="hero__dots">
-    {heroImages.map((_, i) => (
-      <button class:list={["hero__dot", { "is-active": i === 0 }]} data-dot={i} aria-label={`Slide ${i + 1}`}></button>
-    ))}
-  </div>
-
   <div class="hero__bottom">
     <div class="hero__scroll scroll-indicator" aria-hidden="true">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
@@ -163,34 +156,6 @@ const heroImages = [
     margin-top: var(--space-lg);
   }
 
-  /* Progress dots */
-  .hero__dots {
-    position: absolute;
-    bottom: 80px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 3;
-    display: flex;
-    gap: 10px;
-  }
-
-  .hero__dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    border: 1.5px solid rgba(255, 255, 255, 0.5);
-    background: transparent;
-    cursor: pointer;
-    padding: 0;
-    transition: background 0.4s, border-color 0.4s, transform 0.4s;
-  }
-
-  .hero__dot.is-active {
-    background: white;
-    border-color: white;
-    transform: scale(1.3);
-  }
-
   .hero__bottom {
     position: absolute;
     bottom: var(--space-2xl);
@@ -208,52 +173,24 @@ const heroImages = [
     .hero-subtitle {
       font-size: var(--font-size-xs);
     }
-    .hero__dots {
-      bottom: 100px;
-    }
   }
 </style>
 
 <script is:inline>
-  // Hero carousel — crossfade with Ken Burns
+  // Hero carousel — auto-crossfade with Ken Burns, no manual controls
   (function() {
     var slides = document.querySelectorAll('.hero__slide');
-    var dots = document.querySelectorAll('.hero__dot');
     if (slides.length < 2) return;
 
     var current = 0;
     var total = slides.length;
-    var interval = 6000;
-
-    function goTo(index) {
-      slides[current].classList.remove('is-active');
-      dots[current].classList.remove('is-active');
-      current = index;
-      slides[current].classList.add('is-active');
-      dots[current].classList.add('is-active');
-    }
 
     function next() {
-      goTo((current + 1) % total);
+      slides[current].classList.remove('is-active');
+      current = (current + 1) % total;
+      slides[current].classList.add('is-active');
     }
 
-    // Auto-advance
-    var timer = setInterval(next, interval);
-
-    // Click on dots
-    dots.forEach(function(dot, i) {
-      dot.addEventListener('click', function() {
-        clearInterval(timer);
-        goTo(i);
-        timer = setInterval(next, interval);
-      });
-    });
-
-    // Pause on hover (desktop)
-    var hero = document.getElementById('hero-carousel');
-    if (hero) {
-      hero.addEventListener('mouseenter', function() { clearInterval(timer); });
-      hero.addEventListener('mouseleave', function() { timer = setInterval(next, interval); });
-    }
+    setInterval(next, 6000);
   })();
 </script>
