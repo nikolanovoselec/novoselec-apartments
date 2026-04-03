@@ -86,6 +86,7 @@ Astro's i18n is configured with `routing: "manual"`. File-based `[locale]` direc
 | `/:locale/hrana` | `src/pages/[locale]/hrana.astro` | Food & Drink — 5 sections (konobas on Pašman, restaurants on Ugljan, Dalmatian specialties, local products, markets); page-hero + alternating content-row layout; localized in all 4 locales; linked from homepage triptych |
 | `/:locale/aktivnosti` | `src/pages/[locale]/aktivnosti.astro` | Nature & Activities — 6 sections (walks/viewpoints, cycling, Kornati, Telašćica, water sports, history); page-hero + alternating content-row layout; localized in all 4 locales; linked from homepage triptych |
 | `/:locale/plaze` | `src/pages/[locale]/plaze.astro` | Beaches — 5 sections (Ždrelac coves, northern Pašman, Ugljan beaches, hidden coves, tips); page-hero + alternating content-row layout; localized in all 4 locales; linked from homepage triptych |
+| `/:locale/kontakt` | `src/pages/[locale]/kontakt.astro` | Contact — standalone inquiry form with Turnstile CAPTCHA, honeypot, and GDPR consent checkbox; submits as `type: "question"` to `POST /api/inquiry`; all CTA links across the site point here |
 | `/:locale/privatnost` | `src/pages/[locale]/privatnost.astro` | Privacy Policy (GDPR) |
 | `/:locale/impressum` | `src/pages/[locale]/impressum.astro` | Legal notice |
 | `/:locale/pristupacnost` | `src/pages/[locale]/pristupacnost.astro` | Accessibility statement — WCAG 2.1 AA compliance target, localized in all 4 locales |

@@ -42,6 +42,7 @@ The following pages exist as routes but are not yet registered in `sitemap.xml.t
 | `/hrana` | Route exists, not in sitemap |
 | `/aktivnosti` | Route exists, not in sitemap |
 | `/plaze` | Route exists, not in sitemap |
+| `/kontakt` | Route exists, not in sitemap |
 
 Add these slugs to the `pages` array in `src/pages/sitemap.xml.ts` to include them.
 
@@ -117,6 +118,7 @@ The Phase 6 editorial pages exist primarily to capture long-tail search intent a
 | `/hrana` | "Restaurants Pašman", "where to eat Pašman" — dining intent; linked from homepage triptych |
 | `/aktivnosti` | "Things to do Pašman", "Kornati tour", "kayaking Pašman" — activity intent; linked from homepage triptych |
 | `/plaze` | "Beaches Pašman", "Pašman swimming", "coves Ugljan" — beach intent; linked from homepage triptych |
+| `/kontakt` | Contact page — inquiry form entry point; all site-wide CTAs link here |
 | `/privatnost` | GDPR legal requirement |
 | `/impressum` | German legal requirement (Impressumspflicht) |
 
