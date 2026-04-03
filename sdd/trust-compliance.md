@@ -108,7 +108,7 @@ GDPR, privacy policy, Impressum, house rules, cancellation policy, security head
 - **Priority:** P0
 - **Dependencies:** REQ-BK-8, REQ-TC-2
 - **Verification:** Test form without consent (rejected), with consent (accepted), verify Privacy Policy link present
-- **Status:** Implemented
+- **Status:** Partial — GDPR checkbox present on contact form (required, unchecked by default), consent timestamp stored with inquiry. However, the consent text does NOT hyperlink to the Privacy Policy page -- it is plain text without a link to `/{locale}/privatnost`. Per-locale label text exists. Privacy Policy link gap must be fixed before promotion.
 
 ### REQ-TC-6: Security Headers
 

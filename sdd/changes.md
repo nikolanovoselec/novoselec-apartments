@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-04-03 — Revision 48: Unified Card Overlay Typography
+
+Homepage card overlays (Zdrelac feature image and experience triptych) consolidated from separate CSS classes into a single `.card-overlay` system with shared gradient, label, and title styles.
+
+### AC updated
+- **REQ-VD-4:** Triptych label slide-in removed — overlays are now always-visible with unified gradient background, static label + title. No translateY animation.
+- **REQ-SF-5:** Status updated from "links broken or not clickable" to "links functional with unified card overlay." CMS toggle still pending.
+
 ## 2026-04-03 — Revision 47: i18n Ternary Cleanup + Detail Page Fallbacks + Hero Wave Fix
 
 Synced spec with commit replacing inline locale ternaries with `t()` calls across homepage, listing page, apartment detail page, and zdrelac page. ~20 new translation keys added to all 4 locale JSON files. Apartment detail page now has fallback data (Lavanda, Tramuntana) when CMS not seeded. Hero wave clipping bug fixed by moving `overflow:hidden` from `.hero` to `.hero__slide`. i18n completeness test added.

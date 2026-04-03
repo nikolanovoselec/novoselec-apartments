@@ -86,7 +86,7 @@ Color system, typography, scroll animations, micro-interactions, and Croatian vi
   - Default button: outline with fill-sweep from left via `scaleX` pseudo-element, text color inversion on hover (0.4s)
   - Button variants: `--primary` (solid navy fill, azure on hover), `--ghost` (white text, translucent border, subtle backdrop fill on hover). Ghost variant used on dark/gradient backgrounds (e.g., sunset CTA section).
   - Image hover: subtle zoom (1.03-1.05x) within overflow:hidden (0.8s ease-out), applied to photo strip items, duo images, feature images, and triptych
-  - Triptych label slide-in: labels hidden below frame (`translateY(100%)`) and slide up on hover (0.5s ease-out). Always visible on mobile (no hover).
+  - Triptych and feature-image overlays: unified card overlay with gradient background (transparent to navy), always-visible label (uppercase, sans-serif) and title (serif). No slide-in animation — text is statically positioned over the image.
   - Testimonial card lift: translateY(-6px) with shadow escalation on hover (0.4s ease-out)
   - Tag pills: border-radius 20px, fill-sweep to navy background with white text on hover (0.3s)
   - Form focus: bottom-border animates from center via `.focus-line` element

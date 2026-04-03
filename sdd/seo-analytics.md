@@ -66,7 +66,7 @@ Schema.org structured data, Open Graph, multilingual sitemap, keyword strategy, 
 - **Priority:** P1
 - **Dependencies:** None
 - **Verification:** Verify beacon and events in dashboard
-- **Status:** Implemented
+- **Status:** Partial — `/api/track` endpoint and D1 events table exist for custom conversion events. However, the Cloudflare Web Analytics beacon is NOT present in Base.astro layout -- pageview analytics are not being collected. Beacon must be added before promotion to Implemented.
 
 ### REQ-SEO-4: Multilingual Sitemap
 

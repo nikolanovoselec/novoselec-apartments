@@ -106,7 +106,7 @@ Request-to-book inquiry flow, business rules, server pipeline, WhatsApp integrat
 - **Priority:** P0
 - **Dependencies:** REQ-CMS-1
 - **Verification:** Test on mobile (actual WhatsApp open), test per locale
-- **Status:** Planned
+- **Status:** Partial — WhatsAppButton component implemented as fixed-position bottom-right floating button with 3s slide-in animation. Opens `wa.me` link with pre-filled localized message (apartment context or generic). Accepts `whatsappNumber` prop -- hidden when no number configured. WhatsApp number is currently passed as prop, not CMS-managed in site-settings. CMS format validation not implemented.
 
 ### REQ-BK-4: Click-to-Call
 

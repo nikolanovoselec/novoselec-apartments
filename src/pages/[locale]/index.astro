@@ -373,22 +373,7 @@ const oliveOilLabel: Record<Locale, string> = {
     }
   }
 
-  .feature-image__overlay {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: var(--space-2xl) clamp(1.25rem, 4vw, 3rem);
-    background: linear-gradient(transparent 30%, rgba(10, 31, 51, 0.7));
-  }
-
-  .feature-image__overlay h2 {
-    color: var(--color-white);
-    font-size: clamp(1.25rem, 2.5vw, 2rem);
-    margin-top: var(--space-sm);
-    max-width: 500px;
-  }
+  
 
   /* ============================================================
      DUO IMAGE - two photos with rounded corners
@@ -502,30 +487,7 @@ const oliveOilLabel: Record<Locale, string> = {
     filter: saturate(1.05) contrast(1.02);
   }
 
-  .triptych__overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: var(--space-2xl) var(--space-lg) var(--space-lg);
-    background: linear-gradient(transparent, rgba(10, 31, 51, 0.75));
-    color: var(--color-white);
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  .triptych__title {
-    font-family: var(--font-serif);
-    font-size: var(--font-size-xl);
-    font-weight: 400;
-  }
-
-  .triptych__subtitle {
-    font-size: var(--font-size-xs);
-    opacity: 0.75;
-    letter-spacing: 0.02em;
-  }
+  
 
   @media (max-width: 640px) {
     .triptych {

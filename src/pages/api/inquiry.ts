@@ -9,6 +9,10 @@ import { sanitizeMessage, sanitizeName, sanitizeEmail, sanitizePhone, stripHtml 
 import { computeStayPrice, type Season } from "~/lib/pricing";
 import { sendEmail } from "~/lib/resend";
 
+
+function escapeHtml(s: string): string {
+  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
 /**
  * POST /api/inquiry
  * Full inquiry server pipeline:
@@ -159,8 +163,6 @@ export const POST: APIRoute = async ({ request }) => {
   const ownerEmails = adminEmails.split(",").map((e) => e.trim()).filter(Boolean);
   let emailSent = false;
 
-  console.log("[inquiry] Email config:", { ownerEmails: ownerEmails.length, hasResendKey: !!resendKey, resendKeyLength: resendKey?.length });
-
   if (ownerEmails.length > 0 && resendKey) {
     // Owner notification
     const ownerResult = await sendEmail({
@@ -172,7 +174,6 @@ export const POST: APIRoute = async ({ request }) => {
       from: "Apartmani Novoselec <noreply@graymatter.ch>",
     });
 
-    console.log("[inquiry] Owner email result:", ownerResult);
     emailSent = ownerResult.success;
 
     // Update email status
@@ -231,11 +232,11 @@ function buildOwnerEmail(
 ): string {
   const lines = [
     `<h2 style="color:#0C2D48;font-weight:300;">${data.type === "booking" ? "Novi upit za rezervaciju" : "Brzo pitanje"}</h2>`,
-    `<p><strong>Ime:</strong> ${name}</p>`,
-    `<p><strong>Email:</strong> ${email}</p>`,
+    `<p><strong>Ime:</strong> ${escapeHtml(name)}</p>`,
+    `<p><strong>Email:</strong> ${escapeHtml(email)}</p>`,
   ];
 
-  if (phone) lines.push(`<p><strong>Telefon:</strong> ${phone}</p>`);
+  if (phone) lines.push(`<p><strong>Telefon:</strong> ${escapeHtml(phone)}</p>`);
 
   if (data.type === "booking") {
     lines.push(`<p><strong>Datumi:</strong> ${data.checkIn} do ${data.checkOut}</p>`);
@@ -245,26 +246,10 @@ function buildOwnerEmail(
     if (priceEstimate) lines.push(`<p><strong>Procjena cijene:</strong> €${priceEstimate.toFixed(2)}</p>`);
   }
 
-  if (message) lines.push(`<p><strong>Poruka:</strong> ${message}</p>`);
+  if (message) lines.push(`<p><strong>Poruka:</strong> ${escapeHtml(message)}</p>`);
   lines.push(`<p style="color:#666;font-size:12px;">Jezik: ${data.locale}</p>`);
 
   return `<div style="font-family:sans-serif;max-width:600px;">${lines.join("")}</div>`;
 }
 
-function buildGuestEmail(data: Inquiry, locale: string): string {
-  const messages: Record<string, string> = {
-    hr: "Hvala na upitu! Zaprimili smo Vaš zahtjev. Ovo je upit, ne potvrđena rezervacija. Datumi nisu rezervirani dok ne potvrdimo. Obično odgovaramo unutar 2 sata.",
-    de: "Vielen Dank für Ihre Anfrage! Wir haben Ihre Nachricht erhalten. Dies ist eine Anfrage, keine bestätigte Buchung. Die Termine sind nicht reserviert, bis wir bestätigen. Wir antworten in der Regel innerhalb von 2 Stunden.",
-    sl: "Hvala za povpraševanje! Prejeli smo vaš zahtevek. To je zahtevek, ne potrjena rezervacija. Datumi niso rezervirani, dokler ne potrdimo. Običajno odgovorimo v 2 urah.",
-    en: "Thank you for your inquiry! We have received your request. This is a request, not a confirmed booking. Dates are not secured until we confirm. We typically respond within 2 hours.",
-  };
 
-  return `
-    <div style="font-family:sans-serif;max-width:500px;margin:0 auto;">
-      <h2 style="color:#0C2D48;font-weight:300;">Apartmani Novoselec</h2>
-      <p>${messages[locale] ?? messages.hr}</p>
-      <hr style="border:none;border-top:1px solid #eee;margin:24px 0;" />
-      <p style="color:#888;font-size:12px;">Ždrelac, Pašman, Croatia</p>
-    </div>
-  `;
-}
