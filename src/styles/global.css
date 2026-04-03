@@ -250,19 +250,19 @@ p {
 .card-overlay__label {
   font-family: var(--font-serif);
   font-size: clamp(1.5rem, 4vw, 2rem);
-  font-weight: 700;
-  text-transform: uppercase;
+  font-weight: 400;
   color: #fff;
   line-height: 1.1;
 }
 
 .card-overlay__title {
   font-family: var(--font-sans);
-  font-size: 14px;
+  font-size: var(--font-size-base);
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.8);
-  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.6;
   margin-top: 6px;
+  max-width: 40ch;
 }
 
 /* ---------- Sections ---------- */
