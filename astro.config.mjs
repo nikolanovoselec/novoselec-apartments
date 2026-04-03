@@ -13,7 +13,7 @@ export default defineConfig({
       database: d1({ binding: "DB" }),
       storage: r2({ binding: "MEDIA" }),
       auth: access({
-        teamDomain: "clusterfuck.cloudflareaccess.com",
+        teamDomain: "m4f1j0z0.cloudflareaccess.com",
         audienceEnvVar: "CF_ACCESS_AUDIENCE",
         autoProvision: true,
         defaultRole: 50, // Admin

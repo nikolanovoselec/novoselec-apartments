@@ -1,10 +1,15 @@
 ---
 import Page from "~/layouts/Page.astro";
 import { isValidLocale, type Locale } from "~/i18n/config";
+import { getLocalizedCollection } from "~/lib/content";
 
 const { locale } = Astro.params;
 if (!locale || !isValidLocale(locale)) return Astro.redirect("/hr/", 302);
 const typedLocale = locale as Locale;
+
+const cmsEntries = (await getLocalizedCollection("editorial", typedLocale))
+  .filter((e) => e.data.page_key === "plaze")
+  .sort((a, b) => (Number(a.data.sort_order) || 0) - (Number(b.data.sort_order) || 0));
 
 const title: Record<Locale, string> = {
   hr: "Plaže", de: "Strände", sl: "Plaže", en: "Beaches",

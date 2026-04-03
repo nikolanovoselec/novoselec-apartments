@@ -1,10 +1,16 @@
 ---
 import Page from "~/layouts/Page.astro";
 import { isValidLocale, type Locale } from "~/i18n/config";
+import { getLocalizedCollection } from "~/lib/content";
 
 const { locale } = Astro.params;
 if (!locale || !isValidLocale(locale)) return Astro.redirect("/hr/", 302);
 const typedLocale = locale as Locale;
+
+// Try CMS first
+const cmsEntries = (await getLocalizedCollection("editorial", typedLocale))
+  .filter((e) => e.data.page_key === "aktivnosti")
+  .sort((a, b) => (Number(a.data.sort_order) || 0) - (Number(b.data.sort_order) || 0));
 
 const title: Record<Locale, string> = {
   hr: "Priroda i aktivnosti", de: "Natur & Aktivitäten", sl: "Narava in aktivnosti", en: "Nature & Activities",
@@ -65,7 +71,15 @@ const page = sections[typedLocale];
     </div>
   </section>
 
-  {page.map((section, i) => (
+  {(cmsEntries.length > 0
+    ? cmsEntries.map((e) => ({
+        title: (e.data.title as string) ?? "",
+        text: (e.data.body as string) ?? "",
+        image: (e.data.image as string) ?? "",
+        alt: (e.data.title as string) ?? "",
+      }))
+    : page
+  ).map((section, i) => (
     <section class:list={["section", { "section--alt": i % 2 === 1 }]} data-reveal>
       <div class="container">
         <div class:list={["content-row", { "content-row--reverse": i % 2 === 1 }]}>
