@@ -36,7 +36,7 @@ The homepage and visual shell — hero, navigation, footer, language switcher, a
 - **Priority:** P0
 - **Dependencies:** REQ-VD-9
 - **Verification:** Visual + Lighthouse. Verify wave renders at bottom of hero with no gap or color mismatch.
-- **Status:** Partial — carousel and Ken Burns work; wave at bottom missing, some stock photos are non-Croatian
+- **Status:** Partial — carousel and Ken Burns work; inline SVG wave added at bottom of hero; some stock photos are still non-Croatian; pending live site confirmation
 
 ### REQ-SF-2: Optional Ambient Video Hero
 

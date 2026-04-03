@@ -1,6 +1,7 @@
 ---
 import type { Locale } from "~/i18n/config";
 import { t } from "~/i18n/t";
+import { buildHreflangLinks } from "~/lib/hreflang";
 import "~/styles/global.css";
 import "~/styles/animations.css";
 import "~/styles/reduced-motion.css";
@@ -23,7 +24,9 @@ const {
 
 const fullTitle = title.includes("—") ? title : `${title} — ${t(lang, "meta.titleSuffix")}`;
 const metaDescription = description ?? t(lang, "meta.description");
-const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin).toString();
+const siteOrigin = (Astro.site ?? new URL(Astro.url.origin)).toString().replace(/\/$/, "");
+const canonicalUrl = new URL(Astro.url.pathname, siteOrigin).toString();
+const hreflangLinks = buildHreflangLinks(Astro.url.pathname, siteOrigin);
 ---
 
 <!doctype html>
@@ -34,6 +37,9 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin)
     <title>{fullTitle}</title>
     <meta name="description" content={metaDescription} />
     <link rel="canonical" href={canonicalUrl} />
+    {hreflangLinks.map((link) => (
+      <link rel="alternate" hreflang={link.hreflang} href={link.href} />
+    ))}
     {noIndex && <meta name="robots" content="noindex, nofollow" />}
 
     <meta property="og:title" content={fullTitle} />

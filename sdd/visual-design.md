@@ -186,14 +186,14 @@ Color system, typography, scroll animations, micro-interactions, and Croatian vi
   - `aria-hidden="true"` — purely decorative
   - **Homepage waves (3 placements):** (1) cream-to-dark before apartments section, (2) dark-to-cream after apartments section, (3) cream-to-dark before sunset CTA section. Each wave's `fill` color must exactly match the background of the section it transitions INTO. The `bg` (background) must match the section it sits ON TOP OF. No visible color gaps or mismatches between wave and adjacent sections.
   - **Homepage hero wave:** The homepage hero section (REQ-SF-1) includes a wave at its bottom edge (cream fill `#F8F5EF`) for organic transition into the first content section. This is part of the hero component, not a separate WaveDivider.
-  - **Subpage hero waves:** Every `HeroSimple` component with a background image includes an inline wave SVG at the bottom edge (cream fill `#F8F5EF`), creating an organic transition from hero photo into page content (REQ-VD-12). Pages with custom hero markup (not using HeroSimple) — including `hrana.astro`, `aktivnosti.astro`, `plaze.astro`, and `zdrelac.astro` — achieve the same effect via inline SVG or CSS `::after` pseudo-element. **Every page with a hero image MUST have a wave at the bottom of the hero.** No exceptions.
+  - **Subpage hero waves:** Every `HeroSimple` component with a background image includes an inline wave SVG at the bottom edge (cream fill `#F8F5EF`), creating an organic transition from hero photo into page content (REQ-VD-12). Pages with custom hero markup (not using HeroSimple) — including `hrana.astro`, `aktivnosti.astro`, `plaze.astro`, and `zdrelac.astro` — achieve the same effect via inline SVG elements embedded directly in the hero section. **Every page with a hero image MUST have a wave at the bottom of the hero.** No exceptions.
   - **Wave color matching rules:** The fill color of every wave must be sampled from the actual CSS background of the section below it. For pages using `.section` (cream `#F8F5EF`), fill is `#F8F5EF`. For pages using `.section--alt` (stone `#EDE8DE`), fill is `#EDE8DE`. For transitions into dark sections, fill is navy `#0A1F33`. Never hardcode a color that doesn't match the adjacent section.
   - ~~`.water-flow` CSS utility class with caustics shimmer~~ — **Superseded.**
 - **Constraints:** CON-PERF, CON-A11Y
 - **Priority:** P1
 - **Dependencies:** REQ-VD-7
 - **Verification:** Visual review on mobile and desktop — verify no color gaps between wave and adjacent sections on every page. Responsive test at 375px, 768px, 1440px.
-- **Status:** Partial — WaveDivider component exists but waves missing from homepage hero, several subpage heroes, and color transitions broken on homepage
+- **Status:** Partial — WaveDivider component exists; inline SVG waves added to homepage hero and all 4 custom hero pages (hrana, aktivnosti, plaze, zdrelac); homepage color transitions still need verification; pending live site confirmation
 
 ### REQ-VD-10: Breathing Image Cards
 
@@ -250,7 +250,7 @@ Color system, typography, scroll animations, micro-interactions, and Croatian vi
 - **Priority:** P1
 - **Dependencies:** REQ-VD-9, REQ-VD-1
 - **Verification:** Visual review across ALL subpages — verify wave renders at bottom with correct fill color, no gap. Verify hero images are contextually appropriate and unique per page.
-- **Status:** Partial — hero images present on most pages but wave SVG missing or broken on several subpages (hrana, aktivnosti, plaze); some hero images are non-Croatian stock (Santorini blue domes on beaches page)
+- **Status:** Partial — hero images present on most pages; inline SVG waves added to hrana, aktivnosti, plaze custom heroes; some hero images are still non-Croatian stock (Santorini blue domes on beaches page); pending live site confirmation
 
 ### REQ-VD-13: Icon System
 

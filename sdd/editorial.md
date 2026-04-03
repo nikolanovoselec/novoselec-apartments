@@ -111,7 +111,7 @@ Content pages that sell the destination and build emotional connection — Why P
 - **Intent:** Introduce the village where the apartments are located
 - **Applies To:** Visitor
 - **Acceptance Criteria:**
-  - **Current implementation:** Standalone page at `/{locale}/zdrelac` with full-screen hero (70vh, min 400px) using aerial village photo with gradient overlay (transparent 30% to navy 80%), village name as display heading, and introductory paragraph at 80% white opacity. Hero includes a bottom wave divider (CSS `::after` with SVG mask-image, cream fill `#F8F5EF`, responsive height) for organic transition into page content (REQ-VD-9). Below the hero, content sections in alternating image+text row layout. Each row: 2-column grid on desktop (1fr + 1fr), single column on mobile. Odd rows show image left / text right; even rows reverse. Images have 16px border-radius, 4:3 aspect ratio, subtle hover zoom (1.03x). CTA button at bottom links to apartments listing. Scroll-triggered fade-up reveal on each section. Alternating section backgrounds (`.section--alt`).
+  - **Current implementation:** Standalone page at `/{locale}/zdrelac` with full-screen hero (70vh, min 400px) using aerial village photo with gradient overlay (transparent 30% to navy 80%), village name as display heading, and introductory paragraph at 80% white opacity. Hero includes a bottom wave divider (inline SVG with organic bezier path, cream fill `#F8F5EF`, responsive height `clamp(40px, 6vw, 80px)`, `aria-hidden="true"`) for organic transition into page content (REQ-VD-9). Below the hero, content sections in alternating image+text row layout. Each row: 2-column grid on desktop (1fr + 1fr), single column on mobile. Odd rows show image left / text right; even rows reverse. Images have 16px border-radius, 4:3 aspect ratio, subtle hover zoom (1.03x). CTA button at bottom links to apartments listing. Scroll-triggered fade-up reveal on each section. Alternating section backgrounds (`.section--alt`).
   - **CMS wiring:** Page queries the `editorial` CMS collection filtered by `page_key === "zdrelac"`, sorted by `sort_order`. When CMS entries exist, they replace the hardcoded fallback sections. When no CMS entries exist, hardcoded per-locale content is rendered. Intro paragraph is suppressed when CMS content is active.
   - **Croatian fallback content (6 sections):** Bridge between two islands (210m bridge, Zadar-Preko ferry access), Veliki Bokolj peak (274m, panoramic viewpoint with telescope), Benedictine monastery Cokovac (12th century, above Tkon, plus Pustograd fortress ruins), centuries-old olive groves (OPG direct sales), St. Michael's Fortress on Ugljan (6th century, 265m, 200-island view), Galovac islet and Ugljan caves (Franciscan monastery, Zeljina/Boskova/Vela/Mala caves, 100km+ trails)
   - **DE/SL/EN fallback content (4 sections):** Bridge access, hidden beaches, Dalmatian life, olive groves (shorter, general descriptions)
@@ -159,7 +159,7 @@ Content pages that sell the destination and build emotional connection — Why P
 - **Priority:** P1
 - **Dependencies:** REQ-ED-4, REQ-SF-5, REQ-VD-12
 - **Verification:** Visual review across all 4 locales. Verify wave renders at bottom of hero. Verify hero image is food-related.
-- **Status:** Partial — page renders with content but hero uses custom markup without wave; should use HeroSimple
+- **Status:** Partial — page renders with content; inline SVG wave added to custom hero markup; pending live site confirmation
 
 ### REQ-ED-9: "Nature & Activities" Detail Page
 
@@ -178,7 +178,7 @@ Content pages that sell the destination and build emotional connection — Why P
 - **Priority:** P1
 - **Dependencies:** REQ-ED-4, REQ-SF-5, REQ-VD-12
 - **Verification:** Visual review across all 4 locales. Verify wave renders at bottom of hero.
-- **Status:** Partial — page renders with content but hero uses custom markup without wave; should use HeroSimple
+- **Status:** Partial — page renders with content; inline SVG wave added to custom hero markup; pending live site confirmation
 
 ### REQ-ED-10: "Beaches" Detail Page
 
@@ -197,7 +197,7 @@ Content pages that sell the destination and build emotional connection — Why P
 - **Priority:** P1
 - **Dependencies:** REQ-ED-4, REQ-SF-5, REQ-VD-12
 - **Verification:** Visual review across all 4 locales. Verify wave renders at bottom of hero. Verify hero image is a Croatian beach/coast scene.
-- **Status:** Partial — page renders with content but hero uses custom markup without wave and hero image is Santorini (non-Croatian); should use HeroSimple with Croatian beach imagery
+- **Status:** Partial — page renders with content; inline SVG wave added to custom hero markup; hero image is still Santorini (non-Croatian) and needs replacement with Croatian beach imagery; pending live site confirmation
 
 ## Out of Scope
 

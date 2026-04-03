@@ -1,5 +1,23 @@
 # Changelog
 
+## 2026-04-03 — Revision 43: Inline SVG Wave Spec Sync
+
+Synced spec with code change replacing CSS `::after` mask-image waves with inline SVG waves on homepage hero and 4 editorial page heroes (hrana, aktivnosti, plaze, zdrelac). All statuses remain Partial pending live site verification.
+
+### Requirements updated (acceptance criteria / status text)
+- **REQ-VD-9** (Wave Section Dividers): Removed "CSS `::after` pseudo-element" as wave approach for custom hero pages; now specifies inline SVG exclusively. Updated status text to reflect waves added to homepage hero and all 4 custom hero pages.
+- **REQ-VD-12** (Subpage Hero Pattern): Updated status text — waves now present on hrana/aktivnosti/plaze via inline SVG; Santorini imagery still flagged.
+- **REQ-SF-1** (Hero Section): Updated status text — inline SVG wave now added at bottom of hero.
+- **REQ-ED-6** (About Zdrelac): Updated wave description from "CSS `::after` with SVG mask-image" to "inline SVG with organic bezier path".
+- **REQ-ED-8** (Food & Drink): Updated status text — inline SVG wave present in custom hero markup.
+- **REQ-ED-9** (Activities): Updated status text — inline SVG wave present in custom hero markup.
+- **REQ-ED-10** (Beaches): Updated status text — inline SVG wave present in custom hero markup; Santorini hero image still flagged.
+
+### No status promotions
+All 6 requirements remain Partial — status will change to Implemented only after live site verification confirms waves render correctly with no gaps or color mismatches.
+
+---
+
 ## 2026-04-03 — Revision 42: Changelog Accuracy Fix
 
 Spec reviewer audit of revision 41 changelog. Fixed 6 inaccuracies:
