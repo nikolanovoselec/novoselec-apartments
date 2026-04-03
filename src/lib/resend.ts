@@ -40,7 +40,8 @@ export async function sendEmail(params: SendEmailParams): Promise<SendEmailResul
     });
 
     if (!response.ok) {
-      // Don't leak Resend API error details to callers
+      const errorBody = await response.text().catch(() => "");
+      console.error("[resend] API error:", response.status, errorBody);
       return { success: false, error: "Failed to send email" };
     }
 

@@ -159,6 +159,8 @@ export const POST: APIRoute = async ({ request }) => {
   const ownerEmails = adminEmails.split(",").map((e) => e.trim()).filter(Boolean);
   let emailSent = false;
 
+  console.log("[inquiry] Email config:", { ownerEmails: ownerEmails.length, hasResendKey: !!resendKey, resendKeyLength: resendKey?.length });
+
   if (ownerEmails.length > 0 && resendKey) {
     // Owner notification
     const ownerResult = await sendEmail({
@@ -185,6 +187,8 @@ export const POST: APIRoute = async ({ request }) => {
       from: "Apartmani Novoselec <noreply@graymatter.ch>",
     });
 
+    console.log("[inquiry] Owner email result:", ownerResult);
+    console.log("[inquiry] Guest email result:", guestResult);
     emailSent = ownerResult.success;
 
     // Update email status
