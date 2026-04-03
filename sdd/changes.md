@@ -1,27 +1,52 @@
 # Changelog
 
+## 2026-04-03 — Revision 42: Changelog Accuracy Fix
+
+Spec reviewer audit of revision 41 changelog. Fixed 6 inaccuracies:
+
+### Changelog corrections
+- **REQ-SF-4** removed from "Implemented → Partial" list — was already Planned, no change was made in revision 41
+- **REQ-SF-5, REQ-CMS-6, REQ-CMS-8, REQ-I18N-1** moved from "Implemented → Partial" to new "Planned → Partial" section (prior status was Planned, not Implemented)
+- **REQ-SF-6** added to changelog — status changed Planned → Partial but was omitted from revision 41 entry
+
+### Validation results (all passed)
+- All 87 requirement IDs are unique across 12 domain files
+- All cross-references in Dependencies fields resolve to existing requirements
+- All Status values are valid (Implemented, Partial, Planned, Deprecated)
+- All requirements have all 9 required fields
+- All CON-* references resolve to constraints.md definitions
+- No orphaned constraints (all 9 CON-* IDs are referenced)
+- README domain table matches domain files (12 domains, 12 files)
+
+---
+
 ## 2026-04-03 — Revision 41: Implementation Audit — Status Corrections and Missing AC
 
-Comprehensive audit of all 12 domains against the live site. Corrected statuses from "Implemented" to "Partial" where acceptance criteria are not met. Added missing acceptance criteria discovered during visual testing.
+Comprehensive audit of all 12 domains against the live site. Corrected 16 statuses to "Partial" (11 from "Implemented", 5 from "Planned") where acceptance criteria are not fully met. Added missing acceptance criteria discovered during visual testing. REQ-SF-4 was listed in error in the original changelog (was already Planned, no change applied). REQ-SF-6 status correction was applied but omitted from the original changelog.
 
-### Status corrections (Implemented → Partial)
+### Status corrections (Implemented → Partial) — 11 requirements
 - **REQ-SF-1** (Hero Section): Wave at bottom missing, some non-Croatian stock photos
-- **REQ-SF-4** (Language Switcher): Desktop dropdown unverified
-- **REQ-SF-5** (Why Pašman + Triptych): Triptych and village card links not clickable
 - **REQ-VD-9** (Wave Dividers): Waves missing from homepage hero and several subpage heroes; color transitions broken on homepage
 - **REQ-VD-12** (Subpage Hero): Waves missing on hrana/aktivnosti/plaze; non-Croatian imagery (Santorini)
 - **REQ-AP-3** (Apartment Detail): Lightbox, PricingTable, Breadcrumbs, Schema.org VacationRental not applied
 - **REQ-BK-2** (Inquiry Pipeline): Email delivery via Resend unverified end-to-end
 - **REQ-BK-8** (Contact Page): Never tested with real submission on live site
 - **REQ-CMS-9** (CF Access Auth): Google login succeeds but Emdash admin shows "Authentication failed"
-- **REQ-CMS-6** (Preloaded Content): DE/SL locales largely missing; editorial page_keys not fully seeded
-- **REQ-CMS-8** (Error Pages): 404 shows English regardless of URL locale
-- **REQ-I18N-1** (Locale Routing): hreflang tags in sitemap only, missing from HTML `<head>`
 - **REQ-I18N-3** (UI Strings): Mixed languages on homepage CTA section
 - **REQ-SEO-1** (Schema.org): VacationRental, BreadcrumbList, FAQPage not applied
 - **REQ-ED-8** (Food & Drink): Hero uses custom markup without wave
 - **REQ-ED-9** (Activities): Hero uses custom markup without wave
 - **REQ-ED-10** (Beaches): Hero uses custom markup without wave; hero image is Santorini
+
+### Status corrections (Planned → Partial) — 5 requirements
+- **REQ-SF-5** (Why Pašman + Triptych): Triptych and village card links not clickable
+- **REQ-SF-6** (Footer): Desktop works, mobile language picker not verified
+- **REQ-CMS-6** (Preloaded Content): DE/SL locales largely missing; editorial page_keys not fully seeded
+- **REQ-CMS-8** (Error Pages): 404 shows English regardless of URL locale
+- **REQ-I18N-1** (Locale Routing): hreflang tags in sitemap only, missing from HTML `<head>`
+
+### Removed (no actual change made)
+- **REQ-SF-4** (Language Switcher): Listed in error — was already Planned, no status change applied
 
 ### New requirements
 - **REQ-VD-13** (Icon System): MDI icons via `@mdi/js` — P1, Planned
