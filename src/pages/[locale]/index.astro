@@ -87,12 +87,23 @@ const oliveOilLabel: Record<Locale, string> = {
 <Page title={titles[typedLocale]} locale={typedLocale} hasHero={true}>
   <Hero locale={typedLocale} />
 
-  {/* Photo strip — edge-to-edge, uniform aspect ratio */}
-  <div class="photo-strip">
-    <img src="https://images.pexels.com/photos/1450353/pexels-photo-1450353.jpeg?auto=compress&w=700" alt="Turquoise Adriatic coastline" width="700" height="467" loading="lazy" />
-    <img src="https://images.pexels.com/photos/2880507/pexels-photo-2880507.jpeg?auto=compress&w=700" alt="Mediterranean stone village" width="700" height="467" loading="lazy" />
-    <img src="https://images.pexels.com/photos/2440061/pexels-photo-2440061.jpeg?auto=compress&w=700" alt="Sunset over the Adriatic islands" width="700" height="467" loading="lazy" />
+  {/* Photo strip — padded with rounded corners */}
+  <div class="photo-strip container">
+    <div class="photo-strip__item">
+      <img src="https://images.pexels.com/photos/1450353/pexels-photo-1450353.jpeg?auto=compress&w=700" alt="Turquoise Adriatic coastline" width="700" height="467" loading="lazy" />
+    </div>
+    <div class="photo-strip__item">
+      <img src="https://images.pexels.com/photos/2880507/pexels-photo-2880507.jpeg?auto=compress&w=700" alt="Mediterranean stone village" width="700" height="467" loading="lazy" />
+    </div>
+    <div class="photo-strip__item">
+      <img src="https://images.pexels.com/photos/2440061/pexels-photo-2440061.jpeg?auto=compress&w=700" alt="Sunset over the Adriatic islands" width="700" height="467" loading="lazy" />
+    </div>
   </div>
+
+  {/* Wave separator */}
+  <svg class="wave-sep" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,40 C360,0 720,60 1080,20 S1440,40 1440,40 L1440,60 L0,60 Z" fill="var(--color-cream)"/>
+  </svg>
 
   {/* Why Pašman */}
   <section class="section" data-reveal>
@@ -117,12 +128,19 @@ const oliveOilLabel: Record<Locale, string> = {
     </div>
   </section>
 
-  {/* Full-bleed image — Ždrelac */}
-  <div class="full-bleed-image" data-reveal>
-    <img src="https://images.pexels.com/photos/3601425/pexels-photo-3601425.jpeg?auto=compress&w=1920" alt="Aerial view of Ždrelac village on Pašman island" width="1920" height="1080" loading="lazy" />
-    <div class="full-bleed-image__text">
-      <p class="text-label" style="color: rgba(255,255,255,0.7);">Ždrelac</p>
-      <h2>{zdrelacTitle}</h2>
+  {/* Wave separator */}
+  <svg class="wave-sep wave-sep--flip" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,20 C360,60 720,0 1080,40 S1440,20 1440,20 L1440,0 L0,0 Z" fill="var(--color-cream)"/>
+  </svg>
+
+  {/* Full-width image — Ždrelac — with curved corners inside container */}
+  <div class="feature-image container" data-reveal>
+    <div class="feature-image__wrap">
+      <img src="https://images.pexels.com/photos/3601425/pexels-photo-3601425.jpeg?auto=compress&w=1920" alt="Aerial view of Ždrelac village on Pašman island" width="1920" height="1080" loading="lazy" />
+      <div class="feature-image__overlay">
+        <p class="text-label" style="color: rgba(255,255,255,0.7);">Ždrelac</p>
+        <h2>{zdrelacTitle}</h2>
+      </div>
     </div>
   </div>
 
@@ -142,8 +160,12 @@ const oliveOilLabel: Record<Locale, string> = {
         </div>
         <div class="split-section__right">
           <div class="duo-image">
-            <img src="https://images.pexels.com/photos/2440024/pexels-photo-2440024.jpeg?auto=compress&w=600" alt="Bright apartment interior with sea view" width="600" height="800" loading="lazy" />
-            <img src="https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg?auto=compress&w=600" alt="Cozy apartment terrace with Mediterranean plants" width="600" height="800" loading="lazy" />
+            <div class="img-organic">
+              <img src="https://images.pexels.com/photos/2440024/pexels-photo-2440024.jpeg?auto=compress&w=600" alt="Bright apartment interior with sea view" width="600" height="800" loading="lazy" />
+            </div>
+            <div class="img-organic">
+              <img src="https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg?auto=compress&w=600" alt="Cozy apartment terrace with Mediterranean plants" width="600" height="800" loading="lazy" />
+            </div>
           </div>
         </div>
       </div>
@@ -172,21 +194,25 @@ const oliveOilLabel: Record<Locale, string> = {
     </section>
   )}
 
-  {/* Experience triptych — edge-to-edge, uniform */}
-  <div class="triptych" data-reveal>
-    <div class="triptych__item">
-      <img src="https://images.pexels.com/photos/1267320/pexels-photo-1267320.jpeg?auto=compress&w=600" alt="Fresh Mediterranean seafood platter" width="600" height="750" loading="lazy" />
-      <span class="triptych__label">{t(typedLocale, "guide.foodDrink")}</span>
+  {/* Experience triptych — padded with rounded corners */}
+  <section class="section gradient-warm" data-reveal>
+    <div class="container">
+      <div class="triptych">
+        <div class="triptych__item">
+          <img src="https://images.pexels.com/photos/1267320/pexels-photo-1267320.jpeg?auto=compress&w=600" alt="Fresh Mediterranean seafood platter" width="600" height="750" loading="lazy" />
+          <span class="triptych__label">{t(typedLocale, "guide.foodDrink")}</span>
+        </div>
+        <div class="triptych__item">
+          <img src="https://images.pexels.com/photos/4992828/pexels-photo-4992828.jpeg?auto=compress&w=600" alt="Olive grove on Pašman island" width="600" height="750" loading="lazy" />
+          <span class="triptych__label">{oliveOilLabel[typedLocale]}</span>
+        </div>
+        <div class="triptych__item">
+          <img src="https://images.pexels.com/photos/1285625/pexels-photo-1285625.jpeg?auto=compress&w=600" alt="Hidden pebble beach in a cove" width="600" height="750" loading="lazy" />
+          <span class="triptych__label">{t(typedLocale, "guide.beaches")}</span>
+        </div>
+      </div>
     </div>
-    <div class="triptych__item">
-      <img src="https://images.pexels.com/photos/4992828/pexels-photo-4992828.jpeg?auto=compress&w=600" alt="Olive grove on Pašman island" width="600" height="750" loading="lazy" />
-      <span class="triptych__label">{oliveOilLabel[typedLocale]}</span>
-    </div>
-    <div class="triptych__item">
-      <img src="https://images.pexels.com/photos/1285625/pexels-photo-1285625.jpeg?auto=compress&w=600" alt="Hidden pebble beach in a cove" width="600" height="750" loading="lazy" />
-      <span class="triptych__label">{t(typedLocale, "guide.beaches")}</span>
-    </div>
-  </div>
+  </section>
 
   {/* CTA */}
   <section class="section section--alt" id="inquiry" data-reveal>
@@ -205,30 +231,57 @@ const oliveOilLabel: Record<Locale, string> = {
   </section>
 </Page>
 
-<style>
+<style is:global>
   /* ============================================================
-     PHOTO STRIP — edge-to-edge, no border-radius, uniform 3:2
+     PHOTO STRIP — padded with rounded corners
      ============================================================ */
   .photo-strip {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+    padding-block: var(--space-2xl);
   }
 
-  .photo-strip img {
+  .photo-strip__item {
+    overflow: hidden;
+    border-radius: 16px;
+    box-shadow: var(--shadow-md);
+  }
+
+  .photo-strip__item img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     aspect-ratio: 3 / 2;
     display: block;
+    transition: transform 0.8s var(--ease-out);
+  }
+
+  .photo-strip__item:hover img {
+    transform: scale(1.04);
   }
 
   @media (max-width: 640px) {
     .photo-strip {
       grid-template-columns: 1fr;
     }
-    .photo-strip img {
-      aspect-ratio: 21 / 9;
+    .photo-strip__item img {
+      aspect-ratio: 16 / 9;
     }
+  }
+
+  /* ============================================================
+     WAVE SEPARATORS
+     ============================================================ */
+  .wave-sep {
+    display: block;
+    width: 100%;
+    height: 60px;
+    margin: 0;
+  }
+
+  .wave-sep--flip {
+    transform: scaleY(-1);
   }
 
   /* ============================================================
@@ -278,41 +331,62 @@ const oliveOilLabel: Record<Locale, string> = {
     text-transform: uppercase;
     padding: 6px 14px;
     border: 1px solid var(--color-sand);
+    border-radius: 20px;
     color: var(--color-navy);
+    transition: background 0.3s, color 0.3s;
+  }
+
+  .tag:hover {
+    background: var(--color-navy);
+    color: var(--color-white);
   }
 
   /* ============================================================
-     FULL-BLEED IMAGE — edge-to-edge, text overlay at bottom
+     FEATURE IMAGE — curved corners, text overlay, contained
      ============================================================ */
-  .full-bleed-image {
-    position: relative;
-    overflow: hidden;
+  .feature-image {
+    padding-block: var(--space-xl);
   }
 
-  .full-bleed-image img {
+  .feature-image__wrap {
+    position: relative;
+    overflow: hidden;
+    border-radius: 24px;
+    box-shadow: var(--shadow-xl);
+  }
+
+  .feature-image__wrap img {
     width: 100%;
     display: block;
     aspect-ratio: 21 / 9;
     object-fit: cover;
+    transition: transform 8s linear;
+  }
+
+  .feature-image__wrap:hover img {
+    transform: scale(1.05);
   }
 
   @media (max-width: 640px) {
-    .full-bleed-image img {
+    .feature-image__wrap img {
       aspect-ratio: 16 / 9;
+    }
+    .feature-image__wrap {
+      border-radius: 16px;
     }
   }
 
-  .full-bleed-image__text {
+  .feature-image__overlay {
     position: absolute;
     inset: 0;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     padding: var(--space-2xl) clamp(1.25rem, 4vw, 3rem);
-    background: linear-gradient(transparent 40%, rgba(10, 31, 51, 0.65));
+    background: linear-gradient(transparent 30%, rgba(10, 31, 51, 0.7));
   }
 
-  .full-bleed-image__text h2 {
+  .feature-image__overlay h2 {
     color: var(--color-white);
     font-size: clamp(1.25rem, 2.5vw, 2rem);
     margin-top: var(--space-sm);
@@ -320,23 +394,28 @@ const oliveOilLabel: Record<Locale, string> = {
   }
 
   /* ============================================================
-     DUO IMAGE — two photos side by side
+     DUO IMAGE — two photos with rounded corners
      ============================================================ */
   .duo-image {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 4px;
+    gap: var(--space-md);
   }
 
-  .duo-image img {
+  .duo-image .img-organic img {
     width: 100%;
     aspect-ratio: 3 / 4;
     object-fit: cover;
     display: block;
+    transition: transform 0.8s var(--ease-out);
+  }
+
+  .duo-image .img-organic:hover img {
+    transform: scale(1.03);
   }
 
   /* ============================================================
-     TESTIMONIALS
+     TESTIMONIALS — with subtle gradient background
      ============================================================ */
   .testimonials-grid {
     display: grid;
@@ -354,7 +433,15 @@ const oliveOilLabel: Record<Locale, string> = {
   .testimonial-card {
     padding: var(--space-xl);
     background: var(--color-white);
+    border-radius: 16px;
+    box-shadow: var(--shadow-sm);
     border: 1px solid var(--color-border);
+    transition: transform 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out);
+  }
+
+  .testimonial-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg);
   }
 
   .testimonial-card__quote {
@@ -385,16 +472,19 @@ const oliveOilLabel: Record<Locale, string> = {
   }
 
   /* ============================================================
-     TRIPTYCH — three photos edge-to-edge, uniform, with labels
+     TRIPTYCH — rounded corners, gap, labels slide in
      ============================================================ */
   .triptych {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
   }
 
   .triptych__item {
     position: relative;
     overflow: hidden;
+    border-radius: 16px;
+    box-shadow: var(--shadow-md);
   }
 
   .triptych__item img {
@@ -406,7 +496,7 @@ const oliveOilLabel: Record<Locale, string> = {
   }
 
   .triptych__item:hover img {
-    transform: scale(1.03);
+    transform: scale(1.05);
   }
 
   .triptych__label {
@@ -414,13 +504,19 @@ const oliveOilLabel: Record<Locale, string> = {
     bottom: 0;
     left: 0;
     right: 0;
-    padding: var(--space-xl) var(--space-lg) var(--space-lg);
-    background: linear-gradient(transparent, rgba(10, 31, 51, 0.6));
+    padding: var(--space-2xl) var(--space-lg) var(--space-lg);
+    background: linear-gradient(transparent, rgba(10, 31, 51, 0.7));
     color: var(--color-white);
     font-size: var(--font-size-xs);
     font-weight: 600;
     letter-spacing: 0.12em;
     text-transform: uppercase;
+    transform: translateY(100%);
+    transition: transform 0.5s var(--ease-out);
+  }
+
+  .triptych__item:hover .triptych__label {
+    transform: translateY(0);
   }
 
   @media (max-width: 640px) {
@@ -429,6 +525,9 @@ const oliveOilLabel: Record<Locale, string> = {
     }
     .triptych__item img {
       aspect-ratio: 16 / 9;
+    }
+    .triptych__label {
+      transform: translateY(0);
     }
   }
 </style>

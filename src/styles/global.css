@@ -309,13 +309,111 @@ p {
   background: rgba(255, 255, 255, 0.1);
 }
 
-/* ---------- Dividers ---------- */
+/* ---------- Wavy Dividers ---------- */
 .section-divider {
-  width: 120px;
-  height: 1px;
-  background: var(--color-sand);
+  width: 200px;
+  height: 20px;
   margin: var(--space-xl) auto;
-  opacity: 0.6;
+  opacity: 0.3;
+  background: none;
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 20'%3E%3Cpath d='M0 10 Q25 0 50 10 T100 10 T150 10 T200 10' fill='none' stroke='%23000' stroke-width='1.5'/%3E%3C/svg%3E");
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 20'%3E%3Cpath d='M0 10 Q25 0 50 10 T100 10 T150 10 T200 10' fill='none' stroke='%23000' stroke-width='1.5'/%3E%3C/svg%3E");
+  background-color: currentColor;
+  mask-size: contain;
+  -webkit-mask-size: contain;
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+}
+
+/* Wavy section separator — full-width organic wave between sections */
+.wave-separator {
+  width: 100%;
+  height: 60px;
+  background: none;
+  overflow: hidden;
+  position: relative;
+}
+
+.wave-separator svg {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* ---------- Image Masks — organic curved edges ---------- */
+.img-organic {
+  border-radius: 20px 4px 20px 4px;
+  overflow: hidden;
+}
+
+.img-organic img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Soft blob mask for feature images */
+.img-blob {
+  overflow: hidden;
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+}
+
+.img-blob img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Padded image container with subtle shadow */
+.img-padded {
+  padding: var(--space-md);
+}
+
+.img-padded img {
+  border-radius: 16px;
+  box-shadow: var(--shadow-lg);
+  width: 100%;
+  display: block;
+}
+
+/* ---------- Breathing / Floating Animations ---------- */
+@keyframes breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes slowZoom {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.05); }
+}
+
+.animate-breathe {
+  animation: breathe 6s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 5s ease-in-out infinite;
+}
+
+/* ---------- Gradient Overlays ---------- */
+.gradient-warm {
+  background: linear-gradient(135deg, rgba(194, 113, 78, 0.05) 0%, rgba(26, 107, 143, 0.05) 100%);
+}
+
+.gradient-azure {
+  background: linear-gradient(180deg, rgba(26, 107, 143, 0.03) 0%, transparent 100%);
+}
+
+.gradient-sunset {
+  background: linear-gradient(135deg, var(--color-cream) 0%, rgba(212, 201, 184, 0.3) 50%, var(--color-cream) 100%);
 }
 
 /* ---------- Utilities ---------- */
