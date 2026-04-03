@@ -1,11 +1,19 @@
 ---
 import Page from "~/layouts/Page.astro";
 import { isValidLocale, type Locale } from "~/i18n/config";
+import { getLocalizedCollection } from "~/lib/content";
 
 const { locale } = Astro.params;
 if (!locale || !isValidLocale(locale)) return Astro.redirect("/hr/", 302);
 const typedLocale = locale as Locale;
 
+// Try CMS first
+const cmsEntries = await getLocalizedCollection("editorial", typedLocale);
+const cmsZdrelac = cmsEntries
+  .filter((e) => e.data.page_key === "zdrelac")
+  .sort((a, b) => ((a.data.sort_order as number) ?? 0) - ((b.data.sort_order as number) ?? 0));
+
+// Fallback content
 const content: Record<Locale, { title: string; intro: string; sections: Array<{ title: string; text: string; image: string; alt: string }> }> = {
   hr: {
     title: "Ždrelac",
@@ -51,22 +59,35 @@ const content: Record<Locale, { title: string; intro: string; sections: Array<{ 
   },
 };
 
-const page = content[typedLocale];
+const fallback = content[typedLocale];
+
+// Use CMS if available, otherwise fallback
+const useCms = cmsZdrelac.length > 0;
+const pageTitle = "Ždrelac";
+const pageIntro = useCms ? "" : fallback.intro;
+const sections = useCms
+  ? cmsZdrelac.map((e) => ({
+      title: (e.data.title as string) ?? "",
+      text: (e.data.body as string) ?? "",
+      image: (e.data.image as string) ?? "https://images.pexels.com/photos/3601425/pexels-photo-3601425.jpeg?auto=compress&w=800",
+      alt: (e.data.title as string) ?? "",
+    }))
+  : fallback.sections;
 ---
 
-<Page title={page.title} locale={typedLocale}>
+<Page title={pageTitle} locale={typedLocale}>
   {/* Village hero with aerial image */}
   <section class="village-hero">
-    <img src="https://images.pexels.com/photos/3601425/pexels-photo-3601425.jpeg?auto=compress&w=1920" alt={`${page.title} — Pašman`} width="1920" height="1080" fetchpriority="high" />
+    <img src="https://images.pexels.com/photos/3601425/pexels-photo-3601425.jpeg?auto=compress&w=1920" alt={`${pageTitle} — Pašman`} width="1920" height="1080" fetchpriority="high" />
     <div class="village-hero__overlay">
       <div class="container">
-        <h1>{page.title}</h1>
-        <p class="village-hero__intro">{page.intro}</p>
+        <h1>{pageTitle}</h1>
+        {pageIntro && <p class="village-hero__intro">{pageIntro}</p>}
       </div>
     </div>
   </section>
 
-  {page.sections.map((section, i) => (
+  {sections.map((section, i) => (
     <section class:list={["section", { "section--alt": i % 2 === 1 }]} data-reveal>
       <div class="container">
         <div class:list={["village-row", { "village-row--reverse": i % 2 === 1 }]}>
