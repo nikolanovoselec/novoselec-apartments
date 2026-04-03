@@ -123,7 +123,7 @@ const oliveOilLabel: Record<Locale, string> = {
   </div>
 
   {/* Apartments */}
-  <section class="section section--dark" data-reveal>
+  <section class="section section--dark water-flow" data-reveal>
     <div class="container">
       <div class="split-section split-section--reverse">
         <div class="split-section__left">
@@ -205,16 +205,16 @@ const oliveOilLabel: Record<Locale, string> = {
     </div>
   </section>
 
-  {/* CTA */}
-  <section class="section section--alt" id="inquiry" data-reveal>
+  {/* CTA — sunset gradient */}
+  <section class="section sunset-gradient" id="inquiry" data-reveal>
     <div class="container text-center">
-      <p class="text-label">{t(typedLocale, "nav.contact")}</p>
-      <h2 style="margin-top: var(--space-md);">{ctaTitle}</h2>
-      <p style="margin-inline: auto; margin-top: var(--space-lg); color: var(--color-text-light);">
+      <p class="text-label" style="color: rgba(255,255,255,0.7);">{t(typedLocale, "nav.contact")}</p>
+      <h2 style="margin-top: var(--space-md); color: white;">{ctaTitle}</h2>
+      <p style="margin-inline: auto; margin-top: var(--space-lg); color: rgba(255,255,255,0.75);">
         {t(typedLocale, "trust.responseTime")}
       </p>
       <div style="margin-top: var(--space-2xl);">
-        <a href={`/${typedLocale}/apartmani#inquiry`} class="btn btn--primary">
+        <a href={`/${typedLocale}/apartmani#inquiry`} class="btn btn--ghost">
           {t(typedLocale, "booking.title")}
         </a>
       </div>
