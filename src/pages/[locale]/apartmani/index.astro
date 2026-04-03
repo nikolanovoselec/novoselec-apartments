@@ -55,7 +55,7 @@ const displayApartments = apartments.length > 0 ? apartments : fallbackApartment
     <div class="container">
       <div class="apartments-grid" data-reveal-stagger>
         {displayApartments.map((apt) => (
-          <div class="apartment-card" data-reveal>
+          <a href={`/${typedLocale}/apartmani/${apt.slug}`} class="apartment-card" data-reveal style="text-decoration:none; color:inherit; display:block;">
             <div class="apartment-card__image">
               <img
                 src={apt.data.hero_image as string}
@@ -80,12 +80,12 @@ const displayApartments = apartments.length > 0 ? apartments : fallbackApartment
                 <span class="apartment-card__price">
                   {t(typedLocale, "apartments.fromPrice").replace("{price}", String(apt.data.price_from))}
                 </span>
-                <a href={`/${typedLocale}/apartmani/${apt.slug}`} class="btn btn--primary">
+                <span class="btn btn--primary">
                   {t(typedLocale, "apartments.viewButton")}
-                </a>
+                </span>
               </div>
             </div>
-          </div>
+          </a>
         ))}
       </div>
     </div>
