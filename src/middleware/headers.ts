@@ -18,7 +18,7 @@ export const headersMiddleware: MiddlewareHandler = async (context, next) => {
       "script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com",
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: blob: https:",
-      "connect-src 'self'",
+      "connect-src 'self' https://challenges.cloudflare.com",
       "frame-src https://challenges.cloudflare.com",
       "font-src 'self'",
       "object-src 'none'",

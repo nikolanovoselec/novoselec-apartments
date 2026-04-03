@@ -21,7 +21,7 @@ try {
   // Direct lookup failed — try collection search
   try {
     const { entries } = await getEmDashCollection("apartments");
-    const match = entries?.find((e: { slug?: string }) => e.slug === slug);
+    const match = entries?.find((e: unknown) => (e as { slug?: string }).slug === slug);
     if (match) {
       entry = (match as { data?: Record<string, unknown> }).data ?? null;
     }
