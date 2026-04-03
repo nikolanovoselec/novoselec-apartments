@@ -88,13 +88,18 @@ const heroImages = [
     height: 100%;
     object-fit: cover;
     display: block;
-    /* Slow Ken Burns zoom on active slide */
-    transform: scale(1);
-    transition: transform 8s ease-out;
+    /* Continuous slow zoom — never static */
+    animation: heroZoom 12s ease-in-out infinite alternate;
+    animation-play-state: paused;
   }
 
   .hero__slide.is-active img {
-    transform: scale(1.08);
+    animation-play-state: running;
+  }
+
+  @keyframes heroZoom {
+    0%   { transform: scale(1) translate3d(0, 0, 0); }
+    100% { transform: scale(1.1) translate3d(-1%, -1%, 0); }
   }
 
   .hero__overlay {
