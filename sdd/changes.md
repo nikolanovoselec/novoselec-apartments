@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-04-03 — Revision 36: Wave Divider Sizing and Positioning Fix
+
+WaveDivider component updated: responsive height increased from `clamp(40px, 6vw, 80px)` to `clamp(50px, 8vw, 100px)` for more prominent wave transitions. Negative margin (`-1px`) eliminates subpixel seam gaps between wave and adjacent sections. Added `position: relative` and `z-index: 2` to ensure wave layers above section backgrounds. Style scope changed to global for consistent application. Homepage Zdrelac feature image no longer constrained by `.container` class, enabling true full-width display.
+
+### AC updated
+- **REQ-VD-9:** Responsive height updated from `clamp(40px, 6vw, 80px)` to `clamp(50px, 8vw, 100px)`.
+- **REQ-VD-7:** Same height value updated in wave divider description.
+- **REQ-VD-12:** Same height value updated in subpage hero wave description.
+
 ## 2026-04-03 — Revision 35: Contact Form Date Picker Inputs
 
 The contact inquiry page (`/{locale}/kontakt`) now uses two native `type="date"` inputs (check-in and check-out) instead of a single freeform text field for preferred dates. Labels are localized across all 4 locales (Dolazak/Odlazak, Anreise/Abreise, Prihod/Odhod, Check-in/Check-out). The dates row uses a 3-column grid layout (check-in, check-out, guests). On submission, the date range and guest count are appended to the message body so the owner sees complete details in the email. Added `@mdi/js` dependency.

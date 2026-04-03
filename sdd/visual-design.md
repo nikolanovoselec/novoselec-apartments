@@ -144,7 +144,7 @@ Color system, typography, scroll animations, micro-interactions, and Croatian vi
 - **Acceptance Criteria:**
   - Stone texture: inline SVG fractalNoise filter at 2-3% opacity applied via `.texture-stone` utility class on background sections. Uses `feTurbulence` with `baseFrequency` 0.9, 4 octaves, `stitchTiles`.
   - Hero uses same noise texture overlay at 3% opacity for depth
-  - Section dividers: wavy SVG path (`currentColor`) at 0.3 opacity, 200px width, using CSS mask-image. Full-width wave separators (REQ-VD-9) between major sections using inline SVG with organic bezier curves, responsive height `clamp(40px, 6vw, 80px)`.
+  - Section dividers: wavy SVG path (`currentColor`) at 0.3 opacity, 200px width, using CSS mask-image. Full-width wave separators (REQ-VD-9) between major sections using inline SVG with organic bezier curves, responsive height `clamp(50px, 8vw, 100px)`.
   - Decorative: olive branch silhouettes (max 2-3 per page)
   - No cliche anchors, seashells, compass roses, or folk patterns
   - Galešnjak (heart island in Pašman channel) as potential brand element
@@ -180,7 +180,7 @@ Color system, typography, scroll animations, micro-interactions, and Croatian vi
 - **Acceptance Criteria:**
   - Reusable `WaveDivider` component: standalone SVG wave shape placed between sections to create organic color transitions
   - Inline SVG with `viewBox="0 0 1440 80"`, `preserveAspectRatio="none"`, organic bezier curve path
-  - Responsive height via `clamp(40px, 6vw, 80px)`
+  - Responsive height via `clamp(50px, 8vw, 100px)`
   - Configurable fill color to match the target section background (e.g., dark navy for transition into dark section, cream for transition back to light)
   - `flip` prop for vertical mirror (top-of-section vs bottom-of-section placement)
   - `aria-hidden="true"` — purely decorative
@@ -237,7 +237,7 @@ Color system, typography, scroll animations, micro-interactions, and Croatian vi
   - Ken Burns animation on hero image: continuous CSS keyframe (`scale(1)` to `scale(1.06)`, 20s ease-in-out infinite alternate) — subtler and slower than the homepage hero carousel (12s, 1.1x)
   - Minimum height 280px, vertically centered content
   - Title (`h1`) and optional subtitle rendered over the overlay
-  - Wave SVG divider at bottom edge (same pattern as REQ-VD-9: `viewBox="0 0 1440 80"`, `preserveAspectRatio="none"`, organic bezier path, fill `#F8F5EF` to match page background, responsive height `clamp(40px, 6vw, 80px)`, `aria-hidden="true"`)
+  - Wave SVG divider at bottom edge (same pattern as REQ-VD-9: `viewBox="0 0 1440 80"`, `preserveAspectRatio="none"`, organic bezier path, fill `#F8F5EF` to match page background, responsive height `clamp(50px, 8vw, 100px)`, `aria-hidden="true"`)
   - Wave positioned absolute at `bottom: -1px` to seamlessly bridge hero into page content with no visible seam
   - Content z-index layering: image (0), overlay (1), text content (2), wave (3)
   - All 11 subpages use hero images: apartments listing, gallery, getting here, FAQ, about hosts, local guide, why Pasman, contact, impressum, privacy policy, accessibility statement
