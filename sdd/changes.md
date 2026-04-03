@@ -1,5 +1,22 @@
 # Changelog
 
+## 2026-04-03 — Revision 25: Premium CSS Effects (Sunset Gradient, Water-Flow Divider, Breathing Cards, Animated Links)
+
+Homepage upgraded with four premium CSS-only effects: animated sunset gradient on CTA section (18s color-shifting cycle with haze overlay), water-flow liquid divider on apartments section (SVG wave mask + caustics shimmer), breathing image card component (7.5s scale/drift cycle with glassmorphism caption), and animated link underline utility. All effects include dedicated `prefers-reduced-motion` handling. CTA section button changed from primary to ghost variant for contrast on gradient background.
+
+### Requirements added
+- **REQ-VD-9:** Water-flow section divider — SVG mask wave + caustics shimmer animation utility class.
+- **REQ-VD-10:** Breathing image cards — subtle scale/drift animation with warm overlay and glassmorphism caption.
+- **REQ-VD-11:** Animated link underline — background-size hover transition utility class.
+
+### AC updated
+- **REQ-VD-8:** Sunset gradient redefined from subtle static cream-to-sand blend to dramatic animated multi-color gradient (navy/azure/gold/terracotta/purple, 18s cycle, haze overlay). Added reduced-motion constraint.
+- **REQ-VD-3:** Reduced-motion AC expanded to reference new premium effects (sunset, haze, caustics, breathing) with dedicated disable block.
+- **REQ-VD-4:** Ghost button variant noted as preferred on dark/gradient backgrounds (sunset CTA).
+
+### Glossary
+- Added "Caustics" and "Glassmorphism" terms.
+
 ## 2026-04-03 — Revision 24: Content Detail Pages (Food, Activities, Beaches) + Triptych Links
 
 Three local guide categories expanded from summary entries on `/vodic` to standalone detail pages with full-screen heroes, real Croatian island content (named restaurants, beaches, parks with distances from Zdrelac), and 4-locale translations. Homepage experience triptych items converted from static divs to clickable links pointing to these detail pages.

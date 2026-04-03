@@ -1,0 +1,274 @@
+---
+import Page from "~/layouts/Page.astro";
+import HeroSimple from "~/components/ui/HeroSimple.astro";
+import { isValidLocale, type Locale } from "~/i18n/config";
+import { t } from "~/i18n/t";
+
+const { locale } = Astro.params;
+if (!locale || !isValidLocale(locale)) return Astro.redirect("/hr/", 302);
+const typedLocale = locale as Locale;
+
+const title: Record<Locale, string> = {
+  hr: "Kontakt", de: "Kontakt", sl: "Kontakt", en: "Contact",
+};
+
+const labels: Record<Locale, Record<string, string>> = {
+  hr: { name: "Ime i prezime", email: "Email", phone: "Telefon", dates: "Željeni datumi", guests: "Broj gostiju", message: "Poruka", send: "Pošaljite upit", sending: "Šaljem...", success: "Upit je poslan! Odgovoriti ćemo u roku od 2 sata.", error: "Nešto je pošlo po krivu. Pokušajte ponovo.", gdpr: "Pristajem na obradu osobnih podataka u svrhu ovog upita." },
+  de: { name: "Vollständiger Name", email: "E-Mail", phone: "Telefon", dates: "Gewünschte Daten", guests: "Anzahl Gäste", message: "Nachricht", send: "Anfrage senden", sending: "Wird gesendet...", success: "Anfrage gesendet! Wir antworten innerhalb von 2 Stunden.", error: "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.", gdpr: "Ich stimme der Verarbeitung meiner personenbezogenen Daten zu." },
+  sl: { name: "Ime in priimek", email: "E-pošta", phone: "Telefon", dates: "Želeni datumi", guests: "Število gostov", message: "Sporočilo", send: "Pošljite povpraševanje", sending: "Pošiljam...", success: "Povpraševanje poslano! Odgovorimo v 2 urah.", error: "Nekaj je šlo narobe. Poskusite znova.", gdpr: "Soglašam z obdelavo osebnih podatkov." },
+  en: { name: "Full name", email: "Email", phone: "Phone", dates: "Preferred dates", guests: "Number of guests", message: "Message", send: "Send inquiry", sending: "Sending...", success: "Inquiry sent! We'll respond within 2 hours.", error: "Something went wrong. Please try again.", gdpr: "I consent to the processing of my personal data for this inquiry." },
+};
+
+const l = labels[typedLocale];
+---
+
+<Page title={title[typedLocale]} locale={typedLocale}>
+  <HeroSimple title={title[typedLocale]} />
+
+  <section class="section">
+    <div class="container">
+      <div class="contact-layout">
+        <div class="contact-info">
+          <h2>{typedLocale === "hr" ? "Javite nam se" : typedLocale === "de" ? "Kontaktieren Sie uns" : typedLocale === "sl" ? "Pišite nam" : "Get in touch"}</h2>
+          <p class="text-lead" style="margin-top: var(--space-md);">
+            {typedLocale === "hr" ? "Odgovaramo u roku od 2 sata. Pišite nam za bilo kakvo pitanje o apartmanima, dostupnosti ili otoku." :
+             typedLocale === "de" ? "Wir antworten innerhalb von 2 Stunden. Schreiben Sie uns bei Fragen zu den Apartments, Verfügbarkeit oder der Insel." :
+             typedLocale === "sl" ? "Odgovorimo v 2 urah. Pišite nam za vprašanja o apartmajih, razpoložljivosti ali otoku." :
+             "We respond within 2 hours. Write to us about apartments, availability, or the island."}
+          </p>
+          <div class="contact-info__detail" style="margin-top: var(--space-2xl);">
+            <p><strong>Email:</strong> info@apartmani-novoselec.ch</p>
+            <p><strong>{typedLocale === "hr" ? "Lokacija" : typedLocale === "de" ? "Standort" : typedLocale === "sl" ? "Lokacija" : "Location"}:</strong> Ždrelac, Pašman, Croatia</p>
+          </div>
+        </div>
+
+        <form id="inquiry-form" class="contact-form" data-locale={typedLocale}>
+          <div class="form-group">
+            <label for="name">{l.name} *</label>
+            <input type="text" id="name" name="name" required autocomplete="name" />
+          </div>
+
+          <div class="form-group">
+            <label for="email">{l.email} *</label>
+            <input type="email" id="email" name="email" required autocomplete="email" />
+          </div>
+
+          <div class="form-group">
+            <label for="phone">{l.phone}</label>
+            <input type="tel" id="phone" name="phone" autocomplete="tel" />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="dates">{l.dates}</label>
+              <input type="text" id="dates" name="dates" placeholder="01.07 — 15.07" />
+            </div>
+            <div class="form-group">
+              <label for="guests">{l.guests}</label>
+              <input type="number" id="guests" name="guests" min="1" max="10" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="message">{l.message} *</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+          </div>
+
+          {/* Honeypot */}
+          <div style="position:absolute;left:-9999px;" aria-hidden="true">
+            <input type="text" name="website" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <div class="form-group">
+            <label class="checkbox-label">
+              <input type="checkbox" name="gdpr" required />
+              <span>{l.gdpr}</span>
+            </label>
+          </div>
+
+          {/* Turnstile widget */}
+          <div id="turnstile-container" class="cf-turnstile" data-sitekey="0x4AAAAAAAiYAz_U5JnMbfRB" data-theme="light"></div>
+
+          <button type="submit" class="btn btn--primary contact-form__submit" id="submit-btn">
+            {l.send}
+          </button>
+
+          <div id="form-status" class="form-status" aria-live="polite"></div>
+        </form>
+      </div>
+    </div>
+  </section>
+</Page>
+
+<style>
+  .contact-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-2xl);
+  }
+
+  @media (min-width: 768px) {
+    .contact-layout {
+      grid-template-columns: 1fr 1.3fr;
+      gap: var(--space-3xl);
+      align-items: start;
+    }
+  }
+
+  .contact-form {
+    position: relative;
+  }
+
+  .form-group {
+    margin-bottom: var(--space-lg);
+  }
+
+  .form-group label {
+    display: block;
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    color: var(--color-navy);
+    margin-bottom: var(--space-xs);
+    letter-spacing: 0.02em;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    font-family: var(--font-sans);
+    font-size: var(--font-size-base);
+    color: var(--color-text);
+    background: var(--color-white);
+    border: 1px solid var(--color-sand);
+    border-radius: 8px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--color-azure);
+    box-shadow: 0 0 0 3px rgba(26, 107, 143, 0.1);
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-md);
+  }
+
+  .checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-sm);
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+    cursor: pointer;
+  }
+
+  .checkbox-label input {
+    margin-top: 3px;
+    accent-color: var(--color-azure);
+  }
+
+  .contact-form__submit {
+    width: 100%;
+    margin-top: var(--space-md);
+  }
+
+  .form-status {
+    margin-top: var(--space-md);
+    padding: var(--space-md);
+    border-radius: 8px;
+    font-size: var(--font-size-sm);
+    display: none;
+  }
+
+  .form-status.is-success {
+    display: block;
+    background: rgba(92, 110, 59, 0.1);
+    color: var(--color-olive);
+    border: 1px solid rgba(92, 110, 59, 0.2);
+  }
+
+  .form-status.is-error {
+    display: block;
+    background: rgba(194, 113, 78, 0.1);
+    color: var(--color-terracotta);
+    border: 1px solid rgba(194, 113, 78, 0.2);
+  }
+
+  .cf-turnstile {
+    margin-bottom: var(--space-md);
+  }
+</style>
+
+<script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", function() {
+    var form = document.getElementById("inquiry-form");
+    var btn = document.getElementById("submit-btn");
+    var status = document.getElementById("form-status");
+    var locale = form ? form.getAttribute("data-locale") : "hr";
+
+    var messages = {
+      hr: { sending: "Šaljem...", success: "Upit je poslan! Odgovoriti ćemo u roku od 2 sata.", error: "Nešto je pošlo po krivu. Pokušajte ponovo.", send: "Pošaljite upit" },
+      de: { sending: "Wird gesendet...", success: "Anfrage gesendet! Wir antworten innerhalb von 2 Stunden.", error: "Etwas ist schiefgelaufen.", send: "Anfrage senden" },
+      sl: { sending: "Pošiljam...", success: "Povpraševanje poslano! Odgovorimo v 2 urah.", error: "Nekaj je šlo narobe.", send: "Pošljite povpraševanje" },
+      en: { sending: "Sending...", success: "Inquiry sent! We'll respond within 2 hours.", error: "Something went wrong. Please try again.", send: "Send inquiry" },
+    };
+
+    var msg = messages[locale] || messages.en;
+
+    if (form) {
+      form.addEventListener("submit", function(e) {
+        e.preventDefault();
+        btn.disabled = true;
+        btn.textContent = msg.sending;
+        status.className = "form-status";
+        status.style.display = "none";
+
+        var data = new FormData(form);
+        var body = {
+          type: "question",
+          name: data.get("name"),
+          email: data.get("email"),
+          phone: data.get("phone") || "",
+          message: data.get("message"),
+          dates: data.get("dates") || "",
+          guests: data.get("guests") || "",
+          locale: locale,
+          gdprConsent: !!data.get("gdpr"),
+          honeypot: data.get("website") || "",
+          turnstileToken: data.get("cf-turnstile-response") || "",
+        };
+
+        fetch("/api/inquiry", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        })
+        .then(function(res) {
+          if (res.ok || res.status === 202) {
+            status.textContent = msg.success;
+            status.className = "form-status is-success";
+            form.reset();
+            if (window.turnstile) window.turnstile.reset();
+          } else {
+            throw new Error(res.status);
+          }
+        })
+        .catch(function() {
+          status.textContent = msg.error;
+          status.className = "form-status is-error";
+        })
+        .finally(function() {
+          btn.disabled = false;
+          btn.textContent = msg.send;
+        });
+      });
+    }
+  });
+</script>

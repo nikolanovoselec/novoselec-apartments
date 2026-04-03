@@ -66,7 +66,7 @@ Color system, typography, scroll animations, micro-interactions, and Croatian vi
   - **GSAP optional:** Max 1 signature moment per page if CSS cannot achieve it (e.g., pinned "A Day on Pašman" timeline on desktop). If GSAP adds >20KB to bundle, skip it and use CSS-only alternative.
   - No parallax (complexity vs. value tradeoff for this project)
   - Only animate `transform` and `opacity` (GPU-composited), plus `clip-path` and `width` for specific reveal types
-  - `prefers-reduced-motion`: all animation durations set to 0.01ms, content immediately visible
+  - `prefers-reduced-motion`: all animation durations set to 0.01ms, content immediately visible. Premium effects (sunset gradient shift, haze drift, caustics drift, breathing cards) explicitly disabled via dedicated `@media (prefers-reduced-motion: reduce)` block.
   - Mobile: simple fade-in only, no scroll-triggered complexity
   - **Art direction rules:**
     - Max 1 animated reveal per viewport height
@@ -84,7 +84,7 @@ Color system, typography, scroll animations, micro-interactions, and Croatian vi
 - **Applies To:** Visitor
 - **Acceptance Criteria:**
   - Default button: outline with fill-sweep from left via `scaleX` pseudo-element, text color inversion on hover (0.4s)
-  - Button variants: `--primary` (solid navy fill, azure on hover), `--ghost` (white text, translucent border, subtle backdrop fill on hover)
+  - Button variants: `--primary` (solid navy fill, azure on hover), `--ghost` (white text, translucent border, subtle backdrop fill on hover). Ghost variant used on dark/gradient backgrounds (e.g., sunset CTA section).
   - Image hover: subtle zoom (1.03-1.05x) within overflow:hidden (0.8s ease-out), applied to photo strip items, duo images, feature images, and triptych
   - Triptych label slide-in: labels hidden below frame (`translateY(100%)`) and slide up on hover (0.5s ease-out). Always visible on mobile (no hover).
   - Testimonial card lift: translateY(-6px) with shadow escalation on hover (0.4s ease-out)
@@ -162,13 +162,64 @@ Color system, typography, scroll animations, micro-interactions, and Croatian vi
 - **Acceptance Criteria:**
   - Warm gradient: diagonal blend of terracotta and azure at 5% opacity for experience/editorial sections
   - Azure gradient: vertical fade of azure at 3% opacity for top-of-section accents
-  - Sunset gradient: horizontal cream-to-sand-to-cream for warm transitional backgrounds
+  - Sunset gradient: animated multi-color gradient (deep navy, azure, gold, terracotta, purple) with 200% background-size shifting on an 18s infinite cycle, plus a haze overlay with blur and drift animation. Used for high-impact CTA sections. Text forced to white with adjusted alpha for hierarchy.
   - All gradients are CSS utility classes applicable to any section
-  - Gradients are barely perceptible -- subtle temperature shifts, not visible color blocks
-- **Constraints:** CON-PERF
+  - Warm and azure gradients are barely perceptible -- subtle temperature shifts, not visible color blocks
+  - Sunset gradient is intentionally dramatic and animated -- reserved for CTA or hero-level sections only
+  - All gradient animations respect `prefers-reduced-motion: reduce` (animation disabled)
+- **Constraints:** CON-PERF, CON-A11Y
 - **Priority:** P2
 - **Dependencies:** REQ-VD-1
-- **Verification:** Visual review across sections
+- **Verification:** Visual review across sections, reduced-motion test
+- **Status:** Implemented
+
+### REQ-VD-9: Water-Flow Section Divider
+
+- **Intent:** Organic, liquid transition between page sections evoking the Adriatic sea surface
+- **Applies To:** Visitor
+- **Acceptance Criteria:**
+  - `.water-flow` CSS utility class applicable to any section
+  - Top-edge wave: CSS `mask-image` with inline SVG organic bezier path, cream background fill, responsive height (`clamp(56px, 8vw, 100px)`)
+  - Caustics shimmer: radial-gradient pseudo-element (`::after`) with 4 overlapping light spots, 200px height, drifting horizontally on a 9s infinite animation
+  - Caustics are subtle (0.5 opacity) and purely decorative (`pointer-events: none`)
+  - `prefers-reduced-motion: reduce`: caustics animation disabled, opacity reduced to 0.3
+  - Applied to the homepage apartments section (dark background)
+- **Constraints:** CON-PERF, CON-A11Y
+- **Priority:** P2
+- **Dependencies:** REQ-VD-7
+- **Verification:** Visual review, reduced-motion test
+- **Status:** Implemented
+
+### REQ-VD-10: Breathing Image Cards
+
+- **Intent:** Subtle life-like motion on feature images conveying premium quality
+- **Applies To:** Visitor
+- **Acceptance Criteria:**
+  - `.breath-card` component: 22px border-radius, `overflow: clip`, 4:3 aspect ratio, deep shadow
+  - Image inside scales between 1.03x and 1.06x with slight vertical drift (-6px) on a 7.5s infinite ease-in-out cycle
+  - Warm-tone gradient overlay (`::before`) blends warm gold and cool azure radial gradients with a bottom-darkening linear gradient
+  - Figcaption: glassmorphism treatment (frosted blur, translucent navy background, subtle border, positioned absolute at bottom)
+  - Image saturation and contrast boosted slightly (1.05x each) for vibrancy
+  - `prefers-reduced-motion: reduce`: breathing animation disabled
+- **Constraints:** CON-PERF, CON-A11Y
+- **Priority:** P2
+- **Dependencies:** REQ-VD-6
+- **Verification:** Visual review, reduced-motion test
+- **Status:** Implemented
+
+### REQ-VD-11: Animated Link Underline
+
+- **Intent:** Premium hover interaction for inline text links
+- **Applies To:** Visitor
+- **Acceptance Criteria:**
+  - `.link-lux` utility class: underline drawn via `background` gradient at 0% width, expanding to 100% on hover (400ms ease)
+  - Uses `currentColor` so it adapts to any text color context
+  - No `text-decoration` (replaced entirely by background technique)
+  - No animation on reduced-motion (CSS transitions naturally respect the reduced-motion media query applied globally)
+- **Constraints:** CON-A11Y
+- **Priority:** P2
+- **Dependencies:** None
+- **Verification:** Visual review, keyboard focus test
 - **Status:** Implemented
 
 ## Out of Scope
