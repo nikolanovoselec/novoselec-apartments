@@ -67,15 +67,15 @@ describe("getLocalizedCollection()", () => {
   it("falls back to Croatian entries when target locale has none", async () => {
     mockGetCollection.mockResolvedValue({
       entries: [
-        { slug: "news-hr", data: {} },
-        { slug: "news-hr-2", data: {} },
+        { slug: "news-hr", locale: "hr", data: {} },
+        { slug: "tips-hr", locale: "hr", data: {} },
       ],
     } as never);
 
     const result = await getLocalizedCollection("news", "de");
 
     expect(result).toHaveLength(2);
-    expect(result.every((e) => e.slug.endsWith("-hr"))).toBe(true);
+    expect(result.every((e) => e.locale === "hr")).toBe(true);
   });
 
   it("returns all entries when no Croatian entries found either", async () => {

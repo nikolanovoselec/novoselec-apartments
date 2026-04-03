@@ -87,11 +87,12 @@ describe("buildHreflangLinks()", () => {
     expect(byLang["hr"]).toBe("https://apartmani.novoselec.ch/hr/kontakt");
   });
 
-  it("returns hrefs with no double slashes", () => {
+  it("returns hrefs with no double slashes in the path", () => {
     const links = buildHreflangLinks("/hr/apartmani", ORIGIN);
     for (const link of links) {
-      // origin already has no trailing slash; path already has leading slash
-      expect(link.href).not.toContain("//apartmani");
+      // Strip the protocol (https://) before checking for double slashes in path
+      const pathPart = link.href.replace(/^https?:\/\//, "");
+      expect(pathPart).not.toContain("//");
     }
   });
 });
