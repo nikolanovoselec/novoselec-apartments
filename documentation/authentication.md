@@ -1,6 +1,6 @@
 # Authentication
 
-Magic Link authentication for the owner admin panel.
+Authentication for the owner admin panel (custom) and Emdash CMS (Cloudflare Access).
 
 **Audience:** Developers
 
@@ -8,9 +8,35 @@ Magic Link authentication for the owner admin panel.
 
 ## Overview
 
-The admin panel uses email-based Magic Link authentication. A 6-digit one-time code is sent via Resend. On verification, the server issues a short-lived JWT and a long-lived refresh token stored in HttpOnly cookies. There is no password and no OAuth provider dependency.
+The project has two separate admin auth systems:
 
-This approach was chosen over Google OAuth — see [AD2](decisions/README.md#ad2-magic-link-auth-via-resend-instead-of-google-oauth).
+| Surface | Mechanism | Notes |
+|---|---|---|
+| Custom admin panel (`/admin/*`) | Magic Link — 6-digit code via Resend | JWT + refresh token in HttpOnly cookies |
+| Emdash CMS (`/_emdash/admin`) | Cloudflare Access — `access()` adapter | Verified via `CF_ACCESS_AUDIENCE`; users auto-provisioned |
+
+## Emdash CMS — Cloudflare Access
+
+Emdash CMS login is handled entirely by Cloudflare Access. The `access()` adapter from `@emdash-cms/cloudflare` is configured in `astro.config.mjs`:
+
+```js
+auth: access({
+  teamDomain: "clusterfuck.cloudflareaccess.com",
+  audienceEnvVar: "CF_ACCESS_AUDIENCE",
+  autoProvision: true,
+  defaultRole: 50, // Admin
+})
+```
+
+When a request reaches `/_emdash/admin`, Access validates the `CF_Authorization` JWT against the audience tag stored in `CF_ACCESS_AUDIENCE`. If valid, the user is automatically provisioned in Emdash with role 50 (Admin). No separate login page or code-entry step exists for Emdash.
+
+The `CF_ACCESS_AUDIENCE` secret is set via Wrangler — see [Configuration](configuration.md#secrets).
+
+Decision rationale: [AD14](decisions/README.md#ad14-emdash-cms-auth-switched-to-cloudflare-access).
+
+## Custom Admin Panel — Magic Link
+
+The custom admin panel (`/admin`) uses email-based Magic Link authentication. A 6-digit one-time code is sent via Resend. On verification, the server issues a short-lived JWT and a long-lived refresh token stored in HttpOnly cookies. There is no password and no OAuth provider dependency.
 
 ## Magic Link Flow
 

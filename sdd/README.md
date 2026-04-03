@@ -9,7 +9,7 @@ A vacation rental website for apartments on Pašman island, Croatia. The site is
 | Actor | Description |
 |-------|-------------|
 | **Visitor** | Potential guest browsing the site. Could be Croatian, German, Slovenian, or English-speaking. Wants to see photos, check availability, compare apartments, and submit a booking inquiry. |
-| **Owner** | The property owner. Manages apartments, uploads photos from her phone, updates prices and availability, reads inquiry emails, toggles site sections and languages. Logs in via Magic Link (email code via Resend). Zero technical knowledge. |
+| **Owner** | The property owner. Manages apartments, uploads photos from her phone, updates prices and availability, reads inquiry emails, toggles site sections and languages. Logs in via Cloudflare Access (zero-trust). Zero technical knowledge. |
 | **System** | Cloudflare Workers + Astro 6 + Emdash CMS + D1 + R2 + Turnstile + Resend. Handles content delivery, form processing, email delivery, image optimization, and edge caching. |
 
 ## Design Principles
@@ -34,7 +34,7 @@ A vacation rental website for apartments on Pašman island, Croatia. The site is
 | 5 | Editorial | [editorial.md](editorial.md) | P1 | Why Pašman, Getting Here, A Day on Pašman, local guide, host story, FAQ |
 | 6 | Social Proof | [social-proof.md](social-proof.md) | P1 | Guest testimonials, trust strip, review aggregates |
 | 7 | Visual Design | [visual-design.md](visual-design.md) | P1 | Color system, typography, scroll animations, micro-interactions, Croatian identity |
-| 8 | CMS | [cms.md](cms.md) | P0 | Emdash integration, media library, Magic Link auth, mobile admin, section toggles, content safeguards, preloaded content |
+| 8 | CMS | [cms.md](cms.md) | P0 | Emdash integration, media library, Cloudflare Access auth, mobile admin, section toggles, content safeguards, preloaded content |
 | 9 | SEO & Analytics | [seo-analytics.md](seo-analytics.md) | P1 | Schema.org, OG images, sitemap, Cloudflare Web Analytics, conversion events |
 | 10 | Trust & Compliance | [trust-compliance.md](trust-compliance.md) | P1 | GDPR, privacy policy, Impressum, security headers |
 | 11 | Performance | [performance.md](performance.md) | P1 | Image pipeline, edge caching, bundle budget |

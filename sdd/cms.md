@@ -83,7 +83,31 @@ Emdash CMS integration, media library, authentication, mobile admin UX, section 
 - **Priority:** P0
 - **Dependencies:** REQ-CMS-1
 - **Verification:** Login from phone, verify session persistence, test session expiry recovery
-- **Status:** Planned
+- **Status:** Deprecated — replaced by REQ-CMS-9 (Cloudflare Access authentication). Magic link via Resend proved unreliable due to Vite build-time limitations with Worker bindings. The custom login page (`admin-login.astro`) and Resend email plugin have been removed.
+
+### REQ-CMS-9: Cloudflare Access Authentication
+
+- **Intent:** Owner accesses admin panel via zero-trust identity provider without managing passwords or email delivery infrastructure
+- **Applies To:** Owner
+- **Acceptance Criteria:**
+  - Emdash admin panel (`/_emdash/admin/`) protected by Cloudflare Access
+  - Authentication delegated to Cloudflare Access via the `access()` plugin from `@emdash-cms/cloudflare`, configured in Astro config
+  - Cloudflare Access team domain configured (organization-level Access policy)
+  - `CF_ACCESS_AUDIENCE` env var holds the Access Application AUD tag for JWT validation
+  - Auto-provisioning enabled: first authenticated user automatically created as admin (role 50)
+  - No custom login page — Cloudflare Access handles the login flow (email OTP, SSO, or other configured identity providers)
+  - No Resend dependency for authentication (Resend still used for inquiry notifications and guest auto-replies)
+  - Session lifecycle managed by Cloudflare Access (token expiry, re-authentication)
+  - **Failure modes:**
+    - Cloudflare Access unavailable: admin panel inaccessible, visitor-facing site unaffected
+    - Invalid or expired Access JWT: redirect to Cloudflare Access login
+    - Revocation: disable user in Cloudflare Access dashboard or revoke Access application
+  - **Recovery:** Add new authorized user via Cloudflare Access dashboard (no CLI needed)
+- **Constraints:** CON-SEC
+- **Priority:** P0
+- **Dependencies:** REQ-CMS-1
+- **Verification:** Access admin panel from phone via Cloudflare Access login, verify session persistence, verify unauthorized users cannot reach admin
+- **Status:** Implemented
 
 ### REQ-CMS-4: Mobile Admin UX
 

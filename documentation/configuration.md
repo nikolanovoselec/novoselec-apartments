@@ -21,7 +21,7 @@ Set via `npx wrangler secret put <NAME>`. Never commit these values.
 | `TURNSTILE_SECRET_KEY` | Yes | Cloudflare Turnstile secret key — server-side form verification |
 | `R2_ACCESS_KEY_ID` | Yes | R2 S3-compatible access key ID — used for presigned upload URLs |
 | `R2_SECRET_ACCESS_KEY` | Yes | R2 S3-compatible secret access key — used for presigned upload URLs |
-| `EMDASH_AUTH_SECRET` | Yes | Emdash CMS auth secret — set by Emdash integration |
+| `CF_ACCESS_AUDIENCE` | Yes | Cloudflare Access audience tag for Emdash CMS auth — validated by the `access()` adapter on every `/_emdash/admin` request |
 
 ### Plain Vars (non-secret)
 

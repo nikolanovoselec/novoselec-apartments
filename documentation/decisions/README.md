@@ -23,6 +23,7 @@ Decisions made during implementation with rationale.
 | AD11 | Scroll animations gated on `.reveal-ready` JS class | UI/Frontend | 2026-04-02 |
 | AD12 | Stock photos will be served from R2 pending routing fix; currently direct Pexels URLs | Storage | 2026-04-02 |
 | AD13 | Switch to manual i18n routing to prevent Astro from rewriting integration-injected routes | Architecture | 2026-04-02 |
+| AD14 | Emdash CMS auth switched to Cloudflare Access | Security | 2026-04-03 |
 
 ---
 
@@ -99,6 +100,12 @@ Zod validates shape and types. Sanitization addresses content safety concerns or
 **Decision:** Scroll-triggered reveal animations only activate when JavaScript adds a `.reveal-ready` class to `<body>` via IntersectionObserver. CSS selectors scope all animation rules under `.reveal-ready`, so without JS, all content renders at full opacity in its final position.
 
 If JS is blocked or slow, visitors see all content immediately — no hidden headings, no invisible sections. This avoids the most common progressive-enhancement failure mode where CSS animations make content invisible until a script runs. The pattern also ensures crawlers and no-JS users receive fully readable pages with zero layout shift.
+
+### AD14: Emdash CMS auth switched to Cloudflare Access
+
+**Decision:** Emdash CMS (`/_emdash/admin`) authentication is handled by Cloudflare Access via the `access()` adapter from `@emdash-cms/cloudflare`, replacing the previous `EMDASH_AUTH_SECRET`-based mechanism. Users are auto-provisioned with Admin role (50) on first authenticated request.
+
+Cloudflare Access enforces identity at the network edge before any request reaches the Worker, eliminating the need for a custom login page (`admin-login.astro`), a per-request secret comparison, and session state in D1. Access policies (email allowlist, IdP selection) are managed in the Cloudflare dashboard rather than in application code. The audience tag (`CF_ACCESS_AUDIENCE`) is the only secret the Worker needs to validate Access JWTs.
 
 ### AD13: Switch to manual i18n routing to prevent Astro from rewriting integration-injected routes
 

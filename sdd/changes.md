@@ -1,5 +1,25 @@
 # Changelog
 
+## 2026-04-03 — Revision 39: Cloudflare Access Replaces Magic Link Auth
+
+Admin authentication switched from Emdash magic link (Resend email plugin) to Cloudflare Access zero-trust proxy. The `access()` plugin from `@emdash-cms/cloudflare` is configured in Astro config with team domain, AUD env var, and auto-provisioning. The custom login page (`admin-login.astro`) and Resend email delivery plugin for auth are removed. Resend remains for inquiry notifications and guest auto-replies.
+
+### Requirements added
+- **REQ-CMS-9: Cloudflare Access Authentication** — P0, Status: Implemented. Covers Access plugin config, auto-provisioning, JWT validation via `CF_ACCESS_AUDIENCE`, failure modes, and revocation.
+
+### Requirements deprecated
+- **REQ-CMS-3: Magic Link Authentication** — Status: Deprecated. Replaced by REQ-CMS-9. Resend-based magic link proved unreliable due to Vite build-time limitations.
+
+### Constraints updated
+- **CON-SEC:** "Magic Link authentication via Resend" replaced with "Cloudflare Access authentication (zero-trust, JWT validation)".
+- **CON-STACK:** Added `CF_ACCESS_AUDIENCE` secret. Removed "magic link codes" from email sender domain description. Noted admin auth handled by Cloudflare Access.
+
+### Glossary updated
+- **Magic Link:** Marked as deprecated, references REQ-CMS-9.
+- **Cloudflare Access:** New term added.
+
+---
+
 ## 2026-04-03 — Revision 38: Sitemap Completeness Fix + Requirements Audit
 
 Sitemap (`src/pages/sitemap.xml.ts`) updated to include 4 missing public pages: `/hrana`, `/aktivnosti`, `/plaze`, `/kontakt`. All 16 public routes are now in the sitemap with per-locale alternates. A 260-line missed requirements audit (`seed/missed-requirements.md`) was added documenting 20 gaps between user requests and current implementation. The audit confirms the spec is accurate in its status markings -- most flagged gaps correspond to requirements already marked `Status: Planned`.

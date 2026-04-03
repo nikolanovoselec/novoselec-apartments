@@ -16,7 +16,7 @@
 | **R2** | Cloudflare's object storage (S3-compatible). Used for media (photos, video). |
 | **Honeypot** | Anti-spam technique using a hidden form field invisible to humans but filled by bots. Submissions with the field populated are silently rejected. |
 | **Turnstile** | Cloudflare's privacy-preserving CAPTCHA alternative. Used in invisible mode on inquiry forms. |
-| **Resend** | Email delivery service. Used to send inquiry notifications to owner, auto-replies to guests, and magic link codes for CMS authentication. Integrated via custom Emdash plugin. |
+| **Resend** | Email delivery service. Used to send inquiry notifications to owner and auto-replies to guests. No longer used for CMS authentication (replaced by Cloudflare Access). |
 | **Plugin KV** | Emdash's key-value store accessible to plugins at runtime via `ctx.kv`. Used to store configuration (e.g., Resend API key) that cannot be provided via Worker env bindings due to Vite build-time bundling. |
 | **Crossfade Carousel** | Image slideshow where slides transition by fading opacity (stacked via absolute positioning), as opposed to sliding/swiping. Used for the hero section. |
 | **Ken Burns** | Slow zoom and pan animation effect applied to still photographs, named after the documentary filmmaker. |
@@ -29,7 +29,8 @@
 | **hreflang** | HTML attribute indicating the language and geographic targeting of a page, used for multilingual SEO. |
 | **DACH** | Germany (D), Austria (A), Switzerland (CH) — the German-speaking market. |
 | **PAngV** | Preisangabenverordnung — German pricing transparency regulation requiring total price display including all mandatory fees. |
-| **Magic Link** | Passwordless authentication method where a one-time code is sent to the user's email. Used instead of OAuth for simplicity. |
+| **Magic Link** | Passwordless authentication method where a one-time code is sent to the user's email. **Deprecated** — replaced by Cloudflare Access for admin authentication (REQ-CMS-9). |
+| **Cloudflare Access** | Cloudflare's zero-trust identity-aware proxy. Protects the Emdash admin panel by requiring authentication (email OTP, SSO, or other identity providers) before requests reach the Worker. Configured via the `access()` plugin from `@emdash-cms/cloudflare`. |
 | **Image Resizing** | Cloudflare service that transforms images on-the-fly at the edge (`/cdn-cgi/image/`). Avoids Worker-side image processing. |
 | **NAP** | Name, Address, Phone — consistency across all web presences is critical for local SEO. |
 | **GBP** | Google Business Profile — local business listing on Google Maps. |
