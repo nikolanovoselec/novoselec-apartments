@@ -1,8 +1,11 @@
 ---
 import Page from "~/layouts/Page.astro";
+import Breadcrumbs from "~/components/seo/Breadcrumbs.astro";
+import SchemaOrg from "~/components/seo/SchemaOrg.astro";
 import { isValidLocale, type Locale } from "~/i18n/config";
 import { t } from "~/i18n/t";
 import { getEmDashEntry, getEmDashCollection } from "emdash";
+import { buildVacationRentalSchema } from "~/lib/schema";
 
 const { locale, slug } = Astro.params;
 if (!locale || !isValidLocale(locale)) return Astro.redirect("/hr/", 302);
@@ -47,9 +50,29 @@ try {
   const parsed = Array.isArray(raw) ? raw : typeof raw === "string" ? JSON.parse(raw) : [];
   amenities = parsed.filter((a: unknown) => typeof a === "string");
 } catch { /* ignore */ }
+
+const breadcrumbItems = [
+  { name: t(typedLocale, "nav.home"), href: `/${typedLocale}/` },
+  { name: t(typedLocale, "nav.apartments"), href: `/${typedLocale}/apartmani` },
+  { name, href: "" },
+];
+
+const vacationRentalSchema = buildVacationRentalSchema({
+  name,
+  description: description || tagline,
+  image: heroImage,
+  sleeps: sleeps ?? 4,
+  bedrooms: bedrooms ?? 1,
+  bathrooms: 1,
+  size: sizeSqm ?? 0,
+  priceFrom: priceFrom ?? 0,
+  amenities,
+});
 ---
 
-<Page title={name} description={tagline} locale={typedLocale}>
+<Page title={name} description={tagline} locale={typedLocale} lowestPrice={priceFrom}>
+  <SchemaOrg type="VacationRental" data={vacationRentalSchema} />
+
   {/* Hero */}
   {heroImage && (
     <section class="apt-hero">
@@ -60,8 +83,14 @@ try {
           {tagline && <p class="apt-hero__tagline">{tagline}</p>}
         </div>
       </div>
+      <svg class="apt-hero__wave" viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M0,40 C180,80 360,0 540,40 C720,80 900,0 1080,40 C1260,80 1440,20 1440,40 L1440,80 L0,80 Z" fill="#F8F5EF" />
+      </svg>
     </section>
   )}
+
+  {/* Breadcrumbs */}
+  <Breadcrumbs items={breadcrumbItems} locale={typedLocale} />
 
   {/* Details */}
   <section class="section" data-reveal>
@@ -133,6 +162,16 @@ try {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
+  }
+
+  .apt-hero__wave {
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: clamp(40px, 6vw, 80px);
+    z-index: 3;
     display: block;
   }
 
