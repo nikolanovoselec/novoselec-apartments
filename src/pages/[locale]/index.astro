@@ -17,7 +17,8 @@ const titles: Record<Locale, string> = {
 };
 
 // Load CMS content
-const homepageSections = await getLocalizedCollection("homepage", typedLocale);
+const allEditorial = await getLocalizedCollection("editorial", typedLocale);
+const homepageSections = allEditorial.filter((e) => e.data.page_key === "homepage");
 const testimonials = await getLocalizedCollection("testimonials", typedLocale);
 
 function getSection(key: string): LocalizedEntry | undefined {

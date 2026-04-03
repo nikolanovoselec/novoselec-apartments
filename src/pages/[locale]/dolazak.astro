@@ -10,7 +10,7 @@ if (!locale || !isValidLocale(locale)) return Astro.redirect("/hr/", 302);
 const typedLocale = locale as Locale;
 
 // Load from CMS
-const pages = await getLocalizedCollection("pages", typedLocale);
+const pages = await getLocalizedCollection("editorial", typedLocale);
 const page = pages.find((p) => p.data.page_key === "getting-here");
 
 type TransportSection = { key: string; route?: string; duration?: string; operator?: string; tip?: string; title?: string; text?: string; distance?: string };
