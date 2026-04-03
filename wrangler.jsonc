@@ -17,7 +17,7 @@
   ],
   "vars": {
     "ADMIN_EMAILS": "hello@graymatter.ch",
-    "TURNSTILE_SITE_KEY": "0x4AAAAAAAiYAz_U5JnMbfRB",
+    "TURNSTILE_SITE_KEY": "0x4AAAAAAC0R-ddEXcfI37DQ",
     "CF_ACCESS_AUDIENCE": "0369eaa05e16ba1a06c3d366a892b7eb8599d3288e31722ec0f2f41eec0392e4"
   },
   "r2_buckets": [
