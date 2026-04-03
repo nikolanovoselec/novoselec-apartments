@@ -38,4 +38,5 @@
 | **Caustics** | Light patterns produced by refraction through a water surface. Previously simulated with overlapping radial gradients and slow horizontal drift animation. **Superseded** by Wave Divider components (REQ-VD-9) — caustics are no longer rendered on the site. |
 | **Glassmorphism** | UI design trend using frosted-glass effect: translucent background + backdrop-filter blur + subtle border. Used on breathing card figcaptions. |
 | **Wave Divider** | A decorative SVG component placed between page sections to create organic, flowing color transitions. Uses a bezier-curve wave path with configurable fill color and optional vertical flip. Responsive height via CSS clamp. |
+| **HeroSimple** | Reusable subpage hero component with optional background photo, dark overlay, Ken Burns animation, and bottom wave divider. Used on all non-homepage pages. Falls back to gradient when no image is provided. |
 | **WCAG** | Web Content Accessibility Guidelines — international standard for web accessibility. This site targets WCAG 2.1 Level AA compliance. |

@@ -197,7 +197,7 @@ Request-to-book inquiry flow, business rules, server pipeline, WhatsApp integrat
 - **Intent:** Provide an immediate, low-friction inquiry path while the full request-to-book widget (REQ-BK-1) is not yet built
 - **Applies To:** Visitor
 - **Acceptance Criteria:**
-  - Standalone page at `/{locale}/kontakt` with simple hero and two-column layout (info + form)
+  - Standalone page at `/{locale}/kontakt` with photo-backed hero (REQ-VD-12) and two-column layout (info + form)
   - Form fields: name (required), email (required), phone (optional), preferred dates (freeform text, optional), number of guests (number input, optional), message (required)
   - All field labels localized in 4 locales (hr, de, sl, en) — labels are visible, not placeholder-only
   - Honeypot hidden field (`website`) for bot filtering, off-screen with `aria-hidden`
