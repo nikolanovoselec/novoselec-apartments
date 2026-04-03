@@ -13,10 +13,10 @@ const pages = await getLocalizedCollection("editorial", typedLocale);
 const page = pages.find((p) => p.data.page_key === "about");
 
 const fallbackStory: Record<Locale, string> = {
-  hr: "Naša obitelj je na ovom otoku generacijama. Ždrelac je naš dom — tiho mjesto na sjevernom vrhu Pašmana, povezano mostom s Ugljanom. Ovdje smo odrasli uz more, maslinike i konobe. Naši apartmani su uređeni s ljubavlju i pažnjom, jer želimo da se osjećate kao kod kuće — samo s boljim pogledom.",
-  de: "Unsere Familie lebt seit Generationen auf dieser Insel. Ždrelac ist unser Zuhause — ein ruhiger Ort an der Nordspitze von Pašman, verbunden durch eine Brücke mit Ugljan. Wir sind hier am Meer aufgewachsen, zwischen Olivenhainen und Konobas. Unsere Ferienwohnungen sind mit Liebe und Sorgfalt eingerichtet, denn wir möchten, dass Sie sich wie zu Hause fühlen — nur mit besserer Aussicht.",
-  sl: "Naša družina je na tem otoku že generacije. Ždrelac je naš dom — tih kraj na severnem vrhu Pašmana, povezan z mostom z Ugljanom. Tukaj smo odrasli ob morju, med oljčnimi nasadi in konobami. Naši apartmaji so urejeni z ljubeznijo in skrbjo, ker želimo, da se počutite kot doma — le z boljšim razgledom.",
-  en: "Our family has been on this island for generations. Ždrelac is our home — a quiet place at the northern tip of Pašman, connected by bridge to Ugljan. We grew up here by the sea, among olive groves and konobas. Our apartments are furnished with love and care, because we want you to feel at home — just with a better view.",
+  hr: "Naša obitelj je na ovom otoku generacijama. Ždrelac je naš dom - tiho mjesto na sjevernom vrhu Pašmana, povezano mostom s Ugljanom. Ovdje smo odrasli uz more, maslinike i konobe. Naši apartmani su uređeni s ljubavlju i pažnjom, jer želimo da se osjećate kao kod kuće - samo s boljim pogledom.",
+  de: "Unsere Familie lebt seit Generationen auf dieser Insel. Ždrelac ist unser Zuhause - ein ruhiger Ort an der Nordspitze von Pašman, verbunden durch eine Brücke mit Ugljan. Wir sind hier am Meer aufgewachsen, zwischen Olivenhainen und Konobas. Unsere Ferienwohnungen sind mit Liebe und Sorgfalt eingerichtet, denn wir möchten, dass Sie sich wie zu Hause fühlen - nur mit besserer Aussicht.",
+  sl: "Naša družina je na tem otoku že generacije. Ždrelac je naš dom - tih kraj na severnem vrhu Pašmana, povezan z mostom z Ugljanom. Tukaj smo odrasli ob morju, med oljčnimi nasadi in konobami. Naši apartmaji so urejeni z ljubeznijo in skrbjo, ker želimo, da se počutite kot doma - le z boljšim razgledom.",
+  en: "Our family has been on this island for generations. Ždrelac is our home - a quiet place at the northern tip of Pašman, connected by bridge to Ugljan. We grew up here by the sea, among olive groves and konobas. Our apartments are furnished with love and care, because we want you to feel at home - just with a better view.",
 };
 
 const story = (page?.data.body as string) ?? fallbackStory[typedLocale];
@@ -29,7 +29,7 @@ const story = (page?.data.body as string) ?? fallbackStory[typedLocale];
     <div class="container">
       <div class="about-layout">
         <div class="about-image">
-          <img src="https://images.pexels.com/photos/16194706/pexels-photo-16194706.jpeg?auto=compress&w=600" alt="The family home in Ždrelac, Pašman island" width="600" height="400" loading="lazy" />
+          <img src="https://images.pexels.com/photos/16194706/pexels-photo-16194706.jpeg?auto=compress&w=600" alt="The family home in Ždrelac, Pašman island" width="600" height="400" loading="lazy" style="border-radius: 20px 4px 20px 4px; box-shadow: 0 0 0 1px rgba(10,31,51,0.06), 0 12px 40px rgba(10,31,51,0.08);" />
         </div>
         <div class="about-content">
           <p class="about-story">{story}</p>

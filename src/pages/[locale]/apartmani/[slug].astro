@@ -12,7 +12,7 @@ if (!locale || !isValidLocale(locale)) return Astro.redirect("/hr/", 302);
 if (!slug) return Astro.redirect(`/${locale}/apartmani`, 302);
 const typedLocale = locale as Locale;
 
-// Load apartment by slug — try direct lookup, then search collection
+// Load apartment by slug - try direct lookup, then search collection
 let entry: Record<string, unknown> | null = null;
 try {
   // Try direct slug lookup
@@ -21,7 +21,7 @@ try {
     entry = (result.entry as { data?: Record<string, unknown> }).data ?? null;
   }
 } catch {
-  // Direct lookup failed — try collection search
+  // Direct lookup failed - try collection search
   try {
     const { entries } = await getEmDashCollection("apartments");
     const match = entries?.find((e: unknown) => (e as { slug?: string }).slug === slug);

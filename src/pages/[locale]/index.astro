@@ -11,10 +11,10 @@ if (!locale || !isValidLocale(locale)) return Astro.redirect("/hr/", 302);
 const typedLocale = locale as Locale;
 
 const titles: Record<Locale, string> = {
-  hr: "Apartmani Novoselec — Otok Pašman",
-  de: "Ferienwohnungen Ždrelac — Insel Pašman",
-  sl: "Apartmaji Ždrelac — Otok Pašman",
-  en: "Apartments Ždrelac — Pašman Island",
+  hr: "Apartmani Novoselec - Otok Pašman",
+  de: "Ferienwohnungen Ždrelac - Insel Pašman",
+  sl: "Apartmaji Ždrelac - Otok Pašman",
+  en: "Apartments Ždrelac - Pašman Island",
 };
 
 // Load CMS content
@@ -42,10 +42,10 @@ const whyTitle = (whySection?.data.title as string) ?? {
 const whySubtitle = (whySection?.data.subtitle as string) ?? t(typedLocale, "nav.whyPasman");
 
 const whyBody = (whySection?.data.body as string) ?? {
-  hr: "Daleko od gužvi, Pašman nudi ono što je Dalmacija nekada bila — kamene kuće, maslinovi nasadi, konobe s domaćom hranom i more koje oduzima dah. Samo 25 minuta trajektom od kopna, a opet dovoljno daleko da se osjetite kao na pravom odmoru.",
-  de: "Fernab vom Trubel bietet Pašman das, was Dalmatien einst war — Steinhäuser, Olivenhaine, Konobas mit hausgemachtem Essen und ein atemberaubendes Meer. Nur 25 Minuten mit der Fähre vom Festland, aber weit genug für einen echten Urlaub.",
-  sl: "Daleč od gneče Pašman ponuja tisto, kar je bila nekoč Dalmacija — kamnite hiše, oljčni nasadi, konobe z domačo hrano in morje, ki jemlje dih. Le 25 minut s trajektom od kopna, a vseeno dovolj daleč za pravi dopust.",
-  en: "Far from the crowds, Pašman offers what Dalmatia once was — stone houses, olive groves, konobas with homemade food, and a sea that takes your breath away. Just 25 minutes by ferry from the mainland, yet far enough to feel like a real escape.",
+  hr: "Daleko od gužvi, Pašman nudi ono što je Dalmacija nekada bila - kamene kuće, maslinovi nasadi, konobe s domaćom hranom i more koje oduzima dah. Samo 25 minuta trajektom od kopna, a opet dovoljno daleko da se osjetite kao na pravom odmoru.",
+  de: "Fernab vom Trubel bietet Pašman das, was Dalmatien einst war - Steinhäuser, Olivenhaine, Konobas mit hausgemachtem Essen und ein atemberaubendes Meer. Nur 25 Minuten mit der Fähre vom Festland, aber weit genug für einen echten Urlaub.",
+  sl: "Daleč od gneče Pašman ponuja tisto, kar je bila nekoč Dalmacija - kamnite hiše, oljčni nasadi, konobe z domačo hrano in morje, ki jemlje dih. Le 25 minut s trajektom od kopna, a vseeno dovolj daleč za pravi dopust.",
+  en: "Far from the crowds, Pašman offers what Dalmatia once was - stone houses, olive groves, konobas with homemade food, and a sea that takes your breath away. Just 25 minutes by ferry from the mainland, yet far enough to feel like a real escape.",
 }[typedLocale];
 
 const whyItems = [
@@ -110,7 +110,7 @@ const oliveOilLabel: Record<Locale, string> = {
     </div>
   </section>
 
-  {/* Full-width image — Ždrelac — clickable, links to village page */}
+  {/* Full-width image - Ždrelac - clickable, links to village page */}
   <a href={`/${typedLocale}/zdrelac`} class="feature-image" data-reveal style="text-decoration:none; color:inherit; display:block;">
     <div class="feature-image__wrap">
       <img src="https://images.pexels.com/photos/3601425/pexels-photo-3601425.jpeg?auto=compress&w=1920" alt="Aerial view of Ždrelac village on Pašman island" width="1920" height="1080" loading="lazy" />
@@ -121,7 +121,7 @@ const oliveOilLabel: Record<Locale, string> = {
     </div>
   </a>
 
-  {/* Wave transition to dark section — bg matches cream above, fill matches navy below */}
+  {/* Wave transition to dark section - bg matches cream above, fill matches navy below */}
   <WaveDivider fill="#0A1F33" bg="#F8F5EF" />
 
   {/* Apartments */}
@@ -152,7 +152,7 @@ const oliveOilLabel: Record<Locale, string> = {
     </div>
   </section>
 
-  {/* Wave from dark back to cream — bg matches navy above, fill matches cream below */}
+  {/* Wave from dark back to cream - bg matches navy above, fill matches cream below */}
   <WaveDivider fill="#F8F5EF" bg="#0A1F33" flip />
 
   {/* Testimonials */}
@@ -177,7 +177,7 @@ const oliveOilLabel: Record<Locale, string> = {
     </section>
   )}
 
-  {/* Experience section — what to do on the island */}
+  {/* Experience section - what to do on the island */}
   <section class="section gradient-warm" data-reveal>
     <div class="container">
       <p class="text-label text-center">{t(typedLocale, "homepage.experiences")}</p>
@@ -210,10 +210,10 @@ const oliveOilLabel: Record<Locale, string> = {
     </div>
   </section>
 
-  {/* Wave into sunset CTA — bg matches cream above, fill matches sunset start */}
+  {/* Wave into sunset CTA - bg matches cream above, fill matches sunset start */}
   <WaveDivider fill="#0a2342" bg="#F8F5EF" />
 
-  {/* CTA — sunset gradient */}
+  {/* CTA - sunset gradient */}
   <section class="section sunset-gradient" id="inquiry" data-reveal>
     <div class="container text-center">
       <p class="text-label" style="color: rgba(255,255,255,0.7);">{t(typedLocale, "nav.contact")}</p>
@@ -232,7 +232,7 @@ const oliveOilLabel: Record<Locale, string> = {
 
 <style is:global>
   /* ============================================================
-     PHOTO STRIP — padded with rounded corners
+     PHOTO STRIP - padded with rounded corners
      ============================================================ */
   .photo-strip {
     display: grid;
@@ -286,7 +286,7 @@ const oliveOilLabel: Record<Locale, string> = {
   }
 
   /* ============================================================
-     SPLIT SECTION — text + content side by side
+     SPLIT SECTION - text + content side by side
      ============================================================ */
   .split-section {
     display: grid;
@@ -337,7 +337,7 @@ const oliveOilLabel: Record<Locale, string> = {
   }
 
   /* ============================================================
-     FEATURE IMAGE — curved corners, text overlay, contained
+     FEATURE IMAGE - curved corners, text overlay, contained
      ============================================================ */
   .feature-image {
     padding-block: var(--space-xl);
@@ -390,7 +390,7 @@ const oliveOilLabel: Record<Locale, string> = {
   }
 
   /* ============================================================
-     DUO IMAGE — two photos with rounded corners
+     DUO IMAGE - two photos with rounded corners
      ============================================================ */
   .duo-image {
     display: grid;
@@ -411,7 +411,7 @@ const oliveOilLabel: Record<Locale, string> = {
   }
 
   /* ============================================================
-     TESTIMONIALS — with subtle gradient background
+     TESTIMONIALS - with subtle gradient background
      ============================================================ */
   .testimonials-grid {
     display: grid;
@@ -472,7 +472,7 @@ const oliveOilLabel: Record<Locale, string> = {
   }
 
   /* ============================================================
-     TRIPTYCH — rounded corners, gap, labels slide in
+     TRIPTYCH - rounded corners, gap, labels slide in
      ============================================================ */
   .triptych {
     display: grid;

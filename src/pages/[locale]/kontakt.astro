@@ -248,7 +248,7 @@ const l = labels[typedLocale];
         var data = new FormData(form);
         var checkin = data.get("checkin") || "";
         var checkout = data.get("checkout") || "";
-        var dateStr = checkin && checkout ? checkin + " — " + checkout : "";
+        var dateStr = checkin && checkout ? checkin + " - " + checkout : "";
         var body = {
           type: "question",
           name: data.get("name"),
