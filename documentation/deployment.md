@@ -27,10 +27,11 @@ Note: local dev does not emulate D1 or R2 bindings. For full Worker runtime test
 
 ### Running the seed
 
-After first deploy, call the seed endpoint once to populate all Emdash collections:
+After first deploy, call the seed endpoint once to populate all Emdash collections. The endpoint requires the `X-Seed-Token` header matching the `EMDASH_AUTH_SECRET` Worker secret:
 
 ```bash
-curl -X POST https://apartmani.novoselec.ch/api/admin/seed
+curl -X POST https://apartmani.novoselec.ch/api/admin/seed \
+  -H "X-Seed-Token: <EMDASH_AUTH_SECRET value>"
 ```
 
 The endpoint is idempotent — it is safe to call multiple times. After seeding, content can be edited through the Emdash admin panel at `/_emdash/`.
@@ -79,13 +80,13 @@ npm run deploy
 
 This runs `astro build && wrangler deploy`. The Worker is deployed to `apartmani` under the configured Cloudflare account.
 
-Wrangler reads credentials from `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` environment variables. The account ID is also committed in `wrangler.jsonc` (`eac400a0a3a3638c7c91fe2e7875756d`).
+Wrangler reads credentials from `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` environment variables. The account ID is also committed in `wrangler.jsonc` (`ab75f75941a21a81db27bf12e99c620b`).
 
 ## Cloudflare Resource Setup
 
 ### D1 Database
 
-The D1 database `apartmani-db` (`1b519a56-0c60-475b-a30d-34f845bcff41`) is provisioned. After any schema change:
+The D1 database `apartmani-db` (`dd28856a-60e0-48d2-bb91-2b91ba8a0603`) is provisioned. After any schema change:
 
 ```bash
 npx wrangler d1 migrations apply apartmani-db --remote
@@ -93,11 +94,7 @@ npx wrangler d1 migrations apply apartmani-db --remote
 
 ### R2 Bucket
 
-The `apartmani-media` bucket binding is defined in `wrangler.jsonc` but commented out pending R2 enablement in the Cloudflare dashboard. Once enabled:
-
-1. Uncomment the `r2_buckets` block in `wrangler.jsonc`.
-2. Uncomment the corresponding line in `astro.config.mjs`.
-3. Redeploy.
+The `apartmani-media` bucket is provisioned and the `r2_buckets` binding is active in `wrangler.jsonc`. The Emdash CMS storage integration is configured in `astro.config.mjs` via `storage: r2({ binding: "MEDIA" })`. No additional setup steps are needed unless recreating the bucket from scratch.
 
 ### Secrets
 

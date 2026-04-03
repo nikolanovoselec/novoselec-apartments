@@ -26,7 +26,7 @@ Two CSP tiers are applied based on route prefix:
 
 ```
 default-src 'self';
-script-src 'self' https://challenges.cloudflare.com;
+script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com;
 style-src 'self' 'unsafe-inline';
 img-src 'self' data: blob: https:;
 connect-src 'self' https://challenges.cloudflare.com;
@@ -35,6 +35,8 @@ font-src 'self';
 object-src 'none';
 base-uri 'self'
 ```
+
+Note: `'unsafe-inline'` is present on `script-src` for visitor pages. This is required for Astro's `is:inline` scripts used in the navigation, hero carousel, and scroll-reveal components. See `src/middleware/headers.ts` for the authoritative CSP string.
 
 **Admin pages** (`/_emdash/` and `/admin/`):
 
@@ -78,6 +80,7 @@ All form inputs are sanitized before processing or storage. Sanitization functio
 | `sanitizeName()` | Strip HTML, limit to 200 characters |
 | `sanitizeEmail()` | Normalize + regex validate email format |
 | `sanitizePhone()` | Strip non-phone characters, enforce 6–20 char length |
+| `validateWhatsAppNumber()` | Must start with `+` and country code, 10–15 digits; returns `null` if invalid |
 
 ## Schema Validation
 

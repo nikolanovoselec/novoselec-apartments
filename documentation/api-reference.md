@@ -16,9 +16,7 @@ Dynamic multilingual sitemap. Generates one `<url>` entry per locale per page, w
 
 **Response:** `application/xml` — a Sitemap Protocol 0.9 document with `xmlns:xhtml` alternates.
 
-**Included pages:** `/`, `/apartmani`, `/zdrelac`, `/galerija`, `/zasto-pasman`, `/dolazak`, `/vodic`, `/o-nama`, `/faq`, `/privatnost`, `/impressum`, `/pristupacnost` — each emitted once per locale.
-
-**Note:** `/kontakt` is not currently included in the sitemap. Add it to the `pages` array in `src/pages/sitemap.xml.ts` to include it.
+**Included pages:** `/`, `/apartmani`, `/zdrelac`, `/galerija`, `/hrana`, `/aktivnosti`, `/plaze`, `/kontakt`, `/zasto-pasman`, `/dolazak`, `/vodic`, `/o-nama`, `/faq`, `/privatnost`, `/impressum`, `/pristupacnost` — each emitted once per locale, producing 64 `<url>` entries (16 pages × 4 locales).
 
 **Cache:** `Cache-Control: public, max-age=3600`.
 
@@ -207,7 +205,13 @@ All admin endpoints are under `/admin/api/` and require a valid `auth_token` JWT
 
 One-shot endpoint to seed all Emdash CMS collections with the preloaded content from `seed/seed.json`. Safe to run multiple times — idempotent via `applySeed`.
 
-**Authentication:** Requires admin authentication (enforced by Emdash middleware).
+**Authentication:** Requires `X-Seed-Token` header matching the `EMDASH_AUTH_SECRET` Worker secret. Returns `401` if the header is missing, empty, or does not match. Cloudflare Access only protects `/_emdash/*` — this endpoint lives under `/api/` which is reachable on the workers.dev subdomain without Access, so the shared-secret check is the only auth guard.
+
+**Request headers:**
+
+| Header | Required | Description |
+|---|---|---|
+| `X-Seed-Token` | Yes | Must match the `EMDASH_AUTH_SECRET` Worker secret |
 
 **Request body:** None.
 
@@ -219,10 +223,16 @@ One-shot endpoint to seed all Emdash CMS collections with the preloaded content 
 
 `result` contains the Emdash `applySeed` return value (counts of inserted/skipped records per collection).
 
+**Response on auth failure (`401`):**
+
+```json
+{ "error": "Authentication required" }
+```
+
 **Response on failure (`500`):**
 
 ```json
-{ "success": false, "error": "Seed failed" }
+{ "error": "Seed failed" }
 ```
 
 **Notes:**
