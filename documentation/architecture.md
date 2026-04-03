@@ -48,6 +48,7 @@ Apartmani Pašman is a server-side rendered Astro site deployed as a Cloudflare 
 | `src/layouts/` | Base and Page layout shells |
 | `src/components/shell/` | Navigation (desktop nav + mobile hamburger menu with `is:inline` script to avoid Astro bundler stripping), Footer, LanguageSwitcher, WhatsAppButton, StickyMobileCTA |
 | `src/components/home/Hero.astro` | Hero carousel — 4 Pexels images, crossfade (1.8s CSS transition), continuous zoom animation (`heroZoom` keyframe: 12s ease-in-out infinite alternate, scale 1→1.1 with -1%/-1% translate, paused until slide is active), auto-advance every 6 s, dot navigation, hover-pause; implemented as `is:inline` script |
+| `src/components/ui/HeroSimple.astro` | Interior page hero — used on all non-homepage pages. Props: `title` (required), `subtitle` (optional, displayed as small-caps label), `image` (optional URL). When `image` is provided, the photo fills the hero with a slow 20 s zoom (`heroSimpleZoom` keyframe: scale 1→1.06, ease-in-out infinite alternate) and a dark navy gradient overlay. Without `image`, falls back to a static dark navy radial-gradient background. An inline SVG wave (cream `#F8F5EF`) is always rendered at the bottom of the section to merge visually with the page background. |
 | `src/components/ui/WaveDivider.astro` | Full-width SVG wave divider between sections. Props: `fill` (wave color, default `#F8F5EF`), `flip` (boolean, flips vertically via `scaleY(-1)` for wave-out effect), `class`. Height is fluid: `clamp(40px, 6vw, 80px)`. Used in pairs on the homepage to bracket the dark navy section and the sunset CTA section. |
 | `src/styles/global.css` | Design system — CSS custom properties, typography scale, layout utilities, component classes, animation utilities |
 
@@ -227,6 +228,12 @@ The entire visual language lives in `src/styles/global.css` as CSS custom proper
 | `.gradient-azure` | Section background — top-to-transparent azure wash at 3% opacity |
 | `.gradient-sunset` | Section background — cream → sand → cream horizontal sweep |
 | `.image-hover-zoom` | Wrapper that scales the child `<img>` to 1.05× on hover with a slow ease — used on apartment cards and gallery items |
+| `.hero-simple` | Interior page hero section — `min-height: 280px`, flexbox-centered, `overflow: hidden`; padding accounts for nav height |
+| `.hero-simple__img` | Absolutely-positioned full-bleed photo inside `.hero-simple`; `object-fit: cover`; drives the `heroSimpleZoom` animation (20 s, scale 1→1.06, ease-in-out infinite alternate) |
+| `.hero-simple__bg` | Fallback background when no image prop is passed — navy radial-gradient from azure at top to dark navy |
+| `.hero-simple__overlay` | Dark navy gradient overlay (`z-index: 1`) that dims the photo for legible white text; always rendered when an image is present |
+| `.hero-simple__wave` | Inline SVG wave pinned to `bottom: -1px` at `z-index: 3`; height `clamp(40px, 6vw, 80px)`; cream fill (`#F8F5EF`) blends the hero into the page background |
+| `.hero-simple__subtitle` | Small-caps uppercase subtitle rendered beneath the `<h1>` — `--font-size-sm`, wide tracking, 50% white opacity |
 
 ### Homepage Photo Patterns
 

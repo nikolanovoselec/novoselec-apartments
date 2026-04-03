@@ -185,6 +185,7 @@ Color system, typography, scroll animations, micro-interactions, and Croatian vi
   - `flip` prop for vertical mirror (top-of-section vs bottom-of-section placement)
   - `aria-hidden="true"` — purely decorative
   - Homepage uses 3 wave dividers: cream-to-dark before apartments section, dark-to-cream after apartments section, cream-to-dark before sunset CTA section
+  - Subpage heroes: every `HeroSimple` with a background image includes an inline wave SVG at the bottom edge (cream fill `#F8F5EF`), creating an organic transition from hero photo into page content (REQ-VD-12)
   - ~~`.water-flow` CSS utility class with caustics shimmer~~ — **Superseded:** the previous water-flow approach (CSS mask-image wave + caustics radial-gradient animation on the apartments section) has been replaced by standalone WaveDivider components. The `.water-flow` CSS class is no longer applied to any section.
 - **Constraints:** CON-PERF, CON-A11Y
 - **Priority:** P2
@@ -222,6 +223,30 @@ Color system, typography, scroll animations, micro-interactions, and Croatian vi
 - **Priority:** P2
 - **Dependencies:** None
 - **Verification:** Visual review, keyboard focus test
+- **Status:** Implemented
+
+### REQ-VD-12: Subpage Hero Pattern
+
+- **Intent:** Consistent, visually rich hero treatment across all non-homepage pages, elevating them from plain gradient headers to immersive photo-backed banners
+- **Applies To:** Visitor
+- **Acceptance Criteria:**
+  - Reusable `HeroSimple` component accepts optional `image` prop (URL string)
+  - When `image` is provided: full-width background photo (`object-fit: cover`, `width: 100%`, `height: 100%`, absolute positioned) replaces the gradient fallback
+  - When no `image` is provided: original gradient background preserved as fallback
+  - Dark overlay: linear gradient from `rgba(10, 31, 51, 0.5)` at top to `rgba(10, 31, 51, 0.7)` at bottom, ensuring white text contrast over any photo
+  - Ken Burns animation on hero image: continuous CSS keyframe (`scale(1)` to `scale(1.06)`, 20s ease-in-out infinite alternate) — subtler and slower than the homepage hero carousel (12s, 1.1x)
+  - Minimum height 280px, vertically centered content
+  - Title (`h1`) and optional subtitle rendered over the overlay
+  - Wave SVG divider at bottom edge (same pattern as REQ-VD-9: `viewBox="0 0 1440 80"`, `preserveAspectRatio="none"`, organic bezier path, fill `#F8F5EF` to match page background, responsive height `clamp(40px, 6vw, 80px)`, `aria-hidden="true"`)
+  - Wave positioned absolute at `bottom: -1px` to seamlessly bridge hero into page content with no visible seam
+  - Content z-index layering: image (0), overlay (1), text content (2), wave (3)
+  - All 11 subpages use hero images: apartments listing, gallery, getting here, FAQ, about hosts, local guide, why Pasman, contact, impressum, privacy policy, accessibility statement
+  - **Temporary workaround:** Stock photos served from Pexels CDN (same as REQ-SF-1 workaround). Will move to R2 when `/media/` route is fixed.
+  - `prefers-reduced-motion`: Ken Burns animation disabled
+- **Constraints:** CON-PERF, CON-A11Y
+- **Priority:** P1
+- **Dependencies:** REQ-VD-9, REQ-VD-1
+- **Verification:** Visual review across all subpages, responsive test, reduced-motion test
 - **Status:** Implemented
 
 ## Out of Scope

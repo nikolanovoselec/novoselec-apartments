@@ -1,5 +1,22 @@
 # Changelog
 
+## 2026-04-03 — Revision 31: Subpage Hero Images and Wave Dividers
+
+All 11 subpages now display full-width background photography in their hero sections via the enhanced `HeroSimple` component. The component accepts an optional `image` prop, rendering a photo with dark gradient overlay, subtle Ken Burns animation (20s, 1.06x scale), and a bottom wave SVG divider that bridges into page content. When no image is provided, the original gradient fallback is preserved. Stock photos from Pexels CDN used as temporary placeholders.
+
+### Requirements added
+- **REQ-VD-12:** Subpage Hero Pattern — documents the enhanced HeroSimple component with image support, overlay, Ken Burns animation, and inline wave divider across all non-homepage pages.
+
+### AC updated
+- **REQ-VD-9:** Added subpage hero wave dividers as a second placement context (in addition to homepage section transitions).
+- **REQ-SF-8:** Gallery page now references REQ-VD-12 for its photo-backed hero.
+- **REQ-ED-4:** Local guide page now references REQ-VD-12 for its photo-backed hero.
+- **REQ-AP-2:** Apartment listing page now references REQ-VD-12 for its photo-backed hero.
+- **REQ-BK-8:** Contact inquiry page now references REQ-VD-12 for its photo-backed hero.
+
+### Glossary
+- Added "HeroSimple" term.
+
 ## 2026-04-03 — Revision 30: Global CloudflareBindings Interface
 
 Env type declaration moved from module augmentation (`declare module "cloudflare:workers"` with `CloudflareEnv` interface in `src/lib/env.ts`) to a global ambient declaration (`declare global { interface CloudflareBindings }` in `src/env.d.ts`). The `CloudflareBindings` interface is the standard Cloudflare pattern for typing the `env` export from `cloudflare:workers`. All side-effect imports (`import "~/lib/env"`) removed from API routes — the global declaration applies project-wide without explicit imports.
