@@ -1,22 +1,24 @@
 import type { APIRoute } from "astro";
+import { env as _env } from "cloudflare:workers";
+import type { Env } from "~/env";
+const env = _env as unknown as Env;
 
 /**
  * POST /api/admin/seed
  *
  * One-shot endpoint to seed all Emdash collections with preloaded content.
- * Auth: accepts CF Access JWT (Cf-Access-Jwt-Assertion header) OR
- * a simple shared secret (X-Seed-Token header matching EMDASH_AUTH_SECRET).
+ * Auth: X-Seed-Token header must match EMDASH_AUTH_SECRET Worker secret.
+ * CF Access only protects /_emdash/* — this endpoint is on /api/* which
+ * is accessible on workers.dev without CF Access, so we MUST validate
+ * a shared secret.
  * Idempotent — safe to run multiple times.
  */
 export const POST: APIRoute = async ({ request }) => {
-  // Auth check — CF Access header or seed token
-  const accessJwt = request.headers.get("Cf-Access-Jwt-Assertion");
+  // Auth: validate shared secret (NOT just presence check)
   const seedToken = request.headers.get("X-Seed-Token");
+  const expectedSecret = env.EMDASH_AUTH_SECRET;
 
-  const hasAccess = !!accessJwt; // CF Access validated at edge
-  const hasToken = seedToken && seedToken.length > 10; // Basic seed token
-
-  if (!hasAccess && !hasToken) {
+  if (!expectedSecret || !seedToken || seedToken !== expectedSecret) {
     return new Response(
       JSON.stringify({ error: "Authentication required" }),
       { status: 401, headers: { "Content-Type": "application/json" } },
