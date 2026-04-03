@@ -219,7 +219,7 @@ Emdash CMS integration, media library, authentication, mobile admin UX, section 
 - **Intent:** Branded error pages that maintain luxury feel
 - **Applies To:** Visitor
 - **Acceptance Criteria:**
-  - Custom 404 page: branded design with site navigation, suggested links (homepage, apartments, getting here, contact), **fully localized per active locale**. Detects locale from URL path prefix (e.g., `/de/nonexistent` → German 404). Falls back to Croatian if locale cannot be determined. Uses normal site shell (header/footer from CMS).
+  - Custom 404 page: branded design with site navigation, suggested links (homepage, apartments, contact), **fully localized per active locale**. Detects locale from URL path prefix (e.g., `/de/nonexistent` → German 404). Falls back to Croatian if locale cannot be determined. Message and CTA button labels rendered via `t()` translation keys. Links point to locale-appropriate pages (`/{locale}/`, `/{locale}/apartmani`, `/{locale}/kontakt`). Uses normal site shell (header/footer via Page layout).
   - Custom 500 page: **hardcoded minimal fallback shell** — no CMS/D1 dependency. Static HTML with property name, contact email/phone, homepage link, brand colors. No CMS-driven nav/footer. Baked into Worker at deploy time.
 - **Constraints:** CON-PERF, CON-I18N
 - **Priority:** P1

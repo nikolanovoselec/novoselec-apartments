@@ -1,5 +1,20 @@
 # Changelog
 
+## 2026-04-03 — Revision 45: Apartment Detail Enhancements + 404 Localization
+
+Synced spec with commits 447c227 (apartment detail: Schema.org VacationRental, breadcrumbs, wave, lowestPrice) and a4db0c5 (localize 404 page). All statuses remain Partial pending live verification.
+
+### Requirements updated
+- **REQ-AP-3** (Apartment Detail Page): Status updated — Breadcrumbs component now renders visible breadcrumb UI + BreadcrumbList schema; VacationRental JSON-LD applied; inline SVG wave at hero bottom; lowestPrice passed to layout for sticky CTA. Still missing: lightbox, PricingTable.
+- **REQ-SEO-1** (Schema.org Structured Data): Status updated — VacationRental JSON-LD on apartment detail pages with full property data; BreadcrumbList on apartment detail pages. Still missing: FAQPage schema, BreadcrumbList on non-apartment pages.
+- **REQ-CMS-8** (Error Pages): Status updated — 404 now detects locale from URL prefix, renders localized message and CTAs via translation keys, links to locale-appropriate pages. Still missing: 500 hardcoded fallback shell.
+- **REQ-SF-7** (Sticky Mobile CTA): Status promoted from Planned to Partial — lowestPrice now wired from apartment detail page through Page layout to StickyMobileCTA component. Still missing: listing page integration, disappear-on-viewport logic.
+
+### No status promotions to Implemented
+All 4 requirements remain Partial — live site verification required before promotion.
+
+---
+
 ## 2026-04-03 — Revision 44: REQ-I18N-1 Hreflang Status Update
 
 Updated REQ-I18N-1 status to reflect that `<link rel="alternate" hreflang>` tags are now rendered in the HTML `<head>` via the base layout (commit 001b2aa). Status remains Partial because disabled-locale 404 behavior and content fallback policy have not been verified live.

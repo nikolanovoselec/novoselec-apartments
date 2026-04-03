@@ -148,7 +148,7 @@ The homepage and visual shell — hero, navigation, footer, language switcher, a
 - **Priority:** P0
 - **Dependencies:** REQ-BK-1, REQ-AP-4
 - **Verification:** Mobile device test
-- **Status:** Planned
+- **Status:** Partial — lowestPrice now passed from apartment detail page to Page layout, which forwards it to StickyMobileCTA component. Component renders locale-aware price text when available, falls back to plain CTA when not. Still pending: live verification; behavior on listing page (not just detail); disappear-on-inquiry-viewport logic
 
 ### REQ-SF-8: Gallery Page
 
