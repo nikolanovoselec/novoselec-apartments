@@ -2,7 +2,7 @@
 
 ## CON-STACK: Technology Stack
 
-Cloudflare Workers runtime with Astro 6 and Emdash CMS as an Astro integration. D1 for database, R2 for media storage. Single Worker deployment. **Custom domain:** `apartmani.novoselec.ch` (configured as Cloudflare custom domain route in `wrangler.jsonc`). Web-standard APIs only (fetch, crypto.subtle, Request/Response, URL, TextEncoder). No Node.js-specific APIs (fs, child_process, net). Requires `nodejs_compat` compatibility flag for Emdash dependencies. Configuration via `wrangler.jsonc`. **Images served via Cloudflare Image Resizing (`/cdn-cgi/image/`)** — no on-upload processing in Workers (memory/CPU limits). All date/time logic uses `Europe/Zagreb` timezone.
+Cloudflare Workers runtime with Astro 6 and Emdash CMS as an Astro integration. D1 for database, R2 for media storage. Single Worker deployment. **Custom domain:** `apartmani.novoselec.ch` (configured as Cloudflare custom domain route in `wrangler.jsonc`). Web-standard APIs only (fetch, crypto.subtle, Request/Response, URL, TextEncoder). No Node.js-specific APIs (fs, child_process, net). Requires `nodejs_compat` compatibility flag for Emdash dependencies. Configuration via `wrangler.jsonc`. **Images served via Cloudflare Image Resizing (`/cdn-cgi/image/`)** — no on-upload processing in Workers (memory/CPU limits). All date/time logic uses `Europe/Zagreb` timezone. **Vite build limitation:** `cloudflare:workers` module cannot be imported at Vite build time — Emdash plugins that access Worker env bindings via dynamic import fail during the Astro build. Runtime-only access to Worker bindings must use API routes or middleware, not Emdash plugin hooks.
 
 ## CON-PERF: Performance Budget
 

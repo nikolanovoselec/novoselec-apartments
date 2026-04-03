@@ -78,6 +78,7 @@ Emdash CMS integration, media library, authentication, mobile admin UX, section 
     - Brute force protection: max 5 code attempts per email per hour, then lockout with "Try again in 1 hour"
   - **Sessions:** Short-lived JWT (1 hour) + long-lived refresh token (30 days) in `Secure, HttpOnly, SameSite=Lax` cookies. JWT validated without D1 on each request. Refresh token validated against D1 `sessions` table when JWT expires. **Revocation:** owner or developer can delete session rows in D1 to force re-login (e.g., if phone stolen). Session list visible in admin settings.
   - **Recovery:** If owner loses email access, developer can add new email via Wrangler CLI (documented in deployment guide)
+  - **Emdash admin panel auth:** Emdash's built-in email delivery plugin was removed due to Vite build incompatibility (`cloudflare:workers` module cannot be resolved at build time). Emdash's admin panel currently operates in login bypass mode (no email verification gate). The custom Magic Link auth flow (`/admin/api/login` + `/admin/api/verify`) is independent of Emdash's plugin system and uses Resend directly via fetch — this flow is unaffected and fully functional.
 - **Constraints:** CON-SEC
 - **Priority:** P0
 - **Dependencies:** REQ-CMS-1

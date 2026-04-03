@@ -47,7 +47,7 @@ Apartmani Pašman is a server-side rendered Astro site deployed as a Cloudflare 
 | `src/pages/api/track.ts` | Analytics API — cookieless event logging to D1 |
 | `src/layouts/` | Base and Page layout shells |
 | `src/components/shell/` | Navigation (desktop nav + mobile hamburger menu with `is:inline` script to avoid Astro bundler stripping), Footer, LanguageSwitcher, WhatsAppButton, StickyMobileCTA |
-| `src/components/home/Hero.astro` | Hero carousel — 4 Pexels images, crossfade (1.8s CSS transition), Ken Burns zoom (8s scale 1→1.08 on active slide), auto-advance every 6 s, dot navigation, hover-pause; implemented as `is:inline` script |
+| `src/components/home/Hero.astro` | Hero carousel — 4 Pexels images, crossfade (1.8s CSS transition), continuous zoom animation (`heroZoom` keyframe: 12s ease-in-out infinite alternate, scale 1→1.1 with -1%/-1% translate, paused until slide is active), auto-advance every 6 s, dot navigation, hover-pause; implemented as `is:inline` script |
 | `src/styles/global.css` | Design system — CSS custom properties, typography scale, layout utilities, component classes, animation utilities |
 
 ## Request Lifecycle

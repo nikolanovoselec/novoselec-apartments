@@ -1,5 +1,17 @@
 # Changelog
 
+## 2026-04-03 — Revision 27: Remove Resend Plugin, Continuous Hero Zoom
+
+Removed Emdash Resend email plugin (`resendEmailPlugin`) from Astro config due to Vite build incompatibility — `cloudflare:workers` module cannot be resolved at build time. Emdash admin panel reverts to login bypass mode. The custom Magic Link auth flow (`/admin/api/login` + `/admin/api/verify`) is unaffected as it uses Resend directly via fetch. Hero carousel Ken Burns effect upgraded from a one-shot 8s CSS transition (scale 1 to 1.08) to a continuous 12s keyframe animation (scale 1 to 1.1 with translate3d drift, infinite alternate), ensuring the hero image is never static.
+
+### AC updated
+- **REQ-SF-1:** Ken Burns AC updated — now uses `@keyframes heroZoom` (12s ease-in-out infinite alternate, scale 1.0 to 1.1 with drift) instead of 8s one-shot transition. Animation paused by default, plays on `.is-active`.
+- **REQ-VD-3:** Ken Burns AC updated to match new continuous keyframe animation behavior.
+- **REQ-CMS-3:** Added note that Emdash admin panel operates in login bypass mode due to Resend plugin removal. Custom auth flow unaffected.
+
+### Constraints updated
+- **CON-STACK:** Added Vite build limitation note — `cloudflare:workers` cannot be imported at build time, preventing Emdash plugins from accessing Worker env bindings.
+
 ## 2026-04-03 — Revision 26: Contact Page with Inquiry Form
 
 Standalone contact page at `/{locale}/kontakt` implementing the Quick Question path from the booking domain. Simplified inquiry form with name, email, phone, dates (freeform text), guests, and message — localized labels in all 4 locales. Turnstile CAPTCHA (invisible mode), honeypot field, GDPR consent checkbox. Submits to `/api/inquiry` as JSON. All site CTA links (navigation, homepage, apartment detail) updated from anchor-based `#inquiry` targets to the dedicated `/kontakt` page. This is an interim implementation ahead of the full two-tab request-to-book widget (REQ-BK-1).
