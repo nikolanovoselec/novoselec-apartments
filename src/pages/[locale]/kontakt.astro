@@ -90,19 +90,8 @@ const l = labels[typedLocale];
             </label>
           </div>
 
-          {/* Turnstile widget - loaded inline to ensure it renders */}
-          <div id="turnstile-container"></div>
-          <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onTurnstileLoad" async defer></script>
-          <script is:inline>
-            function onTurnstileLoad() {
-              if (window.turnstile && document.getElementById("turnstile-container")) {
-                window.turnstile.render("#turnstile-container", {
-                  sitekey: "0x4AAAAAAAiYAz_U5JnMbfRB",
-                  theme: "light",
-                });
-              }
-            }
-          </script>
+          {/* Turnstile widget - implicit rendering via cf-turnstile class */}
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAAAiYAz_U5JnMbfRB" data-theme="light" data-size="normal"></div>
 
           <button type="submit" class="btn btn--primary contact-form__submit" id="submit-btn">
             {l.send}
@@ -114,6 +103,9 @@ const l = labels[typedLocale];
     </div>
   </section>
 </Page>
+
+{/* Turnstile script - standard tag so Astro includes it in head */}
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
 <style>
   .contact-layout {
