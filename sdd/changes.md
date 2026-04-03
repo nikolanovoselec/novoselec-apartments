@@ -1,5 +1,19 @@
 # Changelog
 
+## 2026-04-03 — Revision 47: i18n Ternary Cleanup + Detail Page Fallbacks + Hero Wave Fix
+
+Synced spec with commit replacing inline locale ternaries with `t()` calls across homepage, listing page, apartment detail page, and zdrelac page. ~20 new translation keys added to all 4 locale JSON files. Apartment detail page now has fallback data (Lavanda, Tramuntana) when CMS not seeded. Hero wave clipping bug fixed by moving `overflow:hidden` from `.hero` to `.hero__slide`. i18n completeness test added.
+
+### Requirements updated
+- **REQ-I18N-3** (UI String Translations): Status updated — inline ternaries replaced with t() calls; mixed-language bug on homepage CTA section addressed; ~20 new keys in all locale files; completeness test added. Remains Partial pending live verification.
+- **REQ-AP-3** (Apartment Detail Page): Status updated — fallback apartment data added for CMS-not-seeded case; locale-aware labels now use t() calls. Remains Partial pending live verification.
+- **REQ-SF-1** (Hero Section): Status updated — wave clipping fix noted. Remains Partial.
+
+### No status promotions
+All 3 requirements remain Partial — live site verification required before promotion.
+
+---
+
 ## 2026-04-03 — Revision 46: Documentation Additions
 
 Three missing documentation files created (`cms-guide.md`, `content-guide.md`, `troubleshooting.md`) and `authentication.md` updated with Cloudflare Access details. All files listed in `sdd/README.md` Documentation section now exist. No requirement status changes — no REQ-* entries were gated on documentation file existence.

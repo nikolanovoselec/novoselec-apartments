@@ -44,7 +44,7 @@ describe("Translation completeness", () => {
     "apartments.bedrooms", "apartments.night", "apartments.amenitiesTitle",
     "apartments.priceFromLabel", "apartments.viewButton",
     "homepage.ourGuests", "homepage.experiences", "homepage.discoverIsland",
-    "homepage.triptych.food", "homepage.triptych.activities", "homepage.triptych.beaches",
+    "homepage.triptych.activities", "homepage.triptych.foodSubtitle", "homepage.triptych.beachesSubtitle",
     "homepage.cta.label", "homepage.cta.title", "homepage.cta.subtitle", "homepage.cta.button",
     "hosts.title", "gettingHere.title", "faq.title",
     "footer.tagline",

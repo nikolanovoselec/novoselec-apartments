@@ -34,22 +34,22 @@ try {
 if (!entry) {
   const fallbacks: Record<string, Record<string, unknown>> = {
     lavanda: {
-      name: t(typedLocale, "apartments.title") === "Naši apartmani" ? "Apartman Lavanda" : "Apartment Lavanda",
+      name: typedLocale === "hr" ? "Apartman Lavanda" : typedLocale === "sl" ? "Apartma Lavanda" : "Apartment Lavanda",
       tagline: typedLocale === "hr" ? "Mediteranski mir s pogledom na more" : typedLocale === "de" ? "Mediterrane Ruhe mit Meerblick" : typedLocale === "sl" ? "Mediteranski mir s pogledom na morje" : "Mediterranean peace with sea views",
       description: typedLocale === "hr" ? "Prostrani apartman za obitelji i parove s pogledom na more, terasom i svim sadržajima za savršen odmor." : typedLocale === "de" ? "Geräumige Ferienwohnung für Familien und Paare mit Meerblick, Terrasse und allem Komfort für einen perfekten Urlaub." : typedLocale === "sl" ? "Prostoren apartma za družine in pare s pogledom na morje, teraso in vsemi ugodnostmi za popoln oddih." : "Spacious apartment for families and couples with sea views, a terrace, and everything for a perfect holiday.",
       sleeps: 4, bedrooms: 2, size_sqm: 55, beach_distance_m: 150, price_from: 70,
       best_for: typedLocale === "hr" ? "Parovi i obitelji" : typedLocale === "de" ? "Paare und Familien" : typedLocale === "sl" ? "Pari in družine" : "Couples and families",
       hero_image: "https://images.pexels.com/photos/2440024/pexels-photo-2440024.jpeg?auto=compress&w=1920",
-      amenities_json: ["WiFi", "A/C", "TV", typedLocale === "hr" ? "Terasa s pogledom" : "Sea view terrace", typedLocale === "hr" ? "Parking" : "Parking", typedLocale === "hr" ? "Roštilj" : "BBQ"],
+      amenities_json: ["WiFi", "A/C", "TV", typedLocale === "hr" ? "Terasa s pogledom" : typedLocale === "de" ? "Terrasse mit Meerblick" : typedLocale === "sl" ? "Terasa z razgledom" : "Sea view terrace", "Parking", typedLocale === "hr" ? "Roštilj" : typedLocale === "de" ? "Grill" : typedLocale === "sl" ? "Žar" : "BBQ"],
     },
     tramuntana: {
-      name: typedLocale === "hr" ? "Apartman Tramuntana" : "Apartment Tramuntana",
+      name: typedLocale === "hr" ? "Apartman Tramuntana" : typedLocale === "sl" ? "Apartma Tramuntana" : "Apartment Tramuntana",
       tagline: typedLocale === "hr" ? "Intimni kutak uz more" : typedLocale === "de" ? "Gemütlicher Rückzugsort am Meer" : typedLocale === "sl" ? "Intimen kotiček ob morju" : "Intimate retreat by the sea",
       description: typedLocale === "hr" ? "Ugodan apartman za dvoje, savršen za romantični bijeg. Blizu plaže, tih i miran." : typedLocale === "de" ? "Gemütliches Apartment für zwei, perfekt für einen romantischen Kurzurlaub. Strandnah, ruhig und friedlich." : typedLocale === "sl" ? "Prijeten apartma za dva, popoln za romantični pobeg. Blizu plaže, tih in miren." : "Cozy apartment for two, perfect for a romantic escape. Close to the beach, quiet and peaceful.",
       sleeps: 2, bedrooms: 1, size_sqm: 35, beach_distance_m: 100, price_from: 55,
       best_for: typedLocale === "hr" ? "Parovi" : typedLocale === "de" ? "Paare" : typedLocale === "sl" ? "Pari" : "Couples",
       hero_image: "https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg?auto=compress&w=1920",
-      amenities_json: ["WiFi", "A/C", "TV", typedLocale === "hr" ? "Terasa" : "Terrace", typedLocale === "hr" ? "Parking" : "Parking"],
+      amenities_json: ["WiFi", "A/C", "TV", typedLocale === "hr" ? "Terasa" : typedLocale === "de" ? "Terrasse" : typedLocale === "sl" ? "Terasa" : "Terrace", "Parking"],
     },
   };
   entry = fallbacks[slug] ?? null;

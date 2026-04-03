@@ -11,10 +11,8 @@
   "nav.admin": "Admin",
   "nav.zdrelac": "Ždrelac",
   "nav.gallery": "Galerie",
-
   "hero.tagline": "Ihr Urlaub an der Adria",
   "hero.scroll": "Nach unten scrollen",
-
   "apartments.title": "Unsere Ferienwohnungen",
   "apartments.sleeps": "Schläft {count}",
   "apartments.fromPrice": "ab {price} €/Nacht",
@@ -23,7 +21,6 @@
   "apartments.bestFor": "Ideal für",
   "apartments.comingSoon": "Demnächst verfügbar! Kontaktieren Sie uns für weitere Informationen.",
   "apartments.seaView": "Meerblick",
-
   "pricing.title": "Preise",
   "pricing.season": "Saison",
   "pricing.dateRange": "Zeitraum",
@@ -36,13 +33,11 @@
   "pricing.total": "Gesamtpreis (Schätzung)",
   "pricing.disclaimer": "Dies ist eine Schätzung. Der endgültige Preis wird vom Vermieter bestätigt.",
   "pricing.onRequest": "Preis auf Anfrage",
-
   "availability.title": "Verfügbarkeit",
   "availability.booked": "Belegt",
   "availability.available": "Verfügbar",
   "availability.checkIn": "Anreise",
   "availability.checkOut": "Abreise",
-
   "booking.title": "Anfrage senden",
   "booking.tabBook": "Buchen",
   "booking.tabQuestion": "Schnelle Frage",
@@ -74,10 +69,8 @@
   "booking.quickQuestion.name": "Ihr Name",
   "booking.quickQuestion.email": "Ihre E-Mail",
   "booking.quickQuestion.message": "Ihre Frage",
-
   "whatsapp.prefilled": "Hallo! Ich interessiere mich für {apartment} vom {dates}.",
   "whatsapp.prefilledGeneric": "Hallo! Ich interessiere mich für Ihre Ferienwohnungen auf Pašman.",
-
   "trust.noFees": "Keine Plattformgebühren",
   "trust.directContact": "Direkter Kontakt zum Vermieter",
   "trust.localTips": "Lokale Tipps inklusive",
@@ -85,14 +78,12 @@
   "trust.responseTime": "Wir antworten in der Regel innerhalb von 2 Stunden",
   "trust.noPayment": "Keine Zahlung erforderlich — kostenlose Anfrage",
   "trust.noObligation": "Unverbindlich",
-
   "footer.bookDirect": "Direkt buchen — keine Plattformgebühren",
   "footer.privacy": "Datenschutz",
   "footer.impressum": "Impressum",
   "footer.cookies": "Cookies & Datenschutz",
   "footer.accessibility": "Barrierefreiheit",
   "footer.houseRules": "Hausordnung",
-
   "guide.title": "Reiseführer Pašman",
   "guide.beaches": "Strände",
   "guide.foodDrink": "Essen & Trinken",
@@ -101,60 +92,45 @@
   "guide.dayTrips": "Tagesausflüge",
   "guide.distanceFromProperty": "{km} km von der Unterkunft",
   "guide.comingSoon": "Lokale Tipps werden bald hinzugefügt.",
-
   "gettingHere.title": "Anreise",
   "gettingHere.ferry": "Fähre",
   "gettingHere.drive": "Mit dem Auto",
   "gettingHere.airport": "Flughafen",
   "gettingHere.transfer": "Wir können einen Flughafentransfer organisieren",
   "gettingHere.viewOnMap": "Auf der Karte ansehen",
-
   "faq.title": "Häufig gestellte Fragen",
-
   "hosts.title": "Über uns",
   "hosts.responseTime": "Wir antworten in der Regel innerhalb von 2 Stunden",
-
   "zdrelac.title": "Ždrelac",
-
   "dayOnPasman.title": "Ein Tag auf Pašman",
-
   "meta.titleSuffix": "Ferienwohnungen Ždrelac — Insel Pašman",
   "meta.description": "Ferienwohnungen in Ždrelac auf der Insel Pašman, Kroatien. Kristallklares Meer, Ruhe und authentisches Dalmatien.",
-
   "error.404.title": "Seite nicht gefunden",
   "error.404.message": "Die gesuchte Seite existiert nicht.",
   "error.404.home": "Zurück zur Startseite",
   "error.500.title": "Etwas ist schiefgelaufen",
   "error.500.message": "Bitte versuchen Sie es erneut oder kontaktieren Sie uns.",
-
   "cta.checkAvailability": "Verfügbarkeit prüfen",
   "cta.fromPrice": "ab {price} €/Nacht",
-
   "calendar.months": "Januar,Februar,März,April,Mai,Juni,Juli,August,September,Oktober,November,Dezember",
   "calendar.weekdays": "Mo,Di,Mi,Do,Fr,Sa,So",
-
   "fallback.banner": "Einige Inhalte auf dieser Seite werden auf Kroatisch angezeigt, da die Übersetzung noch nicht verfügbar ist.",
-
   "homepage.ourGuests": "Unsere Gäste",
   "homepage.experiences": "Erlebnisse",
   "homepage.discoverIsland": "Entdecken Sie die Insel",
-  "homepage.triptych.food": "Essen & Trinken",
   "homepage.triptych.foodSubtitle": "Frischer Fisch, Peka, hausgemachtes Öl",
   "homepage.triptych.activities": "Natur & Aktivitäten",
   "homepage.triptych.activitiesSubtitle": "Olivenhaine, Wanderwege, Kajak",
-  "homepage.triptych.beaches": "Strände",
   "homepage.triptych.beachesSubtitle": "Versteckte Buchten, kristallklares Meer",
   "homepage.cta.label": "Kontakt",
   "homepage.cta.title": "Kontaktieren Sie uns",
   "homepage.cta.subtitle": "Wir antworten in der Regel innerhalb von 2 Stunden",
   "homepage.cta.button": "Anfrage senden",
-
   "apartments.bedrooms": "{count} Schlafzimmer",
   "apartments.night": "Nacht",
   "apartments.amenitiesTitle": "Ausstattung",
   "apartments.priceFromLabel": "Preis ab",
   "apartments.viewButton": "Ansehen",
   "apartments.viewApartments": "Ferienwohnungen ansehen",
-
   "footer.tagline": "Ihr Urlaub an der Adria"
 }

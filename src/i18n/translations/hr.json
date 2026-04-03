@@ -11,10 +11,8 @@
   "nav.admin": "Admin",
   "nav.zdrelac": "Ždrelac",
   "nav.gallery": "Galerija",
-
   "hero.tagline": "Vaš odmor na Jadranu",
   "hero.scroll": "Skrolajte dolje",
-
   "apartments.title": "Naši apartmani",
   "apartments.sleeps": "Spava {count}",
   "apartments.fromPrice": "od {price} €/noć",
@@ -23,7 +21,6 @@
   "apartments.bestFor": "Idealno za",
   "apartments.comingSoon": "Uskoro dolazi! Kontaktirajte nas za više informacija.",
   "apartments.seaView": "Pogled na more",
-
   "pricing.title": "Cijene",
   "pricing.season": "Sezona",
   "pricing.dateRange": "Razdoblje",
@@ -36,13 +33,11 @@
   "pricing.total": "Ukupno (procjena)",
   "pricing.disclaimer": "Ovo je procjena. Konačnu cijenu potvrđuje vlasnik.",
   "pricing.onRequest": "Cijena na upit",
-
   "availability.title": "Dostupnost",
   "availability.booked": "Zauzeto",
   "availability.available": "Dostupno",
   "availability.checkIn": "Dolazak",
   "availability.checkOut": "Odlazak",
-
   "booking.title": "Pošaljite upit",
   "booking.tabBook": "Rezervacija",
   "booking.tabQuestion": "Brzo pitanje",
@@ -74,10 +69,8 @@
   "booking.quickQuestion.name": "Vaše ime",
   "booking.quickQuestion.email": "Vaš email",
   "booking.quickQuestion.message": "Vaše pitanje",
-
   "whatsapp.prefilled": "Bok! Zanima me {apartment} za {dates}.",
   "whatsapp.prefilledGeneric": "Bok! Zanima me vaš smještaj na Pašmanu.",
-
   "trust.noFees": "Bez provizije platforme",
   "trust.directContact": "Izravni kontakt s vlasnikom",
   "trust.localTips": "Lokalni savjeti uključeni",
@@ -85,14 +78,12 @@
   "trust.responseTime": "Obično odgovaramo unutar 2 sata",
   "trust.noPayment": "Nije potrebno plaćanje — besplatni upit",
   "trust.noObligation": "Bez obveze",
-
   "footer.bookDirect": "Rezervirajte izravno — bez provizije platforme",
   "footer.privacy": "Privatnost",
   "footer.impressum": "Impressum",
   "footer.cookies": "Kolačići i privatnost",
   "footer.accessibility": "Pristupačnost",
   "footer.houseRules": "Kućni red",
-
   "guide.title": "Vodič po Pašmanu",
   "guide.beaches": "Plaže",
   "guide.foodDrink": "Hrana i piće",
@@ -101,60 +92,45 @@
   "guide.dayTrips": "Izleti",
   "guide.distanceFromProperty": "{km} km od smještaja",
   "guide.comingSoon": "Lokalni savjeti uskoro dolaze.",
-
   "gettingHere.title": "Kako doći",
   "gettingHere.ferry": "Trajekt",
   "gettingHere.drive": "Automobilom",
   "gettingHere.airport": "Aerodrom",
   "gettingHere.transfer": "Možemo organizirati transfer s aerodroma",
   "gettingHere.viewOnMap": "Pogledaj na karti",
-
   "faq.title": "Često postavljena pitanja",
-
   "hosts.title": "O nama",
   "hosts.responseTime": "Obično odgovaramo unutar 2 sata",
-
   "zdrelac.title": "Ždrelac",
-
   "dayOnPasman.title": "Dan na Pašmanu",
-
   "meta.titleSuffix": "Apartmani Novoselec — Otok Pašman",
   "meta.description": "Apartmani u Ždrelacu na otoku Pašmanu, Hrvatska. Kristalno čisto more, mir i autentična Dalmacija.",
-
   "error.404.title": "Stranica nije pronađena",
   "error.404.message": "Stranica koju tražite ne postoji.",
   "error.404.home": "Povratak na početnu",
   "error.500.title": "Nešto je pošlo po krivu",
   "error.500.message": "Pokušajte ponovo ili nas kontaktirajte.",
-
   "cta.checkAvailability": "Provjeri dostupnost",
   "cta.fromPrice": "od {price} €/noć",
-
   "calendar.months": "Siječanj,Veljača,Ožujak,Travanj,Svibanj,Lipanj,Srpanj,Kolovoz,Rujan,Listopad,Studeni,Prosinac",
   "calendar.weekdays": "Po,Ut,Sr,Če,Pe,Su,Ne",
-
   "fallback.banner": "Dio sadržaja na ovoj stranici prikazan je na hrvatskom jer prijevod još nije dostupan.",
-
   "homepage.ourGuests": "Naši gosti",
   "homepage.experiences": "Doživljaji",
   "homepage.discoverIsland": "Otkrijte otok",
-  "homepage.triptych.food": "Hrana i piće",
   "homepage.triptych.foodSubtitle": "Svježa riba, peka, domaće ulje",
   "homepage.triptych.activities": "Priroda i aktivnosti",
   "homepage.triptych.activitiesSubtitle": "Maslinici, staze, kajak",
-  "homepage.triptych.beaches": "Plaže",
   "homepage.triptych.beachesSubtitle": "Skrivene uvale, kristalno čisto more",
   "homepage.cta.label": "Kontakt",
   "homepage.cta.title": "Javite nam se",
   "homepage.cta.subtitle": "Obično odgovaramo unutar 2 sata",
   "homepage.cta.button": "Pošaljite upit",
-
   "apartments.bedrooms": "{count} spavaće sobe",
   "apartments.night": "noć",
   "apartments.amenitiesTitle": "Sadržaj",
   "apartments.priceFromLabel": "Cijena od",
   "apartments.viewButton": "Pogledaj",
   "apartments.viewApartments": "Pogledaj apartmane",
-
   "footer.tagline": "Vaš odmor na Jadranu"
 }

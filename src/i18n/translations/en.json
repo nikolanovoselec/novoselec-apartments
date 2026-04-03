@@ -11,10 +11,8 @@
   "nav.admin": "Admin",
   "nav.zdrelac": "Ždrelac",
   "nav.gallery": "Gallery",
-
   "hero.tagline": "Your Adriatic escape",
   "hero.scroll": "Scroll down",
-
   "apartments.title": "Our Apartments",
   "apartments.sleeps": "Sleeps {count}",
   "apartments.fromPrice": "from €{price}/night",
@@ -23,7 +21,6 @@
   "apartments.bestFor": "Best for",
   "apartments.comingSoon": "Coming soon! Contact us for more information.",
   "apartments.seaView": "Sea view",
-
   "pricing.title": "Pricing",
   "pricing.season": "Season",
   "pricing.dateRange": "Dates",
@@ -36,13 +33,11 @@
   "pricing.total": "Total (estimate)",
   "pricing.disclaimer": "This is an estimate. Final price confirmed by owner.",
   "pricing.onRequest": "Price on request",
-
   "availability.title": "Availability",
   "availability.booked": "Booked",
   "availability.available": "Available",
   "availability.checkIn": "Check-in",
   "availability.checkOut": "Check-out",
-
   "booking.title": "Send inquiry",
   "booking.tabBook": "Book",
   "booking.tabQuestion": "Quick Question",
@@ -74,10 +69,8 @@
   "booking.quickQuestion.name": "Your name",
   "booking.quickQuestion.email": "Your email",
   "booking.quickQuestion.message": "Your question",
-
   "whatsapp.prefilled": "Hi! I'm interested in {apartment} for {dates}.",
   "whatsapp.prefilledGeneric": "Hi! I'm interested in your apartments on Pašman.",
-
   "trust.noFees": "No platform fees",
   "trust.directContact": "Direct contact with owner",
   "trust.localTips": "Local tips included",
@@ -85,14 +78,12 @@
   "trust.responseTime": "We typically respond within 2 hours",
   "trust.noPayment": "No payment required — free inquiry",
   "trust.noObligation": "No obligation",
-
   "footer.bookDirect": "Book direct — no platform fees",
   "footer.privacy": "Privacy",
   "footer.impressum": "Legal Notice",
   "footer.cookies": "Cookies & Privacy",
   "footer.accessibility": "Accessibility",
   "footer.houseRules": "House Rules",
-
   "guide.title": "Pašman Local Guide",
   "guide.beaches": "Beaches",
   "guide.foodDrink": "Food & Drink",
@@ -101,60 +92,45 @@
   "guide.dayTrips": "Day Trips",
   "guide.distanceFromProperty": "{km} km from property",
   "guide.comingSoon": "Local tips coming soon.",
-
   "gettingHere.title": "Getting Here",
   "gettingHere.ferry": "Ferry",
   "gettingHere.drive": "By car",
   "gettingHere.airport": "Airport",
   "gettingHere.transfer": "We can arrange an airport transfer",
   "gettingHere.viewOnMap": "View on map",
-
   "faq.title": "Frequently Asked Questions",
-
   "hosts.title": "About Us",
   "hosts.responseTime": "We typically respond within 2 hours",
-
   "zdrelac.title": "Ždrelac",
-
   "dayOnPasman.title": "A Day on Pašman",
-
   "meta.titleSuffix": "Apartments Ždrelac — Pašman Island",
   "meta.description": "Apartments in Ždrelac on Pašman island, Croatia. Crystal-clear sea, peace, and authentic Dalmatia.",
-
   "error.404.title": "Page not found",
   "error.404.message": "The page you're looking for doesn't exist.",
   "error.404.home": "Back to homepage",
   "error.500.title": "Something went wrong",
   "error.500.message": "Please try again or contact us.",
-
   "cta.checkAvailability": "Check availability",
   "cta.fromPrice": "from €{price}/night",
-
   "calendar.months": "January,February,March,April,May,June,July,August,September,October,November,December",
   "calendar.weekdays": "Mon,Tue,Wed,Thu,Fri,Sat,Sun",
-
   "fallback.banner": "Some content on this page is shown in Croatian because translation is not yet available.",
-
   "homepage.ourGuests": "Our guests",
   "homepage.experiences": "Experiences",
   "homepage.discoverIsland": "Discover the island",
-  "homepage.triptych.food": "Food & Drink",
   "homepage.triptych.foodSubtitle": "Fresh fish, peka, homemade oil",
   "homepage.triptych.activities": "Nature & Activities",
   "homepage.triptych.activitiesSubtitle": "Olive groves, trails, kayaking",
-  "homepage.triptych.beaches": "Beaches",
   "homepage.triptych.beachesSubtitle": "Hidden coves, crystal-clear sea",
   "homepage.cta.label": "Contact",
   "homepage.cta.title": "Get in touch",
   "homepage.cta.subtitle": "We typically respond within 2 hours",
   "homepage.cta.button": "Send inquiry",
-
   "apartments.bedrooms": "{count} bedrooms",
   "apartments.night": "night",
   "apartments.amenitiesTitle": "Amenities",
   "apartments.priceFromLabel": "Price from",
   "apartments.viewButton": "View",
   "apartments.viewApartments": "View apartments",
-
   "footer.tagline": "Your Adriatic escape"
 }
