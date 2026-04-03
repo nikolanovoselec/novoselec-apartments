@@ -112,8 +112,8 @@ const oliveOilLabel: Record<Locale, string> = {
     </div>
   </section>
 
-  {/* Full-width image — Ždrelac — with curved corners inside container */}
-  <div class="feature-image container" data-reveal>
+  {/* Full-width image — Ždrelac — clickable, links to village page */}
+  <a href={`/${typedLocale}/zdrelac`} class="feature-image container" data-reveal style="text-decoration:none; color:inherit; display:block;">
     <div class="feature-image__wrap">
       <img src="https://images.pexels.com/photos/3601425/pexels-photo-3601425.jpeg?auto=compress&w=1920" alt="Aerial view of Ždrelac village on Pašman island" width="1920" height="1080" loading="lazy" />
       <div class="feature-image__overlay">
@@ -121,7 +121,7 @@ const oliveOilLabel: Record<Locale, string> = {
         <h2>{zdrelacTitle}</h2>
       </div>
     </div>
-  </div>
+  </a>
 
   {/* Wave transition to dark section — bg matches cream above, fill matches navy below */}
   <WaveDivider fill="#0A1F33" bg="#F8F5EF" />

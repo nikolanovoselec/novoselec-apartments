@@ -2,20 +2,30 @@
 import Page from "~/layouts/Page.astro";
 import { isValidLocale, type Locale } from "~/i18n/config";
 import { t } from "~/i18n/t";
-import { getEmDashEntry } from "emdash";
+import { getEmDashEntry, getEmDashCollection } from "emdash";
 
 const { locale, slug } = Astro.params;
 if (!locale || !isValidLocale(locale)) return Astro.redirect("/hr/", 302);
 if (!slug) return Astro.redirect(`/${locale}/apartmani`, 302);
 const typedLocale = locale as Locale;
 
-// Load apartment directly by slug — no locale filtering on detail page
+// Load apartment by slug — try direct lookup, then search collection
 let entry: Record<string, unknown> | null = null;
 try {
+  // Try direct slug lookup
   const result = await getEmDashEntry("apartments", slug);
-  entry = result?.entry ? (result.entry as { data?: Record<string, unknown> }).data ?? null : null;
+  if (result?.entry) {
+    entry = (result.entry as { data?: Record<string, unknown> }).data ?? null;
+  }
 } catch {
-  entry = null;
+  // Direct lookup failed — try collection search
+  try {
+    const { entries } = await getEmDashCollection("apartments");
+    const match = entries?.find((e: { slug?: string }) => e.slug === slug);
+    if (match) {
+      entry = (match as { data?: Record<string, unknown> }).data ?? null;
+    }
+  } catch { /* */ }
 }
 if (!entry) return Astro.redirect(`/${locale}/apartmani`, 302);
 
