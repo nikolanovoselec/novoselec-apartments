@@ -90,16 +90,8 @@ const l = labels[typedLocale];
             </label>
           </div>
 
-          {/* Turnstile widget */}
-          <div class="cf-turnstile" data-sitekey="0x4AAAAAAAiYAz_U5JnMbfRB" data-theme="light" data-size="normal" data-appearance="always"></div>
-          <script is:inline>
-            (function() {
-              var s = document.createElement('script');
-              s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
-              s.async = true;
-              document.head.appendChild(s);
-            })();
-          </script>
+          {/* Turnstile CAPTCHA widget */}
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAAAiYAz_U5JnMbfRB" data-theme="light" data-size="normal"></div>
 
           <button type="submit" class="btn btn--primary contact-form__submit" id="submit-btn">
             {l.send}
@@ -111,6 +103,8 @@ const l = labels[typedLocale];
     </div>
   </section>
 </Page>
+
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
 <style>
   .contact-layout {
