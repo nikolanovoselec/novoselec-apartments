@@ -125,7 +125,7 @@ The homepage and visual shell — hero, navigation, footer, language switcher, a
   - Quick links to all visible sections
   - Language switcher (duplicate)
   - "Book direct — no platform fees" trust message
-  - Links: privacy policy, cookie settings, accessibility statement
+  - Links: privacy policy, cookie settings
   - Contact info CMS-managed in site-settings
 - **Constraints:** CON-LEGAL, CON-I18N
 - **Priority:** P1
@@ -139,14 +139,14 @@ The homepage and visual shell — hero, navigation, footer, language switcher, a
 - **Applies To:** Visitor
 - **Acceptance Criteria:**
   - After scrolling past hero, a bottom bar slides up: "From €X/night · Check Availability"
-  - Tapping navigates to contact page (`/{locale}/kontakt`, REQ-BK-8) or scrolls to booking widget when REQ-BK-1 is implemented
+  - Tapping navigates to contact page (`/{locale}/kontakt`, REQ-BK-8)
   - Thin bar (~56px), does not obscure content
   - Disappears when inquiry form is in viewport
   - Price pulled from lowest active seasonal rate
   - **Failure mode — no pricing available:** If no active seasonal pricing exists for any apartment, CTA shows "Check Availability" without price. Still links to inquiry form (Quick Question tab).
 - **Constraints:** CON-PERF, CON-A11Y
 - **Priority:** P0
-- **Dependencies:** REQ-BK-1, REQ-AP-4
+- **Dependencies:** REQ-BK-8
 - **Verification:** Mobile device test
 - **Status:** Implemented
 
