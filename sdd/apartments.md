@@ -83,11 +83,11 @@ Apartment listings, detail pages, photo galleries, amenities, seasonal pricing, 
     8. Responsive: single column on mobile, 1.5fr/1fr grid on desktop (768px+ breakpoint)
   - **Visual hierarchy (full target, top to bottom):**
     1. Hero: apartment name, key stats strip (guests, bedrooms, m2, beach distance, "Best for" label)
-    2. Photo gallery (REQ-AP-6)
+    2. ~~Photo gallery (REQ-AP-6)~~ — Deprecated
     3. Description: Portable Text rendered from Emdash
-    4. Pricing table + availability calendar side by side on desktop (REQ-AP-4, REQ-AP-5)
-    5. Inline inquiry widget pre-filled with this apartment (REQ-BK-1)
-    6. Trust: direct booking benefits strip (REQ-BK-5) + contextual testimonial snippet (REQ-SP-1)
+    4. ~~Pricing table + availability calendar side by side on desktop (REQ-AP-4, REQ-AP-5)~~ — Deprecated
+    5. ~~Inline inquiry widget pre-filled with this apartment (REQ-BK-1)~~ — Deprecated; inquiry via contact page (REQ-BK-8)
+    6. ~~Trust: direct booking benefits strip (REQ-BK-5)~~ — Deprecated + contextual testimonial snippet (REQ-SP-1)
     7. Detailed amenities grid: icon + label, grouped by category (climate, kitchen, bathroom, outdoor, access)
     8. Bed configuration: visual diagram with bed types and dimensions
     9. House rules: check-in/out times, quiet hours, policies
@@ -98,12 +98,11 @@ Apartment listings, detail pages, photo galleries, amenities, seasonal pricing, 
   - Sticky mobile CTA at bottom
   - Breadcrumb navigation (REQ-SEO-1 BreadcrumbList schema + visible breadcrumb UI)
   - Schema.org `VacationRental` structured data per apartment (REQ-SEO-1)
-  - **Pricing table** rendered on detail page using `PricingTable` component showing seasonal rates, cleaning fee, tourist tax (REQ-AP-4)
 - **Constraints:** CON-PERF, CON-A11Y, CON-I18N
 - **Priority:** P0
-- **Dependencies:** REQ-AP-1, REQ-AP-4, REQ-AP-5, REQ-AP-6, REQ-BK-1
-- **Verification:** Full visual review + screen reader test. Verify detail page loads reliably for all apartment slugs in all 4 locales. Verify breadcrumbs, pricing table, and Schema.org render.
-- **Status:** Partial — Breadcrumbs component now renders visible breadcrumb UI and BreadcrumbList schema on apartment detail pages; Schema.org VacationRental JSON-LD applied via SchemaOrg component; inline SVG wave added at hero bottom; lowestPrice passed to Page layout for sticky mobile CTA. Fallback apartment data (Lavanda, Tramuntana) now renders on detail pages when CMS not seeded — locale-aware names, taglines, descriptions, and amenities. Inline ternaries replaced with t() calls for bedrooms, price label, night, amenities title. Still missing: lightbox (REQ-AP-6), PricingTable component unused. Pending live verification.
+- **Dependencies:** REQ-AP-1
+- **Verification:** Full visual review + screen reader test. Verify detail page loads reliably for all apartment slugs in all 4 locales. Verify breadcrumbs and Schema.org render.
+- **Status:** Partial — Breadcrumbs component now renders visible breadcrumb UI and BreadcrumbList schema on apartment detail pages; Schema.org VacationRental JSON-LD applied via SchemaOrg component; inline SVG wave added at hero bottom; lowestPrice passed to Page layout for sticky mobile CTA. Fallback apartment data (Lavanda, Tramuntana) now renders on detail pages when CMS not seeded — locale-aware names, taglines, descriptions, and amenities. Inline ternaries replaced with t() calls for bedrooms, price label, night, amenities title. Pricing table, availability calendar, gallery lightbox, and booking widget dependencies removed (REQ-AP-4, REQ-AP-5, REQ-AP-6, REQ-BK-1 deprecated). Pending live verification.
 
 ### REQ-AP-4: Seasonal Pricing
 

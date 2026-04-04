@@ -18,7 +18,7 @@ Cloudflare Workers runtime with Astro 6 and Emdash CMS as an Astro integration. 
 
 ## CON-A11Y: Accessibility
 
-WCAG 2.1 AA compliance. `prefers-reduced-motion` fully respected — all animations disabled, content immediately visible. Focus trapping on lightbox and fullscreen nav. Keyboard navigable throughout. Visible focus indicators. Semantic HTML with proper heading hierarchy and ARIA landmarks. Alt text on all meaningful images (per locale). No color-only information. Public accessibility statement.
+WCAG 2.1 AA compliance. `prefers-reduced-motion` fully respected — all animations disabled, content immediately visible. Focus trapping on lightbox and fullscreen nav. Keyboard navigable throughout. Visible focus indicators. Semantic HTML with proper heading hierarchy and ARIA landmarks. Alt text on all meaningful images (per locale). No color-only information. ~~Public accessibility statement~~ — Deprecated (REQ-TC-7).
 
 ## CON-I18N: Internationalization
 
@@ -42,4 +42,4 @@ Schema.org structured data: VacationRental, FAQPage, BreadcrumbList. `hreflang` 
 
 ## CON-LEGAL: EU/DACH Legal Compliance
 
-GDPR consent checkbox on inquiry form. Privacy policy with data controller, legal basis, retention periods, processor list, erasure rights. ~~Impressum always 1-click accessible and available in German~~ — Impressum deprecated (REQ-TC-3), not legally required for Croatian-based site. House rules and cancellation policy on apartment pages. Tourist tax disclosure. **PAngV compliance (German pricing law):** total price including all mandatory fees shown for German locale. Cleaning fee disclosed. "Estimate — confirmed by owner" disclaimer. Accessibility statement.
+GDPR consent checkbox on inquiry form. Privacy policy with data controller, legal basis, retention periods, processor list, erasure rights. ~~Impressum always 1-click accessible and available in German~~ — Impressum deprecated (REQ-TC-3), not legally required for Croatian-based site. House rules and cancellation policy on apartment pages. Tourist tax disclosure. **PAngV compliance (German pricing law):** total price including all mandatory fees shown for German locale. Cleaning fee disclosed. "Estimate — confirmed by owner" disclaimer.

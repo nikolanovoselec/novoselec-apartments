@@ -1,5 +1,25 @@
 # Changelog
 
+## 2026-04-04 - Revision 54: Cross-reference cleanup after deprecations
+
+### Requirements updated
+- **REQ-AP-3** (Apartment Detail Page): Dependencies updated — removed REQ-AP-4, REQ-AP-5, REQ-AP-6, REQ-BK-1 (all deprecated). Visual hierarchy AC items referencing deprecated features marked with strikethrough. Pricing table line removed from AC.
+- **REQ-SF-7** (Sticky Mobile CTA): Dependencies updated — REQ-BK-1 and REQ-AP-4 replaced with REQ-BK-8. AC removed reference to future booking widget.
+- **REQ-SF-6** (Footer): Removed "accessibility statement" from footer links in AC (page removed, REQ-TC-7 deprecated).
+- **REQ-VD-12** (Subpage Hero): Removed "accessibility statement" from subpage list in AC.
+- **REQ-SEO-4** (Multilingual Sitemap): Removed `pristupacnost` from public page list (page removed, REQ-TC-7 deprecated).
+- **REQ-SEO-6** (Local SEO): Dependency on REQ-TC-3 (Impressum, deprecated) removed.
+- **REQ-SEO-8** (Content Freshness): Dependency on REQ-CMS-4 (deprecated) replaced with REQ-CMS-9.
+
+### Constraints updated
+- **CON-A11Y**: Accessibility statement reference marked as deprecated (REQ-TC-7).
+- **CON-LEGAL**: Accessibility statement reference removed.
+
+### Structural note
+19 requirements are deprecated across CMS, Booking, and Apartments domains. Many non-deprecated requirements (editorial, i18n, performance, SEO) still list REQ-CMS-1/CMS-2/CMS-5 as dependencies. These references remain valid because the Emdash CMS platform still exists and functions — the deprecation was about specific admin UX features (section toggles, mobile admin dashboard, media library requirements), not the CMS infrastructure itself. REQ-CMS-9 (Cloudflare Access) is the active CMS auth requirement.
+
+---
+
 ## 2026-04-04 - Revision 53: User decisions - finalize partial requirements
 
 ### Requirements implemented (9)
