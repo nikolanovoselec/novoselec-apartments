@@ -16,7 +16,7 @@ const page = pages.find((p) => p.data.page_key === "about");
 const story = (page?.data.body as string) ?? "";
 ---
 
-<Page title={t(typedLocale, "hosts.title")} locale={typedLocale}>
+<Page title={t(typedLocale, "hosts.title")} locale={typedLocale} ogImage="https://apartmani.novoselec.ch/photos/pine-trees-golden.jpg">
   <HeroSimple title={t(typedLocale, "hosts.title")} image="/photos/pine-trees-golden.jpg" />
 
   <section class="section" data-reveal>
