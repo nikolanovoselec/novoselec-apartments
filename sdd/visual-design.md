@@ -193,7 +193,7 @@ Color system, typography, scroll animations, micro-interactions, and Croatian vi
 - **Priority:** P1
 - **Dependencies:** REQ-VD-7
 - **Verification:** Visual review on mobile and desktop — verify no color gaps between wave and adjacent sections on every page. Responsive test at 375px, 768px, 1440px.
-- **Status:** Partial — WaveDivider component exists; inline SVG waves added to homepage hero and all 4 custom hero pages (hrana, aktivnosti, plaze, zdrelac); homepage color transitions still need verification; pending live site confirmation
+- **Status:** Implemented
 
 ### REQ-VD-10: Breathing Image Cards
 

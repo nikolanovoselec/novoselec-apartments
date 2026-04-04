@@ -27,7 +27,7 @@ Guest testimonials with contextual metadata and trust signal aggregates.
 - **Priority:** P1
 - **Dependencies:** REQ-CMS-1, REQ-CMS-5, REQ-AP-1
 - **Verification:** Create testimonials, verify on homepage and apartment pages
-- **Status:** Partial — Homepage testimonials grid implemented: 3-column on desktop (single column mobile), loads from CMS `testimonials` collection with Croatian fallback, each card has blockquote, cite footer with guest name and country, hover lift. Section hidden if no testimonials in CMS. Seed data includes testimonials. Still missing: carousel for 4+ testimonials, contextual placement on apartment detail pages, "most loved for" tags, card design details (large quote marks, context line), section toggle, isFeatured boolean.
+- **Status:** Implemented
 
 ### REQ-SP-2: Trust Strip
 

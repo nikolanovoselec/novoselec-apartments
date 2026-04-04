@@ -1,5 +1,26 @@
 # Changelog
 
+## 2026-04-04 - Revision 53: User decisions - finalize partial requirements
+
+### Requirements implemented (9)
+- **REQ-SF-3** (Navigation): transparent-to-solid, hamburger, admin in footer
+- **REQ-SF-4** (Language Switcher): all 4 locales always active, no filtering needed
+- **REQ-SF-5** (Why Pašman + Ždrelac Section): cards + CMS content
+- **REQ-SF-6** (Footer): complete, impressum removed
+- **REQ-SF-7** (Sticky Mobile CTA): keep as is
+- **REQ-SP-1** (Testimonials): homepage grid is enough
+- **REQ-VD-9** (Wave Dividers): working, minor gap acceptable
+- **REQ-BK-8** (Contact Page): form + Turnstile + Resend working
+- **REQ-I18N-1** (Locale Routing): working
+
+### Requirements deprecated (3)
+- **REQ-AP-4** (Seasonal Pricing): no pricing on site, guests ask via inquiry
+- **REQ-BK-6** (Booking Business Rules): current inquiry flow sufficient
+- **REQ-TC-7** (Accessibility Statement): not needed for vacation rental
+
+---
+
+
 ## 2026-04-03 - Revision 52: Real island photos, Impressum cleanup, fallback removal completion
 
 ### Requirements updated

@@ -151,7 +151,7 @@ GDPR, privacy policy, house rules, cancellation policy, security headers, and ac
 - **Priority:** P2
 - **Dependencies:** REQ-CMS-1
 - **Verification:** Page exists and is accurate
-- **Status:** Partial — Page exists at `/{locale}/pristupacnost` with hardcoded content in all 4 locales. Footer links to it. States WCAG 2.1 AA target. Not CMS-managed (hardcoded). Contact info for accessibility feedback not explicitly included. Known limitations section not present.
+- **Status:** Deprecated - page removed, not needed for vacation rental
 
 ## Out of Scope
 

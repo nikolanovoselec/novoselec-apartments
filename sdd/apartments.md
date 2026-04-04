@@ -126,7 +126,7 @@ Apartment listings, detail pages, photo galleries, amenities, seasonal pricing, 
 - **Priority:** P0
 - **Dependencies:** REQ-AP-1, REQ-CMS-1
 - **Verification:** Test price computation across season boundaries
-- **Status:** Partial — `PricingTable.astro` component exists with season table, cleaning fee, tourist tax, and disclaimer. `pricing.ts` module handles cross-season computation, tourist tax, and cleaning fee. `seasons` seed data exists. However, PricingTable is NOT rendered on any page (dead component). Owner cannot define seasons in CMS (CMS schema not built). Pricing only used server-side in the inquiry API for estimate computation. Visitor-facing pricing table on apartment detail page is missing.
+- **Status:** Deprecated - no pricing on site, guests ask via inquiry
 
 ### REQ-AP-5: Availability Calendar
 
