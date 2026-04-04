@@ -51,9 +51,9 @@ See [Architecture](architecture.md#seed-data-structure) for full field-level det
 
 ### Media
 
-All photography is real and committed to `public/photos/` as static assets — no CDN or R2 dependency for current photos. Island/editorial photos serve hero carousels and page heroes. Apartment interior photos follow the naming convention `apt-nikola-*` (Lavanda, ground floor) and `apt-marko-*` (Tramuntana, upper floor). Apartment galleries reference these via the `gallery_json` CMS field.
+All photography is stored in the `apartmani-media` R2 bucket. No photos are committed to the repository. Images are served via `GET /api/img/:uuid` — see [Media Pipeline](architecture.md#media-pipeline) for the full serving route.
 
-Owner-uploaded photos (via R2 presigned PUT) remain supported for future use. The `/media/:key` route serves R2 objects with long-lived cache headers. See [Media Pipeline](architecture.md#media-pipeline) for the full current state.
+To add or replace photos, upload them through the Emdash media library (`/_emdash/admin`) or via the presigned PUT upload flow (`POST /admin/api/upload-url`). After upload, reference the returned UUID in the relevant CMS field (`gallery_json`, hero image, `collage` JSON array, etc.).
 
 
 
@@ -114,15 +114,14 @@ src/
   pages/          # Astro file-based routing
     [locale]/     # Public locale-prefixed pages
     admin/        # Admin panel and admin API routes
-    api/          # Public API routes (availability, track)
-    media/        # R2 image serving route
+    api/          # Public API routes (availability, img serving, track)
   schemas/        # Zod validation schemas
   styles/         # Global CSS design system
 migrations/       # D1 SQL migration files (applied via wrangler)
 seed/
   seed.json       # Emdash CMS seed — 6 collections, ~80 entries, all 4 locales
   media/          # Stock media sourcing plan (README.md)
-public/           # Static assets
+public/           # Static assets (fonts, favicon; no photos)
 wrangler.jsonc    # Cloudflare Worker configuration
 astro.config.mjs  # Astro build configuration
 ```

@@ -74,7 +74,7 @@ Apartment listings, detail pages, photo galleries, amenities, seasonal pricing, 
   - **Route:** `/{locale}/apartmani/{slug}` — dynamic route. Validates locale and slug; redirects to listing page if apartment not found or slug missing. Redirects to `/hr/` if locale is invalid.
   - **Current implementation (partial):**
     1. Hero: 60vh image (min 400px) with gradient overlay (transparent 40% to navy 75%), apartment name and tagline overlaid at bottom-left
-    2. Interior photo gallery: horizontal snap-scroll strip below hero, sourced from `gallery_json` CMS field (JSON array of `/photos/` paths). Interior photos only — exterior/terrace/BBQ photos are reserved for the homepage collage (REQ-VD-15). Each image 800x600 with 12px border-radius, first image eager-loaded, rest lazy. Renders only when `gallery_json` is populated.
+    2. Interior photo gallery: horizontal snap-scroll strip below hero, sourced from `gallery_json` CMS field (JSON array of R2 UUIDs served via `/api/img/{uuid}`). Interior photos only — exterior/terrace/BBQ photos are reserved for the homepage collage (REQ-VD-15). Each image 800x600 with 12px border-radius, first image eager-loaded, rest lazy. Renders only when `gallery_json` is populated.
     3. Description: plain text from CMS `description` field
     4. Meta grid: 2-column grid on stone background (12px radius) showing sleeps, bedrooms, size (m2), beach distance — locale-aware labels
     5. "Best for" line below meta grid
