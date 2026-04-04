@@ -8,7 +8,7 @@ Last updated: 2026-04-04
 - **REQ-CMS-6** (Preloaded Content): 171 CMS entries seeded. Missing: seed.json not synced with D1 content (drift). ~~48 Pexels URLs~~ DONE: zero Pexels remain
 - **REQ-PERF-1** (Image Pipeline): R2 serving works via /api/img/uuid. Missing: Cloudflare Image Resizing not enabled, no responsive srcset, no blurhash placeholders
 - **REQ-SEO-1** (Schema.org): LodgingBusiness on homepage, VacationRental on apartments, FAQPage on FAQ. Missing: BreadcrumbList on all subpages, Article schema on editorial pages
-- **REQ-SEO-2** (Open Graph): og:image on 10 pages. Missing: Twitter Card meta tags, per-apartment OG image via Image Resizing at 1200x630
+- **REQ-SEO-2** (Open Graph): og:image on 10 pages. Missing: per-apartment OG image via Image Resizing at 1200x630
 
 ## Spec: Planned Requirements (18) — P3 polish, not launch-blocking
 

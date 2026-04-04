@@ -37,13 +37,12 @@ Schema.org structured data, Open Graph, multilingual sitemap, keyword strategy, 
 - **Acceptance Criteria:**
   - OG image per apartment (hero photo via Image Resizing at 1200x630)
   - OG title, description per page per locale
-  - Twitter Card meta tags
   - Default OG image for non-apartment pages
 - **Constraints:** CON-SEO
 - **Priority:** P1
 - **Dependencies:** REQ-AP-1, REQ-CMS-2
 - **Verification:** Test sharing on WhatsApp, Facebook
-- **Status:** Partial — per-page OG images set on 10 subpages (zdrelac, aktivnosti, plaze, hrana, dolazak, vodic, o-nama, faq, kontakt, zasto-pasman) via `ogImage` prop on Page layout. Default fallback image applied to homepage, apartment listing, apartment detail, galerija, privatnost, and 404. OG title and description rendered per page per locale via Base.astro head. Still missing: per-apartment OG image (hero photo via Image Resizing at 1200x630); Twitter Card meta tags not yet present in Base.astro
+- **Status:** Partial — per-page OG images set on 10 subpages via `ogImage` prop on Page layout. Default fallback image applied to homepage, apartment listing, apartment detail, galerija, privatnost, and 404. OG title and description rendered per page per locale via Base.astro head. Still missing: per-apartment OG image (hero photo via Image Resizing at 1200x630)
 
 ### REQ-SEO-3: Analytics + Conversion Events
 
