@@ -36,7 +36,15 @@ const collageSection = getSection("collage");
 let collagePhotos: Array<{ src: string; alt: string }> = [];
 if (collageSection?.data.body) {
   try {
-    collagePhotos = JSON.parse(collageSection.data.body as string);
+    const raw = JSON.parse(collageSection.data.body as string);
+    if (Array.isArray(raw)) {
+      collagePhotos = raw.filter(
+        (item: unknown) =>
+          typeof item === "object" && item !== null &&
+          typeof (item as Record<string, unknown>).src === "string" &&
+          typeof (item as Record<string, unknown>).alt === "string"
+      );
+    }
   } catch { /* empty collage if JSON invalid */ }
 }
 

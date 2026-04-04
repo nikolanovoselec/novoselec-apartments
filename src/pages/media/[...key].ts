@@ -9,8 +9,8 @@ const env = _env as unknown as Env;
  */
 export const GET: APIRoute = async ({ params, url, locals }) => {
   const key = params.key;
-  if (!key) {
-    return new Response("Missing key", { status: 400 });
+  if (!key || key.includes("..") || key.startsWith("/")) {
+    return new Response("Invalid key", { status: 400 });
   }
 
   const bucket = env.MEDIA;

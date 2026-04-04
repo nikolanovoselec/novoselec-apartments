@@ -39,7 +39,9 @@ const { images, speed = 35 } = Astro.props;
   .scroll-collage__track {
     display: flex;
     gap: var(--space-md);
-    animation: scroll-collage 35s linear infinite;
+    animation-name: scroll-collage;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
     width: max-content;
   }
 
