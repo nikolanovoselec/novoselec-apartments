@@ -9,6 +9,7 @@ export interface LocalizedEntry {
 
 /**
  * Get all entries from an Emdash collection filtered by locale.
+ * Paginates through all pages (Emdash returns max 100 per page).
  * Falls back to Croatian if locale-specific content not found.
  */
 export async function getLocalizedCollection(
@@ -16,10 +17,24 @@ export async function getLocalizedCollection(
   locale: Locale,
 ): Promise<LocalizedEntry[]> {
   try {
-    const { entries } = await getEmDashCollection(collectionSlug);
-    if (!entries || entries.length === 0) return [];
+    // Paginate through ALL entries using Emdash's cursor-based pagination
+    const allEntries: unknown[] = [];
+    let cursor: string | undefined;
 
-    const mapped = entries.map(mapEntry);
+    do {
+      const result = await getEmDashCollection(collectionSlug, {
+        cursor,
+        limit: 100,
+      });
+      if (result.entries && result.entries.length > 0) {
+        allEntries.push(...result.entries);
+      }
+      cursor = (result as { nextCursor?: string }).nextCursor;
+    } while (cursor);
+
+    if (allEntries.length === 0) return [];
+
+    const mapped = allEntries.map(mapEntry);
 
     // Filter by: 1) entry locale, 2) data.locale field, 3) slug suffix convention (-hr, -de, etc.)
     const matchesLocale = (e: LocalizedEntry, loc: string): boolean =>
