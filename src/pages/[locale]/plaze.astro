@@ -1,15 +1,13 @@
 ---
 import Page from "~/layouts/Page.astro";
+import HeroSimple from "~/components/ui/HeroSimple.astro";
+import MiniCollage from "~/components/ui/MiniCollage.astro";
 import { isValidLocale, type Locale } from "~/i18n/config";
-import { getLocalizedCollection } from "~/lib/content";
+import { getLocalizedCollection, parsePhotoArray } from "~/lib/content";
 
 const { locale } = Astro.params;
 if (!locale || !isValidLocale(locale)) return Astro.redirect("/hr/", 302);
 const typedLocale = locale as Locale;
-
-const cmsEntries = (await getLocalizedCollection("editorial", typedLocale))
-  .filter((e) => e.data.page_key === "plaze")
-  .sort((a, b) => (Number(a.data.sort_order) || 0) - (Number(b.data.sort_order) || 0));
 
 const title: Record<Locale, string> = {
   hr: "Plaže", de: "Strände", sl: "Plaže", en: "Beaches",
@@ -21,35 +19,33 @@ const intro: Record<Locale, string> = {
   en: "Ždrelac was made for spontaneous swimming: a short walk, towel over your shoulder, and a sea that beckons at any time of day.",
 };
 
-// Content from CMS only - no fallback
+const cmsEntries = (await getLocalizedCollection("editorial", typedLocale))
+  .filter((e) => e.data.page_key === "plaze")
+  .sort((a, b) => (Number(a.data.sort_order) || 0) - (Number(b.data.sort_order) || 0));
+
+const sections = cmsEntries.map((e) => ({
+  title: (e.data.title as string) ?? "",
+  text: (e.data.body as string) ?? "",
+  image: (e.data.image as string) ?? "",
+  gallery: parsePhotoArray(e.data.gallery),
+}));
 ---
 
-<Page title={title[typedLocale]} locale={typedLocale} ogImage="https://apartmani.novoselec.ch/api/img/953b4b07-6c3a-4df1-8358-63a2997e6d24">
-  <section class="page-hero">
-    <img src="/api/img/953b4b07-6c3a-4df1-8358-63a2997e6d24" alt={title[typedLocale]} width="1920" height="1080" fetchpriority="high" />
-    <div class="page-hero__overlay">
-      <div class="container">
-        <h1>{title[typedLocale]}</h1>
-        <p class="page-hero__intro">{intro[typedLocale]}</p>
-      </div>
-    </div>
-    <svg class="page-hero__wave" viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <path d="M0,40 C180,80 360,0 540,40 C720,80 900,0 1080,40 C1260,80 1440,20 1440,40 L1440,80 L0,80 Z" fill="#F8F5EF" />
-    </svg>
-  </section>
+<Page title={title[typedLocale]} locale={typedLocale} ogImage={`https://apartmani.novoselec.ch${sections[0]?.image || "/api/img/953b4b07-6c3a-4df1-8358-63a2997e6d24"}`}>
+  <HeroSimple title={title[typedLocale]} intro={intro[typedLocale]} image={sections[0]?.image || "/api/img/953b4b07-6c3a-4df1-8358-63a2997e6d24"} />
 
-  {cmsEntries.map((e) => ({
-      title: (e.data.title as string) ?? "",
-      text: (e.data.body as string) ?? "",
-      image: (e.data.image as string) ?? "",
-      alt: (e.data.title as string) ?? "",
-    })).map((section, i) => (
+  {sections.map((section, i) => (
     <section class:list={["section", { "section--alt": i % 2 === 1 }]} data-reveal>
       <div class="container">
         <div class:list={["content-row", { "content-row--reverse": i % 2 === 1 }]}>
-          {section.image && (<div class="content-row__image">
-            <img src={section.image} alt={section.alt} width="800" height="600" loading="lazy" />
-          </div>)}
+          <div class="content-row__media">
+            <MiniCollage
+              images={section.gallery.length > 0
+                ? section.gallery
+                : section.image ? [{ src: section.image, alt: section.title }] : []}
+              speed={18 + i * 4}
+            />
+          </div>
           <div class="content-row__text">
             <h2>{section.title}</h2>
             <p class="text-lead">{section.text}</p>
@@ -59,56 +55,3 @@ const intro: Record<Locale, string> = {
     </section>
   ))}
 </Page>
-
-<style is:global>
-  .page-hero {
-    position: relative;
-    height: 60vh;
-    min-height: 400px;
-    overflow: hidden;
-  }
-  .page-hero__wave {
-    position: absolute;
-    bottom: -1px;
-    left: 0;
-    width: 100%;
-    height: clamp(40px, 6vw, 80px);
-    z-index: 3;
-    display: block;
-  }
-  .page-hero img {
-    width: 100%; height: 100%; object-fit: cover; display: block;
-  }
-  .page-hero__overlay {
-    position: absolute; inset: 0;
-    display: flex; align-items: flex-end;
-    background: linear-gradient(transparent 30%, rgba(10,31,51,0.8));
-    padding-bottom: var(--space-3xl);
-  }
-  .page-hero__overlay h1 {
-    color: var(--color-white);
-    font-size: clamp(2.5rem, 6vw, 5rem);
-  }
-  .page-hero__intro {
-    color: rgba(255,255,255,0.8);
-    font-size: var(--font-size-lg);
-    max-width: 600px;
-    margin-top: var(--space-md);
-    line-height: 1.7;
-  }
-  .content-row {
-    display: grid; grid-template-columns: 1fr; gap: var(--space-2xl); align-items: center;
-  }
-  @media (min-width: 768px) {
-    .content-row { grid-template-columns: 1fr 1fr; gap: var(--space-3xl); }
-    .content-row--reverse .content-row__text { order: 1; }
-    .content-row--reverse .content-row__image { order: 2; }
-  }
-  .content-row__image { overflow: hidden; border-radius: 20px 4px 20px 4px; box-shadow: 0 0 0 1px rgba(10,31,51,0.06), 0 12px 40px rgba(10,31,51,0.08); }
-  .content-row__image img {
-    width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block;
-    transition: transform 0.8s cubic-bezier(0.16,1,0.3,1);
-  }
-  .content-row:hover .content-row__image img { transform: scale(1.03); }
-  .content-row__text h2 { font-size: clamp(1.5rem, 3vw, 2.5rem); margin-bottom: var(--space-md); }
-</style>

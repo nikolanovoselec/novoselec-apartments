@@ -1,115 +1,59 @@
 ---
 import Page from "~/layouts/Page.astro";
 import HeroSimple from "~/components/ui/HeroSimple.astro";
+import MiniCollage from "~/components/ui/MiniCollage.astro";
 import { isValidLocale, type Locale } from "~/i18n/config";
 import { t } from "~/i18n/t";
-import { getLocalizedCollection } from "~/lib/content";
+import { getLocalizedCollection, parsePhotoArray } from "~/lib/content";
 
 const { locale } = Astro.params;
 if (!locale || !isValidLocale(locale)) return Astro.redirect("/hr/", 302);
 const typedLocale = locale as Locale;
 
-// Load from CMS — guide collection + editorial entries with page_key=vodic
 const cmsGuide = await getLocalizedCollection("guide", typedLocale);
 const cmsEditorial = (await getLocalizedCollection("editorial", typedLocale))
   .filter((e) => e.data.page_key === "vodic")
   .sort((a, b) => ((a.data.sort_order as number) ?? 0) - ((b.data.sort_order as number) ?? 0));
 
-// Merge all entries into unified card format
-const entries = [
+const sections = [
   ...cmsGuide
     .sort((a, b) => ((a.data.sort_order as number) ?? 0) - ((b.data.sort_order as number) ?? 0))
     .map((g) => ({
-      title: g.data.title as string,
+      title: (g.data.title as string) ?? "",
       text: (g.data.description as string) ?? "",
       image: (g.data.image as string) ?? "",
+      gallery: parsePhotoArray(g.data.gallery),
     })),
   ...cmsEditorial.map((e) => ({
     title: (e.data.title as string) ?? "",
     text: (e.data.body as string) ?? "",
     image: (e.data.image as string) ?? "",
+    gallery: parsePhotoArray(e.data.gallery),
   })),
 ];
 ---
 
-<Page title={t(typedLocale, "guide.title")} locale={typedLocale} ogImage="https://apartmani.novoselec.ch/api/img/c5d2a82f-a2de-45ef-96c2-3d2198ff3b35">
+<Page title={t(typedLocale, "guide.title")} locale={typedLocale} ogImage={`https://apartmani.novoselec.ch${sections[0]?.image || "/api/img/c5d2a82f-a2de-45ef-96c2-3d2198ff3b35"}`}>
   <HeroSimple title={t(typedLocale, "guide.title")} image="/api/img/c5d2a82f-a2de-45ef-96c2-3d2198ff3b35" />
 
-  <section class="section">
-    <div class="container">
-      <div class="guide-cards">
-        {entries.map((entry) => (
-          <div class="guide-card" data-reveal>
-            <div class="guide-card__image">
-              {entry.image && (
-                <img src={entry.image} alt={entry.title} width="800" height="600" loading="lazy" />
-              )}
-              <div class="card-overlay">
-                <span class="card-overlay__label">{entry.title}</span>
-              </div>
-            </div>
-            {entry.text && <p class="guide-card__text">{entry.text}</p>}
+  {sections.map((section, i) => (
+    <section class:list={["section", { "section--alt": i % 2 === 1 }]} data-reveal>
+      <div class="container">
+        <div class:list={["content-row", { "content-row--reverse": i % 2 === 1 }]}>
+          <div class="content-row__media">
+            <MiniCollage
+              images={section.gallery.length > 0
+                ? section.gallery
+                : section.image ? [{ src: section.image, alt: section.title }] : []}
+              speed={18 + i * 4}
+            />
           </div>
-        ))}
+          <div class="content-row__text">
+            <h2>{section.title}</h2>
+            <p class="text-lead">{section.text}</p>
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  ))}
 </Page>
-
-<style>
-  .guide-cards {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--space-md);
-  }
-
-  @media (min-width: 640px) {
-    .guide-cards {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .guide-cards {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-
-  .guide-card {
-    border-radius: 16px;
-    overflow: hidden;
-    background: var(--color-white);
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
-    transition: box-shadow 0.3s ease, transform 0.3s ease;
-  }
-
-  .guide-card:hover {
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-    transform: translateY(-2px);
-  }
-
-  .guide-card__image {
-    position: relative;
-    aspect-ratio: 4 / 3;
-    overflow: hidden;
-    background: var(--color-navy);
-  }
-
-  .guide-card__image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.6s ease;
-  }
-
-  .guide-card:hover .guide-card__image img {
-    transform: scale(1.06);
-  }
-
-  .guide-card__text {
-    padding: var(--space-md) var(--space-lg);
-    font-size: var(--font-size-sm);
-    line-height: 1.6;
-    color: var(--color-text);
-  }
-</style>

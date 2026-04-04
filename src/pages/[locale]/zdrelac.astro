@@ -1,55 +1,43 @@
 ---
 import Page from "~/layouts/Page.astro";
+import HeroSimple from "~/components/ui/HeroSimple.astro";
+import MiniCollage from "~/components/ui/MiniCollage.astro";
 import { isValidLocale, type Locale } from "~/i18n/config";
 import { t } from "~/i18n/t";
-import { getLocalizedCollection } from "~/lib/content";
+import { getLocalizedCollection, parsePhotoArray } from "~/lib/content";
 
 const { locale } = Astro.params;
 if (!locale || !isValidLocale(locale)) return Astro.redirect("/hr/", 302);
 const typedLocale = locale as Locale;
 
-// Try CMS first
-const cmsEntries = await getLocalizedCollection("editorial", typedLocale);
-const cmsZdrelac = cmsEntries
+const cmsEntries = (await getLocalizedCollection("editorial", typedLocale))
   .filter((e) => e.data.page_key === "zdrelac")
   .sort((a, b) => ((a.data.sort_order as number) ?? 0) - ((b.data.sort_order as number) ?? 0));
 
-// No fallback - content comes from CMS only
-
-// CMS content
-const pageTitle = "Ždrelac";
-const pageIntro = "";
-const sections = cmsZdrelac.map((e) => ({
+const sections = cmsEntries.map((e) => ({
   title: (e.data.title as string) ?? "",
   text: (e.data.body as string) ?? "",
   image: (e.data.image as string) ?? "",
-  alt: (e.data.title as string) ?? "",
+  gallery: parsePhotoArray(e.data.gallery),
 }));
 ---
 
-<Page title={pageTitle} locale={typedLocale} ogImage="https://apartmani.novoselec.ch/api/img/aa0fd53c-5d96-4a78-a5b5-0f68b543515a">
-  {/* Village hero with aerial image */}
-  <section class="village-hero">
-    <img src="/api/img/aa0fd53c-5d96-4a78-a5b5-0f68b543515a" alt={`${pageTitle} - Pašman`} width="1920" height="1080" fetchpriority="high" />
-    <div class="village-hero__overlay">
-      <div class="container">
-        <h1>{pageTitle}</h1>
-        {pageIntro && <p class="village-hero__intro">{pageIntro}</p>}
-      </div>
-    </div>
-    <svg class="village-hero__wave" viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <path d="M0,40 C180,80 360,0 540,40 C720,80 900,0 1080,40 C1260,80 1440,20 1440,40 L1440,80 L0,80 Z" fill="#F8F5EF" />
-    </svg>
-  </section>
+<Page title="Ždrelac" locale={typedLocale} ogImage="https://apartmani.novoselec.ch/api/img/aa0fd53c-5d96-4a78-a5b5-0f68b543515a">
+  <HeroSimple title="Ždrelac" image="/api/img/aa0fd53c-5d96-4a78-a5b5-0f68b543515a" />
 
   {sections.map((section, i) => (
     <section class:list={["section", { "section--alt": i % 2 === 1 }]} data-reveal>
       <div class="container">
-        <div class:list={["village-row", { "village-row--reverse": i % 2 === 1 }]}>
-          {section.image && (<div class="village-row__image">
-            <img src={section.image} alt={section.alt} width="800" height="600" loading="lazy" />
-          </div>)}
-          <div class="village-row__content">
+        <div class:list={["content-row", { "content-row--reverse": i % 2 === 1 }]}>
+          <div class="content-row__media">
+            <MiniCollage
+              images={section.gallery.length > 0
+                ? section.gallery
+                : section.image ? [{ src: section.image, alt: section.title }] : []}
+              speed={18 + i * 4}
+            />
+          </div>
+          <div class="content-row__text">
             <h2>{section.title}</h2>
             <p class="text-lead">{section.text}</p>
           </div>
@@ -66,100 +54,3 @@ const sections = cmsZdrelac.map((e) => ({
     </div>
   </section>
 </Page>
-
-<style>
-  .village-hero {
-    position: relative;
-    min-height: 360px;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: calc(var(--nav-height) + var(--space-3xl)) 0 var(--space-2xl);
-  }
-  .village-hero__wave {
-    position: absolute;
-    bottom: -1px;
-    left: 0;
-    width: 100%;
-    height: clamp(40px, 6vw, 80px);
-    z-index: 3;
-    display: block;
-  }
-
-  .village-hero img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    z-index: 0;
-  }
-
-  .village-hero__overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, rgba(10, 31, 51, 0.5) 0%, rgba(10, 31, 51, 0.7) 100%);
-    z-index: 1;
-    display: flex;
-    align-items: center;
-  }
-
-  .village-hero__overlay h1 {
-    color: var(--color-white);
-    font-size: clamp(2.25rem, 5vw, 4rem);
-    letter-spacing: -0.02em;
-    font-weight: 400;
-  }
-
-  .village-hero__intro {
-    color: rgba(255, 255, 255, 0.8);
-    font-size: var(--font-size-lg);
-    max-width: 600px;
-    margin-top: var(--space-md);
-    line-height: 1.7;
-  }
-
-  .village-row {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--space-2xl);
-    align-items: center;
-  }
-
-  @media (min-width: 768px) {
-    .village-row {
-      grid-template-columns: 1fr 1fr;
-      gap: var(--space-3xl);
-    }
-    .village-row--reverse .village-row__image {
-      order: 2;
-    }
-    .village-row--reverse .village-row__content {
-      order: 1;
-    }
-  }
-
-  .village-row__image {
-    overflow: hidden;
-    border-radius: 16px;
-  }
-
-  .village-row__image img {
-    width: 100%;
-    aspect-ratio: 4 / 3;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .village-row:hover .village-row__image img {
-    transform: scale(1.03);
-  }
-
-  .village-row__content h2 {
-    font-size: clamp(1.5rem, 3vw, 2.5rem);
-    margin-bottom: var(--space-md);
-  }
-</style>
