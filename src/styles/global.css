@@ -691,3 +691,20 @@ p {
   grid-column: 1 / -1;
 }
 
+/* ---------- Editorial Section (vertical: title → strip → text) ---------- */
+.editorial-title {
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  margin-bottom: var(--space-lg);
+}
+
+.editorial-strip {
+  margin: 0 0 var(--space-xl);
+}
+
+.editorial-text {
+  font-size: var(--font-size-lg);
+  line-height: 1.8;
+  max-width: 70ch;
+  color: var(--color-warm-gray);
+}
+

@@ -29,26 +29,26 @@ const appleMapsUrl = "https://maps.apple.com/?ll=44.010669,15.285480&q=Apartmani
 <Page title={t(typedLocale, "gettingHere.title")} locale={typedLocale} ogImage={`https://apartmani.novoselec.ch${sections[0]?.image || "/api/img/1203a417-fbf4-4065-bef9-233b75a4af44"}`}>
   <HeroSimple title={t(typedLocale, "gettingHere.title")} image={sections[0]?.image || "/api/img/1203a417-fbf4-4065-bef9-233b75a4af44"} />
 
-  {sections.map((section, i) => (
-    <section class:list={["section", { "section--alt": i % 2 === 1 }]} data-reveal>
-      <div class="container">
-        <div class:list={["content-row", { "content-row--reverse": i % 2 === 1 }]}>
-          <div class="content-row__media">
-            <MiniCollage
-              images={section.gallery.length > 0
-                ? section.gallery
-                : section.image ? [{ src: section.image, alt: section.title }] : []}
-              speed={18 + i * 4}
-            />
-          </div>
-          <div class="content-row__text">
-            <h2>{section.title}</h2>
-            <p class="text-lead" set:html={section.text.replace(/<(?!\/?(a|br|em|strong)\b)[^>]+>/gi, '')} />
-          </div>
+  {sections.map((section, i) => {
+    const photos = section.gallery.length > 0
+      ? section.gallery
+      : section.image ? [{ src: section.image, alt: section.title }] : [];
+    return (
+      <section class:list={["section", { "section--alt": i % 2 === 1 }]} data-reveal>
+        <div class="container">
+          <h2 class="editorial-title">{section.title}</h2>
         </div>
-      </div>
-    </section>
-  ))}
+        {photos.length > 0 && (
+          <div class="editorial-strip">
+            <MiniCollage images={photos} speed={18 + i * 4} />
+          </div>
+        )}
+        <div class="container">
+          <p class="editorial-text" set:html={section.text.replace(/<(?!\/?(a|br|em|strong)\b)[^>]+>/gi, '')} />
+        </div>
+      </section>
+    );
+  })}
 
   <section class="section section--dark" data-reveal>
     <div class="container text-center">
