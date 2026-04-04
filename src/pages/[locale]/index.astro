@@ -207,6 +207,13 @@ const oliveOilLabel: Record<Locale, string> = {
             <span class="card-overlay__title">{t(typedLocale, "homepage.triptych.beachesSubtitle")}</span>
           </div>
         </a>
+        <a href={`/${typedLocale}/vodic`} class="triptych__item">
+          <img src="/photos/church-tower.jpg" alt="Historic bell tower on Pašman island" width="600" height="750" loading="lazy" />
+          <div class="card-overlay">
+            <span class="card-overlay__label">{t(typedLocale, "nav.localGuide")}</span>
+            <span class="card-overlay__title">{t(typedLocale, "homepage.triptych.guideSubtitle")}</span>
+          </div>
+        </a>
       </div>
     </div>
   </section>
@@ -462,8 +469,14 @@ const oliveOilLabel: Record<Locale, string> = {
      ============================================================ */
   .triptych {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: var(--space-md);
+  }
+
+  @media (min-width: 768px) {
+    .triptych {
+      grid-template-columns: repeat(4, 1fr);
+    }
   }
 
   .triptych__item {
