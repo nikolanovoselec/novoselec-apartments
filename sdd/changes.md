@@ -1,5 +1,27 @@
 # Changelog
 
+## 2026-04-04 - Revision 68: Standardize all R2 image keys to UUID format
+
+### Requirements updated
+- **REQ-CMS-2** (Media Library): Object key description updated from "descriptive slugs or opaque UUIDs" to "UUIDs" only.
+- **REQ-CMS-6** (Preloaded Content): Image key description updated from "descriptive keys" to "UUID keys."
+- **REQ-PERF-1** (Image Serving Pipeline): Acceptance criteria and status updated — object keys now described as "UUIDs" only, removing descriptive slug examples. Status updated from "descriptive keys" to "UUID keys."
+- **REQ-VD-12** (Subpage Hero Pattern): Status updated — "descriptive slugs" replaced with "UUID keys."
+- **REQ-VD-14** (Unique Imagery Per Page): Status updated — "descriptive keys" replaced with "UUID keys."
+- **REQ-SF-8** (Gallery Page): Acceptance criteria and status updated — "descriptive slug keys" replaced with "UUID keys," removed example slug names.
+
+### Constraints updated
+- **CON-STACK**: R2 object key description updated from "descriptive slugs or opaque UUIDs" to "UUIDs."
+- **CON-PERF**: Image key description updated from "descriptive slug or UUID keys" to "UUID keys."
+
+### Glossary updated
+- **Image Resizing**: Route key description updated from "descriptive slug or UUID" to "UUID."
+
+### Cross-cutting
+- All R2 image keys standardized to UUID format, matching Emdash's native upload format. Previously there was a mix of descriptive slugs (e.g., `island-hiking-trail`) and UUIDs. Now everything uses UUIDs consistently.
+
+---
+
 ## 2026-04-04 - Revision 67: Real photos replace all stock imagery, R2 descriptive keys, Zadar guide
 
 ### Requirements updated

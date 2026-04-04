@@ -158,7 +158,7 @@ The homepage and visual shell — hero, navigation, footer, language switcher, a
 - **Intent:** Showcase the property and destination through a curated photo collection
 - **Applies To:** Visitor
 - **Acceptance Criteria:**
-  - **Current implementation:** Standalone page at `/{locale}/galerija` with `HeroSimple` photo-backed header (REQ-VD-12) and locale-aware title. Image grid using masonry-like layout with alternating aspect ratios (4:3 default, 3:4 for every 3n+1 item, 1:1 for every 3n+3 item). 2-column grid on mobile, 3-column on desktop (768px+ breakpoint). Each image wrapped in a card with 12px border-radius, subtle shadow, hover lift (translateY -4px with enhanced shadow), and image zoom on hover (1.05x). Per-locale alt text and captions on each image. Captions displayed below image in muted text. Staggered reveal animation via `data-reveal-stagger`. All images served from R2 via `/api/img/{key}` Worker route with descriptive slug keys (e.g., `island-village-harbor`, `island-beach-cove`) — real island photos, zero stock photography.
+  - **Current implementation:** Standalone page at `/{locale}/galerija` with `HeroSimple` photo-backed header (REQ-VD-12) and locale-aware title. Image grid using masonry-like layout with alternating aspect ratios (4:3 default, 3:4 for every 3n+1 item, 1:1 for every 3n+3 item). 2-column grid on mobile, 3-column on desktop (768px+ breakpoint). Each image wrapped in a card with 12px border-radius, subtle shadow, hover lift (translateY -4px with enhanced shadow), and image zoom on hover (1.05x). Per-locale alt text and captions on each image. Captions displayed below image in muted text. Staggered reveal animation via `data-reveal-stagger`. All images served from R2 via `/api/img/{key}` Worker route with UUID keys — real island photos, zero stock photography.
   - **With CMS (planned):** Owner uploads and reorders gallery photos via Emdash media library. Mix of apartment and destination images.
   - Accessible from primary navigation in all locales
   - Linked from navigation as top-level page (between Ždrelac and Getting Here)
@@ -166,7 +166,7 @@ The homepage and visual shell — hero, navigation, footer, language switcher, a
 - **Priority:** P1
 - **Dependencies:** None
 - **Verification:** Visual review + responsive check on mobile/desktop
-- **Status:** Implemented — 12 real island photos with descriptive R2 keys (e.g., `island-village-harbor`, `island-crystal-sea`); accurate per-locale alt text and captions in all 4 locales via inline `t4()` helper; each alt describes what the photo actually depicts (e.g., "Ždrelac harbour", "Turquoise bay", "Hilltop panorama") rather than generic labels; zero stock photos remain
+- **Status:** Implemented — 12 real island photos with UUID keys; accurate per-locale alt text and captions in all 4 locales via inline `t4()` helper; each alt describes what the photo actually depicts (e.g., "Zdrelac harbour", "Turquoise bay", "Hilltop panorama") rather than generic labels; zero stock photos remain
 
 ## Out of Scope
 

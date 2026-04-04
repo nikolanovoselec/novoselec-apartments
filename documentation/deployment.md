@@ -53,16 +53,11 @@ See [Architecture](architecture.md#seed-data-structure) for full field-level det
 
 All photography is stored in the `apartmani-media` R2 bucket. No photos are committed to the repository. Images are served via `GET /api/img/:key` — see [Media Pipeline](architecture.md#media-pipeline) for the full serving route.
 
-Two R2 key formats are in use:
+All R2 keys use UUID format (e.g., `aa0fd53c-5d96-4a78-a5b5-0f68b543515a.jpg`), matching Emdash's native upload format. This applies to all photos — both those bulk-loaded at setup and those uploaded later through the CMS.
 
-| Format | Used for | Example |
-|---|---|---|
-| Descriptive slug | Bulk-uploaded real photos hardcoded in CMS entries or page source | `nikola-kitchen` |
-| `<uuid>.<ext>` | Photos uploaded through the admin media library | `aa0fd53c-5d96-4a78.jpg` |
+To add photos, upload through Emdash (`/_emdash/admin`) or via the presigned PUT flow (`POST /admin/api/upload-url`). The route returns a UUID key — reference it in the relevant CMS field (`gallery_json`, hero image, `collage` JSON array, etc.).
 
-To add photos via the CMS media library, upload through Emdash (`/_emdash/admin`) or via the presigned PUT flow (`POST /admin/api/upload-url`). The route returns a UUID-based key — reference it in the relevant CMS field (`gallery_json`, hero image, `collage` JSON array, etc.).
-
-See `seed/media/README.md` for the full inventory of descriptive-key photos.
+See `seed/media/README.md` for the full inventory of uploaded photos.
 
 
 

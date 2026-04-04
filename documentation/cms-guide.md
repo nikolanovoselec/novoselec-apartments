@@ -23,19 +23,16 @@ How to manage content, photos, and settings from your phone.
 
 All photos are stored in R2 and served via `/api/img/:key`. No photos are committed to the repository.
 
-Two types of R2 keys exist:
+All R2 keys use UUID format, matching Emdash's native upload format (e.g., `aa0fd53c-5d96-4a78-a5b5-0f68b543515a.jpg`). Every photo — whether uploaded through the CMS media library or bulk-loaded at setup — is stored under a UUID key.
 
-- **Descriptive keys** — used for the 68 real photos bulk-uploaded in April 2026 (e.g., `nikola-kitchen`, `food-peka-embers`, `zadar-colorful-rooftops`). These are hardcoded in CMS entries or page source.
-- **UUID keys** — generated automatically when you upload a photo through the CMS media library (e.g., `aa0fd53c-5d96-4a78-a5b5-0f68b543515a.jpg`).
-
-Both types are referenced as `/api/img/<key>` URLs. The key is whatever was used at upload time.
+Photos are referenced as `/api/img/<key>` URLs.
 
 Apartment galleries are controlled by the **Gallery (JSON array)** (`gallery_json`) field in each apartment entry. The value is a JSON array of `/api/img/:key` URL strings.
 
 **To update a gallery via CMS:**
 1. Open Admin → Apartments → select apartment
 2. Find the **Gallery (JSON array)** field
-3. Edit the JSON array — each entry is a URL string, e.g. `"/api/img/nikola-kitchen"` or `"/api/img/aa0fd53c-5d96-4a78-a5b5-0f68b543515a"`
+3. Edit the JSON array — each entry is a URL string, e.g. `"/api/img/aa0fd53c-5d96-4a78-a5b5-0f68b543515a.jpg"`
 4. Save and publish
 
 **To add new photos:**

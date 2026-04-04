@@ -31,7 +31,7 @@
 | **PAngV** | Preisangabenverordnung — German pricing transparency regulation requiring total price display including all mandatory fees. |
 | **Magic Link** | Passwordless authentication method where a one-time code is sent to the user's email. **Deprecated** — replaced by Cloudflare Access for admin authentication (REQ-CMS-9). |
 | **Cloudflare Access** | Cloudflare's zero-trust identity-aware proxy. Protects the Emdash admin panel by requiring authentication (email OTP, SSO, or other identity providers) before requests reach the Worker. Configured via the `access()` plugin from `@emdash-cms/cloudflare`. |
-| **Image Resizing** | Cloudflare service that transforms images on-the-fly at the edge. Applied via `cf: { image: { ... } }` on Worker fetch responses from private R2 (through the `/api/img/{key}` route, where key is a descriptive slug or UUID). Avoids Worker-side image processing. |
+| **Image Resizing** | Cloudflare service that transforms images on-the-fly at the edge. Applied via `cf: { image: { ... } }` on Worker fetch responses from private R2 (through the `/api/img/{key}` route, where key is a UUID). Avoids Worker-side image processing. |
 | **NAP** | Name, Address, Phone — consistency across all web presences is critical for local SEO. |
 | **GBP** | Google Business Profile — local business listing on Google Maps. |
 | **GSAP** | GreenSock Animation Platform — JavaScript animation library. Used optionally for max 1 signature scroll animation per page when CSS alone cannot achieve the effect. Gated to <20KB bundle contribution. |
