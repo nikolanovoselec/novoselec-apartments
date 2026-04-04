@@ -15,45 +15,79 @@ const cmsEditorial = (await getLocalizedCollection("editorial", typedLocale))
   .filter((e) => e.data.page_key === "vodic")
   .sort((a, b) => ((a.data.sort_order as number) ?? 0) - ((b.data.sort_order as number) ?? 0));
 
-// CMS only — no fallback
-const categories = cmsGuide.length > 0
-  ? cmsGuide
-      .sort((a, b) => ((a.data.sort_order as number) ?? 0) - ((b.data.sort_order as number) ?? 0))
-      .map((g) => ({
-        title: g.data.title as string,
-        description: g.data.description as string,
-        image: (g.data.image as string) ?? "",
-      }))
-  : [];
+// Merge all entries into unified card format
+const entries = [
+  ...cmsGuide
+    .sort((a, b) => ((a.data.sort_order as number) ?? 0) - ((b.data.sort_order as number) ?? 0))
+    .map((g) => ({
+      title: g.data.title as string,
+      text: (g.data.description as string) ?? "",
+      image: (g.data.image as string) ?? "",
+    })),
+  ...cmsEditorial.map((e) => ({
+    title: (e.data.title as string) ?? "",
+    text: (e.data.body as string) ?? "",
+    image: (e.data.image as string) ?? "",
+  })),
+];
 ---
 
 <Page title={t(typedLocale, "guide.title")} locale={typedLocale}>
   <HeroSimple title={t(typedLocale, "guide.title")} image="/photos/pine-forest-child.jpg" />
 
-  {/* All content in one unified layout */}
-  {[...categories.map((cat) => ({
-    title: cat.title,
-    text: cat.description,
-    image: cat.image,
-  })), ...cmsEditorial.map((e) => ({
-    title: (e.data.title as string) ?? "",
-    text: (e.data.body as string) ?? "",
-    image: (e.data.image as string) ?? "",
-  }))].map((section, i) => (
-    <section class:list={["section", { "section--alt": i % 2 === 1 }]} data-reveal>
-      <div class="container">
-        <div class:list={["content-row", { "content-row--reverse": i % 2 === 1 }]}>
-          {section.image && (
-            <div class="content-row__image">
-              <img src={section.image} alt={section.title} width="800" height="600" loading="lazy" />
+  <section class="section">
+    <div class="container">
+      <div class="guide-cards">
+        {entries.map((entry) => (
+          <div class="guide-card" data-reveal>
+            {entry.image && (
+              <img src={entry.image} alt={entry.title} width="800" height="600" loading="lazy" />
+            )}
+            <div class="card-overlay">
+              <span class="card-overlay__label">{entry.title}</span>
+              {entry.text && <span class="card-overlay__title">{entry.text}</span>}
             </div>
-          )}
-          <div class="content-row__text">
-            <h2>{section.title}</h2>
-            <p class="text-lead">{section.text}</p>
           </div>
-        </div>
+        ))}
       </div>
-    </section>
-  ))}
+    </div>
+  </section>
 </Page>
+
+<style>
+  .guide-cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+
+  @media (min-width: 640px) {
+    .guide-cards {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .guide-cards {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .guide-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+    aspect-ratio: 4 / 3;
+  }
+
+  .guide-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+
+  .guide-card:hover img {
+    transform: scale(1.06);
+  }
+</style>

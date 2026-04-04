@@ -9,114 +9,88 @@ const { locale } = Astro.params;
 if (!locale || !isValidLocale(locale)) return Astro.redirect("/hr/", 302);
 const typedLocale = locale as Locale;
 
-// Load from CMS
-const pages = await getLocalizedCollection("editorial", typedLocale);
-const page = pages.find((p) => p.data.page_key === "getting-here");
+// Load from CMS - individual editorial entries
+const cmsEntries = (await getLocalizedCollection("editorial", typedLocale))
+  .filter((e) => e.data.page_key === "dolazak")
+  .sort((a, b) => ((a.data.sort_order as number) ?? 0) - ((b.data.sort_order as number) ?? 0));
 
-type TransportSection = { key: string; route?: string; duration?: string; operator?: string; tip?: string; title?: string; text?: string; distance?: string };
-let sections: TransportSection[] = [];
+const sections = cmsEntries.map((e) => ({
+  title: (e.data.title as string) ?? "",
+  text: (e.data.body as string) ?? "",
+  image: (e.data.image as string) ?? "",
+}));
 
-if (page?.data.sections_json) {
-  try {
-    sections = JSON.parse(page.data.sections_json as string);
-  } catch { /* fallback below */ }
-}
-
-// No fallback - content from CMS only
-const ferry = sections.find((s) => s.key === "ferry") ?? { route: "", duration: "", operator: "", tip: "" };
-const altRoute = sections.find((s) => s.key === "alt-route") ?? { title: "", text: "" };
-const airport = sections.find((s) => s.key === "airport") ?? { title: "", distance: "", text: "" };
+const address = "Fratarsko 3, 23271 Ždrelac, Croatia";
+const mapsLat = "44.0261";
+const mapsLng = "15.2236";
 ---
 
 <Page title={t(typedLocale, "gettingHere.title")} locale={typedLocale}>
   <HeroSimple title={t(typedLocale, "gettingHere.title")} image="/photos/marina-harbor.jpg" />
 
-  {/* Ferry section */}
-  <section class="section" data-reveal>
-    <div class="container">
-      <h2>{t(typedLocale, "gettingHere.ferry")}</h2>
-      <div class="section-divider" style="margin: var(--space-lg) 0;"></div>
-      <div class="info-card">
-        <p class="info-card__route">{ferry.route}</p>
-        <p class="info-card__detail">{ferry.duration} · {ferry.operator}</p>
-        <p class="info-card__tip">{ferry.tip}</p>
-        <a href="https://www.jadrolinija.hr" target="_blank" rel="noopener noreferrer" class="btn" style="margin-top: var(--space-lg);">
-          Jadrolinija.hr
-        </a>
+  {/* Content sections from CMS */}
+  {sections.map((section, i) => (
+    <section class:list={["section", { "section--alt": i % 2 === 1 }]} data-reveal>
+      <div class="container">
+        <div class:list={["content-row", { "content-row--reverse": i % 2 === 1 }]}>
+          {section.image && (
+            <div class="content-row__image">
+              <img src={section.image} alt={section.title} width="800" height="600" loading="lazy" />
+            </div>
+          )}
+          <div class="content-row__text">
+            <h2>{section.title}</h2>
+            <p class="text-lead" set:html={section.text} />
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  ))}
 
-  {/* Alternative route */}
-  <section class="section section--alt" data-reveal>
-    <div class="container">
-      <h2>{altRoute.title}</h2>
-      <div class="section-divider" style="margin: var(--space-lg) 0;"></div>
-      <p class="text-lead">{altRoute.text}</p>
-    </div>
-  </section>
-
-  {/* Airport */}
-  <section class="section" data-reveal>
-    <div class="container">
-      <h2>{airport.title}</h2>
-      <div class="section-divider" style="margin: var(--space-lg) 0;"></div>
-      <p class="info-card__detail">{airport.distance}</p>
-      <p style="margin-top: var(--space-md);">{airport.text}</p>
-    </div>
-  </section>
-
-  {/* Map links */}
-  <section class="section section--alt" data-reveal>
+  {/* Address + Maps */}
+  <section class="section section--dark" data-reveal>
     <div class="container text-center">
-      <h3>{t(typedLocale, "gettingHere.viewOnMap")}</h3>
-      <div style="display: flex; gap: var(--space-md); justify-content: center; flex-wrap: wrap; margin-top: var(--space-lg);">
-        <a href="https://maps.google.com/?q=Ždrelac,+Pašman,+Croatia" target="_blank" rel="noopener noreferrer" class="btn">
+      <h2 style="color: var(--color-white); margin-bottom: var(--space-sm);">{t(typedLocale, "gettingHere.ourAddress")}</h2>
+      <p class="address-text">{address}</p>
+      <div class="map-buttons">
+        <a href={`https://www.google.com/maps/search/?api=1&query=${mapsLat},${mapsLng}`} target="_blank" rel="noopener noreferrer" class="btn btn--ghost">
           Google Maps
         </a>
-        <a href="https://maps.apple.com/?q=Ždrelac,+Pašman,+Croatia" target="_blank" rel="noopener noreferrer" class="btn">
+        <a href={`https://maps.apple.com/?ll=${mapsLat},${mapsLng}&q=Apartmani+Novoselec`} target="_blank" rel="noopener noreferrer" class="btn btn--ghost">
           Apple Maps
         </a>
       </div>
     </div>
   </section>
-
-  {/* Transfer offer */}
-  <section class="section" data-reveal>
-    <div class="container text-center">
-      <p class="transfer-text">{t(typedLocale, "gettingHere.transfer")}</p>
-    </div>
-  </section>
 </Page>
 
 <style>
-  .info-card {
-    margin-top: var(--space-lg);
-  }
-
-  .info-card__route {
+  .address-text {
     font-family: var(--font-serif);
     font-size: var(--font-size-2xl);
-    color: var(--color-navy);
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: var(--space-xl);
   }
 
-  .info-card__detail {
-    font-size: var(--font-size-lg);
-    color: var(--color-text-light);
-    margin-top: var(--space-sm);
+  .map-buttons {
+    display: flex;
+    gap: var(--space-md);
+    justify-content: center;
+    flex-wrap: wrap;
   }
 
-  .info-card__tip {
-    margin-top: var(--space-md);
-    padding: var(--space-md);
-    background: var(--color-stone);
+  .btn--ghost {
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: var(--color-white);
+    padding: var(--space-sm) var(--space-xl);
     border-radius: var(--radius-md);
+    text-decoration: none;
     font-size: var(--font-size-sm);
+    transition: all var(--duration-fast);
   }
 
-  .transfer-text {
-    font-family: var(--font-serif);
-    font-size: var(--font-size-2xl);
-    color: var(--color-navy);
+  .btn--ghost:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.5);
   }
 </style>
