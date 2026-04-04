@@ -298,7 +298,7 @@ Color system, typography, scroll animations, micro-interactions, and Croatian vi
   - Pauses on hover (`:hover` sets `animation-play-state: paused`)
   - Reduced motion: animation disabled, fallback to static display with `overflow-x: auto`
   - Accessibility: `aria-roledescription="carousel"`, duplicate images get `aria-hidden="true"`
-  - Photos sourced from CMS editorial entry (`page_key=homepage`, `section_key=collage`, `gallery` JSON field)
+  - Photos sourced from CMS editorial entry (`page_key=homepage`, `section_key=collage`, `body` field containing JSON array of `{src, alt}` objects)
   - Owner manages collage by editing the gallery array in Emdash admin — add/remove photos without code changes
   - Placed on homepage in the apartments section (`section--dark`), after the text content
 - **Constraints:** CON-PERF, CON-A11Y

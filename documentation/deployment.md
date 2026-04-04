@@ -49,9 +49,11 @@ The endpoint is idempotent — it is safe to call multiple times. After seeding,
 
 See [Architecture](architecture.md#seed-data-structure) for full field-level details.
 
-### Media seed plan
+### Media
 
-`seed/media/README.md` tracks royalty-free stock photo sources (Pexels, Pixabay, Unsplash) organized by category: hero/landscape, apartment interiors, editorial, local guide. Stock photos will be uploaded to R2 with descriptive slug keys (e.g., `hero-turquoise-sea.jpg`) once the `/media/:key` routing issue is resolved. Until then, homepage stock photos are served as direct Pexels CDN URLs. Owner-uploaded apartment photos use UUID keys. See [Media Pipeline](architecture.md#media-pipeline) for the full current state.
+All photography is real and committed to `public/photos/` as static assets — no CDN or R2 dependency for current photos. Island/editorial photos serve hero carousels and page heroes. Apartment interior photos follow the naming convention `apt-nikola-*` (Lavanda, ground floor) and `apt-marko-*` (Tramuntana, upper floor). Apartment galleries reference these via the `gallery_json` CMS field.
+
+Owner-uploaded photos (via R2 presigned PUT) remain supported for future use. The `/media/:key` route serves R2 objects with long-lived cache headers. See [Media Pipeline](architecture.md#media-pipeline) for the full current state.
 
 
 

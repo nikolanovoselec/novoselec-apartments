@@ -21,11 +21,43 @@ How to manage content, photos, and settings from your phone.
 
 ### Updating Photos
 
+Apartment galleries are controlled by the **Gallery (JSON array)** (`gallery_json`) field in each apartment entry. The value is a JSON array of root-relative paths pointing to photos committed in `public/photos/`.
+
+**Current gallery assignment (interior photos only):**
+- **Apartman Lavanda** (Nikola, ground floor) — interior photos: living room, kitchen, bedrooms, bathroom, kids sofa, living-terrace (`apt-nikola-*.jpg`)
+- **Apartman Tramuntana** (Marko, upper floor) — interior photos: kitchen, balcony views, pine-tree view (`apt-marko-*.jpg`)
+
+Exterior and shared photos (terrace, BBQ garden, building facade, wine glass) are used in the exterior photo collage strip on the homepage, not in apartment galleries. See [Managing the Photo Collage](#managing-the-photo-collage) below.
+
+**To update a gallery via CMS:**
 1. Open Admin → Apartments → select apartment
-2. Scroll to the gallery/image fields
-3. Tap to upload new photos from your camera roll
-4. Reorder by drag or move up/down buttons
-5. Save and publish
+2. Find the **Gallery (JSON array)** field
+3. Edit the JSON array — each entry is a path string, e.g. `"/photos/apt-nikola-terrace-wide.jpg"`
+4. Save and publish
+
+**To add new photos:**
+Photos must first be committed to `public/photos/` in the repository (naming convention: `apt-nikola-*.jpg` for Lavanda, `apt-marko-*.jpg` for Tramuntana). After deployment, add the new paths to the `gallery_json` field in the CMS.
+
+### Managing the Photo Collage
+
+The exterior photo strip that scrolls across the homepage (under the apartments section) is controlled by a CMS entry in the **Homepage** collection with `section_key = collage`.
+
+The `body` field of that entry must contain a JSON array of photo objects:
+
+```json
+[
+  { "src": "/photos/apt-nikola-terrace-dining.jpg", "alt": "Terrace dining area" },
+  { "src": "/photos/apt-bbq-garden.jpg", "alt": "BBQ garden" }
+]
+```
+
+**To update the collage:**
+1. Open Admin → Homepage collection
+2. Find the entry with `section_key = collage`
+3. Edit the `body` field — paste the updated JSON array
+4. Save and publish
+
+The collage strip is hidden entirely if the entry is absent or if the JSON is invalid. At least 5 photos are recommended for a smooth seamless loop. The photo list is locale-independent — all four language versions of the homepage show the same collage.
 
 ### Managing Prices
 

@@ -1,5 +1,30 @@
 # Changelog
 
+## 2026-04-04 - Revision 60: Media route rest parameter fix + REQ-PERF-1 status update
+
+### Requirements updated
+- **REQ-PERF-1** (Image Serving Pipeline): Status changed from Planned to Partial -- R2 serving route exists and works with rest parameter `[...key]` for dotted filenames, long-lived cache headers, error handling. Image Resizing not yet applied. Route description updated from `/media/:key` to `/media/{key}` (rest parameter). Acceptance criteria updated to note rest parameter support.
+- **CON-PERF**: Worker route description updated from `/media/:key` to `/media/{key}` reflecting rest parameter for dotted keys.
+- **REQ-CMS-2** (Media Library): Route description updated from `/media/:key` to `/media/{key}` for consistency.
+- **REQ-VD-15** (Exterior Photo Collage): Acceptance criteria corrected -- CMS field is `body` (not `gallery`), matching the actual implementation that parses JSON from the editorial entry body field.
+
+---
+
+## 2026-04-04 - Revision 59: Exterior photo collage + interior gallery separation
+
+### Requirements added
+- **REQ-VD-15** (Exterior Photo Collage): New requirement for infinite CSS horizontal scroll band of exterior photos on homepage. Status set to Partial -- component implemented, CMS not yet seeded.
+
+### Requirements updated
+- **REQ-VD-15**: Status corrected from Planned to Partial -- ScrollCollage component fully implemented and integrated into homepage, but CMS `collage` section_key entry not yet seeded.
+- **REQ-AP-3** (Apartment Detail Page): Current implementation updated -- interior photo gallery added as horizontal snap-scroll strip below hero, sourced from `gallery_json` CMS field. Exterior photos explicitly separated to homepage collage (REQ-VD-15). Numbering in current implementation adjusted.
+- **REQ-SF-5** (Why Pasman + Zdrelac Section): Apartments preview section updated -- exterior photo collage (REQ-VD-15) now placed after apartment cards within the dark section.
+
+### Glossary
+- Added **Scroll Collage** term.
+
+---
+
 ## 2026-04-04 - Revision 58: Local Guide card-overlay redesign + Getting Here restructured
 
 ### Requirements updated

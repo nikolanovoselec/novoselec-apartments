@@ -41,4 +41,5 @@
 | **Glassmorphism** | UI design trend using frosted-glass effect: translucent background + backdrop-filter blur + subtle border. Used on breathing card figcaptions. |
 | **Wave Divider** | A decorative SVG component placed between page sections to create organic, flowing color transitions. Uses a bezier-curve wave path with configurable fill color and optional vertical flip. Responsive height via CSS clamp. |
 | **HeroSimple** | Reusable subpage hero component with optional background photo, dark overlay, Ken Burns animation, and bottom wave divider. Used on all non-homepage pages. Falls back to gradient when no image is provided. |
+| **Scroll Collage** | An infinitely scrolling horizontal photo band using pure CSS marquee technique (duplicated track with `translateX(-50%)` keyframe). Used on the homepage to showcase property exterior photos. Pauses on hover, respects reduced motion. |
 | **WCAG** | Web Content Accessibility Guidelines — international standard for web accessibility. This site targets WCAG 2.1 Level AA compliance. |

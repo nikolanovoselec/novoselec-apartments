@@ -10,7 +10,7 @@ Cloudflare Workers runtime with Astro 6 and Emdash CMS as an Astro integration. 
 - CLS < 0.1
 - Total JS < 80KB gzipped (visitor-facing pages)
 - Hero: preload only first image, lazy-load subsequent slideshow images
-- All images served via Worker route (`/media/:key`) with Cloudflare Image Resizing (`cf: { image }`) — private R2, AVIF/WebP with JPEG fallback, responsive widths
+- All images served via Worker route (`/media/{key}`, rest parameter for dotted keys) with Cloudflare Image Resizing (`cf: { image }`) — private R2, AVIF/WebP with JPEG fallback, responsive widths
 - **CSS-first animation system.** CSS transitions + IntersectionObserver for most effects. GSAP optional for max 1 signature moment per page. No GSAP on mobile.
 - Lightbox lazy-loaded on scroll. Interactive map deferred to P2 (static image + deep links at launch).
 - Static pages cached at Cloudflare edge with `stale-while-revalidate`
