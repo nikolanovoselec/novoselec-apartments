@@ -1,33 +1,29 @@
 import type { APIRoute } from "astro";
-import { env as _env } from "cloudflare:workers";
-import type { Env } from "~/env";
-const env = _env as unknown as Env;
 
 /**
- * Image serving route: fetches from private R2, applies Cloudflare Image Resizing.
+ * Image serving route: fetches from private R2 bucket.
  * URL format: /media/:key?w=800&f=webp&q=80&fit=cover
+ * Keys are UUIDs without extensions (e.g., /media/2d537213-c38b-4076-8e2e-a5ee25783c0e)
  */
-export const GET: APIRoute = async ({ params, url, locals }) => {
-  const rawKey = params.key;
-  // Rest params may return string or undefined
-  const key = typeof rawKey === "string" ? rawKey : Array.isArray(rawKey) ? rawKey.join("/") : "";
+export const GET: APIRoute = async ({ params, locals, request }) => {
+  let key = params.key ?? "";
+
+  // Rest params may be string or array
+  if (Array.isArray(key)) key = key.join("/");
+
+  // Decode and sanitize
+  key = decodeURIComponent(key);
+  if (key.endsWith("/")) key = key.slice(0, -1);
+
   if (!key || key.includes("..") || key.startsWith("/")) {
     return new Response("Invalid key", { status: 400 });
   }
 
-  // Access R2 bucket from runtime env (Cloudflare Workers binding)
-  let bucket: R2Bucket | undefined;
-  try {
-    bucket = env.MEDIA;
-  } catch {
-    // env may not be available in dev
-  }
-
-  if (!bucket) {
-    // Try getting from locals (Astro Cloudflare adapter passes env via locals)
-    const runtimeEnv = (locals as Record<string, unknown>).runtime as { env?: { MEDIA?: R2Bucket } } | undefined;
-    bucket = runtimeEnv?.env?.MEDIA;
-  }
+  // Access R2 via Astro's Cloudflare runtime locals (official pattern)
+  const runtime = (locals as Record<string, unknown>).runtime as
+    | { env?: { MEDIA?: R2Bucket } }
+    | undefined;
+  const bucket = runtime?.env?.MEDIA;
 
   if (!bucket) {
     return new Response("Storage not configured", { status: 503 });
@@ -46,10 +42,6 @@ export const GET: APIRoute = async ({ params, url, locals }) => {
     if (object.httpMetadata?.contentType) {
       headers.set("Content-Type", object.httpMetadata.contentType);
     }
-
-    // TODO: Apply Cloudflare Image Resizing via cf: { image: {} }
-    // when zone has Image Resizing enabled. For now serve originals.
-    // Query params (w, f, q, fit) are parsed by clients but not yet applied.
 
     return new Response(object.body, { headers });
   } catch {
