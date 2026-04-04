@@ -25,26 +25,26 @@ const sections = cmsEntries.map((e) => ({
 <Page title={t(typedLocale, "nav.whyPasman")} locale={typedLocale} ogImage="https://apartmani.novoselec.ch/api/img/216f0b04-b41f-491d-8921-bb5621c347fc">
   <HeroSimple title={t(typedLocale, "nav.whyPasman")} image="/api/img/216f0b04-b41f-491d-8921-bb5621c347fc" />
 
-  {sections.map((section, i) => (
-    <section class:list={["section", { "section--alt": i % 2 === 1 }]} data-reveal>
-      <div class="container">
-        <div class:list={["content-row", { "content-row--reverse": i % 2 === 1 }]}>
-          <div class="content-row__media">
-            <MiniCollage
-              images={section.gallery.length > 0
-                ? section.gallery
-                : section.image ? [{ src: section.image, alt: section.title }] : []}
-              speed={18 + i * 4}
-            />
-          </div>
-          <div class="content-row__text">
-            <h2>{section.title}</h2>
-            <p class="text-lead">{section.text}</p>
-          </div>
+  {sections.map((section, i) => {
+    const photos = section.gallery.length > 0
+      ? section.gallery
+      : section.image ? [{ src: section.image, alt: section.title }] : [];
+    return (
+      <section class:list={["section", { "section--alt": i % 2 === 1 }]} data-reveal>
+        <div class="container">
+          <h2 class="editorial-title">{section.title}</h2>
         </div>
-      </div>
-    </section>
-  ))}
+        {photos.length > 0 && (
+          <div class="editorial-strip">
+            <MiniCollage images={photos} speed={18 + i * 4} />
+          </div>
+        )}
+        <div class="container">
+          <p class="editorial-text">{section.text}</p>
+        </div>
+      </section>
+    );
+  })}
 
   <section class="section" data-reveal>
     <div class="container text-center">
