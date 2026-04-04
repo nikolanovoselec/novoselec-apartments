@@ -14,7 +14,7 @@ const hasMultiple = images.length > 1;
 ---
 
 {hasMultiple ? (
-  <div class="mini-collage" aria-roledescription="carousel">
+  <div class="mini-collage" role="region" aria-roledescription="carousel" aria-label={images[0]?.alt ?? "Photos"}>
     <div class="mini-collage__track" style={`animation-duration: ${speed}s;`}>
       {images.map((img) => (
         <div class="mini-collage__item">

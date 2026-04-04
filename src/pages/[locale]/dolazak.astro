@@ -43,7 +43,7 @@ const appleMapsUrl = "https://maps.apple.com/?ll=44.010669,15.285480&q=Apartmani
           </div>
           <div class="content-row__text">
             <h2>{section.title}</h2>
-            <p class="text-lead">{section.text}</p>
+            <p class="text-lead" set:html={section.text.replace(/<(?!\/?(a|br|em|strong)\b)[^>]+>/gi, '')} />
           </div>
         </div>
       </div>

@@ -681,3 +681,13 @@ p {
   margin-bottom: var(--space-md);
 }
 
+/* When media div is empty, let text span full width */
+.content-row__media:empty {
+  display: none;
+}
+
+.content-row__media:empty + .content-row__text,
+.content-row__text:only-child {
+  grid-column: 1 / -1;
+}
+
