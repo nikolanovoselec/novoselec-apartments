@@ -42,4 +42,4 @@ Schema.org structured data: VacationRental, FAQPage, BreadcrumbList. `hreflang` 
 
 ## CON-LEGAL: EU/DACH Legal Compliance
 
-GDPR consent checkbox on inquiry form. Privacy policy with data controller, legal basis, retention periods, processor list, erasure rights. Impressum always 1-click accessible and available in German. House rules and cancellation policy on apartment pages. Tourist tax disclosure. **PAngV compliance (German pricing law):** total price including all mandatory fees shown for German locale. Cleaning fee disclosed. "Estimate — confirmed by owner" disclaimer. Accessibility statement.
+GDPR consent checkbox on inquiry form. Privacy policy with data controller, legal basis, retention periods, processor list, erasure rights. ~~Impressum always 1-click accessible and available in German~~ — Impressum deprecated (REQ-TC-3), not legally required for Croatian-based site. House rules and cancellation policy on apartment pages. Tourist tax disclosure. **PAngV compliance (German pricing law):** total price including all mandatory fees shown for German locale. Cleaning fee disclosed. "Estimate — confirmed by owner" disclaimer. Accessibility statement.

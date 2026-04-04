@@ -26,7 +26,7 @@ Content pages that sell the destination and build emotional connection — Why P
 - **Priority:** P1
 - **Dependencies:** REQ-CMS-1, REQ-CMS-5, REQ-I18N-4
 - **Verification:** Visual review + toggle test
-- **Status:** Partial — Page exists at `/{locale}/zasto-pasman` with HeroSimple, hardcoded selling points in all 4 locales (crystal sea, island rhythm, ferry access), CMS override via `editorial` collection with `page_key === "why-pasman"`. Missing: scroll-driven pinned sections, full-bleed photos per section, section toggles, links to guide entries.
+- **Status:** Partial — Page exists at `/{locale}/zasto-pasman` with HeroSimple, CMS-only content via `editorial` collection with `page_key === "why-pasman"` (hardcoded fallbacks removed). If CMS entries are missing, page renders with empty content. Missing: scroll-driven pinned sections, full-bleed photos per section, section toggles, links to guide entries.
 
 ### REQ-ED-2: "Getting Here" Page
 
@@ -46,7 +46,7 @@ Content pages that sell the destination and build emotional connection — Why P
 - **Priority:** P1
 - **Dependencies:** REQ-CMS-1, REQ-CMS-5, REQ-I18N-4
 - **Verification:** Accuracy check against Jadrolinija schedules
-- **Status:** Partial — Page exists at `/{locale}/dolazak` with HeroSimple, hardcoded transport sections in all 4 locales (ferry, driving, alternative Zdrelac bridge route), CMS override via `editorial` collection. Missing: visual journey timeline, map image with deep links, airport sections, section toggles.
+- **Status:** Partial — Page exists at `/{locale}/dolazak` with HeroSimple, CMS-only content via `editorial` collection (hardcoded fallbacks removed; empty-string defaults when CMS entries missing). Missing: visual journey timeline, map image with deep links, airport sections, section toggles.
 
 ### REQ-ED-3: "A Day on Pašman" Section
 
@@ -71,7 +71,7 @@ Content pages that sell the destination and build emotional connection — Why P
 - **Intent:** Curated recommendations that build trust and drive SEO
 - **Applies To:** Visitor
 - **Acceptance Criteria:**
-  - **Pre-CMS state (current):** Standalone guide page (`/[locale]/vodic`) with `HeroSimple` photo-backed header (REQ-VD-12). Four categories displayed in alternating image+text layout: Beaches, Food & Drink, Activities, Day Trips. Each category: landscape photo (3:2 aspect), uppercase label, per-locale descriptive paragraph. Alternating layout: odd items show image left / text right, even items reverse (image right / text left on desktop). Single-column stacking on mobile. No filtering, no "coming soon" message — content is visible but static. Three categories expanded to standalone detail pages: Food & Drink (REQ-ED-8), Nature & Activities (REQ-ED-9), Beaches (REQ-ED-10).
+  - **Current state:** Standalone guide page (`/[locale]/vodic`) with `HeroSimple` photo-backed header (REQ-VD-12). Guide categories and CMS editorial entries rendered in one unified alternating content-row layout. Four static categories (Beaches, Food & Drink, Activities, Day Trips) followed by any CMS editorial entries with `page_key === "vodic"`. All items use the same image+text row style. Alternating layout: odd items image left / text right, even items reversed. Single-column stacking on mobile. No filtering. Three categories expanded to standalone detail pages: Food & Drink (REQ-ED-8), Nature & Activities (REQ-ED-9), Beaches (REQ-ED-10).
   - **With CMS (planned):** Categories expanded to: Beaches, Food & Drink, Restaurants & Konobas, Activities, Day Trips
   - **Food & Drink** is a featured category: local specialties (grilled fish, octopus peka, lamb, olive oil, island wine, figs), appetizing full-bleed food photography, where to buy/eat
   - Each entry: name, short description, photo, distance from property, category tags
@@ -104,7 +104,7 @@ Content pages that sell the destination and build emotional connection — Why P
 - **Priority:** P1
 - **Dependencies:** REQ-CMS-1, REQ-CMS-5
 - **Verification:** Visual review
-- **Status:** Partial — Page exists at `/{locale}/o-nama` with HeroSimple, hardcoded host story in all 4 locales, CMS override via `editorial` collection with `page_key === "about"`. Missing: host photo with arch clip-path, response time badge, WhatsApp link, homepage condensed version, section toggle.
+- **Status:** Partial — Page exists at `/{locale}/o-nama` with HeroSimple, CMS-only content via `editorial` collection with `page_key === "about"` (hardcoded fallback story removed; empty string when CMS entry missing). Missing: host photo with arch clip-path, response time badge, WhatsApp link, homepage condensed version, section toggle.
 
 ### REQ-ED-6: "About Ždrelac" Page
 
@@ -112,15 +112,13 @@ Content pages that sell the destination and build emotional connection — Why P
 - **Applies To:** Visitor
 - **Acceptance Criteria:**
   - **Current implementation:** Standalone page at `/{locale}/zdrelac` with full-screen hero (70vh, min 400px) using aerial village photo with gradient overlay (transparent 30% to navy 80%), village name as display heading, and introductory paragraph at 80% white opacity. Hero includes a bottom wave divider (inline SVG with organic bezier path, cream fill `#F8F5EF`, responsive height `clamp(40px, 6vw, 80px)`, `aria-hidden="true"`) for organic transition into page content (REQ-VD-9). Below the hero, content sections in alternating image+text row layout. Each row: 2-column grid on desktop (1fr + 1fr), single column on mobile. Odd rows show image left / text right; even rows reverse. Images have 16px border-radius, 4:3 aspect ratio, subtle hover zoom (1.03x). CTA button at bottom links to apartments listing. Scroll-triggered fade-up reveal on each section. Alternating section backgrounds (`.section--alt`).
-  - **CMS wiring:** Page queries the `editorial` CMS collection filtered by `page_key === "zdrelac"`, sorted by `sort_order`. When CMS entries exist, they replace the hardcoded fallback sections. When no CMS entries exist, hardcoded per-locale content is rendered. Intro paragraph is suppressed when CMS content is active.
-  - **Croatian fallback content (6 sections):** Bridge between two islands (210m bridge, Zadar-Preko ferry access), Veliki Bokolj peak (274m, panoramic viewpoint with telescope), Benedictine monastery Cokovac (12th century, above Tkon, plus Pustograd fortress ruins), centuries-old olive groves (OPG direct sales), St. Michael's Fortress on Ugljan (6th century, 265m, 200-island view), Galovac islet and Ugljan caves (Franciscan monastery, Zeljina/Boskova/Vela/Mala caves, 100km+ trails)
-  - **DE/SL/EN fallback content (4 sections):** Bridge access, hidden beaches, Dalmatian life, olive groves (shorter, general descriptions)
+  - **CMS wiring:** Page queries the `editorial` CMS collection filtered by `page_key === "zdrelac"`, sorted by `sort_order`. CMS-only content model — no hardcoded fallback. If CMS entries are missing, page renders with empty content.
   - **Homepage appearance (planned):** Brief Ždrelac introduction on homepage between "Why Pašman" and apartments sections (condensed version of standalone page)
 - **Constraints:** CON-I18N, CON-PERF
 - **Priority:** P1
 - **Dependencies:** REQ-CMS-1, REQ-I18N-4
 - **Verification:** Visual review across all 4 locales; verify CMS override when editorial entries with page_key "zdrelac" exist
-- **Status:** Implemented
+- **Status:** Partial — CMS-only content model (hardcoded fallbacks removed). Page renders CMS editorial entries only; empty if unseeded.
 
 ### REQ-ED-7: FAQ
 
@@ -149,7 +147,7 @@ Content pages that sell the destination and build emotional connection — Why P
   - 5 content sections in alternating image+text row layout: konobas on Pasman, restaurants on Ugljan, Dalmatian specialties, local products (olive oil, wine, figs), markets and shopping
   - Each section: named restaurants/konobas with distance from Zdrelac in km (Konoba Bokolj 0-1 km, Lanterna 10-12 km, Dardin 8-10 km, Intrada 10-12 km)
   - Practical info: Studenac for basics, larger shops in Preko/Kali, Zadar for full shopping
-  - All content hardcoded per locale (4 languages) with culturally adapted tone
+  - CMS-only content model: page queries `editorial` collection filtered by `page_key === "hrana"`, sorted by `sort_order`. No hardcoded fallback — if CMS entries missing, no sections render.
   - Alternating layout: odd sections image-left/text-right, even sections reversed (desktop); single column on mobile
   - Images: 4:3 aspect, organic asymmetric border-radius (`20px 4px 20px 4px`) with subtle box-shadow, hover zoom (1.03x)
   - Scroll-triggered reveal via `data-reveal`
@@ -159,7 +157,7 @@ Content pages that sell the destination and build emotional connection — Why P
 - **Priority:** P1
 - **Dependencies:** REQ-ED-4, REQ-SF-5, REQ-VD-12
 - **Verification:** Visual review across all 4 locales. Verify wave renders at bottom of hero. Verify hero image is food-related.
-- **Status:** Partial — page renders with content; inline SVG wave added to custom hero markup; pending live site confirmation
+- **Status:** Partial — CMS-only content model (hardcoded fallbacks removed). Page queries `editorial` collection by `page_key === "hrana"`. Inline SVG wave in hero markup. Pending: live site confirmation, complete CMS seeding in all 4 locales.
 
 ### REQ-ED-9: "Nature & Activities" Detail Page
 
@@ -170,15 +168,14 @@ Content pages that sell the destination and build emotional connection — Why P
   - Hero image must depict nature/outdoor activities, not food or beaches
   - 6 content sections: walks and viewpoints (Bokolj hill 8-10 km), cycling (25-40 km loop route), Kornati National Park (departures 10-15 km), Telascica Nature Park, water sports (kayak, SUP, snorkeling, diving), history and culture (St. Michael's Fortress 12-14 km, Galevac monastery)
   - Each section includes distances from Zdrelac and practical tips
-  - **CMS wiring:** Page queries the `editorial` collection filtered by `page_key === "aktivnosti"`, sorted by `sort_order`. When CMS entries exist, they replace the hardcoded fallback sections. When no CMS entries exist, hardcoded per-locale content is rendered.
-  - Hardcoded fallback content available per locale (4 languages) with culturally adapted tone
+  - **CMS wiring:** Page queries the `editorial` collection filtered by `page_key === "aktivnosti"`, sorted by `sort_order`. CMS-only content model — no hardcoded fallback. If CMS entries missing, no sections render.
   - Same alternating row layout, image styling, and reveal animations as REQ-ED-8
   - Linked from homepage triptych (REQ-SF-5)
 - **Constraints:** CON-I18N, CON-PERF
 - **Priority:** P1
 - **Dependencies:** REQ-ED-4, REQ-SF-5, REQ-VD-12
 - **Verification:** Visual review across all 4 locales. Verify wave renders at bottom of hero.
-- **Status:** Partial — page renders with content; inline SVG wave added to custom hero markup; pending live site confirmation
+- **Status:** Partial — CMS-only content model (hardcoded fallbacks removed). Page queries `editorial` collection by `page_key === "aktivnosti"`. Inline SVG wave in hero markup. Pending: live site confirmation, complete CMS seeding in all 4 locales.
 
 ### REQ-ED-10: "Beaches" Detail Page
 
@@ -189,15 +186,14 @@ Content pages that sell the destination and build emotional connection — Why P
   - Hero image must depict Croatian/Adriatic beach or coastline (not Santorini blue domes or tropical beaches)
   - 5 content sections organized by proximity: Zdrelac coves (0-2 km, Mali Zdrelac bay, bridge area), northern Pasman beaches (5-15 km, Matlovac, Soline), Ugljan beaches (10-20 km, Jaz, Kali, Muline), hidden coves (by boat/kayak), practical beach day tips (parking, shade, maestral wind patterns)
   - Each section includes named beaches with distances from Zdrelac
-  - **CMS wiring:** Page queries the `editorial` collection filtered by `page_key === "plaze"`, sorted by `sort_order`. When CMS entries exist, they replace the hardcoded fallback sections. When no CMS entries exist, hardcoded per-locale content is rendered.
-  - Hardcoded fallback content available per locale (4 languages) with culturally adapted tone
+  - **CMS wiring:** Page queries the `editorial` collection filtered by `page_key === "plaze"`, sorted by `sort_order`. CMS-only content model — no hardcoded fallback. If CMS entries missing, no sections render.
   - Same alternating row layout, image styling, and reveal animations as REQ-ED-8
   - Linked from homepage triptych (REQ-SF-5)
 - **Constraints:** CON-I18N, CON-PERF
 - **Priority:** P1
 - **Dependencies:** REQ-ED-4, REQ-SF-5, REQ-VD-12
 - **Verification:** Visual review across all 4 locales. Verify wave renders at bottom of hero. Verify hero image is a Croatian beach/coast scene.
-- **Status:** Partial — page renders with content; inline SVG wave added to custom hero markup; hero image is still Santorini (non-Croatian) and needs replacement with Croatian beach imagery; pending live site confirmation
+- **Status:** Partial — CMS-only content model (hardcoded fallbacks removed). Page queries `editorial` collection by `page_key === "plaze"`. Inline SVG wave in hero markup. Real Croatian beach hero image from `/photos/` directory. Pending: live site confirmation, complete CMS seeding in all 4 locales.
 
 ## Out of Scope
 

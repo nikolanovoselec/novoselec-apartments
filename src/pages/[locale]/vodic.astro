@@ -26,35 +26,7 @@ if (cmsGuide.length > 0) {
       description: g.data.description as string,
       image: (g.data.image as string) ?? "",
     }));
-} else {
-  const fb: Record<Locale, GuideItem[]> = {
-    hr: [
-      { title: "Plaže", description: "Skrivene uvale, kristalno čisto more i kamene plaže na svakom koraku.", image: "/photos/rocky-beach.jpg" },
-      { title: "Hrana i piće", description: "Svježa riba s roštilja, hobotnica ispod peke, domaće maslinovo ulje i otočno vino.", image: "/photos/chapel-front.jpg" },
-      { title: "Aktivnosti", description: "Biciklizam, kayaking, ronjenje, šetnje maslinicima i istraživanje otoka.", image: "/photos/marina-harbor.jpg" },
-      { title: "Izleti", description: "Kornati, Zadar, nacionalni park Krka - sve nadohvat ruke.", image: "/photos/zdrelac-from-sea.jpg" },
-    ],
-    de: [
-      { title: "Strände", description: "Versteckte Buchten, kristallklares Meer und Steinstrände bei jedem Schritt.", image: "/photos/rocky-beach.jpg" },
-      { title: "Essen & Trinken", description: "Frischer Fisch vom Grill, Oktopus unter der Peka, hausgemachtes Olivenöl und Inselwein.", image: "/photos/chapel-front.jpg" },
-      { title: "Aktivitäten", description: "Radfahren, Kajakfahren, Schnorcheln, Spaziergänge durch Olivenhaine und Inselerkundung.", image: "/photos/marina-harbor.jpg" },
-      { title: "Ausflüge", description: "Kornati, Zadar, Nationalpark Krka - alles in Reichweite.", image: "/photos/zdrelac-from-sea.jpg" },
-    ],
-    sl: [
-      { title: "Plaže", description: "Skrite zalivčke, kristalno čisto morje in kamnite plaže na vsakem koraku.", image: "/photos/rocky-beach.jpg" },
-      { title: "Hrana in pijača", description: "Sveža riba z žara, hobotnica izpod peke, domače oljčno olje in otoško vino.", image: "/photos/chapel-front.jpg" },
-      { title: "Aktivnosti", description: "Kolesarjenje, kajakaštvo, potapljanje, sprehodi med oljkami in raziskovanje otoka.", image: "/photos/marina-harbor.jpg" },
-      { title: "Izleti", description: "Kornati, Zadar, narodni park Krka - vse na dosegu roke.", image: "/photos/zdrelac-from-sea.jpg" },
-    ],
-    en: [
-      { title: "Beaches", description: "Hidden coves, crystal-clear sea, and pebble beaches at every turn.", image: "/photos/rocky-beach.jpg" },
-      { title: "Food & Drink", description: "Fresh grilled fish, octopus peka, homemade olive oil, and island wine.", image: "/photos/chapel-front.jpg" },
-      { title: "Activities", description: "Cycling, kayaking, snorkeling, olive grove walks, and island exploration.", image: "/photos/marina-harbor.jpg" },
-      { title: "Day Trips", description: "Kornati islands, Zadar, Krka National Park - all within reach.", image: "/photos/zdrelac-from-sea.jpg" },
-    ],
-  };
-  categories = fb[typedLocale];
-}
+// No fallback - CMS only
 
 const imageAlts = [
   "Secluded pebble beach on Pašman island",
@@ -96,55 +68,7 @@ const imageAlts = [
 </Page>
 
 <style>
-  .guide-grid {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3xl);
-  }
-
-  .guide-item {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--space-xl);
-    align-items: center;
-  }
-
   @media (min-width: 768px) {
-    .guide-item {
-      grid-template-columns: 1fr 1fr;
-      gap: var(--space-3xl);
     }
-    .guide-item--reverse .guide-item__image {
-      order: 2;
-    }
-    .guide-item--reverse .guide-item__content {
-      order: 1;
-    }
-  }
 
-  .guide-item__image {
-    overflow: hidden;
-  }
-
-  .guide-item__image img {
-    width: 100%;
-    aspect-ratio: 3 / 2;
-    object-fit: cover;
-    display: block;
-    transition: transform var(--duration-slow) var(--ease-out);
-  }
-
-  .guide-item:hover .guide-item__image img {
-    transform: scale(1.02);
-  }
-
-  .guide-item__title {
-    font-size: clamp(1.5rem, 3vw, 2.25rem);
-  }
-
-  .guide-item__text {
-    font-size: var(--font-size-lg);
-    line-height: 1.7;
-    color: var(--color-text);
-  }
-</style>
+  </style>

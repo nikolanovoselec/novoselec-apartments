@@ -13,7 +13,7 @@ const typedLocale = locale as Locale;
 const pages = await getLocalizedCollection("editorial", typedLocale);
 const page = pages.find((p) => p.data.page_key === "why-pasman");
 
-// Parse sections from CMS or use fallback
+// Parse sections from CMS
 let sections: Array<{ title: string; text: string }> = [];
 if (page?.data.sections_json) {
   try {

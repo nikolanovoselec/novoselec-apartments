@@ -49,7 +49,7 @@ Apartmani Pašman is a server-side rendered Astro site deployed as a Cloudflare 
 | `src/pages/api/track.ts` | Analytics API — cookieless event logging to D1 |
 | `src/layouts/` | Base and Page layout shells |
 | `src/components/shell/` | Navigation (desktop nav + mobile hamburger menu with `is:inline` script to avoid Astro bundler stripping), Footer, LanguageSwitcher, WhatsAppButton, StickyMobileCTA |
-| `src/components/home/Hero.astro` | Hero carousel — 4 Pexels images, crossfade (1.8s CSS transition), continuous zoom animation (`heroZoom` keyframe: 12s ease-in-out infinite alternate, scale 1→1.1 with -1%/-1% translate, paused until slide is active), auto-advance every 6 s, dot navigation, hover-pause; implemented as `is:inline` script |
+| `src/components/home/Hero.astro` | Hero carousel — 4 local island photos from `public/photos/`, crossfade (1.8s CSS transition), continuous zoom animation (`heroZoom` keyframe: 12s ease-in-out infinite alternate, scale 1→1.1 with -1%/-1% translate, paused until slide is active), auto-advance every 6 s, dot navigation, hover-pause; implemented as `is:inline` script |
 | `src/components/ui/HeroSimple.astro` | Interior page hero — used on all non-homepage pages. Props: `title` (required), `subtitle` (optional, displayed as small-caps label), `image` (optional URL). When `image` is provided, the photo fills the hero with a slow 20 s zoom (`heroSimpleZoom` keyframe: scale 1→1.06, ease-in-out infinite alternate) and a dark navy gradient overlay. Without `image`, falls back to a static dark navy radial-gradient background. An inline SVG wave (cream `#F8F5EF`) is always rendered at the bottom of the section to merge visually with the page background. |
 | `src/components/ui/WaveDivider.astro` | Full-width SVG wave divider between sections. Props: `fill` (wave color, default `#F8F5EF`), `flip` (boolean, flips vertically via `scaleY(-1)` for wave-out effect), `class`. Height is fluid: `clamp(40px, 6vw, 80px)`. Used in pairs on the homepage to bracket the dark navy section and the sunset CTA section. |
 | `src/styles/global.css` | Design system — CSS custom properties, typography scale, layout utilities, component classes, animation utilities |
@@ -78,21 +78,20 @@ Astro's i18n is configured with `routing: "manual"`. File-based `[locale]` direc
 | Route | File | Description |
 |---|---|---|
 | `/:locale/` | `src/pages/[locale]/index.astro` | Homepage |
-| `/:locale/apartmani` | `src/pages/[locale]/apartmani/index.astro` | Apartment listing — card grid (2 columns desktop, 1 mobile); falls back to hardcoded data when CMS not seeded; each card links to detail page |
+| `/:locale/apartmani` | `src/pages/[locale]/apartmani/index.astro` | Apartment listing — card grid (2 columns desktop, 1 mobile); CMS-only; each card links to detail page |
 | `/:locale/apartmani/:slug` | `src/pages/[locale]/apartmani/[slug].astro` | Apartment detail — hero image, description, meta grid (sleeps/bedrooms/size/beach distance), price card, amenity list; fetches entry directly by slug via `getEmDashEntry("apartments", slug)` with no locale filtering (locale is applied in rendering, not in lookup); redirects to listing on missing slug |
-| `/:locale/zdrelac` | `src/pages/[locale]/zdrelac.astro` | Ždrelac village — CMS-first: queries `editorial` collection for `page_key === "zdrelac"`, sorted by `sort_order`; falls back to hardcoded content (bridge, beaches, Dalmatian life, olive groves) when no CMS entries exist; localized in all 4 locales; linked from main nav |
+| `/:locale/zdrelac` | `src/pages/[locale]/zdrelac.astro` | Ždrelac village — CMS-only: queries `editorial` collection for `page_key === "zdrelac"`, sorted by `sort_order`; renders no content rows if CMS entries absent; localized in all 4 locales; linked from main nav |
 | `/:locale/galerija` | `src/pages/[locale]/galerija.astro` | Gallery — masonry grid of location and apartment photos with lightbox; linked from main nav |
-| `/:locale/zasto-pasman` | `src/pages/[locale]/zasto-pasman.astro` | Why Pašman — 4 selling-point sections (not in main nav) |
-| `/:locale/dolazak` | `src/pages/[locale]/dolazak.astro` | Getting Here — ferry, airport, map links |
+| `/:locale/zasto-pasman` | `src/pages/[locale]/zasto-pasman.astro` | Why Pašman — CMS-only: queries `editorial` collection for `page_key === "why-pasman"`; renders sections from `sections_json` field (array of `{title, text}`); renders no content if CMS entry is absent; not in main nav |
+| `/:locale/dolazak` | `src/pages/[locale]/dolazak.astro` | Getting Here — CMS-only: queries `editorial` collection for `page_key === "getting-here"`; sections parsed from `sections_json` (keys: `ferry`, `alt-route`, `airport`); map links and transfer text always rendered from i18n strings; renders empty if CMS entry absent |
 | `/:locale/faq` | `src/pages/[locale]/faq.astro` | FAQ — accordion with Schema.org FAQPage markup (not in main nav) |
-| `/:locale/o-nama` | `src/pages/[locale]/o-nama.astro` | About Us — host story |
-| `/:locale/vodic` | `src/pages/[locale]/vodic.astro` | Local Guide — alternating image+text rows for 4 categories (beaches, food, activities, day trips), localized in all 4 locales |
-| `/:locale/hrana` | `src/pages/[locale]/hrana.astro` | Food & Drink — 5 sections (konobas on Pašman, restaurants on Ugljan, Dalmatian specialties, local products, markets); page-hero + alternating content-row layout; localized in all 4 locales; linked from homepage triptych |
-| `/:locale/aktivnosti` | `src/pages/[locale]/aktivnosti.astro` | Nature & Activities — CMS-first: queries `editorial` collection for `page_key === "aktivnosti"`, sorted by `sort_order`; falls back to 6 hardcoded sections (walks/viewpoints, cycling, Kornati, Telašćica, water sports, history) when no CMS entries exist; page-hero + alternating content-row layout; localized in all 4 locales; linked from homepage triptych |
-| `/:locale/plaze` | `src/pages/[locale]/plaze.astro` | Beaches — CMS-first: queries `editorial` collection for `page_key === "plaze"`, sorted by `sort_order`; falls back to 5 hardcoded sections (Ždrelac coves, northern Pašman, Ugljan beaches, hidden coves, tips) when no CMS entries exist; page-hero + alternating content-row layout; localized in all 4 locales; linked from homepage triptych |
+| `/:locale/o-nama` | `src/pages/[locale]/o-nama.astro` | About Us — CMS-only: queries `editorial` collection for `page_key === "about"`; renders `body` field as host story; renders empty if CMS entry absent |
+| `/:locale/vodic` | `src/pages/[locale]/vodic.astro` | Local Guide — queries `guide` collection (sorted by `sort_order`) for 4 static category rows, supplemented by `editorial` entries with `page_key === "vodic"`; all rendered in one unified alternating content-row layout; localized in all 4 locales |
+| `/:locale/hrana` | `src/pages/[locale]/hrana.astro` | Food & Drink — CMS-only: queries `editorial` collection for `page_key === "hrana"`, sorted by `sort_order`; page-hero + alternating content-row layout; renders no content rows if CMS entries absent; localized in all 4 locales; linked from homepage triptych |
+| `/:locale/aktivnosti` | `src/pages/[locale]/aktivnosti.astro` | Nature & Activities — CMS-only: queries `editorial` collection for `page_key === "aktivnosti"`, sorted by `sort_order`; renders no content rows if CMS entries absent; page-hero + alternating content-row layout; localized in all 4 locales; linked from homepage triptych |
+| `/:locale/plaze` | `src/pages/[locale]/plaze.astro` | Beaches — CMS-only: queries `editorial` collection for `page_key === "plaze"`, sorted by `sort_order`; renders no content rows if CMS entries absent; page-hero + alternating content-row layout; localized in all 4 locales; linked from homepage triptych |
 | `/:locale/kontakt` | `src/pages/[locale]/kontakt.astro` | Contact — standalone inquiry form with Turnstile CAPTCHA, honeypot, and GDPR consent checkbox; submits as `type: "question"` to `POST /api/inquiry`; all CTA links across the site point here |
-| `/:locale/privatnost` | `src/pages/[locale]/privatnost.astro` | Privacy Policy (GDPR) |
-| `/:locale/impressum` | `src/pages/[locale]/impressum.astro` | Legal notice |
+| `/:locale/privatnost` | `src/pages/[locale]/privatnost.astro` | Privacy Policy (GDPR) — linked from the GDPR consent checkbox on the contact form |
 | `/:locale/pristupacnost` | `src/pages/[locale]/pristupacnost.astro` | Accessibility statement — WCAG 2.1 AA compliance target, localized in all 4 locales |
 
 `/:locale` is one of `hr`, `de`, `sl`, `en`.
@@ -107,11 +106,11 @@ Stored in the `apartmani-media` R2 bucket as UUID-named objects. Served via `/me
 
 Direct R2 browser uploads use presigned PUT URLs generated by `POST /admin/api/upload-url` via `aws4fetch` signed with R2 S3-compatible credentials.
 
-### Stock and editorial photography
+### Real island photography
 
-Homepage stock photos (hero backgrounds, photo strips, image sections) are served as **direct Pexels CDN URLs** hardcoded in markup. This is a temporary workaround: the `/media/:key` route returns 404 for keys containing file extensions (e.g., `hero-turquoise-sea.jpg`) because Astro's file-based routing intercepts `.jpg`-suffixed paths before the API handler. The fix requires either a catch-all route or extension-free key names. Until then, stock photos bypass R2 entirely and are fetched from `images.pexels.com`.
+Editorial and hero photography (hero carousel, page heroes, content-row images) are **real photos of Ždrelac and Pašman island** committed to the repository under `public/photos/` and referenced as root-relative paths (e.g., `/photos/zdrelac-from-sea.jpg`). These are served as static assets from the Worker's asset manifest — no R2 lookup required. Pexels stock photos have been fully replaced.
 
-The intended end state is for all images — both owner-uploaded and stock — to be served from R2 via `/media/:key`. See [AD12](decisions/README.md#ad12-stock-photos-will-be-served-from-r2-pending-routing-fix-currently-direct-pexels-urls) for the rationale and the outstanding routing issue.
+The intended end state remains R2-based serving for all images (both owner-uploaded and editorial). Migrating `public/photos/` to R2 is deferred; the previous routing issue (404 on `.jpg`-suffixed keys) still applies to the `/media/:key` route. See [AD12](decisions/README.md#ad12-editorial-photos-committed-to-publicphotos-replacing-pexels-r2-migration-deferred) for the current decision and rationale.
 
 ## Authentication Model
 
@@ -176,7 +175,7 @@ Overlap detection is embedded in the INSERT statement itself (`INSERT...WHERE NO
 
 | Collection slug | Entries | Description |
 |---|---|---|
-| `pages` | ~32 | Static editorial pages in all 4 locales — Why Pašman, Getting Here, About, Privacy, Impressum, etc. Each entry has `locale`, `page_key`, `title`, `subtitle`, `body` (richtext), and `hero_image`. Note: `zdrelac.astro`, `aktivnosti.astro`, and `plaze.astro` all query the `editorial` collection (not `pages`) by `page_key` (`"zdrelac"`, `"aktivnosti"`, `"plaze"` respectively). No such entries exist in the current seed, so all three pages render hardcoded fallback content until the entries are added. |
+| `pages` | ~32 | Static editorial pages in all 4 locales — Why Pašman, Getting Here, About, Privacy, etc. Each entry has `locale`, `page_key`, `title`, `subtitle`, `body` (richtext), and `hero_image`. Note: several pages query the `editorial` collection (not `pages`) by `page_key`. All content pages are CMS-only with no hardcoded fallback — `zasto-pasman.astro`, `dolazak.astro`, `o-nama.astro`, `hrana.astro`, `zdrelac.astro`, `aktivnosti.astro`, and `plaze.astro` all render empty content until matching `editorial` entries are seeded. |
 | `apartments` | 2 | Apartment detail pages per locale — `apt-lavanda` and `apt-tramuntana`. Structured fields: capacity, bedrooms, amenities, bed config, distances, per-locale name/description/SEO. |
 | `faq` | ~20 | FAQ entries in all 4 locales — `locale`, `question`, `answer` (richtext), `sort_order`. |
 | `guide` | ~16 | Local guide entries (beaches, food, activities, day trips) per locale — `locale`, `category`, `title`, `description`, `image_url`. |

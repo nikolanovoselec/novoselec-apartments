@@ -30,13 +30,13 @@ The homepage and visual shell — hero, navigation, footer, language switcher, a
   - Mobile: title scales down via clamp, subtitle uses smaller font size
   - **Wave at bottom of hero:** Inline SVG wave divider at the bottom edge of the hero section (same pattern as REQ-VD-9: organic bezier path, fill `#F8F5EF` to match page background below, responsive height, `aria-hidden="true"`, positioned absolute at `bottom: -1px`). Creates organic transition from hero photo into the "Why Pašman" section — no hard edge.
   - **Imagery authenticity:** All hero carousel photos must depict the Croatian Adriatic coast, Pašman island, or Dalmatian architecture. No tropical resorts, Greek islands (Santorini blue domes), or generic Mediterranean stock. Each carousel image must be unique (no photo reused elsewhere on the site).
-  - **Temporary workaround:** Stock photos currently served directly from Pexels CDN URLs (external hotlink) due to a routing bug in the `/media/:key` Worker route (404 on R2 fetch). When the `/media/` route is fixed, images will move to R2 with Cloudflare Image Resizing per REQ-PERF-1. Pexels CDN URLs use `?auto=compress&w=` for basic optimization.
-  - **Future enhancement:** CMS-managed hero image selection will replace the hardcoded Pexels URLs. Owner will be able to choose and reorder carousel images from the admin panel.
+  - **Image source:** All hero carousel photos are real island images served from local `/photos/` directory. Will move to R2 with Cloudflare Image Resizing when pipeline is ready (REQ-PERF-1).
+  - **Future enhancement:** CMS-managed hero image selection will replace the hardcoded local paths. Owner will be able to choose and reorder carousel images from the admin panel.
 - **Constraints:** CON-PERF, CON-A11Y
 - **Priority:** P0
 - **Dependencies:** REQ-VD-9
 - **Verification:** Visual + Lighthouse. Verify wave renders at bottom of hero with no gap or color mismatch.
-- **Status:** Partial — carousel and Ken Burns work; inline SVG wave added at bottom of hero; wave clipping fixed (overflow:hidden moved from .hero to .hero__slide); some stock photos are still non-Croatian; pending live site confirmation
+- **Status:** Implemented — carousel and Ken Burns work; inline SVG wave at bottom of hero; all hero photos are real Croatian/island imagery from `/photos/` directory
 
 ### REQ-SF-2: Optional Ambient Video Hero
 

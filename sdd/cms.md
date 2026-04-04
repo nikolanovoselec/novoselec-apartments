@@ -8,7 +8,7 @@ Emdash CMS integration, media library, authentication, mobile admin UX, section 
 - **Mobile-first admin**: Every operation must work on owner's phone
 - **Collections**: Apartments, seasons, testimonials, guide entries, FAQs, pages, site-settings
 - **Section toggles**: Owner can show/hide optional homepage sections without deleting content
-- **Preloaded content**: Site ships complete with real Pašman content in all 4 locales
+- **Preloaded content**: Site requires CMS seed data to render content — no hardcoded fallbacks on editorial pages
 - **Structured editing**: Prefer structured fields over freeform rich text for most content types
 
 ## Requirements
@@ -169,7 +169,7 @@ Emdash CMS integration, media library, authentication, mobile admin UX, section 
   - All pages fully written in HR, DE, SL, EN with native-quality copy
   - Preloaded:
     - 2-3 example apartments with descriptions, amenities, realistic seasonal pricing, house rules
-    - Hero slideshow: 5 curated stock photos (Pašman/Adriatic)
+    - Hero slideshow: 4+ real island photos (Pašman/Adriatic) from `/photos/` directory
     - "Why Pašman" with real selling points and photos
     - "About Ždrelac" village description with photos
     - "Getting Here" with real Jadrolinija ferry info for both routes (Biograd-Tkon AND Zadar-Preko via Ždrelac bridge), airport distances, driving routes
@@ -180,19 +180,19 @@ Emdash CMS integration, media library, authentication, mobile admin UX, section 
     - Host story template
     - Privacy policy, Impressum, house rules, and cancellation policy templates
   - **Placeholder marking:** All preloaded content tagged as `placeholder: true` in CMS. Admin shows "Demo content — replace with your own" badge on placeholder items. Dashboard checklist: "Replace these 5 stock apartment photos", "Update host story", etc.
-  - Stock media: 30-40 curated royalty-free photos
+  - Real photos: 20+ real island/Croatian photos in `/photos/` directory (no stock photography remaining)
   - Optional hero video: one 10-15s ambient stock clip
   - Site deployable and visitor-ready on day one
   - Owner workflow: open admin → see checklist → replace photos → edit text → mark as own content → done
   - **Seed API:** `POST /api/admin/seed` endpoint applies `seed/seed.json` to D1 via Emdash's `applySeed()`. Idempotent (safe to run multiple times). Returns JSON `{ success, result }` on 200 or `{ success: false, error }` on 500.
   - **Seed data (`seed/seed.json`):** 6 collections across 4 locales: `homepage` (section-based: why-pasman, zdrelac, apartments, cta), `pages` (why-pasman, getting-here, about, faq with structured section data), `apartments` (2 listings: Lavanda 4-pax, Tramuntana 2-pax with full field set), `faqs` (categorized Q&A), `guide` (local guide entries across categories), `testimonials` (guest quotes with country metadata). All entries have per-locale variants (hr, de, sl, en).
-  - **Editorial collection seeding:** CMS entries for ALL `editorial` page_keys must be seeded in all 4 locales: `hrana` (5 sections), `aktivnosti` (6 sections), `plaze` (5 sections), `zdrelac` (6+ sections), `homepage` sections, `about`, `privacy`, `impressum`. No page should fall through to hardcoded fallback content once seeding is complete.
+  - **Editorial collection seeding (critical):** CMS entries for ALL `editorial` page_keys must be seeded in all 4 locales: `hrana` (5 sections), `aktivnosti` (6 sections), `plaze` (5 sections), `zdrelac` (6+ sections), `why-pasman`, `dolazak` (ferry/alt-route/airport sections), `about`, `homepage` sections, `privacy`. Hardcoded fallback content has been removed from all editorial pages — pages now render empty sections if CMS entries are missing. Complete seeding is a prerequisite for a functional site.
   - **All 4 locales complete:** DE and SL content must be culturally adapted (not machine-translated Croatian). German content is precise and detailed; Slovenian is warm and familiar. No locale should show Croatian fallback for seeded pages.
 - **Constraints:** CON-MEDIA, CON-I18N
 - **Priority:** P0
 - **Dependencies:** REQ-CMS-1, REQ-CMS-2, REQ-I18N-4
-- **Verification:** Deploy fresh instance, run seed endpoint, verify complete site renders in all 4 locales with no hardcoded fallback content visible, verify placeholder badges
-- **Status:** Partial — 118+ entries seeded in HR and EN for most collections; DE and SL largely missing; editorial entries for hrana/aktivnosti/plaze page_keys not fully seeded
+- **Verification:** Deploy fresh instance, run seed endpoint, verify complete site renders in all 4 locales with no empty sections (all editorial page_keys have CMS entries), verify placeholder badges
+- **Status:** Partial — 118+ entries seeded in HR and EN for most collections; DE and SL largely missing; editorial entries for hrana/aktivnosti/plaze page_keys not fully seeded. **Risk: pages with missing CMS entries now render empty sections (no fallback) so incomplete seeding produces visibly broken pages.**
 
 ### REQ-CMS-7: Content Safeguards
 

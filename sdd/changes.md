@@ -1,5 +1,21 @@
 # Changelog
 
+## 2026-04-03 - Revision 51: CMS-only content model — all hardcoded fallbacks removed
+
+### Requirements updated
+- **REQ-ED-1** (Why Pasman): Status updated — hardcoded selling points removed, now CMS-only via `editorial` collection. Empty content if unseeded.
+- **REQ-ED-2** (Getting Here): Status updated — hardcoded transport sections removed, now CMS-only with empty-string defaults.
+- **REQ-ED-4** (Local Guide): Acceptance criteria updated — guide categories and CMS editorial entries now rendered in one unified alternating content-row layout (previously separate sections).
+- **REQ-ED-5** (About Hosts): Status updated — hardcoded host story removed, now CMS-only.
+- **REQ-ED-6** (Zdrelac): Acceptance criteria and status updated — hardcoded Croatian/DE/SL/EN fallback sections removed. CMS-only.
+- **REQ-ED-8** (Food & Drink): Acceptance criteria and status updated — now queries `editorial` collection by `page_key === "hrana"`. No hardcoded content.
+- **REQ-ED-9** (Activities): Acceptance criteria updated — hardcoded fallback removed. CMS-only.
+- **REQ-ED-10** (Beaches): Acceptance criteria updated — hardcoded fallback removed. CMS-only.
+- **REQ-CMS-6** (Preloaded Content): Acceptance criteria updated — editorial seeding list expanded to include `why-pasman` and `dolazak` page_keys. Status updated to flag risk: incomplete seeding now produces visibly empty pages.
+
+### Architectural change
+- **CMS-only content model:** All editorial pages (`zasto-pasman`, `dolazak`, `o-nama`, `hrana`, `aktivnosti`, `plaze`, `zdrelac`, `vodic`) now render exclusively from CMS data. No hardcoded per-locale fallback content remains. Pages render empty sections when CMS entries are missing. This makes complete CMS seeding a hard prerequisite for a functional visitor-facing site. Only `faq`, `privatnost`, and `index` (homepage) retain some hardcoded fallbacks.
+
 ## 2026-04-04 - Revision 50: User decisions - deprecate skipped features, finalize target state
 
 ### Requirements deprecated

@@ -244,13 +244,13 @@ Color system, typography, scroll animations, micro-interactions, and Croatian vi
   - Content z-index layering: image (0), overlay (1), text content (2), wave (3)
   - All subpages use hero images: apartments listing, gallery, getting here, FAQ, about hosts, local guide, why Pasman, contact, impressum, privacy policy, accessibility statement, hrana, aktivnosti, plaze, zdrelac
   - **Imagery authenticity:** Subpage hero photos must depict Croatian/Adriatic scenes relevant to the page topic. No Greek islands (Santorini), no tropical resorts, no generic Mediterranean. Each page uses a unique hero image (no duplicates across pages).
-  - **Temporary workaround:** Stock photos served from Pexels CDN (same as REQ-SF-1 workaround). Will move to R2 when `/media/` route is fixed.
+  - **Image source:** All subpage hero photos are real island/Croatian images served from local `/photos/` directory. Will move to R2 with Cloudflare Image Resizing when pipeline is ready (REQ-PERF-1).
   - `prefers-reduced-motion`: Ken Burns animation disabled
 - **Constraints:** CON-PERF, CON-A11Y
 - **Priority:** P1
 - **Dependencies:** REQ-VD-9, REQ-VD-1
 - **Verification:** Visual review across ALL subpages — verify wave renders at bottom with correct fill color, no gap. Verify hero images are contextually appropriate and unique per page.
-- **Status:** Partial — hero images present on most pages; inline SVG waves added to hrana, aktivnosti, plaze custom heroes; some hero images are still non-Croatian stock (Santorini blue domes on beaches page); pending live site confirmation
+- **Status:** Implemented — all subpages have real Croatian hero photos from `/photos/` directory; inline SVG waves on all custom heroes; no non-Croatian imagery remains
 
 ### REQ-VD-13: Icon System
 
@@ -274,15 +274,15 @@ Color system, typography, scroll animations, micro-interactions, and Croatian vi
 - **Applies To:** Visitor
 - **Acceptance Criteria:**
   - Every hero image is unique across all pages (no two pages share the same hero photo)
-  - Every content section image is unique within and across pages (no Pexels URL appears more than once on the entire site)
-  - All images depict Croatian Adriatic coast, Dalmatian architecture, Pašman/Ugljan islands, or contextually relevant Croatian subjects (food, nature, villages)
+  - Every content section image is unique within and across pages
+  - All images are real Croatian Adriatic coast, Dalmatian architecture, Pašman/Ugljan islands, or contextually relevant Croatian subjects (food, nature, villages) — served from local `/photos/` directory
   - Explicitly forbidden: Santorini/Greek blue dome imagery, tropical resorts, Maldives-style overwater bungalows, generic Mediterranean stock
-  - When R2 pipeline is ready, all images migrate from Pexels CDN to R2 (REQ-PERF-1)
+  - When R2 pipeline is ready, all images migrate from local `/photos/` to R2 with Cloudflare Image Resizing (REQ-PERF-1)
 - **Constraints:** CON-MEDIA
 - **Priority:** P1
 - **Dependencies:** REQ-VD-12
 - **Verification:** Audit all image URLs — no duplicates, no non-Croatian imagery
-- **Status:** Planned — multiple Pexels images reused across pages, some non-Croatian imagery present
+- **Status:** Implemented — all pages use unique real island photos from `/photos/` directory; zero Pexels URLs remain; no non-Croatian imagery present
 
 ## Out of Scope
 

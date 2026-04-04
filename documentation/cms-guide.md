@@ -38,10 +38,23 @@ How to manage content, photos, and settings from your phone.
 ### Editing Page Content
 
 1. Open Admin → Editorial collection
-2. Filter by `page_key` (e.g., "hrana" for Food & Drink)
+2. Filter by `page_key` — see the table below for which key controls which page
 3. Each entry represents one section on the page
 4. Edit title, body text, image
 5. Save and publish
+
+**Page key reference:**
+
+| `page_key` | Page | Notes |
+|---|---|---|
+| `hrana` | Food & Drink (`/hrana`) | Each entry = one content row; CMS-only, page is blank without entries |
+| `about` | About Us (`/o-nama`) | Single entry; `body` field is the host story; CMS-only |
+| `getting-here` | Getting Here (`/dolazak`) | Single entry; `sections_json` field holds ferry, alt-route, and airport data as JSON; CMS-only |
+| `why-pasman` | Why Pašman (`/zasto-pasman`) | Single entry; `sections_json` field holds an array of `{title, text}` objects; CMS-only |
+| `zdrelac` | Ždrelac (`/zdrelac`) | Each entry = one content row; CMS-only, page is blank without entries |
+| `aktivnosti` | Nature & Activities (`/aktivnosti`) | Each entry = one content row; CMS-only, page is blank without entries |
+| `plaze` | Beaches (`/plaze`) | Each entry = one content row; CMS-only, page is blank without entries |
+| `vodic` | Local Guide (`/vodic`) | Supplemental entries appended after `guide` collection rows |
 
 ### Reading Inquiries
 
