@@ -89,7 +89,7 @@ The collage strip is hidden entirely if the entry is absent or if the JSON is in
 | `zdrelac` | Ždrelac (`/zdrelac`) | Each entry = one content row; CMS-only, page is blank without entries |
 | `aktivnosti` | Nature & Activities (`/aktivnosti`) | Each entry = one content row; CMS-only, page is blank without entries |
 | `plaze` | Beaches (`/plaze`) | Each entry = one content row; CMS-only, page is blank without entries |
-| `vodic` | Local Guide (`/vodic`) | Supplemental entries appended after `guide` collection rows |
+| `vodic` | Local Guide (`/vodic`) | All entries; sorted by `sort_order`; page uses only the `editorial` collection (no `guide` collection) |
 
 ### Reading Inquiries
 
