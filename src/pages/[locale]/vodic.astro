@@ -10,27 +10,16 @@ const { locale } = Astro.params;
 if (!locale || !isValidLocale(locale)) return Astro.redirect("/hr/", 302);
 const typedLocale = locale as Locale;
 
-const cmsGuide = await getLocalizedCollection("guide", typedLocale);
-const cmsEditorial = (await getLocalizedCollection("editorial", typedLocale))
+const cmsEntries = (await getLocalizedCollection("editorial", typedLocale))
   .filter((e) => e.data.page_key === "vodic")
   .sort((a, b) => ((a.data.sort_order as number) ?? 0) - ((b.data.sort_order as number) ?? 0));
 
-const sections = [
-  ...cmsGuide
-    .sort((a, b) => ((a.data.sort_order as number) ?? 0) - ((b.data.sort_order as number) ?? 0))
-    .map((g) => ({
-      title: (g.data.title as string) ?? "",
-      text: (g.data.description as string) ?? "",
-      image: (g.data.image as string) ?? "",
-      gallery: parsePhotoArray(g.data.gallery),
-    })),
-  ...cmsEditorial.map((e) => ({
-    title: (e.data.title as string) ?? "",
-    text: (e.data.body as string) ?? "",
-    image: (e.data.image as string) ?? "",
-    gallery: parsePhotoArray(e.data.gallery),
-  })),
-];
+const sections = cmsEntries.map((e) => ({
+  title: (e.data.title as string) ?? "",
+  text: (e.data.body as string) ?? "",
+  image: (e.data.image as string) ?? "",
+  gallery: parsePhotoArray(e.data.gallery),
+}));
 ---
 
 <Page title={t(typedLocale, "guide.title")} locale={typedLocale} ogImage={`https://apartmani.novoselec.ch${sections[0]?.image || "/api/img/c5d2a82f-a2de-45ef-96c2-3d2198ff3b35"}`}>
