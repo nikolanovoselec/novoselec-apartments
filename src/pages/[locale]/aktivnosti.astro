@@ -22,42 +22,7 @@ const intro: Record<Locale, string> = {
   en: "Pašman and Ugljan aren't islands of dramatic heights, but they offer the perfect combination of gentle trails, olive groves, Kornati viewpoints, and a sea that invites exploration.",
 };
 
-type Section = { title: string; text: string; image: string; alt: string };
-const sections: Record<Locale, Section[]> = {
-  hr: [
-    { title: "Šetnje i vidikovci", text: "Kratke rute uz more oko Ždrelca (0-5 km) idealne su za jutarnju šetnju. Brdo Bokolj na Ugljanu (8-10 km) jedan je od najpoznatijih vidikovaca - pogled se otvara prema Zadru, Pašmanu i kanalu. Najljepše pred zalazak sunca.", image: "https://images.pexels.com/photos/3601425/pexels-photo-3601425.jpeg?auto=compress&w=800", alt: "Pogled s vidikovca na otoke" },
-    { title: "Biciklizam po otocima", text: "Kružna ruta Ždrelac – Preko – Kali – Ugljan – most – natrag (25-40 km) s mnogo mjesta za pauze uz more. Pašman prema jugu nudi slikovite vožnje uz maslinike. E-bike pretvara i ljetnu vrućinu u uživanje.", image: "https://images.pexels.com/photos/4992828/pexels-photo-4992828.jpeg?auto=compress&w=800", alt: "Biciklizam kroz maslinike" },
-    { title: "Nacionalni park Kornati", text: "Iz zadarskog arhipelaga Kornati su prirodan 'must'. Plivanje u tirkiznim uvalama, pauza za ručak u konobi i fotografije koje izgledaju filmski. Polasci iz Preka, Kali i Tkona (10-15 km). Private charter za parove i obitelji koji žele vlastiti tempo.", image: "https://images.pexels.com/photos/1285625/pexels-photo-1285625.jpeg?auto=compress&w=800", alt: "Kornati nacionalni park" },
-    { title: "Park prirode Telašćica", text: "Visoke stijene iznad otvorenog mora, mirna uvala i Slano jezero Mir na Dugom otoku. Jedan od najimpresivnijih krajolika u Dalmaciji. Organizirane ture kreću iz okolnih luka, često u kombinaciji s Kornatima.", image: "https://images.pexels.com/photos/1450353/pexels-photo-1450353.jpeg?auto=compress&w=800", alt: "Telašćica park prirode" },
-    { title: "Vodeni sportovi", text: "Jutarnji kayak ili SUP oko uvala Ždrelca (0-3 km) dok je more mirno. Snorkeling uz stjenovite obale - maska, peraje i UV zaštita. Ronilačke ture iz okolice Ugljana i Preka za ozbiljnije lokacije.", image: "https://images.pexels.com/photos/1285625/pexels-photo-1285625.jpeg?auto=compress&w=800", alt: "Kayaking uz obalu" },
-    { title: "Povijest i kultura", text: "Tvrđava sv. Mihovila na Ugljanu iznad Preka (12-14 km) - jedna od najatraktivnijih povijesnih točaka s pogledom na Zadar. Franjevački samostan sv. Pavla na otočiću Galevac kod Preka - mirno utočište izvan vršnih sati.", image: "https://images.pexels.com/photos/2880507/pexels-photo-2880507.jpeg?auto=compress&w=800", alt: "Tvrđava sv. Mihovila" },
-  ],
-  de: [
-    { title: "Wandern & Aussichtspunkte", text: "Kurze Küstenwege um Ždrelac (0-5 km) für Morgenspaziergänge. Der Hügel Bokolj auf Ugljan (8-10 km) bietet Panoramablick auf Zadar und den Kanal. Am schönsten bei Sonnenuntergang.", image: "https://images.pexels.com/photos/3601425/pexels-photo-3601425.jpeg?auto=compress&w=800", alt: "Aussichtspunkt über den Inseln" },
-    { title: "Radfahren", text: "Rundtour Ždrelac – Preko – Kali – Ugljan – Brücke (25-40 km) mit Pausen am Meer. E-Bikes verwandeln Sommerhitze in Genuss.", image: "https://images.pexels.com/photos/4992828/pexels-photo-4992828.jpeg?auto=compress&w=800", alt: "Radfahren durch Olivenhaine" },
-    { title: "Nationalpark Kornati", text: "Schwimmen in türkisfarbenen Buchten, Mittagspause in einer Konoba. Abfahrten aus Preko, Kali und Tkon (10-15 km). Privatcharter für eigenes Tempo.", image: "https://images.pexels.com/photos/1285625/pexels-photo-1285625.jpeg?auto=compress&w=800", alt: "Kornati Nationalpark" },
-    { title: "Naturpark Telašćica", text: "Dramatische Klippen über dem offenen Meer, geschützte Bucht und Salzsee Mir auf Dugi Otok. Organisierte Touren ab umliegenden Häfen.", image: "https://images.pexels.com/photos/1450353/pexels-photo-1450353.jpeg?auto=compress&w=800", alt: "Naturpark Telašćica" },
-    { title: "Wassersport", text: "Morgens Kajak oder SUP um Ždrelacs Buchten. Schnorcheln an felsigen Küsten. Tauchtouren ab Ugljan/Preko.", image: "https://images.pexels.com/photos/1285625/pexels-photo-1285625.jpeg?auto=compress&w=800", alt: "Kajakfahren" },
-    { title: "Geschichte & Kultur", text: "Festung St. Michael auf Ugljan (12-14 km) mit Blick auf Zadar. Franziskanerkloster auf Galevac - ruhiger Rückzugsort.", image: "https://images.pexels.com/photos/2880507/pexels-photo-2880507.jpeg?auto=compress&w=800", alt: "Festung St. Michael" },
-  ],
-  sl: [
-    { title: "Pohodništvo in razgledne točke", text: "Kratke obalne poti okoli Ždrelaca (0-5 km). Hrib Bokolj na Ugljanu (8-10 km) ponuja panoramski razgled na Zadar in kanal.", image: "https://images.pexels.com/photos/3601425/pexels-photo-3601425.jpeg?auto=compress&w=800", alt: "Razgledna točka" },
-    { title: "Kolesarjenje", text: "Krožna pot Ždrelac – Preko – Kali – Ugljan – most (25-40 km). E-kolesa za uživanje tudi v poletni vročini.", image: "https://images.pexels.com/photos/4992828/pexels-photo-4992828.jpeg?auto=compress&w=800", alt: "Kolesarjenje med oljkami" },
-    { title: "Narodni park Kornati", text: "Plavanje v turkiznih zalivčkih, kosilo v konobi. Odhodi iz Preka, Kali in Tkona (10-15 km).", image: "https://images.pexels.com/photos/1285625/pexels-photo-1285625.jpeg?auto=compress&w=800", alt: "Narodni park Kornati" },
-    { title: "Park narave Telašćica", text: "Dramatične pečine, zaščiten zaliv in Slano jezero Mir na Dugem otoku.", image: "https://images.pexels.com/photos/1450353/pexels-photo-1450353.jpeg?auto=compress&w=800", alt: "Park narave Telašćica" },
-    { title: "Vodni športi", text: "Jutranji kajak ali SUP po zalivčkih Ždrelaca. Potapljanje ob skalnatih obalah.", image: "https://images.pexels.com/photos/1285625/pexels-photo-1285625.jpeg?auto=compress&w=800", alt: "Kajakaštvo" },
-    { title: "Zgodovina in kultura", text: "Trdnjava sv. Mihaela na Ugljanu (12-14 km). Frančiškanski samostan na otočku Galevac.", image: "https://images.pexels.com/photos/2880507/pexels-photo-2880507.jpeg?auto=compress&w=800", alt: "Trdnjava sv. Mihaela" },
-  ],
-  en: [
-    { title: "Walks & viewpoints", text: "Short coastal paths around Ždrelac (0-5 km) for morning walks. Bokolj hill on Ugljan (8-10 km) offers panoramic views of Zadar, Pašman, and the channel. Best before sunset.", image: "https://images.pexels.com/photos/3601425/pexels-photo-3601425.jpeg?auto=compress&w=800", alt: "Viewpoint over islands" },
-    { title: "Cycling the islands", text: "Loop route Ždrelac – Preko – Kali – Ugljan – bridge (25-40 km) with sea-side stops. E-bikes turn summer heat into enjoyment.", image: "https://images.pexels.com/photos/4992828/pexels-photo-4992828.jpeg?auto=compress&w=800", alt: "Cycling through olive groves" },
-    { title: "Kornati National Park", text: "Swimming in turquoise coves, lunch in a konoba, cinematic photos. Departures from Preko, Kali, Tkon (10-15 km). Private charter for your own pace.", image: "https://images.pexels.com/photos/1285625/pexels-photo-1285625.jpeg?auto=compress&w=800", alt: "Kornati National Park" },
-    { title: "Telašćica Nature Park", text: "Dramatic cliffs above open sea, sheltered bay, and Salt Lake Mir on Dugi Otok. One of Dalmatia's most impressive landscapes.", image: "https://images.pexels.com/photos/1450353/pexels-photo-1450353.jpeg?auto=compress&w=800", alt: "Telašćica Nature Park" },
-    { title: "Water sports", text: "Morning kayak or SUP around Ždrelac's coves (0-3 km). Snorkeling along rocky shores. Diving tours from Ugljan/Preko.", image: "https://images.pexels.com/photos/1285625/pexels-photo-1285625.jpeg?auto=compress&w=800", alt: "Kayaking along coast" },
-    { title: "History & culture", text: "St. Michael's Fortress on Ugljan above Preko (12-14 km) with Zadar views. Franciscan monastery on Galevac islet - peaceful retreat.", image: "https://images.pexels.com/photos/2880507/pexels-photo-2880507.jpeg?auto=compress&w=800", alt: "St. Michael's Fortress" },
-  ],
-};
-const page = sections[typedLocale];
+// Content from CMS only - no fallback
 ---
 
 <Page title={title[typedLocale]} locale={typedLocale}>
@@ -74,15 +39,12 @@ const page = sections[typedLocale];
     </svg>
   </section>
 
-  {(cmsEntries.length > 0
-    ? cmsEntries.map((e) => ({
-        title: (e.data.title as string) ?? "",
-        text: (e.data.body as string) ?? "",
-        image: (e.data.image as string) ?? "",
-        alt: (e.data.title as string) ?? "",
-      }))
-    : page
-  ).map((section, i) => (
+  {cmsEntries.map((e) => ({
+      title: (e.data.title as string) ?? "",
+      text: (e.data.body as string) ?? "",
+      image: (e.data.image as string) ?? "",
+      alt: (e.data.title as string) ?? "",
+    })).map((section, i) => (
     <section class:list={["section", { "section--alt": i % 2 === 1 }]} data-reveal>
       <div class="container">
         <div class:list={["content-row", { "content-row--reverse": i % 2 === 1 }]}>
