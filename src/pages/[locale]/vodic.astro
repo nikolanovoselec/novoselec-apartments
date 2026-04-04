@@ -15,35 +15,26 @@ const cmsEditorial = (await getLocalizedCollection("editorial", typedLocale))
   .filter((e) => e.data.page_key === "vodic")
   .sort((a, b) => ((a.data.sort_order as number) ?? 0) - ((b.data.sort_order as number) ?? 0));
 
-type GuideItem = { title: string; description: string; image: string };
-let categories: GuideItem[] = [];
-
-if (cmsGuide.length > 0) {
-  categories = cmsGuide
-    .sort((a, b) => ((a.data.sort_order as number) ?? 0) - ((b.data.sort_order as number) ?? 0))
-    .map((g) => ({
-      title: g.data.title as string,
-      description: g.data.description as string,
-      image: (g.data.image as string) ?? "",
-    }));
-// No fallback - CMS only
-
-const imageAlts = [
-  "Secluded pebble beach on Pašman island",
-  "Traditional Dalmatian seafood meal",
-  "Olive groves and hiking trails on Pašman",
-  "Kornati islands aerial view from excursion boat",
-];
+// CMS only — no fallback
+const categories = cmsGuide.length > 0
+  ? cmsGuide
+      .sort((a, b) => ((a.data.sort_order as number) ?? 0) - ((b.data.sort_order as number) ?? 0))
+      .map((g) => ({
+        title: g.data.title as string,
+        description: g.data.description as string,
+        image: (g.data.image as string) ?? "",
+      }))
+  : [];
 ---
 
 <Page title={t(typedLocale, "guide.title")} locale={typedLocale}>
   <HeroSimple title={t(typedLocale, "guide.title")} image="/photos/pine-forest-child.jpg" />
 
   {/* All content in one unified layout */}
-  {[...categories.map((cat, i) => ({
+  {[...categories.map((cat) => ({
     title: cat.title,
     text: cat.description,
-    image: cat.image || imageAlts[i % imageAlts.length],
+    image: cat.image,
   })), ...cmsEditorial.map((e) => ({
     title: (e.data.title as string) ?? "",
     text: (e.data.body as string) ?? "",
@@ -66,9 +57,3 @@ const imageAlts = [
     </section>
   ))}
 </Page>
-
-<style>
-  @media (min-width: 768px) {
-    }
-
-  </style>
