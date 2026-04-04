@@ -1,14 +1,12 @@
 import type { APIRoute } from "astro";
 import { env as _env } from "cloudflare:workers";
-import type { Env } from "~/env";
 
 /**
- * Image serving route: fetches from private R2 bucket.
+ * Image serving route: fetches from R2 via Emdash storage abstraction.
  * URL: /api/img/:key (key is a UUID without extension)
  *
- * Uses cloudflare:workers import so Astro includes the route in the build.
- * Accesses R2 via locals.runtime.env at request time (Astro CF adapter pattern).
- * Falls back to cloudflare:workers env if locals not available.
+ * Uses locals.emdash.storage.download() — same R2 instance as CMS.
+ * Falls back to direct env.MEDIA bucket access.
  */
 export const GET: APIRoute = async ({ params, locals }) => {
   const key = params.key ?? "";
@@ -17,24 +15,31 @@ export const GET: APIRoute = async ({ params, locals }) => {
     return new Response("Invalid key", { status: 400 });
   }
 
-  // Try locals.runtime.env first (official Astro Cloudflare adapter)
-  // Fall back to cloudflare:workers module env
-  let bucket: R2Bucket | undefined;
-  try {
-    const runtime = (locals as unknown as { runtime?: { env?: { MEDIA?: R2Bucket } } }).runtime;
-    bucket = runtime?.env?.MEDIA;
-  } catch { /* locals access failed */ }
+  // Try Emdash storage first (same R2 instance as CMS media library)
+  const emdash = (locals as unknown as { emdash?: { storage?: { download: (key: string) => Promise<{ body: ReadableStream; contentType: string; size?: number }> } } }).emdash;
 
-  if (!bucket) {
-    const env = _env as unknown as Env;
-    bucket = env.MEDIA;
+  if (emdash?.storage) {
+    try {
+      const result = await emdash.storage.download(key);
+      return new Response(result.body, {
+        headers: {
+          "Content-Type": result.contentType,
+          "Cache-Control": "public, max-age=31536000, immutable",
+        },
+      });
+    } catch {
+      // File not found in Emdash storage, try direct R2
+    }
   }
 
-  if (!bucket) {
-    return new Response("Storage not configured", { status: 503 });
-  }
-
+  // Fallback: direct R2 bucket access via cloudflare:workers
   try {
+    const env = _env as unknown as Record<string, unknown>;
+    const bucket = env.MEDIA as R2Bucket | undefined;
+    if (!bucket) {
+      return new Response("Storage not configured", { status: 503 });
+    }
+
     const object = await bucket.get(key);
     if (!object) {
       return new Response("Not found", { status: 404 });
@@ -43,11 +48,9 @@ export const GET: APIRoute = async ({ params, locals }) => {
     const headers = new Headers({
       "Cache-Control": "public, max-age=31536000, immutable",
     });
-
     if (object.httpMetadata?.contentType) {
       headers.set("Content-Type", object.httpMetadata.contentType);
     }
-
     return new Response(object.body, { headers });
   } catch {
     return new Response("Internal error", { status: 500 });
