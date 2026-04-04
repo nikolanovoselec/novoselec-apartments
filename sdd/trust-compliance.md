@@ -1,11 +1,11 @@
 # Trust & Compliance
 
-GDPR, privacy policy, Impressum, house rules, cancellation policy, security headers, and accessibility statement.
+GDPR, privacy policy, house rules, cancellation policy, security headers, and accessibility statement.
 
 ## Key Concepts
 
 - **GDPR**: EU General Data Protection Regulation governing personal data processing
-- **Impressum**: Legal notice page required by German/Austrian law for commercial websites
+- **Impressum**: ~~Legal notice page required by German/Austrian law for commercial websites~~ — Deprecated (REQ-TC-3). Not legally required for Croatian-based site.
 - **PAngV**: German pricing transparency regulation requiring total price display
 - **Cookie consent**: EU requirement for explicit consent before setting non-essential cookies
 - **Data retention**: Maximum period personal data (inquiries) is stored before deletion

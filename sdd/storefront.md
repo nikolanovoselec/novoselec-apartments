@@ -125,7 +125,7 @@ The homepage and visual shell — hero, navigation, footer, language switcher, a
   - Quick links to all visible sections
   - Language switcher (duplicate)
   - "Book direct — no platform fees" trust message
-  - Links: privacy policy, cookie settings, Impressum
+  - Links: privacy policy, cookie settings, accessibility statement
   - Contact info CMS-managed in site-settings
 - **Constraints:** CON-LEGAL, CON-I18N
 - **Priority:** P1

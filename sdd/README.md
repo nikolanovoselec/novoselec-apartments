@@ -2,7 +2,7 @@
 
 ## Vision
 
-A vacation rental website for apartments on Pašman island, Croatia. The site is a visual love letter to the Adriatic — full-bleed photography, Mediterranean color palette (sea blues, warm stone, olive greens, terracotta), smooth scroll animations, and effortless coastal elegance. Visitors browse apartments, swipe through photo galleries, check availability, and submit booking inquiries (spam-protected with Cloudflare Turnstile, delivered via Resend). The owner gets a simple admin dashboard (Emdash CMS) to manage apartment listings, update descriptions, upload photos, toggle sections, and manage translations — all from her phone. The site ships fully preloaded with real Pašman content in four languages and curated stock photography, ready to go live on day one. Deployed as a single Cloudflare Worker.
+A vacation rental website for apartments on Pašman island, Croatia. The site is a visual love letter to the Adriatic — full-bleed photography, Mediterranean color palette (sea blues, warm stone, olive greens, terracotta), smooth scroll animations, and effortless coastal elegance. Visitors browse apartments, swipe through photo galleries, check availability, and submit booking inquiries (spam-protected with Cloudflare Turnstile, delivered via Resend). The owner gets a simple admin dashboard (Emdash CMS) to manage apartment listings, update descriptions, upload photos, toggle sections, and manage translations — all from her phone. The site ships fully preloaded with real Pašman content in four languages and real island photography, ready to go live on day one. Deployed as a single Cloudflare Worker.
 
 ## Actors
 
@@ -21,7 +21,7 @@ A vacation rental website for apartments on Pašman island, Croatia. The site is
 5. **German precision, Croatian warmth.** German visitors get exact distances, detailed specs. Croatian/Slovenian content is warmer and more familiar. English is universal clarity. Translation is cultural adaptation, not word-for-word.
 6. **Every page converts.** No dead-end pages. Every scroll position has a path to the inquiry form or WhatsApp. But never aggressive — luxury whispers.
 7. **Performance is invisible luxury.** Sub-2-second loads. Blurhash-to-sharp image transitions. No layout shift. Smoothness IS the premium signal.
-8. **Ship complete, personalize later.** The site arrives fully preloaded with real Pašman content, stock photography, and all four languages. The owner replaces and edits — she never builds from scratch.
+8. **Ship complete, personalize later.** The site arrives fully preloaded with real Pašman content, real island photography, and all four languages. The owner replaces and edits — she never builds from scratch.
 
 ## Domains
 
@@ -36,7 +36,7 @@ A vacation rental website for apartments on Pašman island, Croatia. The site is
 | 7 | Visual Design | [visual-design.md](visual-design.md) | P1 | Color system, typography, scroll animations, micro-interactions, Croatian identity |
 | 8 | CMS | [cms.md](cms.md) | P0 | Emdash integration, media library, Cloudflare Access auth, mobile admin, section toggles, content safeguards, preloaded content |
 | 9 | SEO & Analytics | [seo-analytics.md](seo-analytics.md) | P1 | Schema.org, OG images, sitemap, Cloudflare Web Analytics, conversion events |
-| 10 | Trust & Compliance | [trust-compliance.md](trust-compliance.md) | P1 | GDPR, privacy policy, Impressum, security headers |
+| 10 | Trust & Compliance | [trust-compliance.md](trust-compliance.md) | P1 | GDPR, privacy policy, security headers |
 | 11 | Performance | [performance.md](performance.md) | P1 | Image pipeline, edge caching, bundle budget |
 | 12 | Accessibility | [accessibility.md](accessibility.md) | P0 | Reduced motion, keyboard nav, screen reader, contrast |
 

@@ -1,5 +1,35 @@
 # Changelog
 
+## 2026-04-03 - Revision 52: Real island photos, Impressum cleanup, fallback removal completion
+
+### Requirements updated
+- **REQ-VD-14** (Unique Imagery): Status Planned -> Implemented. Zero Pexels URLs remain in codebase. All pages use real island photos from `/photos/` directory. No non-Croatian imagery.
+- **REQ-VD-12** (Subpage Hero): Status Partial -> Implemented. Pexels CDN workaround note removed. All subpage heroes use real Croatian photos.
+- **REQ-SF-1** (Hero Section): Status Partial -> Implemented. Pexels CDN workaround removed. Hero carousel uses real island photos from `/photos/`.
+- **REQ-SF-8** (Gallery Page): Acceptance criteria updated — images now from `/photos/` not Pexels CDN.
+- **REQ-AP-2** (Apartment Listing): Fallback behavior updated — hardcoded Lavanda/Tramuntana examples removed; CMS-only.
+- **REQ-ED-10** (Beaches): Status updated — Santorini hero replaced with real Croatian beach photo.
+- **REQ-CMS-6** (Preloaded Content): Removed `impressum` from editorial seeding list (page deprecated). Updated stock media references to real photos.
+- **REQ-CMS-7** (Content Safeguards): Removed Impressum from singleton pages list.
+
+### Constraints updated
+- **CON-LEGAL**: Impressum requirement struck (REQ-TC-3 deprecated).
+- **CON-I18N**: Impressum German-always-available exception struck.
+
+### Glossary updated
+- **Impressum**: Marked as deprecated, referencing REQ-TC-3.
+
+### Quality fixes
+- README vision and domain table: "stock photography" -> "real island photography"; Impressum removed from Trust & Compliance description.
+- Trust-compliance domain description: removed Impressum reference.
+- CMS REQ-CMS-5 always-visible list: removed Impressum.
+- TC-2 (Privacy Policy): removed stale "same exception as Impressum" cross-reference.
+
+### Note
+- Sitemap generator (`src/pages/sitemap.xml.ts`) still references `/impressum` route — dead link, needs code fix.
+
+---
+
 ## 2026-04-03 - Revision 51: CMS-only content model — all hardcoded fallbacks removed
 
 ### Requirements updated

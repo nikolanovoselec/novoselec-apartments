@@ -178,8 +178,8 @@ Emdash CMS integration, media library, authentication, mobile admin UX, section 
     - 3-5 example testimonials with realistic profiles
     - 10-15 real FAQ entries including house rules, cancellation, tourist tax
     - Host story template
-    - Privacy policy, Impressum, house rules, and cancellation policy templates
-  - **Placeholder marking:** All preloaded content tagged as `placeholder: true` in CMS. Admin shows "Demo content — replace with your own" badge on placeholder items. Dashboard checklist: "Replace these 5 stock apartment photos", "Update host story", etc.
+    - Privacy policy, house rules, and cancellation policy templates
+  - **Placeholder marking:** All preloaded content tagged as `placeholder: true` in CMS. Admin shows "Demo content — replace with your own" badge on placeholder items. Dashboard checklist: "Replace apartment photos with your own", "Update host story", etc.
   - Real photos: 20+ real island/Croatian photos in `/photos/` directory (no stock photography remaining)
   - Optional hero video: one 10-15s ambient stock clip
   - Site deployable and visitor-ready on day one
