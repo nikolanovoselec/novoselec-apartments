@@ -11,41 +11,8 @@ const typedLocale = locale as Locale;
 
 const apartments = await getLocalizedCollection("apartments", typedLocale);
 
-// Fallback apartments when CMS not yet seeded
-const fallbackApartments = [
-  {
-    slug: "lavanda",
-    data: {
-      name: typedLocale === "de" ? "Apartment Lavanda" : typedLocale === "sl" ? "Apartma Lavanda" : typedLocale === "en" ? "Apartment Lavanda" : "Apartman Lavanda",
-      tagline: typedLocale === "de" ? "Mediterrane Ruhe mit Meerblick" : typedLocale === "sl" ? "Mediteranski mir s pogledom na morje" : typedLocale === "en" ? "Mediterranean peace with sea views" : "Mediteranski mir s pogledom na more",
-      sleeps: 4,
-      bedrooms: 2,
-      size_sqm: 55,
-      best_for: typedLocale === "de" ? "Paare und Familien" : typedLocale === "sl" ? "Pari in družine" : typedLocale === "en" ? "Couples and families" : "Parovi i obitelji",
-      beach_distance_m: 150,
-      price_from: 70,
-      hero_image: "https://images.pexels.com/photos/2440024/pexels-photo-2440024.jpeg?auto=compress&w=600",
-    },
-    locale: typedLocale,
-  },
-  {
-    slug: "tramuntana",
-    data: {
-      name: typedLocale === "de" ? "Apartment Tramuntana" : typedLocale === "sl" ? "Apartma Tramuntana" : typedLocale === "en" ? "Apartment Tramuntana" : "Apartman Tramuntana",
-      tagline: typedLocale === "de" ? "Gemütlicher Rückzugsort am Meer" : typedLocale === "sl" ? "Intimen kotiček ob morju" : typedLocale === "en" ? "Intimate retreat by the sea" : "Intimni kutak uz more",
-      sleeps: 2,
-      bedrooms: 1,
-      size_sqm: 35,
-      best_for: typedLocale === "de" ? "Paare" : typedLocale === "sl" ? "Pari" : typedLocale === "en" ? "Couples" : "Parovi",
-      beach_distance_m: 100,
-      price_from: 55,
-      hero_image: "https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg?auto=compress&w=600",
-    },
-    locale: typedLocale,
-  },
-];
-
-const displayApartments = apartments.length > 0 ? apartments : fallbackApartments;
+// Content from CMS only
+const displayApartments = apartments;
 ---
 
 <Page title={t(typedLocale, "apartments.title")} locale={typedLocale}>

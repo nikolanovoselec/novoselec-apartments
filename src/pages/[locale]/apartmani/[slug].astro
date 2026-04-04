@@ -30,58 +30,7 @@ try {
     }
   } catch { /* */ }
 }
-// Fallback apartments when CMS not yet seeded
-// CMS slugs have locale suffix (e.g., "lavanda-hr") — strip it for fallback matching
-const baseSlug = slug.replace(/-(?:hr|de|sl|en)$/, "");
-if (!entry) {
-  const fallbacks: Record<string, Record<string, unknown>> = {
-    lavanda: {
-      name: typedLocale === "hr" ? "Apartman Lavanda" : typedLocale === "sl" ? "Apartma Lavanda" : "Apartment Lavanda",
-      tagline: typedLocale === "hr" ? "Mediteranski mir s pogledom na more" : typedLocale === "de" ? "Mediterrane Ruhe mit Meerblick" : typedLocale === "sl" ? "Mediteranski mir s pogledom na morje" : "Mediterranean peace with sea views",
-      description: typedLocale === "hr"
-        ? "Prostrani apartman na prvom katu s panoramskim pogledom na Pašmanski kanal i otoke. Dva spavaće sobe, potpuno opremljena kuhinja, klimatizacija i prostrana terasa - idealno mjesto za jutarnju kavu s pogledom na more. Plaža je udaljena samo 150 metara. Apartman je savršen za obitelji s djecom ili parove koji traže mir i prostor. Roštilj na terasi, besplatan parking, i blizina mosta prema Ugljanu čine ovaj apartman idealnom bazom za istraživanje oba otoka."
-        : typedLocale === "de"
-        ? "Geräumige Ferienwohnung im ersten Stock mit Panoramablick auf den Pašman-Kanal und die Inseln. Zwei Schlafzimmer, voll ausgestattete Küche, Klimaanlage und eine großzügige Terrasse - der perfekte Ort für einen Morgenkaffee mit Meerblick. Der Strand ist nur 150 Meter entfernt. Ideal für Familien mit Kindern oder Paare, die Ruhe und Platz suchen. Grill auf der Terrasse, kostenloser Parkplatz und die Nähe zur Brücke nach Ugljan machen diese Wohnung zur idealen Basis."
-        : typedLocale === "sl"
-        ? "Prostoren apartma v prvem nadstropju s panoramskim pogledom na Pašmanski kanal in otoke. Dve spalnici, popolnoma opremljena kuhinja, klimatska naprava in prostorna terasa - idealno mesto za jutranjo kavo z razgledom na morje. Plaža je oddaljena le 150 metrov. Popoln za družine z otroki ali pare, ki iščejo mir in prostor."
-        : "Spacious first-floor apartment with panoramic views of the Pašman Channel and islands. Two bedrooms, fully equipped kitchen, air conditioning, and a generous terrace - the perfect spot for morning coffee with sea views. The beach is just 150 meters away. Ideal for families with children or couples seeking peace and space. BBQ on the terrace, free parking, and proximity to the Ugljan bridge make this the perfect base for exploring both islands.",
-      sleeps: 4, bedrooms: 2, size_sqm: 55, beach_distance_m: 150, price_from: 70,
-      best_for: typedLocale === "hr" ? "Parovi i obitelji" : typedLocale === "de" ? "Paare und Familien" : typedLocale === "sl" ? "Pari in družine" : "Couples and families",
-      hero_image: "https://images.pexels.com/photos/2440024/pexels-photo-2440024.jpeg?auto=compress&w=1920",
-      gallery: [
-        "https://images.pexels.com/photos/2440024/pexels-photo-2440024.jpeg?auto=compress&w=800",
-        "https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg?auto=compress&w=800",
-        "https://images.pexels.com/photos/8430503/pexels-photo-8430503.jpeg?auto=compress&w=800",
-        "https://images.pexels.com/photos/27651489/pexels-photo-27651489.jpeg?auto=compress&w=800",
-        "https://images.pexels.com/photos/16194706/pexels-photo-16194706.jpeg?auto=compress&w=800",
-      ],
-      amenities_json: ["WiFi", "A/C", "TV", typedLocale === "hr" ? "Terasa s pogledom na more" : typedLocale === "de" ? "Terrasse mit Meerblick" : typedLocale === "sl" ? "Terasa z razgledom na morje" : "Sea view terrace", typedLocale === "hr" ? "Besplatni parking" : typedLocale === "de" ? "Kostenloser Parkplatz" : typedLocale === "sl" ? "Brezplačno parkiranje" : "Free parking", typedLocale === "hr" ? "Roštilj" : typedLocale === "de" ? "Grill" : typedLocale === "sl" ? "Žar" : "BBQ", typedLocale === "hr" ? "Potpuno opremljena kuhinja" : typedLocale === "de" ? "Voll ausgestattete Küche" : typedLocale === "sl" ? "Popolnoma opremljena kuhinja" : "Fully equipped kitchen", typedLocale === "hr" ? "Perilica rublja" : typedLocale === "de" ? "Waschmaschine" : typedLocale === "sl" ? "Pralni stroj" : "Washing machine"],
-    },
-    tramuntana: {
-      name: typedLocale === "hr" ? "Apartman Tramuntana" : typedLocale === "sl" ? "Apartma Tramuntana" : "Apartment Tramuntana",
-      tagline: typedLocale === "hr" ? "Intimni kutak uz more" : typedLocale === "de" ? "Gemütlicher Rückzugsort am Meer" : typedLocale === "sl" ? "Intimen kotiček ob morju" : "Intimate retreat by the sea",
-      description: typedLocale === "hr"
-        ? "Ugodan apartman u prizemlju, savršen za romantični bijeg. Jedna spavaća soba s bračnim krevetom, moderna kupaonica s tušem, i mala terasa s pogledom na vrt. Samo 100 metara od plaže - ujutro se probudite, popijte kavu i za par minuta ste u moru. Apartman je tih i miran, zaštićen od bure, s besplatnim parkingom ispred kuće. Idealan za parove koji žele jednostavnost i blizinu mora."
-        : typedLocale === "de"
-        ? "Gemütliches Erdgeschoss-Apartment, perfekt für einen romantischen Kurzurlaub. Ein Schlafzimmer mit Doppelbett, modernes Bad mit Dusche, und eine kleine Terrasse mit Gartenblick. Nur 100 Meter zum Strand - morgens aufwachen, Kaffee trinken und in wenigen Minuten im Meer. Ruhig und windgeschützt, mit kostenlosem Parkplatz vor dem Haus. Ideal für Paare, die Einfachheit und Meeresnähe suchen."
-        : typedLocale === "sl"
-        ? "Prijeten apartma v pritličju, popoln za romantični pobeg. Ena spalnica z zakonsko posteljo, moderna kopalnica s tušem in majhna terasa z razgledom na vrt. Le 100 metrov od plaže - zjutraj se zbudite, popijte kavo in v nekaj minutah ste v morju. Tih in miren, zaščiten pred burjo, z brezplačnim parkiranjem pred hišo."
-        : "Cozy ground-floor apartment, perfect for a romantic escape. One bedroom with a double bed, modern bathroom with shower, and a small terrace overlooking the garden. Just 100 meters from the beach - wake up, have your coffee, and be in the sea within minutes. Quiet and sheltered from the bora wind, with free parking in front of the house. Ideal for couples who want simplicity and closeness to the sea.",
-      sleeps: 2, bedrooms: 1, size_sqm: 35, beach_distance_m: 100, price_from: 55,
-      best_for: typedLocale === "hr" ? "Parovi" : typedLocale === "de" ? "Paare" : typedLocale === "sl" ? "Pari" : "Couples",
-      hero_image: "https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg?auto=compress&w=1920",
-      gallery: [
-        "https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg?auto=compress&w=800",
-        "https://images.pexels.com/photos/2440024/pexels-photo-2440024.jpeg?auto=compress&w=800",
-        "https://images.pexels.com/photos/30091818/pexels-photo-30091818.jpeg?auto=compress&w=800",
-        "https://images.pexels.com/photos/33168420/pexels-photo-33168420.jpeg?auto=compress&w=800",
-        "https://images.pexels.com/photos/31934689/pexels-photo-31934689.jpeg?auto=compress&w=800",
-      ],
-      amenities_json: ["WiFi", "A/C", "TV", typedLocale === "hr" ? "Terasa" : typedLocale === "de" ? "Terrasse" : typedLocale === "sl" ? "Terasa" : "Terrace", typedLocale === "hr" ? "Besplatni parking" : typedLocale === "de" ? "Kostenloser Parkplatz" : typedLocale === "sl" ? "Brezplačno parkiranje" : "Free parking", typedLocale === "hr" ? "Tuš" : typedLocale === "de" ? "Dusche" : typedLocale === "sl" ? "Tuš" : "Shower"],
-    },
-  };
-  entry = fallbacks[baseSlug] ?? fallbacks[slug] ?? null;
-}
+// No fallback - content from CMS only
 if (!entry) return Astro.redirect(`/${locale}/apartmani`, 302);
 
 const d = entry;
