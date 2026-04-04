@@ -16,7 +16,7 @@ Dynamic multilingual sitemap. Generates one `<url>` entry per locale per page, w
 
 **Response:** `application/xml` — a Sitemap Protocol 0.9 document with `xmlns:xhtml` alternates.
 
-**Included pages:** `/`, `/apartmani`, `/zdrelac`, `/galerija`, `/hrana`, `/aktivnosti`, `/plaze`, `/kontakt`, `/zasto-pasman`, `/dolazak`, `/vodic`, `/o-nama`, `/faq`, `/privatnost`, `/impressum`, `/pristupacnost` — each emitted once per locale, producing 64 `<url>` entries (16 pages × 4 locales).
+**Included pages:** `/`, `/apartmani`, `/zdrelac`, `/galerija`, `/hrana`, `/aktivnosti`, `/plaze`, `/kontakt`, `/zasto-pasman`, `/dolazak`, `/vodic`, `/o-nama`, `/faq`, `/privatnost`, `/impressum` — each emitted once per locale, producing 60 `<url>` entries (15 pages × 4 locales).
 
 **Cache:** `Cache-Control: public, max-age=3600`.
 
