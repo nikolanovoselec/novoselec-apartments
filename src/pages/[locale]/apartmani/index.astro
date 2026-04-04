@@ -77,9 +77,11 @@ const displayApartments = apartments.length > 0 ? apartments : fallbackApartment
                 <span>{t(typedLocale, "apartments.beachDistance").replace("{meters}", String(apt.data.beach_distance_m))}</span>
               </div>
               <div class="apartment-card__footer">
-                <span class="apartment-card__price">
-                  {t(typedLocale, "apartments.fromPrice").replace("{price}", String(apt.data.price_from))}
-                </span>
+                {apt.data.price_from && (
+                  <span class="apartment-card__price">
+                    {t(typedLocale, "apartments.fromPrice").replace("{price}", String(apt.data.price_from))}
+                  </span>
+                )}
                 <span class="btn btn--primary">
                   {t(typedLocale, "apartments.viewButton")}
                 </span>
