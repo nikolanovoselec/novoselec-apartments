@@ -32,20 +32,54 @@ const aptsSection = getSection("apartments");
 const ctaSection = getSection("cta");
 const collageSection = getSection("collage");
 
-// Parse collage photos from CMS (JSON array in body field)
-let collagePhotos: Array<{ src: string; alt: string }> = [];
-if (collageSection?.data.body) {
+// Parse collage photos from CMS revision data (JSON array in body field)
+function parseCollageBody(body: string): Array<{ src: string; alt: string }> {
   try {
-    const raw = JSON.parse(collageSection.data.body as string);
+    const raw = JSON.parse(body);
     if (Array.isArray(raw)) {
-      collagePhotos = raw.filter(
+      return raw.filter(
         (item: unknown) =>
           typeof item === "object" && item !== null &&
           typeof (item as Record<string, unknown>).src === "string" &&
           typeof (item as Record<string, unknown>).alt === "string"
       );
     }
-  } catch { /* empty collage if JSON invalid */ }
+  } catch { /* invalid JSON */ }
+  return [];
+}
+
+let collagePhotos = parseCollageBody((collageSection?.data.body as string) ?? "");
+
+// Emdash collection API may not return all entries (pagination).
+// Fall back to reading collage directly from revision data via D1.
+if (collagePhotos.length === 0) {
+  try {
+    const { env: cfEnv } = await import("cloudflare:workers");
+    const db = (cfEnv as unknown as { DB: D1Database }).DB;
+    const row = await db.prepare(
+      `SELECT r.data FROM revisions r
+       JOIN ec_editorial e ON r.id = e.live_revision_id
+       WHERE e.section_key='collage' AND e.page_key='homepage' AND e.locale=?
+       LIMIT 1`
+    ).bind(typedLocale).first<{ data: string }>();
+    if (row?.data) {
+      const revData = JSON.parse(row.data);
+      collagePhotos = parseCollageBody(revData.body ?? "");
+    }
+    // Fallback to HR
+    if (collagePhotos.length === 0) {
+      const hrRow = await db.prepare(
+        `SELECT r.data FROM revisions r
+         JOIN ec_editorial e ON r.id = e.live_revision_id
+         WHERE e.section_key='collage' AND e.page_key='homepage' AND e.locale='hr'
+         LIMIT 1`
+      ).first<{ data: string }>();
+      if (hrRow?.data) {
+        const revData = JSON.parse(hrRow.data);
+        collagePhotos = parseCollageBody(revData.body ?? "");
+      }
+    }
+  } catch { /* D1 unavailable */ }
 }
 
 // Fallback content when CMS not yet seeded
