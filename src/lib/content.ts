@@ -16,11 +16,7 @@ export async function getLocalizedCollection(
   locale: Locale,
 ): Promise<LocalizedEntry[]> {
   try {
-    // Request max page size (100) to ensure all entries are returned.
-    // Emdash auto-filters by locale when i18n is enabled, so ~40-50 entries
-    // per locale is typical. Default limit of 50 can miss late-added entries.
-    const result = await getEmDashCollection(collectionSlug, { limit: 100 });
-    const { entries } = result;
+    const { entries } = await getEmDashCollection(collectionSlug);
     if (!entries || entries.length === 0) return [];
 
     const mapped = entries.map(mapEntry);

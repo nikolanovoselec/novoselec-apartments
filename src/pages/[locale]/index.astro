@@ -32,23 +32,26 @@ const aptsSection = getSection("apartments");
 const ctaSection = getSection("cta");
 const collageSection = getSection("collage");
 
-// Parse collage photos from CMS revision data (JSON array in body field)
-function parseCollageBody(body: string): Array<{ src: string; alt: string }> {
-  try {
-    const raw = JSON.parse(body);
-    if (Array.isArray(raw)) {
-      return raw.filter(
-        (item: unknown) =>
-          typeof item === "object" && item !== null &&
-          typeof (item as Record<string, unknown>).src === "string" &&
-          typeof (item as Record<string, unknown>).alt === "string"
-      );
-    }
-  } catch { /* invalid JSON */ }
+// Parse collage photos from CMS body field.
+// Emdash auto-parses JSON fields (body starting with [ or {), so
+// data.body may be an already-parsed array OR a string.
+function parseCollageBody(body: unknown): Array<{ src: string; alt: string }> {
+  let raw: unknown = body;
+  if (typeof raw === "string") {
+    try { raw = JSON.parse(raw); } catch { return []; }
+  }
+  if (Array.isArray(raw)) {
+    return raw.filter(
+      (item: unknown) =>
+        typeof item === "object" && item !== null &&
+        typeof (item as Record<string, unknown>).src === "string" &&
+        typeof (item as Record<string, unknown>).alt === "string"
+    );
+  }
   return [];
 }
 
-const collagePhotos = parseCollageBody((collageSection?.data.body as string) ?? "");
+const collagePhotos = parseCollageBody(collageSection?.data.body);
 
 // Fallback content when CMS not yet seeded
 const whyTitle = (whySection?.data.title as string) ?? {
