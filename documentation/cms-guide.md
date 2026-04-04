@@ -50,7 +50,7 @@ How to manage content, photos, and settings from your phone.
 | `hrana` | Food & Drink (`/hrana`) | Each entry = one content row; CMS-only, page is blank without entries |
 | `about` | About Us (`/o-nama`) | Single entry; `body` field is the host story; CMS-only |
 | `getting-here` | Getting Here (`/dolazak`) | Single entry; `sections_json` field holds ferry, alt-route, and airport data as JSON; CMS-only |
-| `why-pasman` | Why Pašman (`/zasto-pasman`) | Single entry; `sections_json` field holds an array of `{title, text}` objects; CMS-only |
+| `why-pasman` | Why Pašman (`/zasto-pasman`) | Each entry = one content row; fields: `title`, `body`, `image`, `sort_order`; CMS-only, page is blank without entries |
 | `zdrelac` | Ždrelac (`/zdrelac`) | Each entry = one content row; CMS-only, page is blank without entries |
 | `aktivnosti` | Nature & Activities (`/aktivnosti`) | Each entry = one content row; CMS-only, page is blank without entries |
 | `plaze` | Beaches (`/plaze`) | Each entry = one content row; CMS-only, page is blank without entries |

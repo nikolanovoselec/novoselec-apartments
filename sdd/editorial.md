@@ -26,7 +26,7 @@ Content pages that sell the destination and build emotional connection — Why P
 - **Priority:** P1
 - **Dependencies:** REQ-CMS-1, REQ-CMS-5, REQ-I18N-4
 - **Verification:** Visual review + toggle test
-- **Status:** Partial — Page exists at `/{locale}/zasto-pasman` with HeroSimple, CMS-only content via `editorial` collection with `page_key === "why-pasman"` (hardcoded fallbacks removed). If CMS entries are missing, page renders with empty content. Missing: scroll-driven pinned sections, full-bleed photos per section, section toggles, links to guide entries.
+- **Status:** Partial — Page exists at `/{locale}/zasto-pasman` with HeroSimple. CMS content model restructured: queries individual `editorial` entries filtered by `page_key === "why-pasman"`, sorted by `sort_order` (each entry = one content row with `title`, `body`, `image` fields). Alternating image+text row layout, same pattern as REQ-ED-8/ED-9/ED-10. Images rendered conditionally (only if CMS entry has `image` field). HR locale seeded with 4 sections (more, mir, blizina, autenticnost). DE/SL/EN not yet seeded. Missing: scroll-driven pinned sections, full-bleed photos per section, section toggles, links to guide entries.
 
 ### REQ-ED-2: "Getting Here" Page
 
@@ -71,7 +71,7 @@ Content pages that sell the destination and build emotional connection — Why P
 - **Intent:** Curated recommendations that build trust and drive SEO
 - **Applies To:** Visitor
 - **Acceptance Criteria:**
-  - **Current state:** Standalone guide page (`/[locale]/vodic`) with `HeroSimple` photo-backed header (REQ-VD-12). Guide categories and CMS editorial entries rendered in one unified alternating content-row layout. Four static categories (Beaches, Food & Drink, Activities, Day Trips) followed by any CMS editorial entries with `page_key === "vodic"`. All items use the same image+text row style. Alternating layout: odd items image left / text right, even items reversed. Single-column stacking on mobile. No filtering. Three categories expanded to standalone detail pages: Food & Drink (REQ-ED-8), Nature & Activities (REQ-ED-9), Beaches (REQ-ED-10).
+  - **Current state:** Standalone guide page (`/[locale]/vodic`) with `HeroSimple` photo-backed header (REQ-VD-12). Guide categories and CMS editorial entries rendered in one unified alternating content-row layout. Four static categories (Beaches, Food & Drink, Activities, Day Trips) followed by any CMS editorial entries with `page_key === "vodic"`. All items use the same image+text row style. Alternating layout: odd items image left / text right, even items reversed. Single-column stacking on mobile. No filtering. Three categories expanded to standalone detail pages: Food & Drink (REQ-ED-8), Nature & Activities (REQ-ED-9), Beaches (REQ-ED-10). Linked from homepage experience triptych as 4th card (REQ-SF-5).
   - **With CMS (planned):** Categories expanded to: Beaches, Food & Drink, Restaurants & Konobas, Activities, Day Trips
   - **Food & Drink** is a featured category: local specialties (grilled fish, octopus peka, lamb, olive oil, island wine, figs), appetizing full-bleed food photography, where to buy/eat
   - Each entry: name, short description, photo, distance from property, category tags
@@ -104,7 +104,7 @@ Content pages that sell the destination and build emotional connection — Why P
 - **Priority:** P1
 - **Dependencies:** REQ-CMS-1, REQ-CMS-5
 - **Verification:** Visual review
-- **Status:** Partial — Page exists at `/{locale}/o-nama` with HeroSimple, CMS-only content via `editorial` collection with `page_key === "about"` (hardcoded fallback story removed; empty string when CMS entry missing). Missing: host photo with arch clip-path, response time badge, WhatsApp link, homepage condensed version, section toggle.
+- **Status:** Partial — Page exists at `/{locale}/o-nama` with HeroSimple, CMS-only content via `editorial` collection with `page_key === "about"` (hardcoded fallback story removed; empty string when CMS entry missing). No CTA/link to apartments at bottom of page (removed per owner decision). HR locale seeded with host story entry. DE/SL/EN not yet seeded. Missing: host photo with arch clip-path, response time badge, WhatsApp link, homepage condensed version, section toggle.
 
 ### REQ-ED-6: "About Ždrelac" Page
 
@@ -157,7 +157,7 @@ Content pages that sell the destination and build emotional connection — Why P
 - **Priority:** P1
 - **Dependencies:** REQ-ED-4, REQ-SF-5, REQ-VD-12
 - **Verification:** Visual review across all 4 locales. Verify wave renders at bottom of hero. Verify hero image is food-related.
-- **Status:** Partial — CMS-only content model (hardcoded fallbacks removed). Page queries `editorial` collection by `page_key === "hrana"`. Inline SVG wave in hero markup. Pending: live site confirmation, complete CMS seeding in all 4 locales.
+- **Status:** Partial — CMS-only content model (hardcoded fallbacks removed). Page queries `editorial` collection by `page_key === "hrana"`. Inline SVG wave in hero markup. HR locale seeded with 5 sections (konobe, specijaliteti, ulje, ritual, trznice). Pending: DE/SL/EN CMS seeding, live site confirmation.
 
 ### REQ-ED-9: "Nature & Activities" Detail Page
 
@@ -175,7 +175,7 @@ Content pages that sell the destination and build emotional connection — Why P
 - **Priority:** P1
 - **Dependencies:** REQ-ED-4, REQ-SF-5, REQ-VD-12
 - **Verification:** Visual review across all 4 locales. Verify wave renders at bottom of hero.
-- **Status:** Partial — CMS-only content model (hardcoded fallbacks removed). Page queries `editorial` collection by `page_key === "aktivnosti"`. Inline SVG wave in hero markup. Pending: live site confirmation, complete CMS seeding in all 4 locales.
+- **Status:** Partial — CMS-only content model (hardcoded fallbacks removed). Page queries `editorial` collection by `page_key === "aktivnosti"`. Inline SVG wave in hero markup. HR locale seeded with 6 sections (setnje, biciklizam, kornati, telascica, vodeni, povijest). Pending: DE/SL/EN CMS seeding, live site confirmation.
 
 ### REQ-ED-10: "Beaches" Detail Page
 
@@ -193,7 +193,7 @@ Content pages that sell the destination and build emotional connection — Why P
 - **Priority:** P1
 - **Dependencies:** REQ-ED-4, REQ-SF-5, REQ-VD-12
 - **Verification:** Visual review across all 4 locales. Verify wave renders at bottom of hero. Verify hero image is a Croatian beach/coast scene.
-- **Status:** Partial — CMS-only content model (hardcoded fallbacks removed). Page queries `editorial` collection by `page_key === "plaze"`. Inline SVG wave in hero markup. Real Croatian beach hero image from `/photos/` directory. Pending: live site confirmation, complete CMS seeding in all 4 locales.
+- **Status:** Partial — CMS-only content model (hardcoded fallbacks removed). Page queries `editorial` collection by `page_key === "plaze"`. Inline SVG wave in hero markup. Real Croatian beach hero image from `/photos/` directory. HR locale seeded with 5 sections (zdrelac, pasman, ugljan, skrivene, savjeti). Pending: DE/SL/EN CMS seeding, live site confirmation.
 
 ## Out of Scope
 

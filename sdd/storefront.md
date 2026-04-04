@@ -106,7 +106,7 @@ The homepage and visual shell — hero, navigation, footer, language switcher, a
   - Links to full editorial content
   - Responsive: stacks vertically on mobile
   - **Apartments preview** section with split-section layout (text + duo-image grid), duo-image is 2-col grid with spacing gap, 3:4 portrait aspect, organic asymmetric border-radius (`20px 4px 20px 4px`), hover zoom (1.03x). Ghost CTA to apartments page.
-  - **Experience triptych** (REQ-ED-4): 3-column image grid within container with gaps (food, activities, beaches), 4:5 portrait aspect, hover zoom (1.05x), 16px border-radius, subtle shadow, gradient label overlay that slides in from bottom on hover (always visible on mobile). Stacks to single column (16:9 aspect) on mobile. Wrapped in warm gradient background section. Each triptych item is a clickable `<a>` element linking to its detail page: Food & Drink -> `/{locale}/hrana` (REQ-ED-8), Nature & Activities -> `/{locale}/aktivnosti` (REQ-ED-9), Beaches -> `/{locale}/plaze` (REQ-ED-10). **Click/tap on the image or anywhere on the card navigates to the detail page** — not just the label text.
+  - **Experience triptych** (REQ-ED-4): 4-item image grid within container with gaps (food, activities, beaches, local guide), 4:5 portrait aspect, hover zoom (1.05x), 16px border-radius, subtle shadow, gradient label overlay (always visible on mobile). Responsive grid: 2-column on mobile, 4-column on desktop (768px+ breakpoint). Wrapped in warm gradient background section. Each triptych item is a clickable `<a>` element linking to its detail page: Food & Drink -> `/{locale}/hrana` (REQ-ED-8), Nature & Activities -> `/{locale}/aktivnosti` (REQ-ED-9), Beaches -> `/{locale}/plaze` (REQ-ED-10), Local Guide -> `/{locale}/vodic` (REQ-ED-4). **Click/tap on the image or anywhere on the card navigates to the detail page** — not just the label text.
   - **Ždrelac village card** (feature image with overlay text): clicking/tapping anywhere on the card navigates to `/{locale}/zdrelac`. The entire card is an `<a>` element, not just the text.
   - Toggleable via CMS section settings (REQ-CMS-5)
   - CMS-managed content per locale
@@ -118,19 +118,22 @@ The homepage and visual shell — hero, navigation, footer, language switcher, a
 
 ### REQ-SF-6: Footer
 
-- **Intent:** Secondary navigation, legal links, trust signals
+- **Intent:** Secondary navigation, legal links, property identity
 - **Applies To:** Visitor
 - **Acceptance Criteria:**
-  - Property name/logo, contact info (email, WhatsApp, phone)
+  - Property name/logo and tagline
+  - Physical address displayed below tagline (muted, small text)
   - Quick links to all visible sections
-  - Language switcher (duplicate)
-  - "Book direct — no platform fees" trust message
-  - Links: privacy policy, cookie settings
+  - Legal links: privacy policy, house rules, inquiry/contact page, admin panel
+  - ~~"Book direct — no platform fees" trust message~~ — **Removed:** direct-booking trust message removed from footer per owner decision
+  - SVG wave at the top edge of the footer (organic bezier path, navy fill `#0C2D48` to match footer background, responsive width, `aria-hidden="true"`). Creates organic transition from page content into footer — no hard edge.
+  - Footer background: vertical gradient from `#0C2D48` to `#091E32`
+  - Bottom bar: gradient divider line (transparent edges, 15% white center), copyright with location ("Zdrelac, Pasman")
   - Contact info CMS-managed in site-settings
 - **Constraints:** CON-LEGAL, CON-I18N
 - **Priority:** P1
-- **Dependencies:** REQ-CMS-1
-- **Verification:** Visual + link test
+- **Dependencies:** REQ-CMS-1, REQ-VD-9
+- **Verification:** Visual + link test. Verify wave renders at top of footer with no gap.
 - **Status:** Implemented
 
 ### REQ-SF-7: Sticky Mobile CTA

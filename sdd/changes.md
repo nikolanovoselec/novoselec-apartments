@@ -1,5 +1,37 @@
 # Changelog
 
+## 2026-04-04 - Revision 57: Local Guide card added to homepage triptych
+
+### Requirements updated
+- **REQ-SF-5** (Why Pasman + Zdrelac Section): Experience triptych expanded from 3 items to 4 -- added Local Guide card linking to `/{locale}/vodic` (REQ-ED-4). Grid changed from 3-column to responsive 2-column mobile / 4-column desktop (768px+ breakpoint). Updated card list and layout description.
+- **REQ-VD-6** (Photo Frame Treatments): Triptych description updated from "3-col" to "4 items".
+- **REQ-ED-4** (Local Guide): Added note that guide page is linked from homepage triptych as 4th card.
+
+### Translation keys added
+- `homepage.triptych.guideSubtitle` in all 4 locales (hr, de, sl, en)
+
+---
+
+## 2026-04-04 - Revision 56: 21 HR editorial entries seeded + why-pasman content model restructured
+
+### Requirements updated
+- **REQ-ED-1** (Why Pasman): Status updated -- content model restructured from single entry with `sections_json` to individual editorial entries (each entry = one content row with `title`, `body`, `image` fields, sorted by `sort_order`). Now consistent with REQ-ED-8/ED-9/ED-10 pattern. HR locale seeded with 4 sections.
+- **REQ-ED-5** (About Your Hosts): Status updated -- HR locale seeded with host story entry.
+- **REQ-ED-8** (Food & Drink): Status updated -- HR locale seeded with 5 sections.
+- **REQ-ED-9** (Nature & Activities): Status updated -- HR locale seeded with 6 sections.
+- **REQ-ED-10** (Beaches): Status updated -- HR locale seeded with 5 sections.
+- **REQ-CMS-6** (Preloaded Content): Status updated -- 21 HR editorial entries now seeded via D1 SQL. Editorial seeding covers hrana, aktivnosti, plaze, why-pasman, about. DE/SL/EN editorial entries still missing.
+
+---
+
+## 2026-04-04 - Revision 55: Footer redesign and About Us CTA removal
+
+### Requirements updated
+- **REQ-SF-6** (Footer): Removed "Book direct -- no platform fees" trust message from AC (translation key `footer.bookDirect` deleted from all 4 locales). Added: physical address below tagline, SVG wave at top edge of footer, gradient background, gradient divider in bottom bar, inquiry/contact link in legal section. Added REQ-VD-9 dependency (wave pattern). Updated intent from "trust signals" to "property identity".
+- **REQ-ED-5** (About Your Hosts): Status updated -- CTA linking to apartments page removed from bottom of About Us page per owner decision.
+
+---
+
 ## 2026-04-04 - Revision 54: Cross-reference cleanup after deprecations
 
 ### Requirements updated
