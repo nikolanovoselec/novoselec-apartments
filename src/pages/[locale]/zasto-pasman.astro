@@ -22,35 +22,7 @@ if (page?.data.sections_json) {
   } catch { /* fallback below */ }
 }
 
-if (sections.length === 0) {
-  const fallback: Record<Locale, Array<{ title: string; text: string }>> = {
-    hr: [
-      { title: "Kristalno čisto more", text: "Pašman ima jednu od najčišćih voda na Jadranu zahvaljujući stalnim morskim strujama. Tirkizno more i skrivene uvale čekaju vas na svakom koraku." },
-      { title: "Mir otoka", text: "Daleko od gužvi popularnih destinacija, Pašman nudi autentični ritam otočnog života. Maslinovi nasadi, borove šume i zvuk cvrčaka - ovdje se vrijeme usporava." },
-      { title: "25 minuta od kopna", text: "Trajekt iz Biograda na Moru do Tkona vozi samo 25 minuta. Alternativno, možete doći preko mosta Ždrelac s otoka Ugljana." },
-      { title: "Autentična Dalmacija", text: "Kamene kuće, konobe s domaćom hranom, ribarnice na rivi - Pašman je Dalmacija kakva je nekad bila. Bez velikih hotela i masovnog turizma." },
-    ],
-    de: [
-      { title: "Kristallklares Meer", text: "Pašman hat dank ständiger Meeresströmungen eines der saubersten Gewässer der Adria. Türkisfarbenes Meer und versteckte Buchten erwarten Sie." },
-      { title: "Inselruhe", text: "Fernab vom Trubel beliebter Reiseziele bietet Pašman den authentischen Rhythmus des Insellebens. Olivenhaine, Pinienwälder und Zikadengezirpe." },
-      { title: "25 Minuten vom Festland", text: "Die Fähre von Biograd na Moru nach Tkon dauert nur 25 Minuten. Alternativ können Sie über die Ždrelac-Brücke von Ugljan anreisen." },
-      { title: "Authentisches Dalmatien", text: "Steinhäuser, Konobas mit hausgemachtem Essen, Fischmärkte - Pašman ist Dalmatien, wie es einmal war. Kein Massentourismus." },
-    ],
-    sl: [
-      { title: "Kristalno čisto morje", text: "Pašman ima eno najčistejših voda na Jadranu zahvaljujoč stalnim morskim tokovom. Turkizno morje in skrite zalive vas čakajo." },
-      { title: "Mir otoka", text: "Daleč od gneče priljubljenih destinacij Pašman ponuja avtentični ritem otoškega življenja. Oljčni nasadi, borovi gozdovi in zvok škržatov." },
-      { title: "25 minut od kopna", text: "Trajekt iz Biograda na Moru do Tkona vozi le 25 minut. Alternativno lahko pridete čez most Ždrelac z otoka Ugljan." },
-      { title: "Pristna Dalmacija", text: "Kamnite hiše, konobe z domačo hrano, ribje tržnice - Pašman je Dalmacija, kakršna je nekoč bila. Brez množičnega turizma." },
-    ],
-    en: [
-      { title: "Crystal-clear sea", text: "Pašman has some of the cleanest waters in the Adriatic thanks to constant sea currents. Turquoise sea and hidden coves await you." },
-      { title: "Island tranquility", text: "Far from the crowds, Pašman offers the authentic rhythm of island life. Olive groves, pine forests, and the sound of cicadas." },
-      { title: "25 minutes from the mainland", text: "The ferry from Biograd na Moru to Tkon takes just 25 minutes. Alternatively, arrive via the Ždrelac bridge from Ugljan." },
-      { title: "Authentic Dalmatia", text: "Stone houses, konobas with homemade food, fish markets - Pašman is Dalmatia as it once was. No mass tourism." },
-    ],
-  };
-  sections = fallback[typedLocale];
-}
+// No fallback - content from CMS only
 
 const images = [
   "https://images.pexels.com/photos/3566139/pexels-photo-3566139.jpeg?auto=compress&w=800",

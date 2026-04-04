@@ -22,24 +22,10 @@ if (page?.data.sections_json) {
   } catch { /* fallback below */ }
 }
 
-// Fallback
-const ferry = sections.find((s) => s.key === "ferry") ?? {
-  route: "Biograd na Moru → Tkon",
-  duration: { hr: "25 minuta", de: "25 Minuten", sl: "25 minut", en: "25 minutes" }[typedLocale],
-  operator: "Jadrolinija",
-  tip: { hr: "U srpnju i kolovozu dođite 45 minuta ranije ako vozite auto.", de: "Im Juli und August kommen Sie 45 Minuten früher, wenn Sie ein Auto mitnehmen.", sl: "Julija in avgusta pridite 45 minut prej, če pripeljete avto.", en: "In July and August, arrive 45 minutes early if bringing a car." }[typedLocale],
-};
-
-const altRoute = sections.find((s) => s.key === "alt-route") ?? {
-  title: { hr: "Alternativna ruta preko Ugljana", de: "Alternative Route über Ugljan", sl: "Alternativna pot čez Ugljan", en: "Alternative route via Ugljan" }[typedLocale],
-  text: { hr: "Budući da se apartmani nalaze u Ždrelacu, na samom mostu prema Ugljanu, možete koristiti i trajekt Zadar → Preko (Ugljan), a zatim prijeći most do Pašmana.", de: "Da sich die Ferienwohnungen in Ždrelac befinden, direkt an der Brücke nach Ugljan, können Sie auch die Fähre Zadar → Preko (Ugljan) nehmen und dann über die Brücke nach Pašman fahren.", sl: "Ker se apartmaji nahajajo v Ždrelacu, tik ob mostu proti Ugljanu, lahko uporabite tudi trajekt Zadar → Preko (Ugljan) in nato prečkate most do Pašmana.", en: "Since the apartments are in Ždrelac, right at the bridge to Ugljan, you can also take the ferry Zadar → Preko (Ugljan) and then cross the bridge to Pašman." }[typedLocale],
-};
-
-const airport = sections.find((s) => s.key === "airport") ?? {
-  title: { hr: "Aerodrom Zadar (ZAD)", de: "Flughafen Zadar (ZAD)", sl: "Letališče Zadar (ZAD)", en: "Zadar Airport (ZAD)" }[typedLocale],
-  distance: { hr: "~30 km do trajektne luke u Biogradu", de: "~30 km zum Fährhafen Biograd", sl: "~30 km do trajektnega pristanišča v Biogradu", en: "~30 km to Biograd ferry port" }[typedLocale],
-  text: { hr: "Najbliži aerodrom. Vožnja do trajektne luke traje oko 30 minuta.", de: "Der nächstgelegene Flughafen. Die Fahrt zum Fährhafen dauert etwa 30 Minuten.", sl: "Najbližje letališče. Vožnja do trajektnega pristanišča traja približno 30 minut.", en: "The closest airport. The drive to the ferry port takes about 30 minutes." }[typedLocale],
-};
+// No fallback - content from CMS only
+const ferry = sections.find((s) => s.key === "ferry") ?? { route: "", duration: "", operator: "", tip: "" };
+const altRoute = sections.find((s) => s.key === "alt-route") ?? { title: "", text: "" };
+const airport = sections.find((s) => s.key === "airport") ?? { title: "", distance: "", text: "" };
 ---
 
 <Page title={t(typedLocale, "gettingHere.title")} locale={typedLocale}>
