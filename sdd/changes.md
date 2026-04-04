@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-04-04 - Revision 65: Emdash cursor pagination -- D1 collage hack removed
+
+### Requirements updated
+- **REQ-CMS-1** (Emdash Integration): Content abstraction layer description updated -- `getLocalizedCollection` now uses cursor-based pagination (100 entries per page) to retrieve all entries from Emdash collections. This replaces the previous single unpaginated call that silently truncated large collections. File path reference (`src/lib/content.ts`) removed from spec per "no HOW" rule.
+
+### Cross-cutting
+- D1 direct-query fallback for homepage collage removed from `index.astro`. The collage previously bypassed the CMS API and read revision data directly from D1 when the unpaginated Emdash collection call didn't return the collage entry. With proper pagination, all entries (including collage) are retrieved through the standard CMS abstraction layer, eliminating the need for D1 SQL workarounds.
+
+---
+
 ## 2026-04-04 - Revision 64: R2 media migration -- all images served via /api/img/{uuid}
 
 ### Requirements updated

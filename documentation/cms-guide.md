@@ -41,7 +41,7 @@ Apartment galleries are controlled by the **Gallery (JSON array)** (`gallery_jso
 
 The exterior photo strip that scrolls across the homepage (under the apartments section) is controlled by a CMS entry in the **Homepage** collection with `section_key = collage`.
 
-The `body` field of that entry must contain a JSON array of photo objects using R2 image URLs:
+The `body` field of that entry must contain a JSON array of photo objects using R2 image URLs. Emdash automatically parses any `body` value that begins with `[` or `{`, so the field is delivered to the page as an already-parsed JavaScript value, not a raw string — the page handles both forms safely:
 
 ```json
 [

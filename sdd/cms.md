@@ -20,7 +20,7 @@ Emdash CMS integration, media library, authentication, mobile admin UX, section 
 - **Acceptance Criteria:**
   - Emdash as Astro integration with D1 database and R2 storage
   - Admin panel at `/_emdash/admin/` for authenticated owner only
-  - Content queried via Emdash content loader (`getEmDashCollection`, `getEmDashEntry`) wrapped in a locale-aware abstraction layer (`src/lib/content.ts`) providing `getLocalizedCollection(collectionSlug, locale)`, `getLocalizedEntry(collectionSlug, slug, locale)`, and `getSettings()`. All queries filter by `data.locale` field with automatic Croatian fallback.
+  - Content queried via Emdash content loader (`getEmDashCollection`, `getEmDashEntry`) wrapped in a locale-aware abstraction layer providing `getLocalizedCollection(collectionSlug, locale)`, `getLocalizedEntry(collectionSlug, slug, locale)`, and `getSettings()`. Collection queries use cursor-based pagination (100 entries per page) to retrieve all entries regardless of collection size. All queries filter by `data.locale` field with automatic Croatian fallback.
   - Collections: homepage, apartments, testimonials, guide, faqs, pages (currently seeded), editorial (queried by multiple pages but not yet seeded). Planned: seasons, inquiries, site-settings
   - Site-settings: property name, WhatsApp number, phone number, email, active locales, hero photos, social links, section visibility toggles, check-in/out times, tourist tax rate
   - Public queries filtered by active locale and published status. Admin queries show all content including drafts/unpublished.
