@@ -42,13 +42,13 @@ const hasMultiple = images.length > 1;
 
   .mini-collage {
     overflow: hidden;
-    border-radius: 20px 4px 20px 4px;
-    box-shadow: 0 0 0 1px rgba(10, 31, 51, 0.06), 0 12px 40px rgba(10, 31, 51, 0.08);
+    width: 100%;
+    padding: var(--space-sm) 0;
   }
 
   .mini-collage__track {
     display: flex;
-    gap: 6px;
+    gap: var(--space-md);
     animation-name: mini-scroll;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
@@ -61,10 +61,12 @@ const hasMultiple = images.length > 1;
 
   .mini-collage__item {
     flex-shrink: 0;
+    border-radius: 16px;
+    overflow: hidden;
   }
 
   .mini-collage__item img {
-    height: 280px;
+    height: 250px;
     width: auto;
     object-fit: cover;
     display: block;
@@ -72,11 +74,17 @@ const hasMultiple = images.length > 1;
 
   @media (min-width: 768px) {
     .mini-collage__item img {
-      height: 380px;
+      height: 350px;
     }
   }
 
-  /* Single image fallback - same visual treatment */
+  /* Single image fallback */
+  .mini-collage--single {
+    border-radius: 16px;
+    overflow: hidden;
+    max-width: 700px;
+  }
+
   .mini-collage--single img {
     width: 100%;
     aspect-ratio: 4 / 3;
