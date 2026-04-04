@@ -27,12 +27,12 @@ const TRAILING_SLASH = /\/$/;
 
 class R2HybridStorage implements Storage {
   private bucket: R2Bucket;
+  private bucketName: string;
   private publicUrl?: string;
-  private binding: string;
 
-  constructor(bucket: R2Bucket, binding: string, publicUrl?: string) {
+  constructor(bucket: R2Bucket, bucketName: string, publicUrl?: string) {
     this.bucket = bucket;
-    this.binding = binding;
+    this.bucketName = bucketName;
     this.publicUrl = publicUrl;
   }
 
@@ -110,6 +110,10 @@ class R2HybridStorage implements Storage {
   }
 
   async getSignedUploadUrl(options: SignedUploadOptions): Promise<SignedUploadUrl> {
+    if (!options.key || options.key.includes("..") || options.key.startsWith("/")) {
+      throw new EmDashStorageError("Invalid storage key", "INVALID_KEY");
+    }
+
     const workerEnv = env as unknown as Record<string, string | undefined>;
     const accessKeyId = workerEnv.R2_ACCESS_KEY_ID;
     const secretAccessKey = workerEnv.R2_SECRET_ACCESS_KEY;
@@ -126,7 +130,7 @@ class R2HybridStorage implements Storage {
     const expiresIn = options.expiresIn || 3600;
     const r2Client = new AwsClient({ accessKeyId, secretAccessKey, service: "s3", region: "auto" });
     const endpoint = `https://${accountId}.r2.cloudflarestorage.com`;
-    const url = `${endpoint}/apartmani-media/${options.key}`;
+    const url = `${endpoint}/${this.bucketName}/${options.key}`;
 
     const signed = await r2Client.sign(url, {
       method: "PUT",
@@ -158,10 +162,14 @@ class R2HybridStorage implements Storage {
  */
 export function createStorage(config: Record<string, unknown>): Storage {
   const binding = typeof config.binding === "string" ? config.binding : "";
+  const bucketName = typeof config.bucketName === "string" ? config.bucketName : "";
   const publicUrl = typeof config.publicUrl === "string" ? config.publicUrl : undefined;
 
   if (!binding) {
     throw new EmDashStorageError("R2 binding name required", "BINDING_NOT_FOUND");
+  }
+  if (!bucketName) {
+    throw new EmDashStorageError("R2 bucket name required for S3 signed URLs", "BUCKET_NAME_MISSING");
   }
 
   const bucket = (env as Record<string, unknown>)[binding] as R2Bucket | undefined;
@@ -172,5 +180,5 @@ export function createStorage(config: Record<string, unknown>): Storage {
     );
   }
 
-  return new R2HybridStorage(bucket, binding, publicUrl);
+  return new R2HybridStorage(bucket, bucketName, publicUrl);
 }

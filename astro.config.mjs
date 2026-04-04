@@ -13,7 +13,7 @@ export default defineConfig({
       database: d1({ binding: "DB" }),
       storage: {
         entrypoint: "~/lib/storage-r2-hybrid",
-        config: { binding: "MEDIA" },
+        config: { binding: "MEDIA", bucketName: "apartmani-media" },
       },
       auth: access({
         teamDomain: "m4f1j0z0.cloudflareaccess.com",
