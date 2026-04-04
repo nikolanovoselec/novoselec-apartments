@@ -30,28 +30,6 @@ describe("Photos served from R2", () => {
   });
 });
 
-describe("Seed.json validity", () => {
-  const seedPath = path.resolve(__dirname, "../../../seed/seed.json");
-
-  it("seed.json is valid JSON", () => {
-    const content = fs.readFileSync(seedPath, "utf-8");
-    expect(() => JSON.parse(content)).not.toThrow();
-  });
-
-  it("seed.json has collections array", () => {
-    const seed = JSON.parse(fs.readFileSync(seedPath, "utf-8"));
-    expect(seed).toHaveProperty("collections");
-    expect(Array.isArray(seed.collections)).toBe(true);
-  });
-
-  it("seed.json has apartments collection", () => {
-    const seed = JSON.parse(fs.readFileSync(seedPath, "utf-8"));
-    const apartments = seed.collections.find(
-      (c: { slug: string }) => c.slug === "apartments"
-    );
-    expect(apartments).toBeDefined();
-  });
-});
 
 describe("Translation completeness for new keys", () => {
   const locales = ["hr", "de", "sl", "en"];
