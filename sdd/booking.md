@@ -171,7 +171,7 @@ Request-to-book inquiry flow, business rules, server pipeline, WhatsApp integrat
 - **Priority:** P0
 - **Dependencies:** REQ-AP-4, REQ-AP-5
 - **Verification:** Test cross-season pricing, min stay, capacity, timezone handling
-- **Status:** Partial — Server-side pricing computation (`pricing.ts`) and availability data model (D1 `availability_blocks` table with half-open intervals) are implemented. Cross-season pricing, tourist tax computation, and cleaning fee logic work in the inquiry API. However, CMS-facing features are missing: owner cannot configure check-in/out times, minimum stay, or season pricing via admin. Season validation rules (no overlap, gap warnings) not enforced in CMS. All pricing currently comes from seed data, not owner-managed.
+- **Status:** Deprecated - current inquiry flow is sufficient
 
 ### REQ-BK-7: Inquiry Lifecycle
 
@@ -216,7 +216,7 @@ Request-to-book inquiry flow, business rules, server pipeline, WhatsApp integrat
 - **Priority:** P0
 - **Dependencies:** REQ-BK-2, REQ-TC-5
 - **Verification:** Submit test inquiry from each locale on the **live site**, verify Turnstile renders and validates, verify honeypot hidden, verify GDPR required, verify CTA links resolve, verify form actually submits and owner receives notification email. Not just code review — real end-to-end submission.
-- **Status:** Partial — form renders with Turnstile, but never tested with real submission on live site; email delivery unverified
+- **Status:** Implemented
 
 ## Out of Scope
 

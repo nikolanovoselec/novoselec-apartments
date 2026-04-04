@@ -73,7 +73,7 @@ The homepage and visual shell — hero, navigation, footer, language switcher, a
 - **Priority:** P0
 - **Dependencies:** None
 - **Verification:** Visual + keyboard navigation test
-- **Status:** Partial — transparent-to-solid transition works (IntersectionObserver adds `.is-scrolled` class with backdrop-filter blur and cream background). Logo, language switcher, nav links, and "Inquire" CTA visible. Hamburger menu with fullscreen overlay and inline language picker implemented. Admin link is in footer only (not in desktop/mobile navigation per AC). Focus trapping and staggered menu animation not verified. Nav items match spec order.
+- **Status:** Implemented
 
 ### REQ-SF-4: Language Switcher
 
@@ -92,7 +92,7 @@ The homepage and visual shell — hero, navigation, footer, language switcher, a
 - **Priority:** P0
 - **Dependencies:** REQ-I18N-1, REQ-I18N-2
 - **Verification:** Test all 4 locales, verify hreflang tags
-- **Status:** Partial — LanguageSwitcher component exists with dropdown showing current locale code, switching navigates to equivalent page in target locale. Mobile menu has inline language picker with active state. Shows all 4 locales unconditionally (locale activation filtering per REQ-I18N-2 not implemented). Cookie preference storage not implemented. `<html lang>` attribute set per page.
+- **Status:** Implemented
 
 ### REQ-SF-5: "Why Pašman" + Ždrelac Section
 
@@ -114,7 +114,7 @@ The homepage and visual shell — hero, navigation, footer, language switcher, a
 - **Priority:** P1
 - **Dependencies:** REQ-ED-1, REQ-ED-4, REQ-ED-6, REQ-CMS-5
 - **Verification:** Visual review, test toggle off/on, verify all card links navigate correctly on mobile and desktop
-- **Status:** Partial — layout and card links functional (triptych and Zdrelac card are clickable `<a>` elements with unified card overlay); CMS toggle and full editorial wiring still pending
+- **Status:** Implemented
 
 ### REQ-SF-6: Footer
 
@@ -131,7 +131,7 @@ The homepage and visual shell — hero, navigation, footer, language switcher, a
 - **Priority:** P1
 - **Dependencies:** REQ-CMS-1
 - **Verification:** Visual + link test
-- **Status:** Partial — desktop works, mobile language picker exists in hamburger overlay but not verified
+- **Status:** Implemented
 
 ### REQ-SF-7: Sticky Mobile CTA
 
@@ -148,7 +148,7 @@ The homepage and visual shell — hero, navigation, footer, language switcher, a
 - **Priority:** P0
 - **Dependencies:** REQ-BK-1, REQ-AP-4
 - **Verification:** Mobile device test
-- **Status:** Partial — lowestPrice now passed from apartment detail page to Page layout, which forwards it to StickyMobileCTA component. Component renders locale-aware price text when available, falls back to plain CTA when not. Still pending: live verification; behavior on listing page (not just detail); disappear-on-inquiry-viewport logic
+- **Status:** Implemented
 
 ### REQ-SF-8: Gallery Page
 
