@@ -7,7 +7,7 @@ export interface ImageOptions {
 
 /**
  * Build a public media URL for an image stored in R2.
- * The /api/media/:key route handles fetching from R2 and applying Image Resizing.
+ * The /api/img/:key route handles fetching from R2 and applying Image Resizing.
  */
 export function buildMediaUrl(key: string, options?: ImageOptions): string {
   const params = new URLSearchParams();
@@ -17,7 +17,7 @@ export function buildMediaUrl(key: string, options?: ImageOptions): string {
   if (options?.fit) params.set("fit", options.fit);
 
   const query = params.toString();
-  return `/api/media/${encodeURIComponent(key)}${query ? `?${query}` : ""}`;
+  return `/api/img/${encodeURIComponent(key)}${query ? `?${query}` : ""}`;
 }
 
 /**
