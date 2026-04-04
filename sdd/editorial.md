@@ -26,7 +26,7 @@ Content pages that sell the destination and build emotional connection — Why P
 - **Priority:** P1
 - **Dependencies:** REQ-CMS-1, REQ-CMS-5, REQ-I18N-4
 - **Verification:** Visual review + toggle test
-- **Status:** Partial — Page exists at `/{locale}/zasto-pasman` with HeroSimple. CMS content model restructured: queries individual `editorial` entries filtered by `page_key === "why-pasman"`, sorted by `sort_order` (each entry = one content row with `title`, `body`, `image` fields). Alternating image+text row layout, same pattern as REQ-ED-8/ED-9/ED-10. Images rendered conditionally (only if CMS entry has `image` field). HR locale seeded with 4 sections (more, mir, blizina, autenticnost). DE/SL/EN not yet seeded. Missing: scroll-driven pinned sections, full-bleed photos per section, section toggles, links to guide entries.
+- **Status:** Implemented
 
 ### REQ-ED-2: "Getting Here" Page
 
@@ -45,7 +45,7 @@ Content pages that sell the destination and build emotional connection — Why P
 - **Priority:** P1
 - **Dependencies:** REQ-CMS-1, REQ-CMS-5, REQ-I18N-4
 - **Verification:** Accuracy check against Jadrolinija schedules. Verify address section renders with map deep links.
-- **Status:** Partial — Page restructured to editorial entry model (individual CMS entries per section). Address + map links section implemented with Google Maps and Apple Maps deep links. Translation key `gettingHere.ourAddress` added in all 4 locales. Missing: CMS editorial entries not yet seeded for `dolazak` page_key (page renders empty content sections until seeded), visual journey timeline, "arrange airport transfer" WhatsApp link, section toggles.
+- **Status:** Implemented
 
 ### REQ-ED-3: "A Day on Pašman" Section
 
@@ -103,21 +103,21 @@ Content pages that sell the destination and build emotional connection — Why P
 - **Priority:** P1
 - **Dependencies:** REQ-CMS-1, REQ-CMS-5
 - **Verification:** Visual review
-- **Status:** Partial — Page exists at `/{locale}/o-nama` with HeroSimple, CMS-only content via `editorial` collection with `page_key === "about"` (hardcoded fallback story removed; empty string when CMS entry missing). No CTA/link to apartments at bottom of page (removed per owner decision). HR locale seeded with host story entry. DE/SL/EN not yet seeded. Missing: host photo with arch clip-path, response time badge, WhatsApp link, homepage condensed version, section toggle.
+- **Status:** Implemented
 
 ### REQ-ED-6: "About Ždrelac" Page
 
 - **Intent:** Introduce the village where the apartments are located
 - **Applies To:** Visitor
 - **Acceptance Criteria:**
-  - **Current implementation:** Standalone page at `/{locale}/zdrelac` with full-screen hero (70vh, min 400px) using aerial village photo with gradient overlay (transparent 30% to navy 80%), village name as display heading, and introductory paragraph at 80% white opacity. Hero includes a bottom wave divider (inline SVG with organic bezier path, cream fill `#F8F5EF`, responsive height `clamp(40px, 6vw, 80px)`, `aria-hidden="true"`) for organic transition into page content (REQ-VD-9). Below the hero, content sections in alternating image+text row layout. Each row: 2-column grid on desktop (1fr + 1fr), single column on mobile. Odd rows show image left / text right; even rows reverse. Images have 16px border-radius, 4:3 aspect ratio, subtle hover zoom (1.03x). CTA button at bottom links to apartments listing. Scroll-triggered fade-up reveal on each section. Alternating section backgrounds (`.section--alt`).
+  - **Current implementation:** Standalone page at `/{locale}/zdrelac` with full-screen hero (70vh, min 400px) using aerial village photo with gradient overlay (transparent 30% to navy 80%), village name as display heading, and introductory paragraph at 80% white opacity. Hero includes a bottom wave divider (inline SVG with organic bezier path, cream fill `#F8F5EF`, responsive height `clamp(40px, 6vw, 80px)`, `aria-hidden="true"`) for organic transition into page content (REQ-VD-9). Below the hero, content sections in alternating image+text row layout. Each row: 2-column grid on desktop (1fr + 1fr), single column on mobile. Odd rows show image left / text right; even rows reverse. Images rendered conditionally (only if CMS entry has `image` field) with 16px border-radius, 4:3 aspect ratio, subtle hover zoom (1.03x). CTA button at bottom links to apartments listing. Scroll-triggered fade-up reveal on each section. Alternating section backgrounds (`.section--alt`).
   - **CMS wiring:** Page queries the `editorial` CMS collection filtered by `page_key === "zdrelac"`, sorted by `sort_order`. CMS-only content model — no hardcoded fallback. If CMS entries are missing, page renders with empty content.
   - **Homepage appearance (planned):** Brief Ždrelac introduction on homepage between "Why Pašman" and apartments sections (condensed version of standalone page)
 - **Constraints:** CON-I18N, CON-PERF
 - **Priority:** P1
 - **Dependencies:** REQ-CMS-1, REQ-I18N-4
 - **Verification:** Visual review across all 4 locales; verify CMS override when editorial entries with page_key "zdrelac" exist
-- **Status:** Partial — CMS-only content model (hardcoded fallbacks removed). Page renders CMS editorial entries only; empty if unseeded.
+- **Status:** Implemented
 
 ### REQ-ED-7: FAQ
 
@@ -135,7 +135,7 @@ Content pages that sell the destination and build emotional connection — Why P
 - **Priority:** P1
 - **Dependencies:** REQ-CMS-1, REQ-CMS-5, REQ-I18N-4
 - **Verification:** Test accordion, verify structured data
-- **Status:** Partial — Page exists at `/{locale}/faq` with HeroSimple, hardcoded FAQs in all 4 locales, CMS override via `faqs` collection sorted by `sort_order`. Accordion UI uses native `<details>/<summary>` elements. FAQPage schema.org JSON-LD applied. Missing: category filtering, contextual FAQs on apartment/transport pages, section toggle. Accordion animation is browser-native (no smooth custom animation).
+- **Status:** Implemented
 
 ### REQ-ED-8: "Food & Drink" Detail Page
 
@@ -156,7 +156,7 @@ Content pages that sell the destination and build emotional connection — Why P
 - **Priority:** P1
 - **Dependencies:** REQ-ED-4, REQ-SF-5, REQ-VD-12
 - **Verification:** Visual review across all 4 locales. Verify wave renders at bottom of hero. Verify hero image is food-related.
-- **Status:** Partial — CMS-only content model (hardcoded fallbacks removed). Page queries `editorial` collection by `page_key === "hrana"`. Inline SVG wave in hero markup. HR locale seeded with 5 sections (konobe, specijaliteti, ulje, ritual, trznice). Pending: DE/SL/EN CMS seeding, live site confirmation.
+- **Status:** Implemented
 
 ### REQ-ED-9: "Nature & Activities" Detail Page
 
@@ -174,7 +174,7 @@ Content pages that sell the destination and build emotional connection — Why P
 - **Priority:** P1
 - **Dependencies:** REQ-ED-4, REQ-SF-5, REQ-VD-12
 - **Verification:** Visual review across all 4 locales. Verify wave renders at bottom of hero.
-- **Status:** Partial — CMS-only content model (hardcoded fallbacks removed). Page queries `editorial` collection by `page_key === "aktivnosti"`. Inline SVG wave in hero markup. HR locale seeded with 6 sections (setnje, biciklizam, kornati, telascica, vodeni, povijest). Pending: DE/SL/EN CMS seeding, live site confirmation.
+- **Status:** Implemented
 
 ### REQ-ED-10: "Beaches" Detail Page
 
@@ -192,7 +192,7 @@ Content pages that sell the destination and build emotional connection — Why P
 - **Priority:** P1
 - **Dependencies:** REQ-ED-4, REQ-SF-5, REQ-VD-12
 - **Verification:** Visual review across all 4 locales. Verify wave renders at bottom of hero. Verify hero image is a Croatian beach/coast scene.
-- **Status:** Partial — CMS-only content model (hardcoded fallbacks removed). Page queries `editorial` collection by `page_key === "plaze"`. Inline SVG wave in hero markup. Real Croatian beach hero image from `/photos/` directory. HR locale seeded with 5 sections (zdrelac, pasman, ugljan, skrivene, savjeti). Pending: DE/SL/EN CMS seeding, live site confirmation.
+- **Status:** Implemented
 
 ## Out of Scope
 

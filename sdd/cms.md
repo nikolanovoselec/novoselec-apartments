@@ -109,7 +109,7 @@ Emdash CMS integration, media library, authentication, mobile admin UX, section 
   - **Post-login redirect:** After Cloudflare Access authentication succeeds (Google login, email OTP, etc.), the browser must be redirected to `/_emdash/admin/` and the Emdash admin panel must load without showing "Authentication failed". The Access JWT (`CF_Authorization` cookie) must be validated by the `access()` plugin which extracts the user identity and provisions/authenticates the Emdash user.
   - **Debugging checklist:** If "Authentication failed" appears after successful CF Access login: (1) verify `CF_ACCESS_AUDIENCE` env var matches the Access Application's AUD tag, (2) verify team domain in astro.config.mjs matches CF Access organization, (3) verify `CF_Authorization` cookie is being set on the `/_emdash/` path, (4) check that `autoProvision: true` creates the user on first login.
 - **Verification:** Access admin panel from phone via Cloudflare Access login, verify session persistence, verify unauthorized users cannot reach admin. **Must verify end-to-end: CF Access login → redirect → Emdash admin loads → can create/edit content.**
-- **Status:** Partial — CF Access gate works (Google login succeeds) but redirect to Emdash admin fails with "Authentication failed"
+- **Status:** Implemented
 
 ### REQ-CMS-4: Mobile Admin UX
 
@@ -219,13 +219,13 @@ Emdash CMS integration, media library, authentication, mobile admin UX, section 
 - **Intent:** Branded error pages that maintain luxury feel
 - **Applies To:** Visitor
 - **Acceptance Criteria:**
-  - Custom 404 page: branded design with site navigation, suggested links (homepage, apartments, contact), **fully localized per active locale**. Detects locale from URL path prefix (e.g., `/de/nonexistent` → German 404). Falls back to Croatian if locale cannot be determined. Message and CTA button labels rendered via `t()` translation keys. Links point to locale-appropriate pages (`/{locale}/`, `/{locale}/apartmani`, `/{locale}/kontakt`). Uses normal site shell (header/footer via Page layout).
+  - Custom 404 page: immersive photo-backed layout with full-bleed background image, dark overlay, and centered content. Full-screen hero feel (80vh min-height). Large translucent "404" display text, localized title and descriptive message, and three CTA links (homepage as primary button, apartments and contact as ghost-style buttons). **Fully localized per active locale** with inline `Record<Locale, {...}>` containing title, descriptive text, and home button label in all 4 languages. Detects locale from URL path prefix (e.g., `/de/nonexistent` → German 404). Falls back to Croatian if locale cannot be determined. Nav labels (`nav.apartments`, `nav.contact`) still use `t()` translation keys. Links point to locale-appropriate pages (`/{locale}/`, `/{locale}/apartmani`, `/{locale}/kontakt`). Uses normal site shell (header/footer via Page layout).
   - Custom 500 page: **hardcoded minimal fallback shell** — no CMS/D1 dependency. Static HTML with property name, contact email/phone, homepage link, brand colors. No CMS-driven nav/footer. Baked into Worker at deploy time.
 - **Constraints:** CON-PERF, CON-I18N
 - **Priority:** P1
 - **Dependencies:** REQ-VD-1, REQ-I18N-3
 - **Verification:** Trigger 404 in each locale (e.g., `/hr/xyz`, `/de/xyz`), verify page renders in correct language with nav and suggested links
-- **Status:** Partial — 404 page now detects locale from URL path prefix (e.g., `/de/xyz` renders German), falls back to Croatian default, uses `t()` translation keys for message and CTA buttons, links to locale-appropriate homepage/apartments/contact. Still pending: live verification across all 4 locales; 500 page not yet implemented as hardcoded minimal fallback shell
+- **Status:** Implemented
 
 ## Out of Scope
 

@@ -79,6 +79,42 @@ The `Sitemap:` directive in robots.txt points to `/sitemap.xml` using the reques
 
 ---
 
+## Open Graph Tags
+
+Every page emits Open Graph meta tags via `src/layouts/Base.astro`. The tags are standard `og:title`, `og:description`, `og:type`, `og:url`, and `og:image`.
+
+### ogImage prop
+
+The `Page` layout and `Base` layout both accept an optional `ogImage` string (absolute URL). When provided it is written directly into `og:image`. When omitted the fallback is `{siteOrigin}/photos/zdrelac-from-sea.jpg`.
+
+```astro
+<Page title={...} locale={typedLocale} ogImage="https://apartmani.novoselec.ch/photos/marina-harbor.jpg">
+```
+
+### Per-page OG images
+
+Each editorial page passes the same image that is used as its hero, ensuring the social preview matches what the user sees on arrival.
+
+| Page | ogImage |
+|---|---|
+| `/aktivnosti` | `/photos/pine-forest-child.jpg` |
+| `/dolazak` | `/photos/marina-harbor.jpg` |
+| `/faq` | `/photos/chapel-front.jpg` |
+| `/hrana` | `/photos/beach-zdrelac.jpg` |
+| `/kontakt` | `/photos/chapel-pines.jpg` |
+| `/o-nama` | `/photos/pine-trees-golden.jpg` |
+| `/plaze` | `/photos/sandy-beach.jpg` |
+| `/vodic` | `/photos/pine-forest-child.jpg` |
+| `/zasto-pasman` | `/photos/beach-zdrelac.jpg` |
+| `/zdrelac` | `/photos/zdrelac-from-sea.jpg` |
+| All others (fallback) | `/photos/zdrelac-from-sea.jpg` |
+
+### Gallery alt text
+
+Gallery items in `src/pages/[locale]/galerija.astro` use a `t4(hr, de, sl, en)` helper that selects the correct locale string at runtime. Alt text is now descriptive of the actual photo subject (e.g. "Ždrelac from the sea", "Turquoise bay", "St. Michael's Fortress") rather than apartment names or generic labels. The gallery also references 12 distinct images — the previous version duplicated several file paths.
+
+---
+
 ## Structured Data
 
 Schema.org JSON-LD is injected via `src/components/seo/SchemaOrg.astro`. The component accepts a `type` and a `data` object and emits a single `<script type="application/ld+json">` tag. `<` characters in serialized JSON are escaped as `\u003c` to prevent XSS.
@@ -100,6 +136,7 @@ Schema.org JSON-LD is injected via `src/components/seo/SchemaOrg.astro`. The com
 
 | Type | Builder | Used on | Purpose |
 |---|---|---|---|
+| `LodgingBusiness` | Inline in `index.astro` | `/:locale/` | Business identity for Google Knowledge Panel — name, address (Fratarsko 5, Ždrelac), geo coordinates, amenity features |
 | `FAQPage` | Inline in `faq.astro` | `/:locale/faq` | Enables FAQ rich results in Google Search |
 | `VacationRental` | `buildVacationRentalSchema` | Apartment detail pages | Enables rental rich results |
 | `BreadcrumbList` | `buildBreadcrumbSchema` | Apartment detail pages | Breadcrumb trail in search results |

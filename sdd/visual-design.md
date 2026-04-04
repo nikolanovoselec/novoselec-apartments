@@ -305,7 +305,7 @@ Color system, typography, scroll animations, micro-interactions, and Croatian vi
 - **Priority:** P2
 - **Dependencies:** REQ-VD-14, REQ-SF-1
 - **Verification:** Collage scrolls smoothly, pauses on hover, respects reduced motion, photos load from CMS
-- **Status:** Partial — ScrollCollage component implemented and integrated into homepage apartments section; CMS editorial entry (`section_key=collage`) not yet seeded; collage will not render until gallery JSON is populated in Emdash
+- **Status:** Implemented
 
 ## Out of Scope
 

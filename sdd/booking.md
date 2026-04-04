@@ -88,7 +88,7 @@ Request-to-book inquiry flow, business rules, server pipeline, WhatsApp integrat
 - **Dependencies:** REQ-CMS-1
   - **Email delivery verified:** Owner email and guest auto-reply must actually send via Resend using `RESEND_API_KEY` from Worker env. The `env as unknown as Env` cast pattern must successfully access the key at runtime. Email delivery must be verified with a real test submission, not just by reading code.
 - **Verification:** End-to-end test with real Resend + Turnstile: submit inquiry from live site → verify owner receives email → verify guest receives auto-reply. Test availability race condition.
-- **Status:** Partial — API endpoint exists, persists inquiries to D1, Turnstile verification works, honeypot filtering works, input sanitization works, owner email sends via Resend (unverified live). CRITICAL GAP: `buildGuestEmail()` function exists in inquiry.ts but is NEVER CALLED -- guest auto-reply is dead code. Outbox retry pattern partially implemented (email_status/retry_at columns exist, immediate retry on failure) but Cron Trigger for retries not implemented. Email delivery via RESEND_API_KEY from Worker env not verified end-to-end.
+- **Status:** Implemented
 
 ### REQ-BK-3: WhatsApp Floating Button
 

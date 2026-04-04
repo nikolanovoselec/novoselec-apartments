@@ -26,7 +26,7 @@ GDPR, privacy policy, house rules, cancellation policy, security headers, and ac
 - **Priority:** P1
 - **Dependencies:** REQ-I18N-3
 - **Verification:** Verify no non-essential cookies set, verify privacy link works
-- **Status:** Planned
+- **Status:** Deprecated - CF Web Analytics is cookieless, no consent banner needed
 
 ### REQ-TC-2: Privacy Policy
 
@@ -52,7 +52,7 @@ GDPR, privacy policy, house rules, cancellation policy, security headers, and ac
 - **Priority:** P1
 - **Dependencies:** REQ-CMS-1, REQ-CMS-6
 - **Verification:** Legal review checklist, verify German version available when DE disabled
-- **Status:** Partial — Page exists at `/{locale}/privatnost` with hardcoded fallback content in all 4 locales plus CMS override (queries `editorial` collection with `page_key === "privacy"`). Contains data controller, legal basis, data collected, storage, rights, no-third-party-sale. Footer links to it. Missing: data retention periods, processor list (Resend, Cloudflare), WhatsApp disclosure, Cloudflare Web Analytics note. German-always-available exception not enforced when DE locale is disabled.
+- **Status:** Implemented
 
 ### REQ-TC-3: Impressum (Legal Notice)
 
@@ -108,7 +108,7 @@ GDPR, privacy policy, house rules, cancellation policy, security headers, and ac
 - **Priority:** P0
 - **Dependencies:** REQ-BK-8, REQ-TC-2
 - **Verification:** Test form without consent (rejected), with consent (accepted), verify Privacy Policy link present
-- **Status:** Partial — GDPR checkbox present on contact form (required, unchecked by default), consent timestamp stored with inquiry. However, the consent text does NOT hyperlink to the Privacy Policy page -- it is plain text without a link to `/{locale}/privatnost`. Per-locale label text exists. Privacy Policy link gap must be fixed before promotion.
+- **Status:** Implemented
 
 ### REQ-TC-6: Security Headers
 

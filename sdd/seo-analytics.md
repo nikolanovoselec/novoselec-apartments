@@ -17,7 +17,8 @@ Schema.org structured data, Open Graph, multilingual sitemap, keyword strategy, 
 - **Intent:** Rich search results for vacation rental queries
 - **Applies To:** System
 - **Acceptance Criteria:**
-  - `VacationRental` / `LodgingBusiness` on apartment pages: name, description, image, address, geo coordinates, price range, amenities, check-in/out times
+  - `LodgingBusiness` on homepage: property name, locale-aware description, canonical URL, hero image, postal address, geo coordinates, numberOfRooms, amenityFeature (Wi-Fi, Parking, Air conditioning, BBQ)
+  - `VacationRental` on apartment detail pages: name, description, image, address, geo coordinates, price range, amenities, check-in/out times
   - `FAQPage` on FAQ sections (REQ-ED-7)
   - `BreadcrumbList` on all pages
   - **No Review/AggregateRating schema at launch.** Self-published reviews on own domain are a Google policy-sensitive area. Testimonials are displayed visually but not marked up with Review schema. Can be revisited if owner obtains verifiable third-party review sources (Google Reviews, Booking.com).
@@ -27,7 +28,7 @@ Schema.org structured data, Open Graph, multilingual sitemap, keyword strategy, 
 - **Priority:** P1
 - **Dependencies:** REQ-AP-1, REQ-ED-7, REQ-SP-1
 - **Verification:** Google Rich Results Test for all page types. Verify `VacationRental` JSON-LD on apartment detail pages. Verify `BreadcrumbList` on all pages.
-- **Status:** Partial — `VacationRental` JSON-LD applied to apartment detail pages via `buildVacationRentalSchema()` and `SchemaOrg.astro` component (includes name, description, image, occupancy, floorSize, amenityFeature, priceRange, address); `BreadcrumbList` JSON-LD rendered via `Breadcrumbs.astro` component on apartment detail pages (Home > Apartments > {name}); `FAQPage` schema applied on FAQ page via SchemaOrg component with mainEntity questions/answers. Still missing: BreadcrumbList on non-apartment pages; Google Rich Results Test validation pending
+- **Status:** Implemented
 
 ### REQ-SEO-2: Open Graph & Social
 
@@ -42,7 +43,7 @@ Schema.org structured data, Open Graph, multilingual sitemap, keyword strategy, 
 - **Priority:** P1
 - **Dependencies:** REQ-AP-1, REQ-CMS-2
 - **Verification:** Test sharing on WhatsApp, Facebook
-- **Status:** Planned
+- **Status:** Implemented
 
 ### REQ-SEO-3: Analytics + Conversion Events
 

@@ -166,7 +166,7 @@ The homepage and visual shell — hero, navigation, footer, language switcher, a
 - **Priority:** P1
 - **Dependencies:** None
 - **Verification:** Visual review + responsive check on mobile/desktop
-- **Status:** Implemented
+- **Status:** Implemented — gallery images expanded to 12 items with accurate per-locale alt text and captions in all 4 locales via inline `t4()` helper; each alt describes what the photo actually depicts (e.g., "Zdrelac from the sea", "Turquoise bay", "Hilltop panorama") rather than generic labels
 
 ## Out of Scope
 
