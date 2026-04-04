@@ -33,38 +33,49 @@ const ctaSection = getSection("cta");
 const collageSection = getSection("collage");
 
 // Parse collage photos from CMS (JSON array in body field)
-// Try homepage section first, then direct entry lookup as fallback
+// Try Emdash collection first, then direct D1 query as fallback
 let collagePhotos: Array<{ src: string; alt: string }> = [];
-const collageBody = (collageSection?.data.body as string) ?? "";
-if (!collageBody) {
-  // Fallback: direct entry lookup (bypasses collection pagination)
-  const { getLocalizedEntry } = await import("~/lib/content");
-  const directEntry = await getLocalizedEntry("editorial", "collage", typedLocale);
-  if (directEntry?.data.body) {
-    try {
-      const raw = JSON.parse(directEntry.data.body as string);
-      if (Array.isArray(raw)) {
-        collagePhotos = raw.filter(
-          (item: unknown) =>
-            typeof item === "object" && item !== null &&
-            typeof (item as Record<string, unknown>).src === "string" &&
-            typeof (item as Record<string, unknown>).alt === "string"
-        );
-      }
-    } catch { /* empty */ }
-  }
-} else {
+
+function parseCollageJson(body: string): Array<{ src: string; alt: string }> {
   try {
-    const raw = JSON.parse(collageBody);
+    const raw = JSON.parse(body);
     if (Array.isArray(raw)) {
-      collagePhotos = raw.filter(
+      return raw.filter(
         (item: unknown) =>
           typeof item === "object" && item !== null &&
           typeof (item as Record<string, unknown>).src === "string" &&
           typeof (item as Record<string, unknown>).alt === "string"
       );
     }
-  } catch { /* empty collage if JSON invalid */ }
+  } catch { /* invalid JSON */ }
+  return [];
+}
+
+if (collageSection?.data.body) {
+  collagePhotos = parseCollageJson(collageSection.data.body as string);
+}
+
+// Direct D1 fallback if Emdash collection didn't return the collage
+if (collagePhotos.length === 0) {
+  try {
+    const { env: _env } = await import("cloudflare:workers");
+    const env = _env as unknown as { DB: D1Database };
+    const row = await env.DB.prepare(
+      "SELECT body FROM ec_editorial WHERE page_key='homepage' AND section_key='collage' AND locale=? AND status='published' LIMIT 1"
+    ).bind(typedLocale).first<{ body: string }>();
+    if (row?.body) {
+      collagePhotos = parseCollageJson(row.body);
+    }
+    // Fallback to HR if no locale-specific entry
+    if (collagePhotos.length === 0) {
+      const hrRow = await env.DB.prepare(
+        "SELECT body FROM ec_editorial WHERE page_key='homepage' AND section_key='collage' AND locale='hr' AND status='published' LIMIT 1"
+      ).first<{ body: string }>();
+      if (hrRow?.body) {
+        collagePhotos = parseCollageJson(hrRow.body);
+      }
+    }
+  } catch { /* D1 not available */ }
 }
 
 // Fallback content when CMS not yet seeded
