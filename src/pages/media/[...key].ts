@@ -20,7 +20,7 @@ export const GET: APIRoute = async ({ params, locals, request }) => {
   }
 
   // Access R2 via Astro's Cloudflare runtime locals (official pattern)
-  const runtime = (locals as Record<string, unknown>).runtime as
+  const runtime = (locals as unknown as Record<string, unknown>).runtime as
     | { env?: { MEDIA?: R2Bucket } }
     | undefined;
   const bucket = runtime?.env?.MEDIA;
