@@ -1,5 +1,16 @@
 # Changelog
 
+## 2026-04-04 - Revision 66: ScrollCollage replaces horizontal scroll gallery on detail page, added to listing
+
+### Requirements updated
+- **REQ-AP-3** (Apartment Detail Page): Visual hierarchy item 2 updated -- "horizontal-scroll interior photo gallery" replaced with "`ScrollCollage` infinite-scroll collage." Matches current implementation item 2 which already described the ScrollCollage.
+- **REQ-VD-15** (Exterior Photo Collage): Placement expanded -- collage is no longer homepage-only. Now also used on apartment listing page (exterior photos from same CMS editorial entry, default 35s speed) and apartment detail page (interior photos from `gallery` CMS field, faster 25s speed).
+
+### Cross-cutting
+- REQ-AP-2 (Apartment Listing Page) and REQ-AP-3 status line were already updated in a prior edit to reflect ScrollCollage usage. This revision corrects the remaining stale references.
+
+---
+
 ## 2026-04-04 - Revision 65: Emdash cursor pagination -- D1 collage hack removed
 
 ### Requirements updated

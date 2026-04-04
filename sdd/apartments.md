@@ -49,7 +49,7 @@ Apartment listings, detail pages, photo galleries, amenities, seasonal pricing, 
 - **Intent:** Let visitors browse and compare all apartments at a glance
 - **Applies To:** Visitor
 - **Acceptance Criteria:**
-  - **Current implementation:** Card grid showing apartments from Emdash CMS (with hardcoded fallback data when CMS is not yet seeded). Each card is a full-card link (`<a>` wrapping the entire card) to the apartment detail page (`/{locale}/apartmani/{slug}`). Card contents: hero photo (3:2 aspect, `object-fit: cover`), name, tagline (italic), meta row (sleeps count, size in m2, beach distance in meters), "Best for" badge (navy uppercase overlay on image), price ("from EUR X/night"), and inquiry CTA button. 2-column grid on desktop, single column on mobile. Cards have hover shadow lift and subtle image zoom (1.03x). Uses `HeroSimple` photo-backed header (REQ-VD-12). Inquiry section below cards with CTA linking to `/{locale}/kontakt` (REQ-BK-8).
+  - **Current implementation:** Card grid showing apartments from Emdash CMS (with hardcoded fallback data when CMS is not yet seeded). Each card is a full-card link (`<a>` wrapping the entire card) to the apartment detail page (`/{locale}/apartmani/{slug}`). Card contents: hero photo (3:2 aspect, `object-fit: cover`), name, tagline (italic), meta row (sleeps count, size in m2, beach distance in meters), "Best for" badge (navy uppercase overlay on image), price ("from EUR X/night"), and inquiry CTA button. 2-column grid on desktop, single column on mobile. Cards have hover shadow lift and subtle image zoom (1.03x). Uses `HeroSimple` photo-backed header (REQ-VD-12). Below the grid, a `ScrollCollage` exterior photo strip is rendered when the `editorial` CMS entry (`page_key=homepage`, `section_key=collage`) is present — the same collage entry used on the homepage. Inquiry section below the collage with CTA linking to `/{locale}/kontakt` (REQ-BK-8).
   - **No fallback:** When Emdash returns no apartments (CMS not seeded), the listing page renders an empty grid. Hardcoded example apartments have been removed — all content comes from CMS only.
   - **With full CMS (planned):** sea view badge if applicable, one-line value proposition, link to detail page
   - Cards link to detail page
@@ -74,7 +74,7 @@ Apartment listings, detail pages, photo galleries, amenities, seasonal pricing, 
   - **Route:** `/{locale}/apartmani/{slug}` — dynamic route. Validates locale and slug; redirects to listing page if apartment not found or slug missing. Redirects to `/hr/` if locale is invalid.
   - **Current implementation (partial):**
     1. Hero: 60vh image (min 400px) with gradient overlay (transparent 40% to navy 75%), apartment name and tagline overlaid at bottom-left
-    2. Interior photo gallery: horizontal snap-scroll strip below hero, sourced from `gallery_json` CMS field (JSON array of R2 UUIDs served via `/api/img/{uuid}`). Interior photos only — exterior/terrace/BBQ photos are reserved for the homepage collage (REQ-VD-15). Each image 800x600 with 12px border-radius, first image eager-loaded, rest lazy. Renders only when `gallery_json` is populated.
+    2. Interior photo collage: `ScrollCollage` strip (speed 25) rendered between breadcrumbs and the details section, sourced from the `gallery` CMS field (JSON array of R2 URLs). Interior photos only — exterior/terrace/BBQ photos are reserved for the listing page and homepage collages. Renders only when `gallery` is populated.
     3. Description: plain text from CMS `description` field
     4. Meta grid: 2-column grid on stone background (12px radius) showing sleeps, bedrooms, size (m2), beach distance — locale-aware labels
     5. "Best for" line below meta grid
@@ -84,7 +84,7 @@ Apartment listings, detail pages, photo galleries, amenities, seasonal pricing, 
     9. Responsive: single column on mobile, 1.5fr/1fr grid on desktop (768px+ breakpoint)
   - **Visual hierarchy (full target, top to bottom):**
     1. Hero: apartment name, key stats strip (guests, bedrooms, m2, beach distance, "Best for" label)
-    2. ~~Photo gallery (REQ-AP-6)~~ — Deprecated; replaced by horizontal-scroll interior photo gallery below hero (see current implementation item 2)
+    2. ~~Photo gallery (REQ-AP-6)~~ — Deprecated; replaced by `ScrollCollage` infinite-scroll collage below hero (see current implementation item 2)
     3. Description: Portable Text rendered from Emdash
     4. ~~Pricing table + availability calendar side by side on desktop (REQ-AP-4, REQ-AP-5)~~ — Deprecated
     5. ~~Inline inquiry widget pre-filled with this apartment (REQ-BK-1)~~ — Deprecated; inquiry via contact page (REQ-BK-8)
@@ -103,7 +103,7 @@ Apartment listings, detail pages, photo galleries, amenities, seasonal pricing, 
 - **Priority:** P0
 - **Dependencies:** REQ-AP-1
 - **Verification:** Full visual review + screen reader test. Verify detail page loads reliably for all apartment slugs in all 4 locales. Verify breadcrumbs and Schema.org render.
-- **Status:** Partial — Breadcrumbs component now renders visible breadcrumb UI and BreadcrumbList schema on apartment detail pages; Schema.org VacationRental JSON-LD applied via SchemaOrg component; inline SVG wave added at hero bottom; lowestPrice passed to Page layout for sticky mobile CTA. Fallback apartment data (Lavanda, Tramuntana) now renders on detail pages when CMS not seeded — locale-aware names, taglines, descriptions, and amenities. Inline ternaries replaced with t() calls for bedrooms, price label, night, amenities title. Pricing table, availability calendar, gallery lightbox, and booking widget dependencies removed (REQ-AP-4, REQ-AP-5, REQ-AP-6, REQ-BK-1 deprecated). Interior photo gallery added (horizontal scroll strip from `gallery_json`); exterior photos separated to homepage collage (REQ-VD-15). Pending live verification.
+- **Status:** Partial — Breadcrumbs component now renders visible breadcrumb UI and BreadcrumbList schema on apartment detail pages; Schema.org VacationRental JSON-LD applied via SchemaOrg component; inline SVG wave added at hero bottom; lowestPrice passed to Page layout for sticky mobile CTA. Fallback apartment data (Lavanda, Tramuntana) now renders on detail pages when CMS not seeded — locale-aware names, taglines, descriptions, and amenities. Inline ternaries replaced with t() calls for bedrooms, price label, night, amenities title. Pricing table, availability calendar, gallery lightbox, and booking widget dependencies removed (REQ-AP-4, REQ-AP-5, REQ-AP-6, REQ-BK-1 deprecated). Interior photo gallery replaced by `ScrollCollage` (sourced from `gallery` CMS field, speed 25); exterior photos separated to listing page collage and homepage collage (REQ-VD-15). Pending live verification.
 
 ### REQ-AP-4: Seasonal Pricing
 
