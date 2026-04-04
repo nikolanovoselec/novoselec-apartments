@@ -33,20 +33,19 @@ Content pages that sell the destination and build emotional connection — Why P
 - **Intent:** Remove travel anxiety — make the journey feel easy and exciting
 - **Applies To:** Visitor
 - **Acceptance Criteria:**
-  - Visual journey timeline: Airport -> Drive -> Ferry -> Island -> Property
-  - Sections: by car + ferry (Biograd na Moru -> Tkon, 25 min), without car (bus + foot passenger), from Zadar Airport (ZAD), from Split Airport, **alternative via Ždrelac bridge to Ugljan + Zadar-Preko ferry** (convenient since apartments are in Ždrelac)
+  - **Current implementation:** Standalone page at `/{locale}/dolazak` with `HeroSimple` photo-backed header (marina/harbor image). Content model restructured from single CMS entry with `sections_json` to individual `editorial` entries filtered by `page_key === "dolazak"`, sorted by `sort_order` — same pattern as all other editorial pages (REQ-ED-1, REQ-ED-8, REQ-ED-9, REQ-ED-10). Each entry renders as one content row with `title`, `body` (rendered as HTML via `set:html`), and optional `image`. Alternating layout: odd rows image-left/text-right, even rows reversed. Single column on mobile.
+  - **Address + map links section:** Dark-background section at the bottom of the page with property address ("Fratarsko 3, 23271 Zdrelac, Croatia") displayed in serif font, plus two ghost-style buttons linking to Google Maps and Apple Maps with lat/lng coordinates. No static map image or interactive map — just deep-link buttons.
+  - **Planned content sections:** by car + ferry (Biograd na Moru -> Tkon, 25 min), without car (bus + foot passenger), from Zadar Airport (ZAD), from Split Airport, **alternative via Ždrelac bridge to Ugljan + Zadar-Preko ferry** (convenient since apartments are in Ždrelac)
   - Ferry info: Jadrolinija link, frequency, cost, peak season advice
   - Parking info: at Biograd terminal, at property
-  - "We can arrange airport transfer" with WhatsApp link
-  - **Map:** Static image map showing route + "Open in Google Maps" / "Open in Apple Maps" deep links. No interactive map library at launch (CSP/performance/privacy concerns). Interactive map deferred to P2 if needed.
   - German version: exact distances, travel times, cost breakdowns
   - CMS-managed per locale
   - Toggleable via section settings
 - **Constraints:** CON-I18N
 - **Priority:** P1
 - **Dependencies:** REQ-CMS-1, REQ-CMS-5, REQ-I18N-4
-- **Verification:** Accuracy check against Jadrolinija schedules
-- **Status:** Partial — Page exists at `/{locale}/dolazak` with HeroSimple, CMS-only content via `editorial` collection (hardcoded fallbacks removed; empty-string defaults when CMS entries missing). Missing: visual journey timeline, map image with deep links, airport sections, section toggles.
+- **Verification:** Accuracy check against Jadrolinija schedules. Verify address section renders with map deep links.
+- **Status:** Partial — Page restructured to editorial entry model (individual CMS entries per section). Address + map links section implemented with Google Maps and Apple Maps deep links. Translation key `gettingHere.ourAddress` added in all 4 locales. Missing: CMS editorial entries not yet seeded for `dolazak` page_key (page renders empty content sections until seeded), visual journey timeline, "arrange airport transfer" WhatsApp link, section toggles.
 
 ### REQ-ED-3: "A Day on Pašman" Section
 
@@ -71,7 +70,7 @@ Content pages that sell the destination and build emotional connection — Why P
 - **Intent:** Curated recommendations that build trust and drive SEO
 - **Applies To:** Visitor
 - **Acceptance Criteria:**
-  - **Current state:** Standalone guide page (`/[locale]/vodic`) with `HeroSimple` photo-backed header (REQ-VD-12). Guide categories and CMS editorial entries rendered in one unified alternating content-row layout. Four static categories (Beaches, Food & Drink, Activities, Day Trips) followed by any CMS editorial entries with `page_key === "vodic"`. All items use the same image+text row style. Alternating layout: odd items image left / text right, even items reversed. Single-column stacking on mobile. No filtering. Three categories expanded to standalone detail pages: Food & Drink (REQ-ED-8), Nature & Activities (REQ-ED-9), Beaches (REQ-ED-10). Linked from homepage experience triptych as 4th card (REQ-SF-5).
+  - **Current state:** Standalone guide page (`/[locale]/vodic`) with `HeroSimple` photo-backed header (REQ-VD-12). Card-overlay grid layout: guide categories and CMS editorial entries (`page_key === "vodic"`) merged into unified card array. Each card displays full-bleed image background with gradient overlay containing title label and description text. Responsive grid: 1-column on mobile, 2-column at 640px+, 3-column at 1024px+. Cards have 16px border-radius, 4:3 aspect ratio, hover zoom (1.06x) on images. No alternating row layout — all entries rendered as equal-weight visual cards. No filtering. Three categories expanded to standalone detail pages: Food & Drink (REQ-ED-8), Nature & Activities (REQ-ED-9), Beaches (REQ-ED-10). Linked from homepage experience triptych as 4th card (REQ-SF-5).
   - **With CMS (planned):** Categories expanded to: Beaches, Food & Drink, Restaurants & Konobas, Activities, Day Trips
   - **Food & Drink** is a featured category: local specialties (grilled fish, octopus peka, lamb, olive oil, island wine, figs), appetizing full-bleed food photography, where to buy/eat
   - Each entry: name, short description, photo, distance from property, category tags

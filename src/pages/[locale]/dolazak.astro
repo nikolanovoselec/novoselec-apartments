@@ -40,7 +40,7 @@ const mapsLng = "15.2236";
           )}
           <div class="content-row__text">
             <h2>{section.title}</h2>
-            <p class="text-lead" set:html={section.text} />
+            <p class="text-lead" set:html={section.text.replace(/<(?!\/?(a|br|em|strong)\b)[^>]+>/gi, '')} />
           </div>
         </div>
       </div>

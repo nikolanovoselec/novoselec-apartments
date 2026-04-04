@@ -124,7 +124,8 @@ Color system, typography, scroll animations, micro-interactions, and Croatian vi
 - **Acceptance Criteria:**
   - **Homepage photos (organic system):** All homepage photo treatments use rounded corners (16-24px border-radius), contained within page grid with gaps, and subtle box-shadow. Specific treatments: ~~photo strip (removed — images moved to hero carousel)~~, feature image (21:9 desktop / 16:9 mobile, 24px radius desktop / 16px mobile, contained with shadow), duo-image (3:4, 2-col with organic asymmetric radius `20px 4px 20px 4px`, hover zoom 1.03x), triptych (4:5, 4 items, 16px radius, labels always visible). All images within containers, not edge-to-edge.
   - **Apartment galleries:** Standard aspect ratios (4:3 landscape, 3:4 portrait) with subtle `border-radius: 4-8px`. No extreme clip-path masks -- let the photography speak.
-  - **Editorial/curated photos** (local guide, food, Why Pašman): Dalmatian stone arch `clip-path` for select featured images only (pre-curated in CMS, not auto-applied to all uploads)
+  - **Guide page cards** (local guide): Full-bleed image cards with gradient overlay containing title and description text. 4:3 aspect ratio, 16px border-radius, hover zoom 1.06x. Responsive grid (1-col / 2-col / 3-col). Images fill the card; text overlays the bottom.
+  - **Editorial/curated photos** (food, Why Pašman, activities, beaches, getting here): Dalmatian stone arch `clip-path` for select featured images only (pre-curated in CMS, not auto-applied to all uploads)
   - **Testimonial avatars:** Circular mask, small size
   - **Host story photo:** Soft rounded rectangle or arch — owner chooses in CMS from 2-3 preset frame styles
   - All masks via CSS `clip-path` — no image processing

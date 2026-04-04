@@ -1,5 +1,16 @@
 # Changelog
 
+## 2026-04-04 - Revision 58: Local Guide card-overlay redesign + Getting Here restructured
+
+### Requirements updated
+- **REQ-ED-4** (Local Guide): Acceptance criteria updated -- page layout changed from alternating content-row (image+text rows) to card-overlay grid. Each entry is now a visual card with full-bleed image background and gradient overlay (title + description). Responsive grid: 1-col mobile, 2-col 640px+, 3-col 1024px+. Cards have 16px border-radius, 4:3 aspect, hover zoom 1.06x.
+- **REQ-ED-2** (Getting Here): Acceptance criteria and status updated -- page restructured from single CMS entry with `sections_json` (bespoke ferry/alt-route/airport sections) to individual `editorial` entries by `page_key === "dolazak"` (same pattern as all other editorial pages). New address + map links section at bottom with dark background, property address, Google Maps and Apple Maps deep-link buttons. Translation key `gettingHere.ourAddress` added in all 4 locales. CMS entries for `dolazak` not yet seeded.
+
+### Translation keys added
+- `gettingHere.ourAddress` in all 4 locales (hr, de, sl, en)
+
+---
+
 ## 2026-04-04 - Revision 57: Local Guide card added to homepage triptych
 
 ### Requirements updated
