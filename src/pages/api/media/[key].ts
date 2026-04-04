@@ -1,6 +1,5 @@
 import type { APIRoute } from "astro";
 
-export const prerender = false;
 
 /**
  * Image serving route: fetches from private R2 bucket.
@@ -8,14 +7,7 @@ export const prerender = false;
  * Keys are UUIDs without extensions (e.g., /media/2d537213-c38b-4076-8e2e-a5ee25783c0e)
  */
 export const GET: APIRoute = async ({ params, locals, request }) => {
-  let key = params.key ?? "";
-
-  // Rest params may be string or array
-  if (Array.isArray(key)) key = key.join("/");
-
-  // Decode and sanitize
-  key = decodeURIComponent(key);
-  if (key.endsWith("/")) key = key.slice(0, -1);
+  const key = params.key ?? "";
 
   if (!key || key.includes("..") || key.startsWith("/")) {
     return new Response("Invalid key", { status: 400 });
