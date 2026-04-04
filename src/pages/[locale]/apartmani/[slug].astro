@@ -2,6 +2,7 @@
 import Page from "~/layouts/Page.astro";
 import Breadcrumbs from "~/components/seo/Breadcrumbs.astro";
 import SchemaOrg from "~/components/seo/SchemaOrg.astro";
+import ScrollCollage from "~/components/home/ScrollCollage.astro";
 import { isValidLocale, type Locale } from "~/i18n/config";
 import { t } from "~/i18n/t";
 import { getEmDashEntry, getEmDashCollection } from "emdash";
@@ -99,17 +100,9 @@ const vacationRentalSchema = buildVacationRentalSchema({
   {/* Breadcrumbs */}
   <Breadcrumbs items={breadcrumbItems} locale={typedLocale} />
 
-  {/* Photo gallery - horizontal scroll */}
+  {/* Interior photo collage */}
   {gallery.length > 0 && (
-    <section class="apt-gallery" data-reveal>
-      <div class="apt-gallery__scroll">
-        {gallery.map((img, i) => (
-          <div class="apt-gallery__item">
-            <img src={img} alt={`${name} - ${i + 1}`} width="800" height="600" loading={i === 0 ? "eager" : "lazy"} />
-          </div>
-        ))}
-      </div>
-    </section>
+    <ScrollCollage images={gallery.map((img, i) => ({ src: img, alt: `${name} - ${i + 1}` }))} speed={25} />
   )}
 
   {/* Details */}

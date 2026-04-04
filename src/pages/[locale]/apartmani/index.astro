@@ -1,6 +1,7 @@
 ---
 import Page from "~/layouts/Page.astro";
 import HeroSimple from "~/components/ui/HeroSimple.astro";
+import ScrollCollage from "~/components/home/ScrollCollage.astro";
 import { isValidLocale, type Locale } from "~/i18n/config";
 import { t } from "~/i18n/t";
 import { getLocalizedCollection } from "~/lib/content";
@@ -13,6 +14,22 @@ const apartments = await getLocalizedCollection("apartments", typedLocale);
 
 // Content from CMS only
 const displayApartments = apartments;
+
+// Collage photos from homepage editorial entry (same exterior photos)
+const allEditorial = await getLocalizedCollection("editorial", typedLocale);
+const collageEntry = allEditorial.find((e) => e.data.page_key === "homepage" && e.data.section_key === "collage");
+let collagePhotos: Array<{ src: string; alt: string }> = [];
+if (collageEntry?.data.body) {
+  const raw = collageEntry.data.body;
+  const arr = Array.isArray(raw) ? raw : typeof raw === "string" ? (() => { try { return JSON.parse(raw); } catch { return []; } })() : [];
+  if (Array.isArray(arr)) {
+    collagePhotos = arr.filter((item: unknown) =>
+      typeof item === "object" && item !== null &&
+      typeof (item as Record<string, unknown>).src === "string" &&
+      typeof (item as Record<string, unknown>).alt === "string"
+    );
+  }
+}
 ---
 
 <Page title={t(typedLocale, "apartments.title")} locale={typedLocale}>
@@ -59,6 +76,13 @@ const displayApartments = apartments;
       </div>
     </div>
   </section>
+
+  {/* Exterior photo collage */}
+  {collagePhotos.length > 0 && (
+    <section class="section section--dark" style="position: relative;">
+      <ScrollCollage images={collagePhotos} />
+    </section>
+  )}
 
   {/* Inquiry CTA */}
   <section class="section section--alt" id="inquiry" data-reveal>
