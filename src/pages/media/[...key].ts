@@ -8,12 +8,27 @@ const env = _env as unknown as Env;
  * URL format: /media/:key?w=800&f=webp&q=80&fit=cover
  */
 export const GET: APIRoute = async ({ params, url, locals }) => {
-  const key = params.key;
+  const rawKey = params.key;
+  // Rest params may return string or undefined
+  const key = typeof rawKey === "string" ? rawKey : Array.isArray(rawKey) ? rawKey.join("/") : "";
   if (!key || key.includes("..") || key.startsWith("/")) {
     return new Response("Invalid key", { status: 400 });
   }
 
-  const bucket = env.MEDIA;
+  // Access R2 bucket from runtime env (Cloudflare Workers binding)
+  let bucket: R2Bucket | undefined;
+  try {
+    bucket = env.MEDIA;
+  } catch {
+    // env may not be available in dev
+  }
+
+  if (!bucket) {
+    // Try getting from locals (Astro Cloudflare adapter passes env via locals)
+    const runtimeEnv = (locals as Record<string, unknown>).runtime as { env?: { MEDIA?: R2Bucket } } | undefined;
+    bucket = runtimeEnv?.env?.MEDIA;
+  }
+
   if (!bucket) {
     return new Response("Storage not configured", { status: 503 });
   }
