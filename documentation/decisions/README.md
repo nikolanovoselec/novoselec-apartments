@@ -21,7 +21,7 @@ Decisions made during implementation with rationale.
 | AD9 | Locale prefix on all routes including default (hr) | Architecture | 2026-04-02 |
 | AD10 | Input sanitization layer separate from Zod schema validation | Architecture | 2026-04-02 |
 | AD11 | Scroll animations gated on `.reveal-ready` JS class | UI/Frontend | 2026-04-02 |
-| AD12 | Editorial photos committed to `public/photos/` replacing Pexels; R2 migration deferred | Storage | 2026-04-03 |
+| AD12 | All photos migrated to R2; served via `/api/img/:uuid`; `public/photos/` removed | Storage | 2026-04-04 |
 | AD13 | Switch to manual i18n routing to prevent Astro from rewriting integration-injected routes | Architecture | 2026-04-02 |
 | AD14 | Emdash CMS auth switched to Cloudflare Access | Security | 2026-04-03 |
 
@@ -87,13 +87,11 @@ Prefixing the default locale avoids two canonical URLs for the same content (`/`
 
 Zod validates shape and types. Sanitization addresses content safety concerns orthogonal to schema validity: HTML injection, email header injection, URL spam in message bodies. Keeping them separate makes each responsibility testable in isolation and avoids coupling content-security logic to schema definitions.
 
-### AD12: Editorial photos committed to `public/photos/` replacing Pexels; R2 migration deferred
+### AD12: All photos migrated to R2; served via `/api/img/:uuid`
 
-**Decision:** Real island and location photos (hero carousel, page heroes, content-row images, Local Guide category images) are committed to the repository under `public/photos/` and served as static Worker assets via root-relative paths (e.g., `/photos/zdrelac-from-sea.jpg`). All Pexels stock photography has been removed.
+**Decision:** All photos (hero carousel, page heroes, gallery, apartment interiors, editorial content rows) are stored in the `apartmani-media` R2 bucket and served via `GET /api/img/:uuid`. The `public/photos/` directory has been deleted. No photos are committed to the repository.
 
-**Rationale:** Pexels images required external CDN dependency, had no caching control, and did not represent the actual property and location. Real photos are a hard requirement for honest marketing. Committing them to `public/` resolves immediately without additional infrastructure — the Worker's asset manifest serves them with full edge caching.
-
-**R2 end state (deferred):** The intended architecture remains R2-based serving for all images. The routing issue from the original AD12 (404 on `.jpg`-suffixed `/media/:key` paths due to Astro's file-based router intercepting extension-suffixed paths) is unresolved. Migration path: fix the routing issue (catch-all route or extension-free keys), upload photos to R2, update `src` references from `/photos/...` to `/media/...` slugs, and remove `public/photos/`. This allows photo swaps without redeploy and keeps the Worker bundle slim.
+**Rationale:** R2 serving was the intended end state from the start. The earlier blocker — 404s on `.jpg`-suffixed keys via the old `/media/[...key]` catch-all — was resolved by switching to extension-free UUID keys and moving the serving route to `src/pages/api/img/[key].ts`. The new route uses `locals.emdash.storage.download(key)` with a direct `env.MEDIA` fallback, applies `Cache-Control: public, max-age=31536000, immutable`, and validates keys against path traversal. Photo swaps and new uploads require no redeploy — only a CMS field update.
 
 ### AD11: Scroll animations gated on `.reveal-ready` JS class
 

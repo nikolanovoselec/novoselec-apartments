@@ -85,29 +85,31 @@ Every page emits Open Graph meta tags via `src/layouts/Base.astro`. The tags are
 
 ### ogImage prop
 
-The `Page` layout and `Base` layout both accept an optional `ogImage` string (absolute URL). When provided it is written directly into `og:image`. When omitted the fallback is `{siteOrigin}/photos/zdrelac-from-sea.jpg`.
+The `Page` layout and `Base` layout both accept an optional `ogImage` string (absolute URL). When provided it is written directly into `og:image`. When omitted the fallback is `{siteOrigin}/api/img/aa0fd53c-5d96-4a78-a5b5-0f68b543515a` (Ždrelac from the sea).
 
 ```astro
-<Page title={...} locale={typedLocale} ogImage="https://apartmani.novoselec.ch/photos/marina-harbor.jpg">
+<Page title={...} locale={typedLocale} ogImage="https://apartmani.novoselec.ch/api/img/<uuid>">
 ```
 
 ### Per-page OG images
 
-Each editorial page passes the same image that is used as its hero, ensuring the social preview matches what the user sees on arrival.
+Each editorial page passes the same image used as its hero, ensuring the social preview matches what the user sees on arrival. All images are served from R2 via `/api/img/:uuid`.
 
-| Page | ogImage |
+| Page | Subject |
 |---|---|
-| `/aktivnosti` | `/photos/pine-forest-child.jpg` |
-| `/dolazak` | `/photos/marina-harbor.jpg` |
-| `/faq` | `/photos/chapel-front.jpg` |
-| `/hrana` | `/photos/beach-zdrelac.jpg` |
-| `/kontakt` | `/photos/chapel-pines.jpg` |
-| `/o-nama` | `/photos/pine-trees-golden.jpg` |
-| `/plaze` | `/photos/sandy-beach.jpg` |
-| `/vodic` | `/photos/pine-forest-child.jpg` |
-| `/zasto-pasman` | `/photos/beach-zdrelac.jpg` |
-| `/zdrelac` | `/photos/zdrelac-from-sea.jpg` |
-| All others (fallback) | `/photos/zdrelac-from-sea.jpg` |
+| `/aktivnosti` | Pine forest with child |
+| `/dolazak` | Marina harbour |
+| `/faq` | Chapel front |
+| `/hrana` | Beach at Ždrelac |
+| `/kontakt` | Chapel pines |
+| `/o-nama` | Golden pine trees |
+| `/plaze` | Sandy beach |
+| `/vodic` | Pine forest with child |
+| `/zasto-pasman` | Beach at Ždrelac |
+| `/zdrelac` | Ždrelac from the sea |
+| All others (fallback) | Ždrelac from the sea |
+
+UUIDs are managed in each page's `ogImage` prop in `src/pages/[locale]/`. The fallback UUID is set in `src/layouts/Base.astro`.
 
 ### Gallery alt text
 

@@ -17,7 +17,7 @@ Image serving, edge caching, bundle budget.
 - **Applies To:** System
 - **Acceptance Criteria:**
   - Originals stored in private R2 (no processing in Worker — memory/CPU limits)
-  - **Image delivery via Worker route** `GET /media/{key}?w=800&f=webp&q=80` — Worker fetches from private R2, applies Cloudflare Image Resizing via `cf: { image: { ... } }` on the response. Works with private buckets. Object keys are opaque UUIDs. Route uses Astro rest parameter (`[...key]`) to support keys containing dots (e.g., `photo.jpg`). Keys containing path traversal sequences (`..`) or leading slashes are rejected with 400.
+  - **Image delivery via Worker route** `GET /api/img/{key}?w=800&f=webp&q=80` — Worker fetches from private R2 (via Emdash storage abstraction with direct R2 fallback), applies Cloudflare Image Resizing via `cf: { image: { ... } }` on the response. Works with private buckets. Object keys are opaque UUIDs (no file extensions). Keys containing path traversal sequences (`..`) or leading slashes are rejected with 400.
   - Responsive `<picture>` with `srcset` at 400, 800, 1200, 1920px widths
   - Format negotiation: AVIF > WebP > JPEG based on Accept header
   - **Blurhash:** Computed client-side in CMS admin UI for new uploads (lightweight JS library). Computed at seed time for preloaded content. Stored as metadata string in D1. (No background task or Worker-side computation.)
@@ -33,7 +33,7 @@ Image serving, edge caching, bundle budget.
 - **Priority:** P0
 - **Dependencies:** REQ-CMS-2
 - **Verification:** Lighthouse audit on 4G throttle
-- **Status:** Partial — R2 serving route implemented (`/media/[...key]`) with rest parameter for dotted filenames, long-lived cache headers, and error handling. Image Resizing (`cf: { image }`) not yet applied (TODO in code); currently serves originals. Blurhash, responsive `<picture>`, and format negotiation not yet implemented.
+- **Status:** Partial — R2 serving route implemented at `/api/img/[key]` with long-lived immutable cache headers and error handling. Fetches via Emdash storage abstraction with direct R2 bucket fallback. All site images (hero, subpage heroes, gallery, content) migrated from local `/photos/` directory to R2, served via `/api/img/{uuid}`. Image Resizing (`cf: { image }`) not yet applied (currently serves originals). Blurhash, responsive `<picture>`, and format negotiation not yet implemented.
 
 ### REQ-PERF-2: Edge Caching
 

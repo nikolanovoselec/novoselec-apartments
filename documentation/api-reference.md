@@ -32,11 +32,39 @@ Dynamic robots.txt. Allows all crawlers on public pages and disallows crawling o
 
 **Response:** `text/plain`.
 
-**Disallowed paths:** `/admin/`, `/_emdash/`, `/media/`, `/api/`.
+**Disallowed paths:** `/admin/`, `/_emdash/`, `/media/` (stale — route removed), `/api/`.
 
 **Cache:** `Cache-Control: public, max-age=86400`.
 
 **Implementation:** `src/pages/robots.txt.ts`.
+
+---
+
+### GET /api/img/:key
+
+Serves a photo from the `apartmani-media` R2 bucket. The key is an extension-free UUID. This is the sole image-serving route for all photos — hero carousel, page heroes, apartment galleries, gallery page, and editorial content rows.
+
+**Authentication:** None required.
+
+**Path Parameters:**
+
+| Parameter | Format | Description |
+|---|---|---|
+| `key` | UUID string | Extension-free UUID of the R2 object |
+
+**Response:** Binary image data (`image/jpeg`, `image/png`, `image/webp`, etc.) with `Cache-Control: public, max-age=31536000, immutable`.
+
+**Error responses:**
+
+| Status | Condition |
+|---|---|
+| `400` | Empty key, path traversal (`..`), or leading slash |
+| `404` | Object not found in R2 |
+| `503` | R2 bucket not configured |
+
+**Implementation:** `src/pages/api/img/[key].ts`. Tries `locals.emdash.storage.download(key)` first; falls back to `env.MEDIA` bucket access.
+
+**Note:** The previous `/media/[...key]` route has been removed. All image references use `/api/img/:uuid`.
 
 ---
 

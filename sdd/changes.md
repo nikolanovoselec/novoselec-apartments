@@ -1,5 +1,31 @@
 # Changelog
 
+## 2026-04-04 - Revision 64: R2 media migration -- all images served via /api/img/{uuid}
+
+### Requirements updated
+- **REQ-PERF-1** (Image Serving Pipeline): Route changed from `/media/{key}` (rest parameter) to `/api/img/{key}` (simple param, UUID keys only). Implementation now uses Emdash storage abstraction with direct R2 bucket fallback. Status remains Partial (Image Resizing `cf: { image }` not yet applied). All 50+ site images migrated from local `/photos/` to R2.
+- **REQ-VD-12** (Subpage Hero Pattern): Image source updated from local `/photos/` directory to R2 via `/api/img/{uuid}`. Status remains Implemented.
+- **REQ-VD-14** (Unique Imagery Per Page): Image source updated from `/photos/` directory to R2 via `/api/img/{uuid}`. "When R2 pipeline is ready" migration note removed (migration complete). Status remains Implemented.
+- **REQ-SF-1** (Hero Section): Image source updated from `/photos/` to R2 via `/api/img/{uuid}`. "Will move to R2" migration note removed (migration complete). Status remains Implemented.
+- **REQ-SF-8** (Gallery Page): Image source updated from `/photos/` to R2 via `/api/img/{uuid}`. Status remains Implemented.
+- **REQ-CMS-2** (Media Library): Worker route updated from `/media/{key}` to `/api/img/{key}`. Status unchanged.
+- **REQ-CMS-6** (Preloaded Content): Photo references updated from `/photos/` directory to R2 via `/api/img/{uuid}`. Photo count updated to 50+.
+- **REQ-AP-3** (Apartment Detail Page): `gallery_json` paths updated from `/photos/` to `/api/img/{uuid}`.
+- **CON-STACK**: Image serving path updated from `/cdn-cgi/image/` to Worker route `/api/img/{uuid}` with `cf: { image }`.
+- **CON-PERF**: Worker route updated from `/media/{key}` to `/api/img/{key}`.
+- **CON-MEDIA**: Implicit -- photos now in R2, no local `/photos/` directory.
+
+### Glossary updated
+- **Image Resizing**: Updated from `/cdn-cgi/image/` reference to `cf: { image }` on Worker fetch via `/api/img/{uuid}`.
+
+### Cross-cutting
+- `public/photos/` directory removed entirely (50 image files). All images now stored in R2 with opaque UUID keys.
+- `/api/ping` health check route removed (no spec coverage, no impact).
+- All `.astro` page files updated from `/photos/*.jpg` paths to `/api/img/{uuid}` paths.
+- Unit tests updated to use `/api/img/{uuid}` paths.
+
+---
+
 ## 2026-04-04 - Revision 63: 404 page redesign, Schema.org homepage, image guards, status promotions
 
 ### Requirements updated

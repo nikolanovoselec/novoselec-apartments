@@ -41,7 +41,7 @@ Apartmani Pašman is a server-side rendered Astro site deployed as a Cloudflare 
 | `src/lib/sanitize.ts` | Input sanitization — HTML stripping, email header injection prevention |
 | `src/schemas/inquiry.ts` | Zod schemas for booking and quick-question form submissions |
 | `src/middleware/` | Request pipeline: redirects → locale → security headers |
-| `src/pages/media/[...key].ts` | Image serving route — fetches from R2, applies cache headers; catch-all parameter supports keys with path separators |
+| `src/pages/api/img/[key].ts` | Image serving route — fetches from R2 via Emdash storage or direct bucket access; applies `Cache-Control: public, max-age=31536000, immutable`; key is an extension-free UUID |
 | `src/pages/admin/api/` | Auth API endpoints (login, verify, upload-url) |
 | `src/pages/admin/api/inquiries/[id]/confirm.ts` | Confirm booking inquiry and block dates atomically |
 | `src/pages/api/apartments/[id]/availability.ts` | Availability API — returns booked dates for calendar display |
@@ -49,7 +49,7 @@ Apartmani Pašman is a server-side rendered Astro site deployed as a Cloudflare 
 | `src/pages/api/track.ts` | Analytics API — cookieless event logging to D1 |
 | `src/layouts/` | Base and Page layout shells |
 | `src/components/shell/` | Navigation (desktop nav + mobile hamburger menu with `is:inline` script to avoid Astro bundler stripping), Footer, LanguageSwitcher, WhatsAppButton, StickyMobileCTA |
-| `src/components/home/Hero.astro` | Hero carousel — 4 local island photos from `public/photos/`, crossfade (1.8s CSS transition), continuous zoom animation (`heroZoom` keyframe: 12s ease-in-out infinite alternate, scale 1→1.1 with -1%/-1% translate, paused until slide is active), auto-advance every 6 s, dot navigation, hover-pause; implemented as `is:inline` script |
+| `src/components/home/Hero.astro` | Hero carousel — 4 island photos served from R2 via `/api/img/:uuid`, crossfade (1.8s CSS transition), continuous zoom animation (`heroZoom` keyframe: 12s ease-in-out infinite alternate, scale 1→1.1 with -1%/-1% translate, paused until slide is active), auto-advance every 6 s, dot navigation, hover-pause; implemented as `is:inline` script |
 | `src/components/home/ScrollCollage.astro` | Infinite-scroll exterior photo strip — accepts `images: Array<{ src: string; alt: string }>` and optional `speed` (default 35 s). Renders two copies of the image set side-by-side so CSS `translateX(-50%)` creates a seamless loop. Hover pauses animation. Respects `prefers-reduced-motion` by disabling the keyframe and falling back to an overflow-scrollable row. Photos are sourced from a CMS `editorial` entry with `section_key=collage` (body field = JSON array of `{src, alt}` objects); collage is hidden if the CMS entry is absent. |
 | `src/components/ui/HeroSimple.astro` | Interior page hero — used on all non-homepage pages. Props: `title` (required), `subtitle` (optional, displayed as small-caps label), `image` (optional URL). When `image` is provided, the photo fills the hero with a slow 20 s zoom (`heroSimpleZoom` keyframe: scale 1→1.06, ease-in-out infinite alternate) and a dark navy gradient overlay. Without `image`, falls back to a static dark navy radial-gradient background. An inline SVG wave (cream `#F8F5EF`) is always rendered at the bottom of the section to merge visually with the page background. |
 | `src/components/ui/WaveDivider.astro` | Full-width SVG wave divider between sections. Props: `fill` (wave color, default `#F8F5EF`), `flip` (boolean, flips vertically via `scaleY(-1)` for wave-out effect), `class`. Height is fluid: `clamp(40px, 6vw, 80px)`. Used in pairs on the homepage to bracket the dark navy section and the sunset CTA section. |
@@ -93,30 +93,23 @@ Astro's i18n is configured with `routing: "manual"`. File-based `[locale]` direc
 | `/:locale/plaze` | `src/pages/[locale]/plaze.astro` | Beaches — CMS-only: queries `editorial` collection for `page_key === "plaze"`, sorted by `sort_order`; renders no content rows if CMS entries absent; image column is conditional (only rendered when `image` field is non-empty); page-hero + alternating content-row layout; localized in all 4 locales; linked from homepage triptych |
 | `/:locale/kontakt` | `src/pages/[locale]/kontakt.astro` | Contact — standalone inquiry form with Turnstile CAPTCHA, honeypot, and GDPR consent checkbox; submits as `type: "question"` to `POST /api/inquiry`; all CTA links across the site point here |
 | `/:locale/privatnost` | `src/pages/[locale]/privatnost.astro` | Privacy Policy (GDPR) — CMS-controlled body (page_key `"privacy"`); fallback includes processor list (Cloudflare D1/R2/Turnstile, Resend); linked from the GDPR consent checkbox on the contact form |
-| `/404` | `src/pages/404.astro` | Custom 404 — locale-aware (detects locale from URL prefix, falls back to `hr`); full-bleed sunset photo background (`/photos/sunset-coastline.jpg`), localized title + flavour text, three nav links (homepage, apartments, contact) |
+| `/404` | `src/pages/404.astro` | Custom 404 — locale-aware (detects locale from URL prefix, falls back to `hr`); full-bleed sunset photo background served from R2 via `/api/img/:uuid`, localized title + flavour text, three nav links (homepage, apartments, contact) |
 
 `/:locale` is one of `hr`, `de`, `sl`, `en`.
 
 ## Media Pipeline
 
-There are two categories of images with different serving paths:
+All photos — editorial, hero, apartment interior, and gallery — are stored in the `apartmani-media` R2 bucket and served via `/api/img/:key`. There is no `public/photos/` directory; no photos are committed to the repository.
 
-### Owner-uploaded apartment photos
+### Image serving route
 
-Stored in the `apartmani-media` R2 bucket as UUID-named objects. Served via `/media/[...key]`, which fetches from the private R2 bucket and adds long-lived cache headers (`Cache-Control: public, max-age=31536000, immutable`). The catch-all route parameter means keys may contain path separators (e.g. `/media/subdir/uuid.jpg`). Transform parameters (`w`, `f`, `q`, `fit`) are accepted as query strings for forwarding to Cloudflare Image Resizing once the zone has that feature enabled; currently the route serves originals. The `buildMediaUrl()` helper in `src/lib/media.ts` constructs these URLs.
+`src/pages/api/img/[key].ts` handles `GET /api/img/:uuid` requests. The key is an extension-free UUID. The route first attempts retrieval via `locals.emdash.storage.download(key)` (the Emdash storage abstraction over the same R2 bucket). On failure it falls back to direct `env.MEDIA` bucket access. Both paths return `Cache-Control: public, max-age=31536000, immutable`.
 
-Direct R2 browser uploads use presigned PUT URLs generated by `POST /admin/api/upload-url` via `aws4fetch` signed with R2 S3-compatible credentials.
+Key validation rejects empty keys, path traversal sequences (`..`), and leading slashes.
 
-### Static photos in public/photos/
+### Owner uploads
 
-All real photography is committed to the repository under `public/photos/` and served as static assets from the Worker's asset manifest — no R2 lookup required. Pexels stock photos have been fully replaced.
-
-Two categories of photos live here:
-
-- **Island and editorial photos** — hero carousel, page heroes, and content-row images (e.g., `/photos/zdrelac-from-sea.jpg`).
-- **Apartment interior photos** — referenced via `gallery_json` in the CMS `apartments` collection. Naming convention: `apt-nikola-*` for Apartman Lavanda (ground floor, owner: Nikola), `apt-marko-*` for Apartman Tramuntana (upper floor, owner: Marko). Shared exteriors use `apt-bbq-garden.jpg` and `apt-building-exterior.jpg`.
-
-The intended end state remains R2-based serving for all images (both owner-uploaded and editorial). Migrating `public/photos/` to R2 is deferred; the previous routing issue (404 on `.jpg`-suffixed keys) still applies to the `/media/[...key]` route. See [AD12](decisions/README.md#ad12-editorial-photos-committed-to-publicphotos-replacing-pexels-r2-migration-deferred) for the current decision and rationale.
+Direct browser-to-R2 uploads use presigned PUT URLs generated by `POST /admin/api/upload-url` via `aws4fetch` signed with R2 S3-compatible credentials. The returned `key` is a `UUID.ext` string; callers strip the extension when constructing `/api/img/:uuid` URLs. See [AD12](decisions/README.md#ad12-all-photos-migrated-to-r2-served-via-apiimguuid) for the migration decision.
 
 ## Authentication Model
 
@@ -182,8 +175,8 @@ Overlap detection is embedded in the INSERT statement itself (`INSERT...WHERE NO
 | Collection slug | Entries | Description |
 |---|---|---|
 | `pages` | ~32 | Static editorial pages in all 4 locales — Why Pašman, Getting Here, About, Privacy, etc. Each entry has `locale`, `page_key`, `title`, `subtitle`, `body` (richtext), and `hero_image`. Note: several pages query the `editorial` collection (not `pages`) by `page_key`. All content pages are CMS-only with no hardcoded fallback — `zasto-pasman.astro`, `dolazak.astro`, `o-nama.astro`, `hrana.astro`, `zdrelac.astro`, `aktivnosti.astro`, and `plaze.astro` all render empty content until matching `editorial` entries are seeded. |
-| `homepage` | ~16 | Homepage section overrides per locale. Each entry has a `section_key` that maps to a block on the homepage. Known section keys: `why-pasman` (title + body text), `zdrelac` (village feature title), `apartments` (title + body for the dark section), `cta` (call-to-action heading), `collage` (exterior photo strip — `body` field contains a JSON array of `{"src": "/photos/...", "alt": "..."}` objects consumed by `ScrollCollage`). The `collage` entry is locale-independent (all locales share the same photo list); absent entry hides the collage strip. |
-| `apartments` | 2 | Apartment detail pages per locale — slugs `lavanda-{locale}` and `tramuntana-{locale}`. **Lavanda** = ground floor apartment (owner: Nikola). **Tramuntana** = upper floor apartment (owner: Marko). Structured fields: capacity, bedrooms, amenities, bed config, distances, per-locale name/description/SEO. Gallery managed via `gallery_json` field (JSON array of `/photos/` paths). |
+| `homepage` | ~16 | Homepage section overrides per locale. Each entry has a `section_key` that maps to a block on the homepage. Known section keys: `why-pasman` (title + body text), `zdrelac` (village feature title), `apartments` (title + body for the dark section), `cta` (call-to-action heading), `collage` (exterior photo strip — `body` field contains a JSON array of `{"src": "/api/img/uuid", "alt": "..."}` objects consumed by `ScrollCollage`). The `collage` entry is locale-independent (all locales share the same photo list); absent entry hides the collage strip. |
+| `apartments` | 2 | Apartment detail pages per locale — slugs `lavanda-{locale}` and `tramuntana-{locale}`. **Lavanda** = ground floor apartment (owner: Nikola). **Tramuntana** = upper floor apartment (owner: Marko). Structured fields: capacity, bedrooms, amenities, bed config, distances, per-locale name/description/SEO. Gallery managed via `gallery_json` field (JSON array of `/api/img/uuid` paths). |
 | `faq` | ~20 | FAQ entries in all 4 locales — `locale`, `question`, `answer` (richtext), `sort_order`. |
 | `guide` | ~16 | Local guide entries (beaches, food, activities, day trips) per locale — `locale`, `category`, `title`, `description`, `image_url`. |
 | `testimonials` | 6 | Guest testimonials linked to apartments — `guest_name`, `country`, `rating`, `quote`, `apartment_id`, `is_featured`. |

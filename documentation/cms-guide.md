@@ -21,33 +21,32 @@ How to manage content, photos, and settings from your phone.
 
 ### Updating Photos
 
-Apartment galleries are controlled by the **Gallery (JSON array)** (`gallery_json`) field in each apartment entry. The value is a JSON array of root-relative paths pointing to photos committed in `public/photos/`.
+All photos are stored in R2 and served via `/api/img/:uuid`. No photos are committed to the repository.
 
-**Current gallery assignment (interior photos only):**
-- **Apartman Lavanda** (Nikola, ground floor) — interior photos: living room, kitchen, bedrooms, bathroom, kids sofa, living-terrace (`apt-nikola-*.jpg`)
-- **Apartman Tramuntana** (Marko, upper floor) — interior photos: kitchen, balcony views, pine-tree view (`apt-marko-*.jpg`)
-
-Exterior and shared photos (terrace, BBQ garden, building facade, wine glass) are used in the exterior photo collage strip on the homepage, not in apartment galleries. See [Managing the Photo Collage](#managing-the-photo-collage) below.
+Apartment galleries are controlled by the **Gallery (JSON array)** (`gallery_json`) field in each apartment entry. The value is a JSON array of `/api/img/:uuid` URL strings.
 
 **To update a gallery via CMS:**
 1. Open Admin → Apartments → select apartment
 2. Find the **Gallery (JSON array)** field
-3. Edit the JSON array — each entry is a path string, e.g. `"/photos/apt-nikola-terrace-wide.jpg"`
+3. Edit the JSON array — each entry is a URL string, e.g. `"/api/img/aa0fd53c-5d96-4a78-a5b5-0f68b543515a"`
 4. Save and publish
 
 **To add new photos:**
-Photos must first be committed to `public/photos/` in the repository (naming convention: `apt-nikola-*.jpg` for Lavanda, `apt-marko-*.jpg` for Tramuntana). After deployment, add the new paths to the `gallery_json` field in the CMS.
+1. Open Admin → Media Library (`/_emdash/admin`)
+2. Upload the photo — you will receive a UUID key
+3. Add `/api/img/<uuid>` to the `gallery_json` field of the relevant apartment
+4. Save and publish — no redeploy required
 
 ### Managing the Photo Collage
 
 The exterior photo strip that scrolls across the homepage (under the apartments section) is controlled by a CMS entry in the **Homepage** collection with `section_key = collage`.
 
-The `body` field of that entry must contain a JSON array of photo objects:
+The `body` field of that entry must contain a JSON array of photo objects using R2 image URLs:
 
 ```json
 [
-  { "src": "/photos/apt-nikola-terrace-dining.jpg", "alt": "Terrace dining area" },
-  { "src": "/photos/apt-bbq-garden.jpg", "alt": "BBQ garden" }
+  { "src": "/api/img/aa0fd53c-5d96-4a78-a5b5-0f68b543515a", "alt": "Terrace dining area" },
+  { "src": "/api/img/4181b561-2828-4119-b04e-9fc596d65569", "alt": "BBQ garden" }
 ]
 ```
 
