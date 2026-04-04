@@ -1,5 +1,30 @@
 # Changelog
 
+## 2026-04-04 - Revision 69: Editorial restructure, hero carousel expansion, apartment detail page redesign
+
+Editorial content consolidated from 5-6 sections to 3-4 per page across all 6 editorial pages (hrana, aktivnosti, plaze, zdrelac, dolazak, vodic) for stronger narrative density. Vodic (local guide) page switched from hybrid guide-collection + editorial model to editorial-only (guide collection removed). Zadar city guide section added as a new vodic entry. Hero carousel expanded from 4 to 7 real island photos. HeroSimple component height increased from 280px minimum to 50vh. Apartment detail page redesigned to use HeroSimple + MiniCollage components (replacing custom hero markup + ScrollCollage).
+
+### Requirements updated
+- **REQ-SF-1** (Hero Section): Carousel expanded from 4 to 7 slides.
+- **REQ-VD-12** (Subpage Hero Pattern): Minimum height updated from 280px to 50vh (50svh on mobile).
+- **REQ-ED-2** (Getting Here): Content sections consolidated from 5+ to 3 focused sections.
+- **REQ-ED-4** (Local Guide): Major restructure -- guide CMS collection removed, editorial-only content model. Card-overlay grid layout replaced with editorial section layout + MiniCollage photo strips. 4 sections: Pasman villages, Ugljan villages, Zadar city guide (new), day trips.
+- **REQ-ED-6** (About Zdrelac): Content sections documented -- 4 sections covering the bridge, the village, the fishermen, olive groves and trails.
+- **REQ-ED-8** (Food & Drink): Sections consolidated from 5 to 4 with updated named locations.
+- **REQ-ED-9** (Nature & Activities): Sections consolidated from 6 to 4 with updated details.
+- **REQ-ED-10** (Beaches): Sections consolidated from 5 to 4 with named beaches and distances.
+- **REQ-AP-3** (Apartment Detail Page): Hero changed from custom 60vh markup to HeroSimple component. Interior photo collage changed from ScrollCollage to MiniCollage.
+- **REQ-VD-6** (Photo Frame Treatments): Guide page cards marked as superseded -- vodic now uses editorial sections with MiniCollage strips.
+
+### Key concepts updated
+- **Editorial domain**: Added "editorial density" concept -- 3-4 focused sections per page.
+
+### Glossary updated
+- **MiniCollage**: New term added -- compact horizontal scroll photo strip used in editorial sections and apartment detail pages.
+- **HeroSimple**: Updated to reflect 50vh minimum height and use on apartment detail pages.
+
+---
+
 ## 2026-04-04 - Revision 68: Standardize all R2 image keys to UUID format
 
 ### Requirements updated

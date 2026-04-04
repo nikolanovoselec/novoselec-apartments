@@ -73,8 +73,8 @@ Apartment listings, detail pages, photo galleries, amenities, seasonal pricing, 
 - **Acceptance Criteria:**
   - **Route:** `/{locale}/apartmani/{slug}` — dynamic route. Validates locale and slug; redirects to listing page if apartment not found or slug missing. Redirects to `/hr/` if locale is invalid.
   - **Current implementation (partial):**
-    1. Hero: 60vh image (min 400px) with gradient overlay (transparent 40% to navy 75%), apartment name and tagline overlaid at bottom-left
-    2. Interior photo collage: `ScrollCollage` strip (speed 25) rendered between breadcrumbs and the details section, sourced from the `gallery` CMS field (JSON array of R2 URLs). Interior photos only — exterior/terrace/BBQ photos are reserved for the listing page and homepage collages. Renders only when `gallery` is populated.
+    1. Hero: `HeroSimple` component (REQ-VD-12) with apartment name as title and tagline as subtitle. Photo-backed hero at 50vh with Ken Burns animation, dark overlay, and wave divider at bottom. Replaces the previous custom 60vh hero markup with inline gradient overlay.
+    2. Interior photo collage: `MiniCollage` compact horizontal scroll strip (speed 25) rendered between breadcrumbs and the details section, sourced from the `gallery` CMS field (JSON array of R2 URLs). Interior photos only — exterior/terrace/BBQ photos are reserved for the listing page and homepage collages. Renders only when `gallery` is populated. Replaces the previous full-width `ScrollCollage` component.
     3. Description: plain text from CMS `description` field
     4. Meta grid: 2-column grid on stone background (12px radius) showing sleeps, bedrooms, size (m2), beach distance — locale-aware labels
     5. "Best for" line below meta grid
@@ -84,7 +84,7 @@ Apartment listings, detail pages, photo galleries, amenities, seasonal pricing, 
     9. Responsive: single column on mobile, 1.5fr/1fr grid on desktop (768px+ breakpoint)
   - **Visual hierarchy (full target, top to bottom):**
     1. Hero: apartment name, key stats strip (guests, bedrooms, m2, beach distance, "Best for" label)
-    2. ~~Photo gallery (REQ-AP-6)~~ — Deprecated; replaced by `ScrollCollage` infinite-scroll collage below hero (see current implementation item 2)
+    2. ~~Photo gallery (REQ-AP-6)~~ — Deprecated; replaced by `MiniCollage` compact horizontal scroll strip below hero (see current implementation item 2)
     3. Description: Portable Text rendered from Emdash
     4. ~~Pricing table + availability calendar side by side on desktop (REQ-AP-4, REQ-AP-5)~~ — Deprecated
     5. ~~Inline inquiry widget pre-filled with this apartment (REQ-BK-1)~~ — Deprecated; inquiry via contact page (REQ-BK-8)

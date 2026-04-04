@@ -23,7 +23,7 @@ How to manage content, photos, and settings from your phone.
 
 All photos are stored in R2 and served via `/api/img/:key`. No photos are committed to the repository.
 
-All R2 keys use UUID format, matching Emdash's native upload format (e.g., `aa0fd53c-5d96-4a78-a5b5-0f68b543515a.jpg`). Every photo — whether uploaded through the CMS media library or bulk-loaded at setup — is stored under a UUID key.
+All R2 keys use UUID format, matching Emdash's native upload format (e.g., `aa0fd53c-5d96-4a78-a5b5-0f68b543515a`). Keys are extension-free — the image serving route at `/api/img/:key` strips any extension before fetching from R2. Every photo — whether uploaded through the CMS media library or bulk-loaded via script — is stored and referenced using a UUID key only. Descriptive slug keys are not used.
 
 Photos are referenced as `/api/img/<key>` URLs.
 
@@ -32,7 +32,7 @@ Apartment galleries are controlled by the **Gallery (JSON array)** (`gallery_jso
 **To update a gallery via CMS:**
 1. Open Admin → Apartments → select apartment
 2. Find the **Gallery (JSON array)** field
-3. Edit the JSON array — each entry is a URL string, e.g. `"/api/img/aa0fd53c-5d96-4a78-a5b5-0f68b543515a.jpg"`
+3. Edit the JSON array — each entry is a URL string, e.g. `"/api/img/aa0fd53c-5d96-4a78-a5b5-0f68b543515a"` (no file extension)
 4. Save and publish
 
 **To add new photos:**
@@ -82,14 +82,26 @@ The collage strip is hidden entirely if the entry is absent or if the JSON is in
 
 | `page_key` | Page | Notes |
 |---|---|---|
-| `hrana` | Food & Drink (`/hrana`) | Each entry = one content row; CMS-only, page is blank without entries |
+| `hrana` | Food & Drink (`/hrana`) | 4 sections; CMS-only, page is blank without entries |
 | `about` | About Us (`/o-nama`) | Single entry; `body` field is the host story; CMS-only |
-| `getting-here` | Getting Here (`/dolazak`) | Single entry; `sections_json` field holds ferry, alt-route, and airport data as JSON; CMS-only |
+| `getting-here` | Getting Here (`/dolazak`) | 3 sections; CMS-only |
 | `why-pasman` | Why Pašman (`/zasto-pasman`) | Each entry = one content row; fields: `title`, `body`, `image`, `sort_order`; CMS-only, page is blank without entries |
-| `zdrelac` | Ždrelac (`/zdrelac`) | Each entry = one content row; CMS-only, page is blank without entries |
-| `aktivnosti` | Nature & Activities (`/aktivnosti`) | Each entry = one content row; CMS-only, page is blank without entries |
-| `plaze` | Beaches (`/plaze`) | Each entry = one content row; CMS-only, page is blank without entries |
-| `vodic` | Local Guide (`/vodic`) | All entries; sorted by `sort_order`; page uses only the `editorial` collection (no `guide` collection) |
+| `zdrelac` | Ždrelac (`/zdrelac`) | 4 sections; CMS-only, page is blank without entries |
+| `aktivnosti` | Nature & Activities (`/aktivnosti`) | 4 sections; CMS-only, page is blank without entries |
+| `plaze` | Beaches (`/plaze`) | 4 sections; CMS-only, page is blank without entries |
+| `vodic` | Local Guide (`/vodic`) | 4 sections including a Zadar entry; sorted by `sort_order`; page uses only the `editorial` collection (no `guide` collection) |
+
+The editorial content was restructured in April 2026: 6 pages consolidated from ~42 sections to 23 (3-4 per page). Migration scripts are in `sql/restructure-editorial*.sql`.
+
+### Emdash Entry Requirements
+
+When inserting entries directly into D1 (e.g., via SQL migration scripts), each row in an Emdash-managed collection table must include:
+
+- `id` — TEXT, UUID format (e.g., `lower(hex(randomblob(4))) || '-' || ...`)
+- `slug` — TEXT, unique identifier for the entry (e.g., `hrana-riba-hr`)
+- `status` — TEXT, must be `'published'` for the entry to appear on the site
+
+Entries missing `id`, `slug`, or with `status` other than `'published'` will not be returned by the Emdash content API.
 
 ### Reading Inquiries
 

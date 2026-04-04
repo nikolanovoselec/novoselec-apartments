@@ -124,7 +124,7 @@ Color system, typography, scroll animations, micro-interactions, and Croatian vi
 - **Acceptance Criteria:**
   - **Homepage photos (organic system):** All homepage photo treatments use rounded corners (16-24px border-radius), contained within page grid with gaps, and subtle box-shadow. Specific treatments: ~~photo strip (removed — images moved to hero carousel)~~, feature image (21:9 desktop / 16:9 mobile, 24px radius desktop / 16px mobile, contained with shadow), duo-image (3:4, 2-col with organic asymmetric radius `20px 4px 20px 4px`, hover zoom 1.03x), triptych (4:5, 4 items, 16px radius, labels always visible). All images within containers, not edge-to-edge.
   - **Apartment galleries:** Standard aspect ratios (4:3 landscape, 3:4 portrait) with subtle `border-radius: 4-8px`. No extreme clip-path masks -- let the photography speak.
-  - **Guide page cards** (local guide): Full-bleed image cards with gradient overlay containing title and description text. 4:3 aspect ratio, 16px border-radius, hover zoom 1.06x. Responsive grid (1-col / 2-col / 3-col). Images fill the card; text overlays the bottom.
+  - ~~**Guide page cards** (local guide): Full-bleed image cards with gradient overlay.~~ **Superseded:** The local guide page (`/vodic`) now uses an editorial section layout with titled content blocks and `MiniCollage` horizontal photo strips per section, replacing the previous card-overlay grid.
   - **Editorial/curated photos** (food, Why Pašman, activities, beaches, getting here): Dalmatian stone arch `clip-path` for select featured images only (pre-curated in CMS, not auto-applied to all uploads)
   - **Testimonial avatars:** Circular mask, small size
   - **Host story photo:** Soft rounded rectangle or arch — owner chooses in CMS from 2-3 preset frame styles
@@ -238,7 +238,7 @@ Color system, typography, scroll animations, micro-interactions, and Croatian vi
   - When no `image` is provided: original gradient background preserved as fallback (overlay and wave still render)
   - Dark overlay (always present): linear gradient from `rgba(10, 31, 51, 0.5)` at top to `rgba(10, 31, 51, 0.7)` at bottom, ensuring white text contrast over any photo or gradient
   - Ken Burns animation on hero image: continuous CSS keyframe (`scale(1)` to `scale(1.06)`, 20s ease-in-out infinite alternate) — subtler and slower than the homepage hero carousel (12s, 1.1x)
-  - Minimum height 280px, vertically centered content
+  - Minimum height 50vh (50svh on mobile for viewport-accurate sizing), vertically centered content
   - Title (`h1`) and optional subtitle rendered over the overlay
   - Wave SVG divider at bottom edge (same pattern as REQ-VD-9: `viewBox="0 0 1440 80"`, `preserveAspectRatio="none"`, organic bezier path, fill `#F8F5EF` to match page background, responsive height `clamp(50px, 8vw, 100px)`, `aria-hidden="true"`)
   - Wave positioned absolute at `bottom: -1px` to seamlessly bridge hero into page content with no visible seam
