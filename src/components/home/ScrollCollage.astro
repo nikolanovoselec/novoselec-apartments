@@ -2,13 +2,14 @@
 interface Props {
   images: Array<{ src: string; alt: string }>;
   speed?: number;
+  ariaLabel?: string;
 }
 
-const { images, speed = 35 } = Astro.props;
+const { images, speed = 35, ariaLabel = "Property exterior photos" } = Astro.props;
 ---
 
 {images.length > 0 && (
-  <div class="scroll-collage" aria-roledescription="carousel" aria-label="Property exterior photos">
+  <div class="scroll-collage" aria-roledescription="carousel" aria-label={ariaLabel}>
     <div class="scroll-collage__track" style={`animation-duration: ${speed}s;`}>
       {images.map((img) => (
         <div class="scroll-collage__item">

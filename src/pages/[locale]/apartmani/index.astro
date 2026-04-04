@@ -4,7 +4,7 @@ import HeroSimple from "~/components/ui/HeroSimple.astro";
 import ScrollCollage from "~/components/home/ScrollCollage.astro";
 import { isValidLocale, type Locale } from "~/i18n/config";
 import { t } from "~/i18n/t";
-import { getLocalizedCollection } from "~/lib/content";
+import { getLocalizedCollection, parsePhotoArray } from "~/lib/content";
 
 const { locale } = Astro.params;
 if (!locale || !isValidLocale(locale)) return Astro.redirect("/hr/", 302);
@@ -18,18 +18,7 @@ const displayApartments = apartments;
 // Collage photos from homepage editorial entry (same exterior photos)
 const allEditorial = await getLocalizedCollection("editorial", typedLocale);
 const collageEntry = allEditorial.find((e) => e.data.page_key === "homepage" && e.data.section_key === "collage");
-let collagePhotos: Array<{ src: string; alt: string }> = [];
-if (collageEntry?.data.body) {
-  const raw = collageEntry.data.body;
-  const arr = Array.isArray(raw) ? raw : typeof raw === "string" ? (() => { try { return JSON.parse(raw); } catch { return []; } })() : [];
-  if (Array.isArray(arr)) {
-    collagePhotos = arr.filter((item: unknown) =>
-      typeof item === "object" && item !== null &&
-      typeof (item as Record<string, unknown>).src === "string" &&
-      typeof (item as Record<string, unknown>).alt === "string"
-    );
-  }
-}
+const collagePhotos = parsePhotoArray(collageEntry?.data.body);
 ---
 
 <Page title={t(typedLocale, "apartments.title")} locale={typedLocale}>
