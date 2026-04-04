@@ -192,7 +192,7 @@ Emdash CMS integration, media library, authentication, mobile admin UX, section 
 - **Priority:** P0
 - **Dependencies:** REQ-CMS-1, REQ-CMS-2, REQ-I18N-4
 - **Verification:** Deploy fresh instance, run seed endpoint, verify complete site renders in all 4 locales with no empty sections (all editorial page_keys have CMS entries), verify placeholder badges
-- **Status:** Partial — 118+ entries seeded in HR and EN for most collections; DE and SL largely missing. Editorial collection: 21 HR entries seeded via D1 SQL for `hrana` (5), `aktivnosti` (6), `plaze` (5), `why-pasman` (4), `about` (1). DE/SL/EN editorial entries still missing. `why-pasman` content model restructured from single entry with `sections_json` to individual entries (consistent with other editorial pages). **Risk: pages with missing CMS entries now render empty sections (no fallback) so incomplete seeding in non-HR locales produces visibly broken pages.**
+- **Status:** Partial — 118+ entries seeded in HR and EN for most collections; DE and SL largely missing. Editorial collection: 27+ HR entries seeded via D1 SQL for `hrana` (5), `aktivnosti` (6), `plaze` (5), `zdrelac` (6+), `why-pasman` (4), `about` (1). DE/SL/EN editorial entries still missing. `why-pasman` content model restructured from single entry with `sections_json` to individual entries (consistent with other editorial pages). **Risk: pages with missing CMS entries now render empty sections (no fallback) so incomplete seeding in non-HR locales produces visibly broken pages.**
 
 ### REQ-CMS-7: Content Safeguards
 

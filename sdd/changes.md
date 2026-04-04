@@ -1,5 +1,35 @@
 # Changelog
 
+## 2026-04-04 - Revision 63: 404 page redesign, Schema.org homepage, image guards, status promotions
+
+### Requirements updated
+- **REQ-CMS-8** (Error Pages): Acceptance criteria and status updated -- 404 page redesigned with immersive photo-backed layout (full-bleed background, dark overlay, translucent "404" display text, ghost-style CTA buttons). Inline localized messages in all 4 locales replace `t()` for core content. Status changed from Partial to Implemented.
+- **REQ-SEO-1** (Schema.org Structured Data): Acceptance criteria updated -- `LodgingBusiness` JSON-LD added to homepage with property name, locale-aware description, address (Fratarsko 5, Zdrelac), geo coordinates, numberOfRooms (2), amenityFeature (Wi-Fi, Parking, AC, BBQ). Verification criteria updated to include homepage LodgingBusiness. Status remains Partial (BreadcrumbList still missing on non-apartment pages).
+- **REQ-ED-6** (About Zdrelac): Status changed from Partial to Implemented. Image guard added for conditional rendering. CMS editorial entries seeded for HR locale.
+- **REQ-ED-9** (Nature & Activities): Image guard added for conditional rendering (only renders image div when CMS entry has `image` field). Status confirmed Implemented.
+- **REQ-ED-10** (Beaches): Image guard added for conditional rendering. Status confirmed Implemented.
+- **REQ-TC-2** (Privacy Policy): Status changed from Partial to Implemented. Page functional in all 4 locales with CMS override. Processor list and retention periods enhanceable via CMS seeding.
+- **REQ-CMS-6** (Preloaded Content): Status detail updated -- zdrelac (6+) added to seeded editorial page_keys count, total 27+ HR entries.
+- **REQ-CMS-9** (Cloudflare Access Auth): Status changed from Partial to Implemented.
+- **REQ-ED-1** (Why Pasman), **REQ-ED-2** (Getting Here), **REQ-ED-5** (About Hosts), **REQ-ED-7** (FAQ), **REQ-ED-8** (Food & Drink): Status changed from Partial to Implemented.
+
+### Cross-cutting
+- All 6 editorial pages (zdrelac, aktivnosti, plaze, hrana, dolazak, zasto-pasman) now have consistent image guards -- image div only rendered when CMS entry has non-empty `image` field.
+
+---
+
+## 2026-04-04 - Revision 62: Gallery alt text rewrite + OG images per page
+
+### Requirements updated
+- **REQ-SF-8** (Gallery Page): Status detail updated -- gallery images expanded to 12 with accurate per-locale alt text and captions via inline `t4()` helper; each alt describes the actual photo content.
+- **REQ-SEO-2** (Open Graph & Social): Status changed from Planned to Partial -- per-page OG images set on 10 subpages; default fallback for remaining pages; Twitter Card meta tags and per-apartment hero OG images still missing.
+
+### Quality fixes
+- **REQ-SEO-1**: Corrected premature Implemented status back to Partial (BreadcrumbList only on apartment detail pages, not all pages per AC; Google Rich Results Test validation pending).
+- **REQ-SEO-2**: Corrected premature Implemented status to Partial (Twitter Card tags absent, per-apartment OG image not implemented).
+
+---
+
 ## 2026-04-04 - Revision 61: Path traversal guard + collage JSON validation
 
 ### Requirements updated

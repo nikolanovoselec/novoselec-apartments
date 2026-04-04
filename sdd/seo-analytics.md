@@ -27,8 +27,8 @@ Schema.org structured data, Open Graph, multilingual sitemap, keyword strategy, 
 - **Constraints:** CON-SEO
 - **Priority:** P1
 - **Dependencies:** REQ-AP-1, REQ-ED-7, REQ-SP-1
-- **Verification:** Google Rich Results Test for all page types. Verify `VacationRental` JSON-LD on apartment detail pages. Verify `BreadcrumbList` on all pages.
-- **Status:** Implemented
+- **Verification:** Google Rich Results Test for all page types. Verify `LodgingBusiness` JSON-LD on homepage. Verify `VacationRental` JSON-LD on apartment detail pages. Verify `BreadcrumbList` on all pages.
+- **Status:** Partial — `LodgingBusiness` JSON-LD on homepage (name, description, canonical URL, hero image, postal address, geo, numberOfRooms, amenityFeature). `VacationRental` JSON-LD on apartment detail pages. `FAQPage` on FAQ page. `BreadcrumbList` on apartment detail pages only. Still missing: BreadcrumbList on non-apartment pages; Google Rich Results Test validation pending
 
 ### REQ-SEO-2: Open Graph & Social
 
@@ -43,7 +43,7 @@ Schema.org structured data, Open Graph, multilingual sitemap, keyword strategy, 
 - **Priority:** P1
 - **Dependencies:** REQ-AP-1, REQ-CMS-2
 - **Verification:** Test sharing on WhatsApp, Facebook
-- **Status:** Implemented
+- **Status:** Partial — per-page OG images set on 10 subpages (zdrelac, aktivnosti, plaze, hrana, dolazak, vodic, o-nama, faq, kontakt, zasto-pasman) via `ogImage` prop on Page layout. Default fallback image applied to homepage, apartment listing, apartment detail, galerija, privatnost, and 404. OG title and description rendered per page per locale via Base.astro head. Still missing: per-apartment OG image (hero photo via Image Resizing at 1200x630); Twitter Card meta tags not yet present in Base.astro
 
 ### REQ-SEO-3: Analytics + Conversion Events
 
