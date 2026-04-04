@@ -18,23 +18,23 @@ const t4 = (hr: string, de: string, sl: string, en: string) =>
   ({ hr, de, sl, en }[typedLocale] ?? en);
 
 const images: GalleryItem[] = [
-  { src: "/api/img/aa0fd53c-5d96-4a78-a5b5-0f68b543515a", alt: t4("Ždrelac s mora", "Ždrelac vom Meer", "Ždrelac z morja", "Ždrelac from the sea"), caption: t4("Selo i most s mora", "Dorf und Brücke vom Meer", "Vas in most z morja", "Village and bridge from the sea") },
-  { src: "/api/img/4a3ad312-31d5-4867-8655-1eebc6be3710", alt: t4("Tirkizni zaljev", "Türkise Bucht", "Turkizen zaliv", "Turquoise bay"), caption: t4("Jedrilice u tirkiznom zaljevu", "Segelboote in türkiser Bucht", "Jadrnice v turkiznem zalivu", "Sailboats in turquoise bay") },
-  { src: "/api/img/64d936cd-d83b-4ebd-8afb-efd5a623a5c3", alt: t4("Zalazak sunca", "Sonnenuntergang", "Sončni zahod", "Sunset"), caption: t4("Dramatičan zalazak nad Jadranom", "Dramatischer Sonnenuntergang", "Dramatičen sončni zahod", "Dramatic sunset over the Adriatic") },
-  { src: "/api/img/186752ec-1497-4926-b5c7-1c9b5d4ac207", alt: t4("Pješčana plaža", "Sandstrand", "Peščena plaža", "Sandy beach"), caption: t4("Kristalno čisto more i pijesak", "Kristallklares Meer und Sand", "Kristalno čisto morje in pesek", "Crystal clear sea and sand") },
-  { src: "/api/img/73178b98-d2e6-4e49-b738-a9f9ecff2bc3", alt: t4("Obiteljska plaža", "Familienstrand", "Družinska plaža", "Family beach"), caption: t4("Plitka voda savršena za djecu", "Flaches Wasser perfekt für Kinder", "Plitva voda popolna za otroke", "Shallow water perfect for children") },
-  { src: "/api/img/98611c2d-5fbe-4ab6-87c0-43cc6c17bd73", alt: t4("Panorama s vrha", "Panorama vom Gipfel", "Panorama z vrha", "Hilltop panorama"), caption: t4("Pogled na otoke s vidikovca", "Inselblick vom Aussichtspunkt", "Pogled na otoke z razgledišča", "Island view from the viewpoint") },
-  { src: "/api/img/ccc96ad1-ec57-484e-b32e-18f4104dbbae", alt: t4("Tvrđava sv. Mihovila", "Festung St. Michael", "Trdnjava sv. Mihaela", "St. Michael's Fortress"), caption: t4("Ruševine i pogled na Zadar", "Ruinen und Blick auf Zadar", "Ruševine in pogled na Zadar", "Ruins and Zadar view") },
-  { src: "/api/img/2f348da2-de88-4bb0-8f54-d517545b6cff", alt: t4("Luka Ždrelac", "Hafen Ždrelac", "Pristanišče Ždrelac", "Ždrelac harbour"), caption: t4("Tirkizno more u luci", "Türkises Meer im Hafen", "Turkizno morje v pristanišču", "Turquoise harbour water") },
-  { src: "/api/img/0df6dd12-bd04-42c7-aaec-811b75bd7ae4", alt: t4("Skrivena uvala", "Versteckte Bucht", "Skrita zalivčka", "Secluded cove"), caption: t4("Mir Mediterana", "Stille des Mittelmeers", "Mir Sredozemlja", "Mediterranean solitude") },
-  { src: "/api/img/c9c4485b-df86-4179-8d49-6cbbfbe0948c", alt: t4("Zvonik", "Glockenturm", "Zvonik", "Bell tower"), caption: t4("Crkva sv. Luke u Ždrelcu", "Kirche St. Lukas in Ždrelac", "Cerkev sv. Luka v Ždrelcu", "Church of St. Luke in Ždrelac") },
-  { src: "/api/img/4181b561-2828-4119-b04e-9fc596d65569", alt: t4("Borovi na zalasku", "Pinien bei Sonnenuntergang", "Bori ob sončnem zahodu", "Pines at sunset"), caption: t4("Zlatno svjetlo kroz borove", "Goldenes Licht durch die Pinien", "Zlata svetloba med bori", "Golden light through the pines") },
-  { src: "/api/img/dd602881-521e-437a-a666-c9433bbc29a5", alt: t4("Djeca na plaži", "Kinder am Strand", "Otroci na plaži", "Kids at the beach"), caption: t4("Ljetne radosti", "Sommerfreuden", "Poletne radosti", "Summer joys") },
+  { src: "/api/img/island-village-harbor", alt: t4("Luka Ždrelac", "Hafen Ždrelac", "Pristanišče Ždrelac", "Ždrelac harbour"), caption: t4("Tirkizno more i brodovi u luci", "Türkises Meer und Boote im Hafen", "Turkizno morje in čolni v pristanišču", "Turquoise water and boats in the harbour") },
+  { src: "/api/img/island-blue-bay-sailboats", alt: t4("Tirkizni zaljev", "Türkise Bucht", "Turkizen zaliv", "Turquoise bay"), caption: t4("Jedrilice u tirkiznom zaljevu", "Segelboote in türkiser Bucht", "Jadrnice v turkiznem zalivu", "Sailboats in turquoise bay") },
+  { src: "/api/img/island-dramatic-sunset", alt: t4("Zalazak sunca", "Sonnenuntergang", "Sončni zahod", "Sunset"), caption: t4("Dramatičan zalazak nad Jadranom", "Dramatischer Sonnenuntergang", "Dramatičen sončni zahod", "Dramatic sunset over the Adriatic") },
+  { src: "/api/img/island-sandy-beach", alt: t4("Pješčana plaža", "Sandstrand", "Peščena plaža", "Sandy beach"), caption: t4("Kristalno čisto more i pijesak", "Kristallklares Meer und Sand", "Kristalno čisto morje in pesek", "Crystal clear sea and sand") },
+  { src: "/api/img/island-kids-beach", alt: t4("Obiteljska plaža", "Familienstrand", "Družinska plaža", "Family beach"), caption: t4("Plitka voda savršena za djecu", "Flaches Wasser perfekt für Kinder", "Plitva voda popolna za otroke", "Shallow water perfect for children") },
+  { src: "/api/img/island-archipelago-panorama", alt: t4("Panorama s vrha", "Panorama vom Gipfel", "Panorama z vrha", "Hilltop panorama"), caption: t4("Pogled na otočje s vidikovca", "Inselblick vom Aussichtspunkt", "Pogled na otočje z razgledišča", "Archipelago view from the viewpoint") },
+  { src: "/api/img/island-fortress-bay", alt: t4("Tvrđava i zaljev", "Festung und Bucht", "Trdnjava in zaliv", "Fortress and bay"), caption: t4("Ruševine i pogled na Zadar", "Ruinen und Blick auf Zadar", "Ruševine in pogled na Zadar", "Ruins and Zadar view") },
+  { src: "/api/img/island-zdrelac-harbor", alt: t4("Luka s brodovima", "Hafen mit Booten", "Pristanišče s čolni", "Harbour with boats"), caption: t4("Mir ždrelačke luke", "Ruhe des Hafens von Ždrelac", "Mir ždrelaške luke", "Ždrelac harbour peace") },
+  { src: "/api/img/island-beach-cove", alt: t4("Skrivena uvala", "Versteckte Bucht", "Skrita zalivčka", "Secluded cove"), caption: t4("Mir Mediterana", "Stille des Mittelmeers", "Mir Sredozemlja", "Mediterranean solitude") },
+  { src: "/api/img/island-pine-chapel", alt: t4("Kapelica u boricima", "Kapelle in den Pinien", "Kapelica med bori", "Chapel among pines"), caption: t4("Stara kapela u borovoj šumi", "Alte Kapelle im Pinienwald", "Stara kapela v borovem gozdu", "Old chapel in the pine forest") },
+  { src: "/api/img/island-sunset-coast", alt: t4("Obala na zalasku", "Küste bei Sonnenuntergang", "Obala ob sončnem zahodu", "Coast at sunset"), caption: t4("Zlatno svjetlo na obali", "Goldenes Licht an der Küste", "Zlata svetloba na obali", "Golden light on the coast") },
+  { src: "/api/img/island-crystal-sea", alt: t4("Kristalno more", "Kristallklares Meer", "Kristalno morje", "Crystal clear sea"), caption: t4("Prozirno more i otoci", "Durchsichtiges Meer und Inseln", "Prozorno morje in otoki", "Transparent sea and islands") },
 ];
 ---
 
 <Page title={galleryTitle[typedLocale]} locale={typedLocale}>
-  <HeroSimple title={galleryTitle[typedLocale]} image="/api/img/216f0b04-b41f-491d-8921-bb5621c347fc" />
+  <HeroSimple title={galleryTitle[typedLocale]} image="/api/img/island-hilltop-seaview" />
 
   <section class="section">
     <div class="container">

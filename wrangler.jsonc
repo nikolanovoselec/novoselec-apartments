@@ -18,7 +18,8 @@
   "vars": {
     "ADMIN_EMAILS": "hello@graymatter.ch",
     "TURNSTILE_SITE_KEY": "0x4AAAAAAC0R-ddEXcfI37DQ",
-    "CF_ACCESS_AUDIENCE": "0369eaa05e16ba1a06c3d366a892b7eb8599d3288e31722ec0f2f41eec0392e4"
+    "CF_ACCESS_AUDIENCE": "0369eaa05e16ba1a06c3d366a892b7eb8599d3288e31722ec0f2f41eec0392e4",
+    "CLOUDFLARE_ACCOUNT_ID": "ab75f75941a21a81db27bf12e99c620b"
   },
   "r2_buckets": [
     {
