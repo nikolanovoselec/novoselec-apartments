@@ -36,7 +36,12 @@ const intro: Record<Locale, string> = {
     </svg>
   </section>
 
-  {page.map((section, i) => (
+  {cmsEntries.map((e) => ({
+    title: (e.data.title as string) ?? "",
+    text: (e.data.body as string) ?? "",
+    image: (e.data.image as string) ?? "",
+    alt: (e.data.title as string) ?? "",
+  })).map((section, i) => (
     <section class:list={["section", { "section--alt": i % 2 === 1 }]} data-reveal>
       <div class="container">
         <div class:list={["content-row", { "content-row--reverse": i % 2 === 1 }]}>
