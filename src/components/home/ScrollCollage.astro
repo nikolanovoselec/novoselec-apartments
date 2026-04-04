@@ -1,0 +1,82 @@
+---
+interface Props {
+  images: Array<{ src: string; alt: string }>;
+  speed?: number;
+}
+
+const { images, speed = 35 } = Astro.props;
+---
+
+{images.length > 0 && (
+  <div class="scroll-collage" aria-roledescription="carousel" aria-label="Property exterior photos">
+    <div class="scroll-collage__track" style={`animation-duration: ${speed}s;`}>
+      {images.map((img) => (
+        <div class="scroll-collage__item">
+          <img src={img.src} alt={img.alt} width="500" height="350" loading="lazy" />
+        </div>
+      ))}
+      {images.map((img) => (
+        <div class="scroll-collage__item" aria-hidden="true">
+          <img src={img.src} alt="" width="500" height="350" loading="lazy" />
+        </div>
+      ))}
+    </div>
+  </div>
+)}
+
+<style>
+  @keyframes scroll-collage {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  .scroll-collage {
+    overflow: hidden;
+    width: 100%;
+    padding: var(--space-xl) 0;
+  }
+
+  .scroll-collage__track {
+    display: flex;
+    gap: var(--space-md);
+    animation: scroll-collage 35s linear infinite;
+    width: max-content;
+  }
+
+  .scroll-collage:hover .scroll-collage__track {
+    animation-play-state: paused;
+  }
+
+  .scroll-collage__item {
+    flex-shrink: 0;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .scroll-collage__item img {
+    height: 250px;
+    width: auto;
+    object-fit: cover;
+    display: block;
+  }
+
+  @media (min-width: 768px) {
+    .scroll-collage__item img {
+      height: 350px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .scroll-collage__track {
+      animation: none;
+    }
+    .scroll-collage {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .scroll-collage::-webkit-scrollbar {
+      display: none;
+    }
+  }
+</style>

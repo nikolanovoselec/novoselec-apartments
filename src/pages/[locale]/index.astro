@@ -1,6 +1,7 @@
 ---
 import Page from "~/layouts/Page.astro";
 import Hero from "~/components/home/Hero.astro";
+import ScrollCollage from "~/components/home/ScrollCollage.astro";
 import { isValidLocale, type Locale } from "~/i18n/config";
 import { t } from "~/i18n/t";
 import { getLocalizedCollection, type LocalizedEntry } from "~/lib/content";
@@ -29,6 +30,15 @@ const whySection = getSection("why-pasman");
 const zdrelacSection = getSection("zdrelac");
 const aptsSection = getSection("apartments");
 const ctaSection = getSection("cta");
+const collageSection = getSection("collage");
+
+// Parse collage photos from CMS (JSON array in body field)
+let collagePhotos: Array<{ src: string; alt: string }> = [];
+if (collageSection?.data.body) {
+  try {
+    collagePhotos = JSON.parse(collageSection.data.body as string);
+  } catch { /* empty collage if JSON invalid */ }
+}
 
 // Fallback content when CMS not yet seeded
 const whyTitle = (whySection?.data.title as string) ?? {
@@ -151,6 +161,12 @@ const oliveOilLabel: Record<Locale, string> = {
         </div>
       </div>
     </div>
+
+    {/* Exterior photo collage — CMS managed */}
+    {collagePhotos.length > 0 && (
+      <ScrollCollage images={collagePhotos} />
+    )}
+
     <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="position: absolute; bottom: -1px; left: 0; width: 100%; height: clamp(50px, 8vw, 100px); display: block; z-index: 2;">
       <path d="M0,40 C180,80 360,0 540,40 C720,80 900,0 1080,40 C1260,80 1440,20 1440,40 L1440,80 L0,80 Z" fill="#F8F5EF" />
     </svg>

@@ -285,6 +285,28 @@ Color system, typography, scroll animations, micro-interactions, and Croatian vi
 - **Verification:** Audit all image URLs — no duplicates, no non-Croatian imagery
 - **Status:** Implemented — all pages use unique real island photos from `/photos/` directory; zero Pexels URLs remain; no non-Croatian imagery present
 
+### REQ-VD-15: Exterior Photo Collage
+
+- **Intent:** Ambient, luxury feel showcasing the property's outdoor spaces — terraces, BBQ, pine forest, arches — through an endlessly scrolling photo band
+- **Applies To:** Visitor
+- **Acceptance Criteria:**
+  - Pure CSS infinite horizontal scroll (marquee technique) — no JavaScript
+  - `@keyframes scroll-collage` from `translateX(0)` to `translateX(-50%)` with duplicated image track
+  - Image height: 250px mobile, 350px desktop
+  - 16px border-radius, `var(--space-md)` gap between images
+  - 35s loop duration, `linear infinite` timing
+  - Pauses on hover (`:hover` sets `animation-play-state: paused`)
+  - Reduced motion: animation disabled, fallback to static display with `overflow-x: auto`
+  - Accessibility: `aria-roledescription="carousel"`, duplicate images get `aria-hidden="true"`
+  - Photos sourced from CMS editorial entry (`page_key=homepage`, `section_key=collage`, `gallery` JSON field)
+  - Owner manages collage by editing the gallery array in Emdash admin — add/remove photos without code changes
+  - Placed on homepage in the apartments section (`section--dark`), after the text content
+- **Constraints:** CON-PERF, CON-A11Y
+- **Priority:** P2
+- **Dependencies:** REQ-VD-14, REQ-SF-1
+- **Verification:** Collage scrolls smoothly, pauses on hover, respects reduced motion, photos load from CMS
+- **Status:** Planned
+
 ## Out of Scope
 
 - Custom cursor effects
