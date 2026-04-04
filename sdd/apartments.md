@@ -103,7 +103,7 @@ Apartment listings, detail pages, photo galleries, amenities, seasonal pricing, 
 - **Priority:** P0
 - **Dependencies:** REQ-AP-1
 - **Verification:** Full visual review + screen reader test. Verify detail page loads reliably for all apartment slugs in all 4 locales. Verify breadcrumbs and Schema.org render.
-- **Status:** Partial — Breadcrumbs component now renders visible breadcrumb UI and BreadcrumbList schema on apartment detail pages; Schema.org VacationRental JSON-LD applied via SchemaOrg component; inline SVG wave added at hero bottom; lowestPrice passed to Page layout for sticky mobile CTA. Fallback apartment data (Lavanda, Tramuntana) now renders on detail pages when CMS not seeded — locale-aware names, taglines, descriptions, and amenities. Inline ternaries replaced with t() calls for bedrooms, price label, night, amenities title. Pricing table, availability calendar, gallery lightbox, and booking widget dependencies removed (REQ-AP-4, REQ-AP-5, REQ-AP-6, REQ-BK-1 deprecated). Interior photo gallery replaced by `ScrollCollage` (sourced from `gallery` CMS field, speed 25); exterior photos separated to listing page collage and homepage collage (REQ-VD-15). Pending live verification.
+- **Status:** Implemented
 
 ### REQ-AP-4: Seasonal Pricing
 
