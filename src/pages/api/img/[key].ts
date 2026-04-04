@@ -1,9 +1,14 @@
 import type { APIRoute } from "astro";
+import { env as _env } from "cloudflare:workers";
+import type { Env } from "~/env";
 
 /**
  * Image serving route: fetches from private R2 bucket.
  * URL: /api/img/:key (key is a UUID without extension)
- * Access R2 via Astro locals.runtime.env (official Cloudflare adapter pattern)
+ *
+ * Uses cloudflare:workers import so Astro includes the route in the build.
+ * Accesses R2 via locals.runtime.env at request time (Astro CF adapter pattern).
+ * Falls back to cloudflare:workers env if locals not available.
  */
 export const GET: APIRoute = async ({ params, locals }) => {
   const key = params.key ?? "";
@@ -12,9 +17,18 @@ export const GET: APIRoute = async ({ params, locals }) => {
     return new Response("Invalid key", { status: 400 });
   }
 
-  // Access R2 bucket via Astro Cloudflare adapter runtime
-  const runtime = (locals as unknown as { runtime?: { env?: { MEDIA?: R2Bucket } } }).runtime;
-  const bucket = runtime?.env?.MEDIA;
+  // Try locals.runtime.env first (official Astro Cloudflare adapter)
+  // Fall back to cloudflare:workers module env
+  let bucket: R2Bucket | undefined;
+  try {
+    const runtime = (locals as unknown as { runtime?: { env?: { MEDIA?: R2Bucket } } }).runtime;
+    bucket = runtime?.env?.MEDIA;
+  } catch { /* locals access failed */ }
+
+  if (!bucket) {
+    const env = _env as unknown as Env;
+    bucket = env.MEDIA;
+  }
 
   if (!bucket) {
     return new Response("Storage not configured", { status: 503 });
