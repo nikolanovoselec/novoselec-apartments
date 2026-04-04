@@ -16,47 +16,47 @@ type GalleryItem = { src: string; alt: string; caption: string };
 
 const images: GalleryItem[] = [
   {
-    src: "https://images.pexels.com/photos/1433052/pexels-photo-1433052.jpeg?auto=compress&w=800",
+    src: "/photos/zdrelac-from-sea.jpg",
     alt: { hr: "Kristalno čisto more", de: "Kristallklares Meer", sl: "Kristalno čisto morje", en: "Crystal-clear sea" }[typedLocale] ?? "Crystal-clear sea",
     caption: { hr: "More ispred apartmana", de: "Meer vor den Apartments", sl: "Morje pred apartmaji", en: "Sea in front of the apartments" }[typedLocale] ?? "",
   },
   {
-    src: "https://images.pexels.com/photos/2440024/pexels-photo-2440024.jpeg?auto=compress&w=800",
+    src: "/photos/marina-turquoise.jpg",
     alt: { hr: "Apartman Lavanda", de: "Apartment Lavanda", sl: "Apartma Lavanda", en: "Apartment Lavanda" }[typedLocale] ?? "Apartment Lavanda",
     caption: { hr: "Dnevni boravak s pogledom na more", de: "Wohnzimmer mit Meerblick", sl: "Dnevna soba s pogledom na morje", en: "Living room with sea view" }[typedLocale] ?? "",
   },
   {
-    src: "https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg?auto=compress&w=800",
+    src: "/photos/pine-trees-golden.jpg",
     alt: { hr: "Apartman Tramuntana", de: "Apartment Tramuntana", sl: "Apartma Tramuntana", en: "Apartment Tramuntana" }[typedLocale] ?? "Apartment Tramuntana",
     caption: { hr: "Terasa okružena zelenilom", de: "Terrasse umgeben von Grün", sl: "Terasa obkrožena z zelenjem", en: "Terrace surrounded by greenery" }[typedLocale] ?? "",
   },
   {
-    src: "https://images.pexels.com/photos/1450353/pexels-photo-1450353.jpeg?auto=compress&w=800",
+    src: "/photos/rocky-beach.jpg",
     alt: { hr: "Plaža u blizini", de: "Naher Strand", sl: "Bližnja plaža", en: "Nearby beach" }[typedLocale] ?? "Nearby beach",
     caption: { hr: "Tirkizno more na plaži Ždrelac", de: "Türkises Meer am Strand Ždrelac", sl: "Turkizno morje na plaži Ždrelac", en: "Turquoise sea at Ždrelac beach" }[typedLocale] ?? "",
   },
   {
-    src: "https://images.pexels.com/photos/3601425/pexels-photo-3601425.jpeg?auto=compress&w=800",
+    src: "/photos/zdrelac-from-sea.jpg",
     alt: { hr: "Pogled na selo", de: "Blick auf das Dorf", sl: "Pogled na vas", en: "Village view" }[typedLocale] ?? "Village view",
     caption: { hr: "Ždrelac iz zraka", de: "Ždrelac aus der Luft", sl: "Ždrelac iz zraka", en: "Ždrelac from above" }[typedLocale] ?? "",
   },
   {
-    src: "https://images.pexels.com/photos/1267320/pexels-photo-1267320.jpeg?auto=compress&w=800",
+    src: "/photos/chapel-front.jpg",
     alt: { hr: "Dalmatinska kuhinja", de: "Dalmatinische Küche", sl: "Dalmatinska kuhinja", en: "Dalmatian cuisine" }[typedLocale] ?? "Dalmatian cuisine",
     caption: { hr: "Svježa riba i domaća hrana", de: "Frischer Fisch und hausgemachtes Essen", sl: "Sveža riba in domača hrana", en: "Fresh fish and homemade food" }[typedLocale] ?? "",
   },
   {
-    src: "https://images.pexels.com/photos/2880507/pexels-photo-2880507.jpeg?auto=compress&w=800",
+    src: "/photos/church-tower.jpg",
     alt: { hr: "Kameno selo", de: "Steindorf", sl: "Kamnita vas", en: "Stone village" }[typedLocale] ?? "Stone village",
     caption: { hr: "Mediteranska arhitektura", de: "Mediterrane Architektur", sl: "Mediteranska arhitektura", en: "Mediterranean architecture" }[typedLocale] ?? "",
   },
   {
-    src: "https://images.pexels.com/photos/4992828/pexels-photo-4992828.jpeg?auto=compress&w=800",
+    src: "/photos/marina-harbor.jpg",
     alt: { hr: "Maslinik", de: "Olivenhain", sl: "Oljčni nasad", en: "Olive grove" }[typedLocale] ?? "Olive grove",
     caption: { hr: "Otoški maslinik", de: "Olivenhain auf der Insel", sl: "Otoški oljčni nasad", en: "Island olive grove" }[typedLocale] ?? "",
   },
   {
-    src: "https://images.pexels.com/photos/2440061/pexels-photo-2440061.jpeg?auto=compress&w=800",
+    src: "/photos/pine-trees-golden.jpg",
     alt: { hr: "Zalazak sunca", de: "Sonnenuntergang", sl: "Sončni zahod", en: "Sunset" }[typedLocale] ?? "Sunset",
     caption: { hr: "Zalazak sunca nad Jadranom", de: "Sonnenuntergang über der Adria", sl: "Sončni zahod nad Jadranom", en: "Sunset over the Adriatic" }[typedLocale] ?? "",
   },
@@ -64,7 +64,7 @@ const images: GalleryItem[] = [
 ---
 
 <Page title={galleryTitle[typedLocale]} locale={typedLocale}>
-  <HeroSimple title={galleryTitle[typedLocale]} image="https://images.pexels.com/photos/1285625/pexels-photo-1285625.jpeg?auto=compress&w=1920" />
+  <HeroSimple title={galleryTitle[typedLocale]} image="/photos/beach-zdrelac.jpg" />
 
   <section class="section">
     <div class="container">
