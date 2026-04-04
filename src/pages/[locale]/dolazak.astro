@@ -20,9 +20,9 @@ const sections = cmsEntries.map((e) => ({
   image: (e.data.image as string) ?? "",
 }));
 
-const address = "Fratarsko 3, 23271 Ždrelac, Croatia";
-const mapsLat = "44.0261";
-const mapsLng = "15.2236";
+const address = "Fratarsko 5, 23263 Ždrelac, Croatia";
+const googleMapsUrl = "https://maps.app.goo.gl/bbDoqzZcWnUUeW7X8";
+const appleMapsUrl = "https://maps.apple.com/?address=Fratarsko+5,+23263+%C5%BDdrelac,+Croatia&ll=44.020,15.220&q=Apartmani+Novoselec";
 ---
 
 <Page title={t(typedLocale, "gettingHere.title")} locale={typedLocale}>
@@ -53,10 +53,10 @@ const mapsLng = "15.2236";
       <h2 style="color: var(--color-white); margin-bottom: var(--space-sm);">{t(typedLocale, "gettingHere.ourAddress")}</h2>
       <p class="address-text">{address}</p>
       <div class="map-buttons">
-        <a href={`https://www.google.com/maps/search/?api=1&query=${mapsLat},${mapsLng}`} target="_blank" rel="noopener noreferrer" class="btn btn--ghost">
+        <a href={googleMapsUrl} target="_blank" rel="noopener noreferrer" class="btn btn--ghost">
           Google Maps
         </a>
-        <a href={`https://maps.apple.com/?ll=${mapsLat},${mapsLng}&q=Apartmani+Novoselec`} target="_blank" rel="noopener noreferrer" class="btn btn--ghost">
+        <a href={appleMapsUrl} target="_blank" rel="noopener noreferrer" class="btn btn--ghost">
           Apple Maps
         </a>
       </div>
