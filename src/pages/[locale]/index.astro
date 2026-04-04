@@ -4,7 +4,7 @@ import Hero from "~/components/home/Hero.astro";
 import ScrollCollage from "~/components/home/ScrollCollage.astro";
 import { isValidLocale, type Locale } from "~/i18n/config";
 import { t } from "~/i18n/t";
-import { getLocalizedCollection, type LocalizedEntry } from "~/lib/content";
+import { getLocalizedCollection, type LocalizedEntry, parsePhotoArray } from "~/lib/content";
 
 const { locale } = Astro.params;
 if (!locale || !isValidLocale(locale)) return Astro.redirect("/hr/", 302);
@@ -32,26 +32,8 @@ const aptsSection = getSection("apartments");
 const ctaSection = getSection("cta");
 const collageSection = getSection("collage");
 
-// Parse collage photos from CMS body field.
-// Emdash auto-parses JSON fields (body starting with [ or {), so
-// data.body may be an already-parsed array OR a string.
-function parseCollageBody(body: unknown): Array<{ src: string; alt: string }> {
-  let raw: unknown = body;
-  if (typeof raw === "string") {
-    try { raw = JSON.parse(raw); } catch { return []; }
-  }
-  if (Array.isArray(raw)) {
-    return raw.filter(
-      (item: unknown) =>
-        typeof item === "object" && item !== null &&
-        typeof (item as Record<string, unknown>).src === "string" &&
-        typeof (item as Record<string, unknown>).alt === "string"
-    );
-  }
-  return [];
-}
 
-const collagePhotos = parseCollageBody(collageSection?.data.body);
+const collagePhotos = parsePhotoArray(collageSection?.data.body);
 
 // Fallback content when CMS not yet seeded
 const whyTitle = (whySection?.data.title as string) ?? {

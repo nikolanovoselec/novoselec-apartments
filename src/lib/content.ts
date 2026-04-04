@@ -92,3 +92,24 @@ function mapEntry(entry: unknown): LocalizedEntry {
     data: e.data ?? {},
   };
 }
+
+/**
+ * Parse collage/gallery photo array from CMS body field.
+ * Emdash auto-parses JSON fields (strings starting with [ or {),
+ * so the value may be an already-parsed array OR a string.
+ */
+export function parsePhotoArray(body: unknown): Array<{ src: string; alt: string }> {
+  let raw: unknown = body;
+  if (typeof raw === "string") {
+    try { raw = JSON.parse(raw); } catch { return []; }
+  }
+  if (Array.isArray(raw)) {
+    return raw.filter(
+      (item: unknown) =>
+        typeof item === "object" && item !== null &&
+        typeof (item as Record<string, unknown>).src === "string" &&
+        typeof (item as Record<string, unknown>).alt === "string"
+    );
+  }
+  return [];
+}
