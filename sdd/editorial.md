@@ -84,7 +84,7 @@ Content pages that sell the destination and build emotional connection — Why P
 - **Priority:** P1
 - **Dependencies:** REQ-CMS-1, REQ-CMS-5, REQ-I18N-4
 - **Verification:** Visual review of guide page layout; later: create guide entries, verify rendering and filtering
-- **Status:** Implemented
+- **Status:** Implemented — Zadar guide section added to CMS in all 4 locales (hr/en/de/sl), visible on the guide page via CMS editorial entries with `page_key=vodic`
 
 ### REQ-ED-5: "About Your Hosts" Page
 

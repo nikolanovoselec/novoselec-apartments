@@ -21,20 +21,27 @@ How to manage content, photos, and settings from your phone.
 
 ### Updating Photos
 
-All photos are stored in R2 and served via `/api/img/:uuid`. No photos are committed to the repository.
+All photos are stored in R2 and served via `/api/img/:key`. No photos are committed to the repository.
 
-Apartment galleries are controlled by the **Gallery (JSON array)** (`gallery_json`) field in each apartment entry. The value is a JSON array of `/api/img/:uuid` URL strings.
+Two types of R2 keys exist:
+
+- **Descriptive keys** — used for the 68 real photos bulk-uploaded in April 2026 (e.g., `nikola-kitchen`, `food-peka-embers`, `zadar-colorful-rooftops`). These are hardcoded in CMS entries or page source.
+- **UUID keys** — generated automatically when you upload a photo through the CMS media library (e.g., `aa0fd53c-5d96-4a78-a5b5-0f68b543515a.jpg`).
+
+Both types are referenced as `/api/img/<key>` URLs. The key is whatever was used at upload time.
+
+Apartment galleries are controlled by the **Gallery (JSON array)** (`gallery_json`) field in each apartment entry. The value is a JSON array of `/api/img/:key` URL strings.
 
 **To update a gallery via CMS:**
 1. Open Admin → Apartments → select apartment
 2. Find the **Gallery (JSON array)** field
-3. Edit the JSON array — each entry is a URL string, e.g. `"/api/img/aa0fd53c-5d96-4a78-a5b5-0f68b543515a"`
+3. Edit the JSON array — each entry is a URL string, e.g. `"/api/img/nikola-kitchen"` or `"/api/img/aa0fd53c-5d96-4a78-a5b5-0f68b543515a"`
 4. Save and publish
 
 **To add new photos:**
 1. Open Admin → Media Library (`/_emdash/admin`)
-2. Upload the photo — you will receive a UUID key
-3. Add `/api/img/<uuid>` to the `gallery_json` field of the relevant apartment
+2. Upload the photo — you will receive a UUID-based key
+3. Add `/api/img/<key>` to the `gallery_json` field of the relevant apartment
 4. Save and publish — no redeploy required
 
 ### Managing the Photo Collage

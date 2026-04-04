@@ -1,38 +1,34 @@
-# Stock Media Sources
+# Media Library
 
-All photos are royalty-free from Pexels/Pixabay/Unsplash, licensed for commercial use.
+All photos in the `apartmani-media` R2 bucket are real photos taken on-site or in Zadar. No stock photos from Pexels, Pixabay, or Unsplash remain in the CMS or seed data.
 
-## To be downloaded before seeding
+## Current inventory (68 photos uploaded April 2026)
 
-### Hero / Landscape (5 photos)
-- Adriatic coast aerial view — Pexels
-- Crystal clear sea with rocks — Pixabay
-- Sunset over Dalmatian islands — Unsplash
-- Pine trees and sea — Pexels
-- Stone village path — Pixabay
+### Nikola apartment (11 photos)
+Descriptive R2 keys: `nikola-kitchen`, `nikola-living`, `nikola-bedroom`, `nikola-bathroom`, `nikola-terrace`, `nikola-exterior`, and 5 additional interior shots.
 
-### Apartment Interiors (8-10 per apartment)
-- Mediterranean bedroom with white linens — Pexels
-- Kitchen with stone countertop — Pixabay
-- Bathroom with shower — Pexels
-- Living room with sea view — Unsplash
-- Terrace with table and chairs — Pexels
-- Balcony sea view — Pixabay
+### Marko apartment (7 photos)
+Descriptive R2 keys: `marko-living`, `marko-bedroom`, `marko-terrace`, and 4 additional interior/exterior shots.
 
-### Editorial (5-8 photos)
-- Local konoba food — Pexels
-- Olive grove — Pixabay
-- Ferry boat at dock — Unsplash
-- Pebble beach — Pexels
-- Village street — Pixabay
+### Island / hero photos
+Descriptive R2 keys: `island-hilltop-panorama`, `island-bay-aerial`, `island-village-path`, `island-pine-coast`, and others used on hero sections across all pages.
 
-### Local Guide (3-5 photos)
-- Beach cove aerial — Pexels
-- Grilled fish plate — Pixabay
-- Kayaking on coast — Unsplash
+### Food photos
+Descriptive R2 keys: `food-peka-embers`, `food-grilled-fish`, `food-konoba-table`, and others used on the `/hrana` food & drink page.
 
-## Notes
-- Photos should be downloaded at original resolution
-- Blurhash will be computed at seed time (client-side or Node.js script)
-- All photos uploaded to R2 with UUID keys
-- This file tracks sources for license compliance
+### Zadar guide photos
+Descriptive R2 keys: `zadar-colorful-rooftops`, `zadar-sea-organ`, `zadar-roman-forum`, and others used in the Zadar day-trip guide entries.
+
+### Gallery page (12 photos)
+Descriptive R2 keys used in `galerija.astro` directly in the page source.
+
+## R2 key conventions
+
+Two key formats exist in the bucket:
+
+| Format | Used for | Example |
+|---|---|---|
+| Descriptive slug | Bulk-uploaded real photos (hardcoded in CMS or page source) | `nikola-kitchen` |
+| `<uuid>.<ext>` | Photos uploaded via admin CMS media library (`POST /admin/api/upload-url`) | `aa0fd53c-5d96-4a78-a5b5-0f68b543515a.jpg` |
+
+Both are served via `GET /api/img/:key`. The key is passed as-is (no extension required for descriptive keys, extension included for UUID uploads).

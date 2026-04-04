@@ -1,5 +1,31 @@
 # Changelog
 
+## 2026-04-04 - Revision 67: Real photos replace all stock imagery, R2 descriptive keys, Zadar guide
+
+### Requirements updated
+- **REQ-PERF-1** (Image Serving Pipeline): Photo count updated to 68. R2 object key naming updated from "opaque UUIDs" to "descriptive slugs or UUIDs" reflecting new naming convention (e.g., `island-hiking-trail`, `food-seafood-platter`). `R2_ACCESS_KEY_ID` and `R2_SECRET_ACCESS_KEY` added as Worker secrets.
+- **REQ-CMS-6** (Preloaded Content): Status updated -- all 48 Pexels stock photo URLs replaced with real R2 photos in live D1 data. Zero stock photos remain in production. Added warning that `seed/seed.json` is out of sync with live D1 (still contains Pexels URLs). Photo count updated from 50+ to 68.
+- **REQ-CMS-2** (Media Library): Object key description updated from "opaque UUIDs" to "descriptive slugs or UUIDs."
+- **REQ-SF-8** (Gallery Page): Status updated -- 12 real island photos with descriptive R2 keys and zero stock photos.
+- **REQ-VD-12** (Subpage Hero Pattern): Status updated -- descriptive slug keys noted (e.g., `island-hiking-trail`, `food-seafood-platter`).
+- **REQ-VD-14** (Unique Imagery Per Page): Status updated -- 68 total photos, zero stock, descriptive keys.
+- **REQ-ED-4** (Local Guide): Status updated -- Zadar guide section added to CMS in all 4 locales.
+
+### Constraints updated
+- **CON-STACK**: `CLOUDFLARE_ACCOUNT_ID` added to plaintext vars list (needed for R2 presigned upload URLs). `R2_ACCESS_KEY_ID` and `R2_SECRET_ACCESS_KEY` added to secrets list. Image route reference updated from `{uuid}` to `{key}` with descriptive slug explanation.
+- **CON-PERF**: Image key description updated from "UUID keys" to "descriptive slug or UUID keys."
+
+### Glossary updated
+- **Image Resizing**: Route reference updated from `/api/img/{uuid}` to `/api/img/{key}`.
+
+### Cross-cutting
+- All hardcoded Pexels stock photo URLs in page files replaced with real R2 image keys using descriptive naming convention.
+- Homepage duo images, triptych images, and all subpage hero images now use descriptive R2 keys.
+- Gallery page: all 12 images switched from UUID keys to descriptive keys with updated alt text.
+- `CLOUDFLARE_ACCOUNT_ID` added to `wrangler.jsonc` vars block.
+
+---
+
 ## 2026-04-04 - Revision 66: ScrollCollage replaces horizontal scroll gallery on detail page, added to listing
 
 ### Requirements updated

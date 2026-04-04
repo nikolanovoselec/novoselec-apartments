@@ -30,13 +30,13 @@ The homepage and visual shell — hero, navigation, footer, language switcher, a
   - Mobile: title scales down via clamp, subtitle uses smaller font size
   - **Wave at bottom of hero:** Inline SVG wave divider at the bottom edge of the hero section (same pattern as REQ-VD-9: organic bezier path, fill `#F8F5EF` to match page background below, responsive height, `aria-hidden="true"`, positioned absolute at `bottom: -1px`). Creates organic transition from hero photo into the "Why Pašman" section — no hard edge.
   - **Imagery authenticity:** All hero carousel photos must depict the Croatian Adriatic coast, Pašman island, or Dalmatian architecture. No tropical resorts, Greek islands (Santorini blue domes), or generic Mediterranean stock. Each carousel image must be unique (no photo reused elsewhere on the site).
-  - **Image source:** All hero carousel photos are real island images stored in R2 and served via `/api/img/{uuid}` Worker route (REQ-PERF-1).
+  - **Image source:** All hero carousel photos are real island images stored in R2 and served via `/api/img/{key}` Worker route (REQ-PERF-1).
   - **Future enhancement:** CMS-managed hero image selection will replace the hardcoded local paths. Owner will be able to choose and reorder carousel images from the admin panel.
 - **Constraints:** CON-PERF, CON-A11Y
 - **Priority:** P0
 - **Dependencies:** REQ-VD-9
 - **Verification:** Visual + Lighthouse. Verify wave renders at bottom of hero with no gap or color mismatch.
-- **Status:** Implemented — carousel and Ken Burns work; inline SVG wave at bottom of hero; all hero photos are real Croatian/island imagery served from R2 via `/api/img/{uuid}`
+- **Status:** Implemented — carousel and Ken Burns work; inline SVG wave at bottom of hero; all hero photos are real Croatian/island imagery served from R2 via `/api/img/{key}`
 
 ### REQ-SF-2: Optional Ambient Video Hero
 
@@ -158,7 +158,7 @@ The homepage and visual shell — hero, navigation, footer, language switcher, a
 - **Intent:** Showcase the property and destination through a curated photo collection
 - **Applies To:** Visitor
 - **Acceptance Criteria:**
-  - **Current implementation:** Standalone page at `/{locale}/galerija` with `HeroSimple` photo-backed header (REQ-VD-12) and locale-aware title. Image grid using masonry-like layout with alternating aspect ratios (4:3 default, 3:4 for every 3n+1 item, 1:1 for every 3n+3 item). 2-column grid on mobile, 3-column on desktop (768px+ breakpoint). Each image wrapped in a card with 12px border-radius, subtle shadow, hover lift (translateY -4px with enhanced shadow), and image zoom on hover (1.05x). Per-locale alt text and captions on each image. Captions displayed below image in muted text. Staggered reveal animation via `data-reveal-stagger`. All images served from R2 via `/api/img/{uuid}` Worker route (real island photos).
+  - **Current implementation:** Standalone page at `/{locale}/galerija` with `HeroSimple` photo-backed header (REQ-VD-12) and locale-aware title. Image grid using masonry-like layout with alternating aspect ratios (4:3 default, 3:4 for every 3n+1 item, 1:1 for every 3n+3 item). 2-column grid on mobile, 3-column on desktop (768px+ breakpoint). Each image wrapped in a card with 12px border-radius, subtle shadow, hover lift (translateY -4px with enhanced shadow), and image zoom on hover (1.05x). Per-locale alt text and captions on each image. Captions displayed below image in muted text. Staggered reveal animation via `data-reveal-stagger`. All images served from R2 via `/api/img/{key}` Worker route with descriptive slug keys (e.g., `island-village-harbor`, `island-beach-cove`) — real island photos, zero stock photography.
   - **With CMS (planned):** Owner uploads and reorders gallery photos via Emdash media library. Mix of apartment and destination images.
   - Accessible from primary navigation in all locales
   - Linked from navigation as top-level page (between Ždrelac and Getting Here)
@@ -166,7 +166,7 @@ The homepage and visual shell — hero, navigation, footer, language switcher, a
 - **Priority:** P1
 - **Dependencies:** None
 - **Verification:** Visual review + responsive check on mobile/desktop
-- **Status:** Implemented — gallery images expanded to 12 items with accurate per-locale alt text and captions in all 4 locales via inline `t4()` helper; each alt describes what the photo actually depicts (e.g., "Zdrelac from the sea", "Turquoise bay", "Hilltop panorama") rather than generic labels
+- **Status:** Implemented — 12 real island photos with descriptive R2 keys (e.g., `island-village-harbor`, `island-crystal-sea`); accurate per-locale alt text and captions in all 4 locales via inline `t4()` helper; each alt describes what the photo actually depicts (e.g., "Ždrelac harbour", "Turquoise bay", "Hilltop panorama") rather than generic labels; zero stock photos remain
 
 ## Out of Scope
 

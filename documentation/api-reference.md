@@ -42,7 +42,12 @@ Dynamic robots.txt. Allows all crawlers on public pages and disallows crawling o
 
 ### GET /api/img/:key
 
-Serves a photo from the `apartmani-media` R2 bucket. The key is an extension-free UUID. This is the sole image-serving route for all photos — hero carousel, page heroes, apartment galleries, gallery page, and editorial content rows.
+Serves a photo from the `apartmani-media` R2 bucket. This is the sole image-serving route for all photos — hero carousel, page heroes, apartment galleries, gallery page, and editorial content rows.
+
+Two key formats are accepted:
+
+- **Descriptive slugs** — for photos bulk-uploaded with human-readable names (e.g., `nikola-kitchen`, `zadar-colorful-rooftops`). No file extension.
+- **UUID keys** — for photos uploaded via the admin media library (e.g., `aa0fd53c-5d96-4a78-a5b5-0f68b543515a.jpg`). Extension included.
 
 **Authentication:** None required.
 
@@ -50,7 +55,7 @@ Serves a photo from the `apartmani-media` R2 bucket. The key is an extension-fre
 
 | Parameter | Format | Description |
 |---|---|---|
-| `key` | UUID string | Extension-free UUID of the R2 object |
+| `key` | Descriptive slug or `<uuid>.<ext>` | R2 object key — either a descriptive slug or a UUID with extension |
 
 **Response:** Binary image data (`image/jpeg`, `image/png`, `image/webp`, etc.) with `Cache-Control: public, max-age=31536000, immutable`.
 
@@ -64,7 +69,7 @@ Serves a photo from the `apartmani-media` R2 bucket. The key is an extension-fre
 
 **Implementation:** `src/pages/api/img/[key].ts`. Tries `locals.emdash.storage.download(key)` first; falls back to `env.MEDIA` bucket access.
 
-**Note:** The previous `/media/[...key]` route has been removed. All image references use `/api/img/:uuid`.
+**Note:** The previous `/media/[...key]` route has been removed. All image references use `/api/img/:key`.
 
 ---
 

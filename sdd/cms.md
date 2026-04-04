@@ -42,7 +42,7 @@ Emdash CMS integration, media library, authentication, mobile admin UX, section 
   - Tap-to-upload (mobile) and drag-and-drop (desktop)
   - Multiple photo upload in one action from phone camera roll
   - **Upload via R2 presigned URLs:** CMS client requests presigned PUT URL from Worker, then uploads directly to R2 from browser/phone. Avoids Worker memory limits on large files.
-  - **Originals stored in private R2 bucket, never exposed directly.** Public images served via Worker route `GET /api/img/{key}` which fetches from private R2 (via Emdash storage abstraction with direct R2 bucket fallback) and applies Cloudflare Image Resizing via `cf: { image: { width, format, quality } }` on the fetch response. This Worker-mediated approach works with private R2 (unlike `/cdn-cgi/image/` path which requires public origins). Image Resizing handles format conversion (HEIC → AVIF/WebP), resizing, and orientation. Object keys are opaque UUIDs (no file extensions).
+  - **Originals stored in private R2 bucket, never exposed directly.** Public images served via Worker route `GET /api/img/{key}` which fetches from private R2 (via Emdash storage abstraction with direct R2 bucket fallback) and applies Cloudflare Image Resizing via `cf: { image: { width, format, quality } }` on the fetch response. This Worker-mediated approach works with private R2 (unlike `/cdn-cgi/image/` path which requires public origins). Image Resizing handles format conversion (HEIC → AVIF/WebP), resizing, and orientation. Object keys are descriptive slugs (e.g., `island-hiking-trail`) or opaque UUIDs (no file extensions).
   - **EXIF GPS:** Originals in R2 may retain EXIF metadata, but since originals are never served publicly (only transformed derivatives via Image Resizing), GPS data is not exposed to visitors. Admin shown warning: "Original photos are stored securely. Location data is not visible to visitors."
   - **Blurhash:** Computed at seed time for preloaded content. For new uploads: computed client-side in the CMS admin UI (lightweight JS library, runs on phone) before upload completes. Stored as metadata string in D1.
   - Per-image: alt text (per locale, with "missing alt text" warning), sort order
@@ -169,7 +169,7 @@ Emdash CMS integration, media library, authentication, mobile admin UX, section 
   - All pages fully written in HR, DE, SL, EN with native-quality copy
   - Preloaded:
     - 2-3 example apartments with descriptions, amenities, realistic seasonal pricing, house rules
-    - Hero slideshow: 4+ real island photos (Pašman/Adriatic) stored in R2, served via `/api/img/{uuid}`
+    - Hero slideshow: 4+ real island photos (Pašman/Adriatic) stored in R2, served via `/api/img/{key}`
     - "Why Pašman" with real selling points and photos
     - "About Ždrelac" village description with photos
     - "Getting Here" with real Jadrolinija ferry info for both routes (Biograd-Tkon AND Zadar-Preko via Ždrelac bridge), airport distances, driving routes
@@ -180,7 +180,7 @@ Emdash CMS integration, media library, authentication, mobile admin UX, section 
     - Host story template
     - Privacy policy, house rules, and cancellation policy templates
   - **Placeholder marking:** All preloaded content tagged as `placeholder: true` in CMS. Admin shows "Demo content — replace with your own" badge on placeholder items. Dashboard checklist: "Replace apartment photos with your own", "Update host story", etc.
-  - Real photos: 50+ real island/Croatian photos stored in R2, served via `/api/img/{uuid}` (no stock photography, no local `/photos/` directory)
+  - Real photos: 68 real island/Croatian photos stored in R2 with descriptive keys, served via `/api/img/{key}` (no stock photography, no Pexels URLs, no local `/photos/` directory)
   - Optional hero video: one 10-15s ambient stock clip
   - Site deployable and visitor-ready on day one
   - Owner workflow: open admin → see checklist → replace photos → edit text → mark as own content → done
@@ -192,7 +192,7 @@ Emdash CMS integration, media library, authentication, mobile admin UX, section 
 - **Priority:** P0
 - **Dependencies:** REQ-CMS-1, REQ-CMS-2, REQ-I18N-4
 - **Verification:** Deploy fresh instance, run seed endpoint, verify complete site renders in all 4 locales with no empty sections (all editorial page_keys have CMS entries), verify placeholder badges
-- **Status:** Partial — 118+ entries seeded in HR and EN for most collections; DE and SL largely missing. Editorial collection: 27+ HR entries seeded via D1 SQL for `hrana` (5), `aktivnosti` (6), `plaze` (5), `zdrelac` (6+), `why-pasman` (4), `about` (1). DE/SL/EN editorial entries still missing. `why-pasman` content model restructured from single entry with `sections_json` to individual entries (consistent with other editorial pages). **Risk: pages with missing CMS entries now render empty sections (no fallback) so incomplete seeding in non-HR locales produces visibly broken pages.**
+- **Status:** Partial — 118+ entries seeded in HR and EN for most collections; DE and SL largely missing. Editorial collection: 27+ HR entries seeded via D1 SQL for `hrana` (5), `aktivnosti` (6), `plaze` (5), `zdrelac` (6+), `why-pasman` (4), `about` (1). DE/SL/EN editorial entries still missing. `why-pasman` content model restructured from single entry with `sections_json` to individual entries (consistent with other editorial pages). All 48 Pexels stock photo URLs replaced with real R2 photos in live D1 data — zero stock photos remain in production. `seed/seed.json` still references old Pexels URLs and is out of sync with live D1. **Risk: pages with missing CMS entries now render empty sections (no fallback) so incomplete seeding in non-HR locales produces visibly broken pages. Running seed endpoint would overwrite real photos with stale Pexels URLs.**
 
 ### REQ-CMS-7: Content Safeguards
 
