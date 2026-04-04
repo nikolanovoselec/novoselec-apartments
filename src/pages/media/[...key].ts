@@ -1,5 +1,7 @@
 import type { APIRoute } from "astro";
 
+export const prerender = false;
+
 /**
  * Image serving route: fetches from private R2 bucket.
  * URL format: /media/:key?w=800&f=webp&q=80&fit=cover
