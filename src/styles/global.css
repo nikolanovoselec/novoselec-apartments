@@ -655,3 +655,29 @@ p {
   background-size: 100% 1px;
 }
 
+/* ---------- Editorial Content Row (shared across all editorial pages) ---------- */
+.content-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2xl);
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .content-row {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3xl);
+  }
+  .content-row--reverse .content-row__text {
+    order: 1;
+  }
+  .content-row--reverse .content-row__media {
+    order: 2;
+  }
+}
+
+.content-row__text h2 {
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  margin-bottom: var(--space-md);
+}
+

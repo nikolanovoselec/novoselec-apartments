@@ -1,0 +1,105 @@
+---
+/**
+ * MiniCollage - A compact scrolling photo strip for editorial sections.
+ * Fits inside a content row alongside text.
+ * Falls back to a single static image when only 1 photo provided.
+ */
+interface Props {
+  images: Array<{ src: string; alt: string }>;
+  speed?: number;
+}
+
+const { images, speed = 20 } = Astro.props;
+const hasMultiple = images.length > 1;
+---
+
+{hasMultiple ? (
+  <div class="mini-collage" aria-roledescription="carousel">
+    <div class="mini-collage__track" style={`animation-duration: ${speed}s;`}>
+      {images.map((img) => (
+        <div class="mini-collage__item">
+          <img src={img.src} alt={img.alt} width="400" height="300" loading="lazy" />
+        </div>
+      ))}
+      {images.map((img) => (
+        <div class="mini-collage__item" aria-hidden="true">
+          <img src={img.src} alt="" width="400" height="300" loading="lazy" />
+        </div>
+      ))}
+    </div>
+  </div>
+) : images.length === 1 ? (
+  <div class="mini-collage mini-collage--single">
+    <img src={images[0].src} alt={images[0].alt} width="800" height="600" loading="lazy" />
+  </div>
+) : null}
+
+<style>
+  @keyframes mini-scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  .mini-collage {
+    overflow: hidden;
+    border-radius: 20px 4px 20px 4px;
+    box-shadow: 0 0 0 1px rgba(10, 31, 51, 0.06), 0 12px 40px rgba(10, 31, 51, 0.08);
+  }
+
+  .mini-collage__track {
+    display: flex;
+    gap: 6px;
+    animation-name: mini-scroll;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    width: max-content;
+  }
+
+  .mini-collage:hover .mini-collage__track {
+    animation-play-state: paused;
+  }
+
+  .mini-collage__item {
+    flex-shrink: 0;
+  }
+
+  .mini-collage__item img {
+    height: 220px;
+    width: auto;
+    object-fit: cover;
+    display: block;
+  }
+
+  @media (min-width: 768px) {
+    .mini-collage__item img {
+      height: 280px;
+    }
+  }
+
+  /* Single image fallback - same visual treatment */
+  .mini-collage--single img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .mini-collage--single:hover img {
+    transform: scale(1.03);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mini-collage__track {
+      animation: none;
+    }
+    .mini-collage {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .mini-collage::-webkit-scrollbar {
+      display: none;
+    }
+  }
+</style>
