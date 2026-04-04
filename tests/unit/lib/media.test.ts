@@ -3,11 +3,11 @@ import { buildMediaUrl, buildSrcset } from "~/lib/media";
 
 describe("buildMediaUrl()", () => {
   it("builds basic URL without options", () => {
-    expect(buildMediaUrl("abc123")).toBe("/media/abc123");
+    expect(buildMediaUrl("abc123")).toBe("/api/media/abc123");
   });
 
   it("adds width parameter", () => {
-    expect(buildMediaUrl("abc123", { width: 800 })).toBe("/media/abc123?w=800");
+    expect(buildMediaUrl("abc123", { width: 800 })).toBe("/api/media/abc123?w=800");
   });
 
   it("adds multiple parameters", () => {
