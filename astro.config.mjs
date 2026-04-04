@@ -12,7 +12,7 @@ export default defineConfig({
     emdash({
       database: d1({ binding: "DB" }),
       storage: {
-        entrypoint: "./src/lib/storage-r2-hybrid.ts",
+        entrypoint: "~/lib/storage-r2-hybrid",
         config: { binding: "MEDIA" },
       },
       auth: access({

@@ -5,7 +5,7 @@ Last updated: 2026-04-04
 ## Spec: Partial Requirements (5)
 
 - **REQ-AP-3** (Apartment Detail): ScrollCollage replaces gallery. Missing: breadcrumb polish on all pages
-- **REQ-CMS-6** (Preloaded Content): 171 CMS entries seeded. Missing: seed.json not synced with D1 content (drift), 48 Pexels URLs remain in old guide/vodic CMS entries
+- **REQ-CMS-6** (Preloaded Content): 171 CMS entries seeded. Missing: seed.json not synced with D1 content (drift). ~~48 Pexels URLs~~ DONE: zero Pexels remain
 - **REQ-PERF-1** (Image Pipeline): R2 serving works via /api/img/uuid. Missing: Cloudflare Image Resizing not enabled, no responsive srcset, no blurhash placeholders
 - **REQ-SEO-1** (Schema.org): LodgingBusiness on homepage, VacationRental on apartments, FAQPage on FAQ. Missing: BreadcrumbList on all subpages, Article schema on editorial pages
 - **REQ-SEO-2** (Open Graph): og:image on 10 pages. Missing: Twitter Card meta tags, per-apartment OG image via Image Resizing at 1200x630
@@ -33,10 +33,10 @@ Last updated: 2026-04-04
 
 ## CMS Data Issues
 
-- 32 editorial entries still have Pexels image URLs (vodic/guide old seed content)
-- 16 guide entries still have Pexels image URLs
+- ~~32 editorial entries still have Pexels image URLs~~ DONE: all replaced with real R2 photos
+- ~~16 guide entries still have Pexels image URLs~~ DONE: all replaced with real R2 photos
 - seed.json completely out of sync with D1 data (apartments still named Lavanda/Tramuntana with Pexels hero images)
-- Emdash media upload widget: field types changed to "image" but R2_ACCESS_KEY_ID and R2_SECRET_ACCESS_KEY not set as Worker secrets (presigned upload won't work)
+- ~~Emdash media upload widget: R2 keys not set~~ DONE: R2_ACCESS_KEY_ID/R2_SECRET_ACCESS_KEY set, hybrid storage adapter created
 
 ## User Requests from Transcript (not yet executed)
 
@@ -53,15 +53,15 @@ Last updated: 2026-04-04
 
 ### Technical
 - [ ] CF Web Analytics: enable in Cloudflare dashboard (no code change, just toggle)
-- [ ] Emdash admin: verify image upload widget works with R2 (needs R2 access keys as secrets)
+- [x] Emdash admin: R2 access keys set, hybrid storage adapter deployed. Verify upload widget works in admin UI.
 - [ ] Verify Turnstile works on contact form (user confirmed widget created)
 - [ ] Verify Resend email delivery (user confirmed 1 email to admin works)
 
 ## Architecture Debt
 
 - [ ] Emdash `getEmDashCollection` returns all entries without limit by default — works now but could be slow with hundreds of entries
-- [ ] Gallery page has hardcoded photo list (not from CMS) — should be CMS-managed like collage
-- [ ] Homepage duo-image section still has hardcoded image UUIDs (not from CMS)
+- [ ] Gallery page has hardcoded photo list (not from CMS) — now uses real photos but still hardcoded in galerija.astro
+- [x] Homepage duo-image section updated with real photos (nikola-garden-bbq, island-village-harbor)
 - [ ] Some homepage sections (why-pasman title, apartments title) have hardcoded locale fallbacks
 - [ ] `content-validation.test.ts` photo tests removed after R2 migration — need R2-aware tests
 - [ ] `seed.json` drift: seed data doesn't match production D1 content
