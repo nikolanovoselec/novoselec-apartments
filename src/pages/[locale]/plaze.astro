@@ -47,9 +47,9 @@ const intro: Record<Locale, string> = {
     <section class:list={["section", { "section--alt": i % 2 === 1 }]} data-reveal>
       <div class="container">
         <div class:list={["content-row", { "content-row--reverse": i % 2 === 1 }]}>
-          <div class="content-row__image">
+          {section.image && (<div class="content-row__image">
             <img src={section.image} alt={section.alt} width="800" height="600" loading="lazy" />
-          </div>
+          </div>)}
           <div class="content-row__text">
             <h2>{section.title}</h2>
             <p class="text-lead">{section.text}</p>

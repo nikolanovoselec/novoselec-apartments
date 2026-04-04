@@ -102,6 +102,33 @@ const oliveOilLabel: Record<Locale, string> = {
 ---
 
 <Page title={titles[typedLocale]} locale={typedLocale} hasHero={true}>
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "LodgingBusiness",
+    "name": "Apartmani Novoselec",
+    "description": titles[typedLocale],
+    "url": `https://apartmani.novoselec.ch/${typedLocale}/`,
+    "image": "https://apartmani.novoselec.ch/photos/zdrelac-from-sea.jpg",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Fratarsko 5",
+      "addressLocality": "Ždrelac",
+      "postalCode": "23263",
+      "addressCountry": "HR"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 44.010669,
+      "longitude": 15.285480
+    },
+    "numberOfRooms": 2,
+    "amenityFeature": [
+      { "@type": "LocationFeatureSpecification", "name": "Wi-Fi", "value": true },
+      { "@type": "LocationFeatureSpecification", "name": "Parking", "value": true },
+      { "@type": "LocationFeatureSpecification", "name": "Air conditioning", "value": true },
+      { "@type": "LocationFeatureSpecification", "name": "BBQ", "value": true }
+    ]
+  })} />
   <Hero locale={typedLocale} />
 
   {/* Why Pašman */}

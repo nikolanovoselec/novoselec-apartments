@@ -3,23 +3,103 @@ import Page from "~/layouts/Page.astro";
 import { isValidLocale, type Locale, defaultLocale } from "~/i18n/config";
 import { t } from "~/i18n/t";
 
-// Detect locale from URL path prefix (e.g., /de/nonexistent → "de")
 const pathLocale = Astro.url.pathname.match(/^\/([a-z]{2})(\/|$)/)?.[1];
 const locale: Locale = pathLocale && isValidLocale(pathLocale) ? pathLocale : defaultLocale;
+
+const messages: Record<Locale, { title: string; text: string; home: string }> = {
+  hr: { title: "Stranica nije pronađena", text: "Izgleda da ste zalutali. Ali ne brinite - more je i dalje blizu.", home: "Natrag na početnu" },
+  de: { title: "Seite nicht gefunden", text: "Sie scheinen sich verlaufen zu haben. Aber keine Sorge - das Meer ist immer noch nah.", home: "Zurück zur Startseite" },
+  sl: { title: "Stran ni bila najdena", text: "Zdi se, da ste se izgubili. A brez skrbi - morje je še vedno blizu.", home: "Nazaj na začetno stran" },
+  en: { title: "Page not found", text: "Looks like you've wandered off the path. Don't worry - the sea is still close.", home: "Back to homepage" },
+};
+
+const msg = messages[locale];
 ---
 
 <Page title="404" locale={locale}>
-  <section class="section" style="min-height: 60vh; display: flex; align-items: center;">
-    <div class="container text-center">
-      <h1 style="font-size: clamp(4rem, 10vw, 8rem); font-weight: 200; color: var(--color-navy); opacity: 0.3;">404</h1>
-      <p style="font-size: var(--font-size-xl); margin-top: var(--space-lg);">
-        {t(locale, "error.404.message")}
-      </p>
-      <div style="margin-top: var(--space-2xl); display: flex; flex-wrap: wrap; gap: var(--space-md); justify-content: center;">
-        <a href={`/${locale}/`} class="btn btn--primary">{t(locale, "error.404.home")}</a>
-        <a href={`/${locale}/apartmani`} class="btn">{t(locale, "nav.apartments")}</a>
-        <a href={`/${locale}/kontakt`} class="btn">{t(locale, "nav.contact")}</a>
+  <section class="error-page">
+    <img src="/photos/sunset-coastline.jpg" alt="" class="error-page__bg" />
+    <div class="error-page__overlay">
+      <div class="container text-center">
+        <p class="error-page__code">404</p>
+        <h1 class="error-page__title">{msg.title}</h1>
+        <p class="error-page__text">{msg.text}</p>
+        <div class="error-page__links">
+          <a href={`/${locale}/`} class="btn btn--primary">{msg.home}</a>
+          <a href={`/${locale}/apartmani`} class="btn btn--ghost">{t(locale, "nav.apartments")}</a>
+          <a href={`/${locale}/kontakt`} class="btn btn--ghost">{t(locale, "nav.contact")}</a>
+        </div>
       </div>
     </div>
   </section>
 </Page>
+
+<style>
+  .error-page {
+    position: relative;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .error-page__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+  }
+
+  .error-page__overlay {
+    position: relative;
+    z-index: 1;
+    padding: var(--space-3xl) var(--space-lg);
+  }
+
+  .error-page__code {
+    font-size: clamp(5rem, 15vw, 10rem);
+    font-weight: 200;
+    color: rgba(255, 255, 255, 0.25);
+    line-height: 1;
+    font-family: var(--font-serif);
+  }
+
+  .error-page__title {
+    color: #fff;
+    margin-top: var(--space-md);
+  }
+
+  .error-page__text {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: var(--font-size-xl);
+    margin-top: var(--space-md);
+    max-width: 40ch;
+    margin-inline: auto;
+  }
+
+  .error-page__links {
+    margin-top: var(--space-2xl);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    justify-content: center;
+  }
+
+  .btn--ghost {
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #fff;
+    padding: var(--space-sm) var(--space-xl);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+    transition: all var(--duration-fast);
+  }
+
+  .btn--ghost:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+</style>
