@@ -10,7 +10,7 @@ if (!locale || !isValidLocale(locale)) return Astro.redirect("/hr/", 302);
 const typedLocale = locale as Locale;
 
 const aboutEntries = await getLocalizedCollection("about", typedLocale);
-const page = aboutEntries[0];
+const page = aboutEntries.find((e) => e.data.section_key === "story") ?? aboutEntries[0];
 
 // No fallback - content from CMS only
 const story = (page?.data.body as string) ?? "";
