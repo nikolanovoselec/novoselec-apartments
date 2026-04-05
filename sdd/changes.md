@@ -1,12 +1,15 @@
 # Changelog
 
-## 2026-04-05 - Revert showCaptions from MiniCollage
+## 2026-04-05 - Revert showCaptions and navy gradient CTA
 
 The `showCaptions` prop added in Revision 83 has been reverted. The prop, caption rendering template, and `.mini-collage__caption` CSS were all removed from the MiniCollage component. Gallery page no longer passes `showCaptions`. Poetic Croatian captions remain in the gallery page source and are still assigned as alt text, but are no longer rendered as visible text below photos.
+
+The apartment listing page inquiry CTA section was reverted from a navy-to-cream gradient back to the standard `section--alt` cream background.
 
 ### Requirements updated
 - **REQ-SF-8** (Gallery Page): Removed references to `showCaptions` prop and visible caption rendering. Captions are now alt-text-only.
 - **REQ-VD-15** (Exterior Photo Collage / MiniCollage): Removed `showCaptions` prop from acceptance criteria -- the prop no longer exists in the component.
+- **REQ-AP-2** (Apartment Listing Page): Inquiry CTA section reverted from navy gradient (`linear-gradient` from navy to cream with `clamp(80px, 10vw, 120px)` top padding) to standard `section--alt` cream background. Wave color matching note removed.
 
 ### Glossary updated
 - **Poetic Captions**: Reverted to alt-text-only definition (visible rendering removed).

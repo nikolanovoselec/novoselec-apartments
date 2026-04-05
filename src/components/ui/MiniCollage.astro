@@ -8,9 +8,10 @@ interface Props {
   images: Array<{ src: string; alt: string }>;
   speed?: number;
   reverse?: boolean;
+  showCaptions?: boolean;
 }
 
-const { images, speed = 20, reverse = false } = Astro.props;
+const { images, speed = 20, reverse = false, showCaptions = false } = Astro.props;
 const hasMultiple = images.length > 1;
 ---
 
@@ -20,11 +21,13 @@ const hasMultiple = images.length > 1;
       {images.map((img) => (
         <div class="mini-collage__item">
           <img src={img.src} alt={img.alt} width="400" height="300" loading="lazy" />
+          {showCaptions && img.alt && <span class="mini-collage__caption">{img.alt}</span>}
         </div>
       ))}
       {images.map((img) => (
         <div class="mini-collage__item" aria-hidden="true">
           <img src={img.src} alt="" width="400" height="300" loading="lazy" />
+          {showCaptions && img.alt && <span class="mini-collage__caption">{img.alt}</span>}
         </div>
       ))}
     </div>
@@ -68,6 +71,20 @@ const hasMultiple = images.length > 1;
     flex-shrink: 0;
     border-radius: 16px;
     overflow: hidden;
+    position: relative;
+  }
+
+  .mini-collage__caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: var(--space-sm) var(--space-md);
+    font-size: var(--font-size-xs);
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.85);
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.5) 0%, transparent 100%);
+    pointer-events: none;
   }
 
   .mini-collage__item img {

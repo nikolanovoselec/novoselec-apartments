@@ -247,7 +247,7 @@ for (let i = 0; i < galleryItems.length; i += 10) {
   <div class="gallery-collages">
     {strips.map((strip) => (
       <div class="gallery-strip">
-        <MiniCollage images={strip.images} speed={80} reverse={strip.reverse} />
+        <MiniCollage images={strip.images} speed={80} reverse={strip.reverse} showCaptions />
       </div>
     ))}
   </div>
