@@ -1,5 +1,21 @@
 # Changelog
 
+## 2026-04-05 - Revision 79: Aktivnosti restructured to Land + Sea, fixed hero image
+
+Nature & Activities page (`aktivnosti`) restructured from 3 mismatched CMS sections (hiking / cycling / water with wrong photos) to 2 love-letter sections: Land (hiking trails, viewpoints, cycling) and Sea (Adriatic embrace, coves, Kornati, water sports). Content rewritten as island rhythm, not an activity list. 10 new biking photos added. Hero and OG image changed from dynamic CMS-first-section image to a fixed UUID (`0afa5c7a-6108-454d-b309-80eccc3b8f6b` — cyclist on island path), decoupling the visual identity of the hero from CMS entry order.
+
+### Requirements updated
+- **REQ-ED-9** (Nature & Activities): Acceptance criteria rewritten — 4-section content model replaced by 2-section Land + Sea model. Section descriptions updated to match new love-letter tone. Fixed hero image detail added to acceptance criteria (was in changelog but missing from AC text).
+- **REQ-CMS-6** (Preloaded Content): `aktivnosti` seeding count updated from "4 sections" to "2 sections — Land + Sea".
+
+### Editorial key concepts updated
+- **Editorial density**: Range updated from "3-4" to "2-4" sections per page. Nature & Activities added as a named exception (2 sections with love-letter tone), alongside the existing Food & Drink exception.
+
+### Documentation updated
+- **documentation/seo.md**: `/aktivnosti` OG image subject updated to reflect fixed UUID and new cyclist-on-path photo.
+
+---
+
 ## 2026-04-05 - Revision 78: Food page collages moved below description
 
 Food & Drink page layout changed from collage-description-collage sandwich to description-first layout. Both MiniCollage strips now render below the text section (stacked together with a small gap and bottom padding before footer), instead of sandwiching the description. Reading flow improved: visitor reads the love-letter text first, then sees the photo collages.

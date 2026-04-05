@@ -97,7 +97,7 @@ Each editorial page passes the same image used as its hero, ensuring the social 
 
 | Page | Subject |
 |---|---|
-| `/aktivnosti` | Pine forest with child |
+| `/aktivnosti` | Cyclist on island path (fixed UUID, not from CMS first section) |
 | `/dolazak` | Marina harbour |
 | `/faq` | Chapel front |
 | `/hrana` | Beach at Ždrelac |

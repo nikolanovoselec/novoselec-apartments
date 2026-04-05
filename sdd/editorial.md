@@ -8,7 +8,7 @@ Content pages that sell the destination and build emotional connection — Getti
 - **Arrival guide**: Complete transport info — ferry, airport, driving, parking
 - **Storytelling**: "A Day on Pašman", seasonal atmosphere, daylight progression
 - **Host story**: Personal connection to the place
-- **Editorial density**: 3-4 focused sections per page (consolidated from 5-6 for stronger narrative flow). Exception: Food & Drink uses a single unified section (description first, then two stacked photo collages scrolling in opposite directions).
+- **Editorial density**: 2-4 focused sections per page (consolidated from 5-6 for stronger narrative flow). Exceptions: Food & Drink uses a single unified section (description first, then two stacked photo collages scrolling in opposite directions); Nature & Activities uses 2 sections (Land + Sea) with love-letter tone.
 
 ## Requirements
 
@@ -159,9 +159,9 @@ Content pages that sell the destination and build emotional connection — Getti
 - **Applies To:** Visitor
 - **Acceptance Criteria:**
   - Standalone page at `/{locale}/aktivnosti` with `HeroSimple` component (REQ-VD-12) — photo-backed hero with gradient overlay, locale-aware title, introductory paragraph, and **wave SVG at the bottom edge**
-  - Hero image must depict nature/outdoor activities, not food or beaches
-  - 4 content sections (consolidated from 6): (1) trails and viewpoints — Veliki Bokolj (274m) with panoramic telescope, Pustograd 6th-century fortress, (2) cycling — Ždrelac bridge bike lane, 46 km two-island loop, Staza 7/8, ZZUUM e-bike tours, rental from 10 EUR/day, (3) Kornati and Telašćica — 89 islands, salt lake Mir, 161m cliffs, day trips from 40-50 EUR, (4) water sports — kayaking to hidden coves, SUP on calm mornings, snorkeling/diving, clean sea currents
-  - Each section includes distances from Ždrelac and practical tips
+  - Hero image must depict nature/outdoor activities, not food or beaches. Hero and OG image use a fixed R2 photo (cyclist on island path), not derived from CMS entry order.
+  - 2 content sections (Land + Sea): (1) Land — hiking trails, Veliki Bokolj (274m) viewpoint, Pustograd fortress, cycling the Ždrelac bridge bike lane, 46 km two-island loop, ZZUUM e-bike tours; (2) Sea — Adriatic embrace, crystal coves, Kornati and Telašćica day trips, kayaking, SUP, snorkeling
+  - Each section written as a love letter to island life, not an activity list; practical tips woven into emotional narrative
   - **CMS wiring:** Page queries the dedicated `aktivnosti` CMS collection, sorted by `sort_order`. CMS-only content model — no hardcoded fallback. If CMS entries missing, no sections render.
   - Multi-section alternating layout: odd sections on default background, even sections on `.section--alt`. Each section has title, MiniCollage photo strip, and body text. Scroll-triggered reveal via `data-reveal`.
   - Linked from homepage triptych (REQ-SF-5)
