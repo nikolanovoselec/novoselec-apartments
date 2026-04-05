@@ -367,7 +367,7 @@ const oliveOilLabel: Record<Locale, string> = {
   .feature-image__wrap {
     position: relative;
     overflow: hidden;
-    border-radius: 24px;
+    border-radius: 16px;
     box-shadow: var(--shadow-hairline), var(--shadow-xl);
     border: 1px solid rgba(255, 255, 255, 0.2);
   }
@@ -388,9 +388,7 @@ const oliveOilLabel: Record<Locale, string> = {
     .feature-image__wrap img {
       aspect-ratio: 16 / 9;
     }
-    .feature-image__wrap {
-      border-radius: 16px;
-    }
+    /* border-radius inherited from base rule (16px) */
   }
 
   
