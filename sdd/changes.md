@@ -7,6 +7,7 @@ Food & Drink page (`hrana`) restructured from 4 multi-section CMS entries (sorte
 ### Requirements updated
 - **REQ-ED-8** (Food & Drink Detail Page): Acceptance criteria rewritten — single CMS entry replaces multi-entry `sort_order` model; alternating row layout replaced by collage-description-collage sandwich; two-direction MiniCollage strips replace per-section images; added REQ-VD-15 dependency.
 - **REQ-VD-15** (Exterior Photo Collage / MiniCollage): Added `reverse` prop documentation — `animation-direction: reverse` for right-to-left scrolling, used on Food & Drink page.
+- **REQ-CMS-6** (Preloaded Content): Fixed stale seeding description — `hrana` collection changed from "4 sections" to "1 entry per locale" to match the restructured single-entry content model.
 
 ### Glossary updated
 - **MiniCollage**: Added `reverse` direction capability.
