@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-04-05 - Revision 81: Beaches hero fixed to Galovac aerial, triptych image updated, spacing tightened
+
+Beaches page (`plaze`) hero and OG image changed from dynamic CMS-first-section-with-fallback to a fixed R2 photo (Galovac aerial — turquoise sea around Ugljan island), decoupling the hero from CMS entry order. Same pattern as Nature & Activities (Revision 79). Homepage triptych beaches card updated to use the same Galovac aerial photo, establishing visual continuity between the preview card and the destination page. Homepage spacing refined: tighter padding on the CTA button area and exterior photo collage wrapper, added bottom padding to the experience section.
+
+### Requirements updated
+- **REQ-ED-10** (Beaches Detail Page): Added fixed hero image detail — hero and OG image now use a fixed R2 photo (Galovac aerial), not derived from CMS entry order.
+- **REQ-VD-14** (Unique Imagery Per Page): Added triptych-to-page continuity clarification — homepage triptych preview images may intentionally match their target page's hero image for visual continuity.
+
+---
+
 ## 2026-04-05 - Revision 80: Editorial section layout reordered to title-text-collage
 
 All 4 editorial detail pages (aktivnosti, dolazak, plaze, vodic) changed section rendering order from title -> MiniCollage -> text to title -> text -> MiniCollage. Visitors now read the descriptive text before seeing the photo collage, improving reading flow across all editorial pages. This matches the description-first pattern already established on the Food & Drink page (REQ-ED-8, Revision 78).

@@ -177,7 +177,7 @@ Content pages that sell the destination and build emotional connection — Getti
 - **Applies To:** Visitor
 - **Acceptance Criteria:**
   - Standalone page at `/{locale}/plaze` with `HeroSimple` component (REQ-VD-12) — photo-backed hero with gradient overlay, locale-aware title, introductory paragraph, and **wave SVG at the bottom edge**
-  - Hero image must depict Croatian/Adriatic beach or coastline (not Santorini blue domes or tropical beaches)
+  - Hero image must depict Croatian/Adriatic beach or coastline (not Santorini blue domes or tropical beaches). Hero and OG image use a fixed R2 photo (Galovac aerial — turquoise sea around Ugljan island), not derived from CMS entry order.
   - 4 content sections (consolidated from 5): (1) Ždrelac coves — Matlovac sandy beach with beach bar, Soline mineral-rich sand, pine forest microclimate, (2) Pašman beaches — Banj shallow water, Lokva under tamarisk in Neviđane, Mrljane with view of heart-shaped Galešnjak, (3) Ugljan beaches — Jaz Blue Flag in Preko, Sabuša in Kukljica, Mostir snorkeling, (4) hidden coves — kayak-access south side cliffs, Prtljug in Lukoran (40m pebble cove, no facilities)
   - Each section includes named beaches with distances from Ždrelac
   - **CMS wiring:** Page queries the dedicated `plaze` CMS collection, sorted by `sort_order`. CMS-only content model — no hardcoded fallback. If CMS entries missing, no sections render.

@@ -277,6 +277,7 @@ Color system, typography, scroll animations, micro-interactions, and Croatian vi
   - Every hero image is unique across all pages (no two pages share the same hero photo)
   - Every content section image is unique within and across pages
   - All images are real Croatian Adriatic coast, Dalmatian architecture, Pašman/Ugljan islands, or contextually relevant Croatian subjects (food, nature, villages) — stored in R2 and served via `/api/img/{key}` Worker route (REQ-PERF-1)
+  - **Triptych-to-page continuity:** Homepage triptych preview images (REQ-SF-5) may intentionally reuse the same photo as their target page's hero image. This is deliberate visual continuity (the card is a preview of the page), not accidental duplication.
   - Explicitly forbidden: Santorini/Greek blue dome imagery, tropical resorts, Maldives-style overwater bungalows, generic Mediterranean stock
 - **Constraints:** CON-MEDIA
 - **Priority:** P1
