@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-04-05 - Revision 75: Detail page back-link removed, listing wave color fix
+
+Apartment detail page no longer has a "Back to apartments" CTA section at the bottom — redundant given breadcrumbs and browser navigation. On the apartment listing page, the collage bottom wave fill corrected from navy to stone to match the inquiry `section--alt` section below per wave color matching rules (REQ-VD-9). Seamless margin-top fix on inquiry section to eliminate gap.
+
+### Requirements updated
+- **REQ-AP-3** (Apartment Detail Page): Acceptance criterion #8 struck through — back-to-apartments CTA removed as redundant navigation.
+- **REQ-AP-2** (Apartment Listing Page): Added documentation that collage bottom wave uses stone fill to match the `section--alt` inquiry section below, per REQ-VD-9 color matching rules.
+
+---
+
 ## 2026-04-05 - Revision 74: Uniform MiniCollage scroll speed (35s)
 
 All MiniCollage instances across the site now use a uniform 35s loop duration. Previously, editorial pages used variable speed per section (`18 + i * 4` = 18s, 22s, 26s, 30s) and the apartment detail page used 25s. Standardized to 35s for consistent visual rhythm.

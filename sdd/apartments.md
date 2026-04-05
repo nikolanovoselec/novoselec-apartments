@@ -49,7 +49,7 @@ Apartment listings, detail pages, photo galleries, amenities, seasonal pricing, 
 - **Intent:** Let visitors browse and compare all apartments at a glance
 - **Applies To:** Visitor
 - **Acceptance Criteria:**
-  - **Current implementation:** Card grid showing apartments from Emdash CMS (with hardcoded fallback data when CMS is not yet seeded). Each card is a full-card link (`<a>` wrapping the entire card) to the apartment detail page (`/{locale}/apartmani/{slug}`). Card contents: hero photo (3:2 aspect, `object-fit: cover`), name, tagline (italic), meta row (sleeps count, size in m2, beach distance in meters), "Best for" badge (navy uppercase overlay on image), price ("from EUR X/night"), and inquiry CTA button. 2-column grid on desktop, single column on mobile. Cards have hover shadow lift and subtle image zoom (1.03x). Uses `HeroSimple` photo-backed header (REQ-VD-12). Below the grid, a `ScrollCollage` exterior photo strip is rendered when the `editorial` CMS entry (`page_key=homepage`, `section_key=collage`) is present — the same collage entry used on the homepage. Inquiry section below the collage with CTA linking to `/{locale}/kontakt` (REQ-BK-8).
+  - **Current implementation:** Card grid showing apartments from Emdash CMS (with hardcoded fallback data when CMS is not yet seeded). Each card is a full-card link (`<a>` wrapping the entire card) to the apartment detail page (`/{locale}/apartmani/{slug}`). Card contents: hero photo (3:2 aspect, `object-fit: cover`), name, tagline (italic), meta row (sleeps count, size in m2, beach distance in meters), "Best for" badge (navy uppercase overlay on image), price ("from EUR X/night"), and inquiry CTA button. 2-column grid on desktop, single column on mobile. Cards have hover shadow lift and subtle image zoom (1.03x). Uses `HeroSimple` photo-backed header (REQ-VD-12). Below the grid, a `ScrollCollage` exterior photo strip is rendered when the `editorial` CMS entry (`page_key=homepage`, `section_key=collage`) is present — the same collage entry used on the homepage. Collage bottom wave uses stone fill (`var(--color-stone)`) to match the `section--alt` inquiry section below per REQ-VD-9 wave color matching rules. Inquiry section below the collage with CTA linking to `/{locale}/kontakt` (REQ-BK-8).
   - **No fallback:** When Emdash returns no apartments (CMS not seeded), the listing page renders an empty grid. Hardcoded example apartments have been removed — all content comes from CMS only.
   - **With full CMS (planned):** sea view badge if applicable, one-line value proposition, link to detail page
   - Cards link to detail page
@@ -80,7 +80,7 @@ Apartment listings, detail pages, photo galleries, amenities, seasonal pricing, 
     5. "Best for" line below meta grid
     6. Sidebar: price card (white, 16px radius, shadow) showing "from EUR X/night" with locale-aware label, inquiry CTA button linking to listing page inquiry section
     7. Sidebar: amenities checklist (2-column grid on stone background, checkmark prefix) parsed from `amenities_json` field
-    8. Back-to-apartments CTA in alt-background section
+    8. ~~Back-to-apartments CTA in alt-background section~~ — **Removed:** redundant navigation; visitors use breadcrumbs or browser back button
     9. Responsive: single column on mobile, 1.5fr/1fr grid on desktop (768px+ breakpoint)
   - **Visual hierarchy (full target, top to bottom):**
     1. Hero: apartment name, key stats strip (guests, bedrooms, m2, beach distance, "Best for" label)
