@@ -292,7 +292,6 @@ Color system, typography, scroll animations, micro-interactions, and Croatian vi
 - **Acceptance Criteria:**
   - Pure CSS infinite horizontal scroll (marquee technique) — no JavaScript
   - `reverse` prop: when set, animation plays in reverse direction (`animation-direction: reverse`), scrolling right-to-left instead of the default left-to-right. Used for two-direction collage pairs (e.g., Food & Drink page, REQ-ED-8).
-  - `showCaptions` prop: when set, renders each photo's alt text as a visible italic caption below the image (`font-size: xs`, `color: text-light`, centered, `white-space: nowrap`). Captions appear on both the original and the `aria-hidden` duplicate track. Currently enabled only on the gallery page (REQ-SF-8).
   - `@keyframes scroll-collage` from `translateX(0)` to `translateX(-50%)` with duplicated image track
   - Image height: 250px mobile, 350px desktop
   - 16px border-radius, `var(--space-md)` gap between images

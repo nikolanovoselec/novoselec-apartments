@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-04-05 - Revert showCaptions from MiniCollage
+
+The `showCaptions` prop added in Revision 83 has been reverted. The prop, caption rendering template, and `.mini-collage__caption` CSS were all removed from the MiniCollage component. Gallery page no longer passes `showCaptions`. Poetic Croatian captions remain in the gallery page source and are still assigned as alt text, but are no longer rendered as visible text below photos.
+
+### Requirements updated
+- **REQ-SF-8** (Gallery Page): Removed references to `showCaptions` prop and visible caption rendering. Captions are now alt-text-only.
+- **REQ-VD-15** (Exterior Photo Collage / MiniCollage): Removed `showCaptions` prop from acceptance criteria -- the prop no longer exists in the component.
+
+### Glossary updated
+- **Poetic Captions**: Reverted to alt-text-only definition (visible rendering removed).
+
+---
+
 ## 2026-04-05 - Revision 84: Gallery scroll speed fixed at 80s; strip gap tightened
 
 Gallery page MiniCollage strips changed from variable speed (`max(35, photoCount * 8)`) to a fixed 80-second duration per strip, giving uniform scroll pacing across all 14 strips regardless of photo count. Strip vertical gap reduced from `space-lg` to `space-sm` for a denser collage feel.
