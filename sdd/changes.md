@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-04-05 - Gallery caption styling changed from italic to sans-serif normal
+
+MiniCollage caption overlay styling updated: font changed from italic (browser default serif/inherited) to explicit sans-serif (`var(--font-sans)`) with `font-weight: 400`, `font-style: normal`, and `letter-spacing: 0.02em`. Text opacity increased from 85% to 90%. Gradient background lightened from `rgba(0,0,0,0.5)` to `rgba(0,0,0,0.45)`.
+
+### Requirements updated
+- **REQ-VD-15** (Exterior Photo Collage / MiniCollage): `showCaptions` caption styling description updated from "italic, extra-small font, white text at 85% opacity, gradient rgba(0,0,0,0.5)" to "sans-serif, extra-small font, normal weight 400, letter-spacing 0.02em, white text at 90% opacity, gradient rgba(0,0,0,0.45)".
+- **REQ-SF-8** (Gallery Page): Caption description updated from "italic white text" to "sans-serif white text (normal weight, 90% opacity)". Status line updated accordingly.
+
+### Glossary updated
+- **Poetic Captions**: Updated rendering description from "italic white text" to "sans-serif white text, normal weight, 90% opacity".
+
+---
+
 ## 2026-04-05 - Spec cleanup: remove stale zdrelac.astro reference from REQ-VD-9
 
 **REQ-VD-9** (Wave Section Dividers): Removed `zdrelac.astro` from the list of pages with custom hero markup. The Zdrelac page was deleted and merged into `vodic.astro` (which uses `HeroSimple`, not custom hero markup) in Revision 70. The reference was stale.
