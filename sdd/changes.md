@@ -5,6 +5,8 @@
 Removed duplicate photo UUID from gallery array (two UUIDs pointing to identical image file). Gallery now has 138 photos instead of 139. Strip layout unchanged (14 strips); last strip has 8 photos instead of 9.
 
 ### Requirements updated
+- **REQ-SF-8** (Gallery Page): Photo count updated from 139 to 138 in acceptance criteria and status. Last strip size updated from 9 to 8.
+- **REQ-VD-14** (Unique Imagery Per Page): Photo count updated from "139+ photos total" to "138+ photos total" in status.
 - **REQ-VD-15** (Exterior Photo Collage): Gallery page photo count updated from 139 to 138 in the MiniCollage consumer description.
 
 ---
