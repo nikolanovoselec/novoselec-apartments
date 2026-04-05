@@ -1,5 +1,22 @@
 # Changelog
 
+## 2026-04-05 - Revision 82: Gallery page rewritten as 135-photo scrolling collage strips
+
+Gallery page (`galerija`) completely rewritten from an 18-photo static masonry grid to 135 photos displayed as horizontally scrolling MiniCollage strips with alternating directions. Photos are deterministically shuffled per locale so each language sees a different arrangement. 50 poetic Croatian captions rotate across photos as alt text. HeroSimple now accepts an `intro` prop for introductory text below the title, first used on the gallery page.
+
+### Requirements updated
+- **REQ-SF-8** (Gallery Page): Acceptance criteria rewritten to reflect new implementation -- scrolling collage strips replacing static masonry grid. Dependencies updated from None to REQ-VD-15, REQ-VD-12. Status updated to reflect 135 photos, poetic captions, deterministic shuffle, and speed formula.
+- **REQ-VD-12** (Subpage Hero Pattern): Added `intro` prop to acceptance criteria -- optional introductory paragraph rendered below the title.
+- **REQ-VD-14** (Unique Imagery Per Page): Photo count updated from "68 photos total" to "135+ photos total" reflecting the expanded gallery.
+- **REQ-VD-15** (Exterior Photo Collage / MiniCollage): Added gallery page (galerija) as consumer #5 in the "Placed on" list.
+
+### Glossary updated
+- **Masonry Grid**: Marked as superseded on the gallery page.
+- **Deterministic Shuffle**: New term -- locale-seeded hash sort for stable per-language photo order.
+- **Poetic Captions**: New term -- 50 Croatian evocative phrases used as gallery alt text.
+
+---
+
 ## 2026-04-05 - Revision 81: Beaches hero fixed to Galovac aerial, triptych image updated, spacing tightened
 
 Beaches page (`plaze`) hero and OG image changed from dynamic CMS-first-section-with-fallback to a fixed R2 photo (Galovac aerial — turquoise sea around Ugljan island), decoupling the hero from CMS entry order. Same pattern as Nature & Activities (Revision 79). Homepage triptych beaches card updated to use the same Galovac aerial photo, establishing visual continuity between the preview card and the destination page. Homepage spacing refined: tighter padding on the CTA button area and exterior photo collage wrapper, added bottom padding to the experience section.

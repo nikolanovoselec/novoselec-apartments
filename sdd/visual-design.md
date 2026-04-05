@@ -239,7 +239,7 @@ Color system, typography, scroll animations, micro-interactions, and Croatian vi
   - Dark overlay (always present): linear gradient from `rgba(10, 31, 51, 0.5)` at top to `rgba(10, 31, 51, 0.7)` at bottom, ensuring white text contrast over any photo or gradient
   - Ken Burns animation on hero image: continuous CSS keyframe (`scale(1)` to `scale(1.06)`, 20s ease-in-out infinite alternate) — subtler and slower than the homepage hero carousel (12s, 1.1x)
   - Minimum height 50vh (50svh on mobile for viewport-accurate sizing), vertically centered content
-  - Title (`h1`) and optional subtitle rendered over the overlay
+  - Title (`h1`), optional subtitle, and optional introductory paragraph (`intro` prop) rendered over the overlay. The `intro` prop displays a poetic/descriptive sentence below the title (used on the gallery page, REQ-SF-8).
   - Wave SVG divider at bottom edge (same pattern as REQ-VD-9: `viewBox="0 0 1440 80"`, `preserveAspectRatio="none"`, organic bezier path, fill `#F8F5EF` to match page background, responsive height `clamp(50px, 8vw, 100px)`, `aria-hidden="true"`)
   - Wave positioned absolute at `bottom: -1px` to seamlessly bridge hero into page content with no visible seam
   - Content z-index layering: image (0), overlay (1), text content (2), wave (3)
@@ -283,7 +283,7 @@ Color system, typography, scroll animations, micro-interactions, and Croatian vi
 - **Priority:** P1
 - **Dependencies:** REQ-VD-12
 - **Verification:** Audit all image URLs — no duplicates, no non-Croatian imagery
-- **Status:** Implemented — all pages use unique real island photos stored in R2 with UUID keys, served via `/api/img/{key}`; 68 photos total; zero Pexels URLs, zero stock photos, zero local `/photos/` paths remain; no non-Croatian imagery present
+- **Status:** Implemented — all pages use unique real island photos stored in R2 with UUID keys, served via `/api/img/{key}`; 135+ photos total (gallery page alone uses 135); zero Pexels URLs, zero stock photos, zero local `/photos/` paths remain; no non-Croatian imagery present
 
 ### REQ-VD-15: Exterior Photo Collage
 
@@ -301,7 +301,7 @@ Color system, typography, scroll animations, micro-interactions, and Croatian vi
   - Accessibility: `aria-roledescription="carousel"`, duplicate images get `aria-hidden="true"`
   - Photos sourced from CMS editorial entry (`page_key=homepage`, `section_key=collage`, `body` field containing JSON array of `{src, alt}` objects). JSON is validated at render time: non-array values are discarded, and array items missing `src` or `alt` string fields are filtered out.
   - Owner manages collage by editing the gallery array in Emdash admin — add/remove photos without code changes
-  - Placed on homepage in the apartments section (`section--dark`), after the text content. Also reused on: (1) apartment listing page (`section--dark`, exterior photos from same CMS entry, 35s speed), (2) apartment detail page (interior photos from `gallery` CMS field, 35s speed), (3) editorial detail pages (aktivnosti, dolazak, plaze, vodic) where each CMS section with photos renders a MiniCollage strip at 35s speed, and (4) Food & Drink page (hrana) where a single gallery is split into two MiniCollage strips scrolling in opposite directions (default left, `reverse` right) sandwiching the description text. All MiniCollage instances use a minimum 35s loop duration site-wide (actual speed: `max(35, photoCount * 8)`).
+  - Placed on homepage in the apartments section (`section--dark`), after the text content. Also reused on: (1) apartment listing page (`section--dark`, exterior photos from same CMS entry, 35s speed), (2) apartment detail page (interior photos from `gallery` CMS field, 35s speed), (3) editorial detail pages (aktivnosti, dolazak, plaze, vodic) where each CMS section with photos renders a MiniCollage strip at 35s speed, (4) Food & Drink page (hrana) where a single gallery is split into two MiniCollage strips scrolling in opposite directions (default left, `reverse` right) sandwiching the description text, and (5) Gallery page (galerija, REQ-SF-8) where 135 photos are split into strips of 10 with alternating scroll directions and deterministic locale-based shuffle order. All MiniCollage instances use a minimum 35s loop duration site-wide (actual speed: `max(35, photoCount * 8)`).
 - **Constraints:** CON-PERF, CON-A11Y
 - **Priority:** P2
 - **Dependencies:** REQ-VD-14, REQ-SF-1

@@ -199,6 +199,21 @@ const allPhotos = [
   "f86c5b2b-8832-4432-b471-602616520ea6",
   "f9307c22-5989-4485-8cda-9356e22bcf7c",
   "ff065ff8-2c28-4296-a831-232def4a038c",
+  "0754da10-5c86-4218-ab51-3cf737666e90",
+  "1df33bcd-f5ad-4304-a558-36ba4335c1e8",
+  "216f0b04-b41f-491d-8921-bb5621c347fc",
+  "23643838-e43d-4d69-93ed-962a18136d8b",
+  "37c22605-8644-49dd-9ce0-75d49d2fc6da",
+  "39237ccc-bd34-4c66-95ef-4193fd0d9dc1",
+  "3aabddac-a61a-43a0-a168-1f606d839644",
+  "7f68f45e-3e54-43d5-a59d-0b67ac9d5a34",
+  "824e4876-fbb7-47a3-8dbb-6dab716b01b1",
+  "86f0d352-f037-4ac9-9f90-08197b8e5244",
+  "9dd53f4c-c5c3-4c5a-9189-ef59a02cc9a0",
+  "c2bd2857-49b4-4844-98f3-2398feb0d92c",
+  "d64614fa-7c23-48f8-bfb0-f0a55720265e",
+  "def88273-db56-4aa2-a30e-cae9ce95f86e",
+  "fbb8bfea-88d1-4d37-8c65-a7e70f4f1743",
 ];
 
 // Shuffle photos deterministically by locale (different order per language)
@@ -209,7 +224,8 @@ const shuffled = [...allPhotos].sort((a, b) => {
   return ha - hb;
 });
 
-// Build gallery items with rotating captions
+// Build gallery items — images are decorative in auto-scrolling context
+// Poetic captions used as alt text are visual atmosphere, not descriptive
 const galleryItems = shuffled.map((uuid, i) => ({
   src: `/api/img/${uuid}`,
   alt: captions[i % captions.length],
