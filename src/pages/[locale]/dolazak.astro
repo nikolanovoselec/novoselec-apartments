@@ -39,7 +39,7 @@ const appleMapsUrl = "https://maps.apple.com/?ll=44.010669,15.285480&q=Apartmani
         </div>
         {photos.length > 0 && (
           <div class="editorial-strip">
-            <MiniCollage images={photos} speed={35} />
+            <MiniCollage images={photos} speed={Math.max(35, photos.length * 8)} />
           </div>
         )}
         <div class="container">

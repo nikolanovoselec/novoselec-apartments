@@ -91,7 +91,7 @@ const vacationRentalSchema = buildVacationRentalSchema({
   {/* Interior photo collage */}
   {gallery.length > 0 && (
     <div class="editorial-strip">
-      <MiniCollage images={gallery.map((img, i) => ({ src: img, alt: `${name} - ${i + 1}` }))} speed={35} />
+      <MiniCollage images={gallery.map((img, i) => ({ src: img, alt: `${name} - ${i + 1}` }))} speed={Math.max(35, gallery.length * 8)} />
     </div>
   )}
 

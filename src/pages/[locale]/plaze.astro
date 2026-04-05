@@ -44,7 +44,7 @@ const sections = cmsEntries.map((e) => ({
         </div>
         {photos.length > 0 && (
           <div class="editorial-strip">
-            <MiniCollage images={photos} speed={35} />
+            <MiniCollage images={photos} speed={Math.max(35, photos.length * 8)} />
           </div>
         )}
         <div class="container">
