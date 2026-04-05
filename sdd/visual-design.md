@@ -243,7 +243,7 @@ Color system, typography, scroll animations, micro-interactions, and Croatian vi
   - Wave SVG divider at bottom edge (same pattern as REQ-VD-9: `viewBox="0 0 1440 80"`, `preserveAspectRatio="none"`, organic bezier path, fill `#F8F5EF` to match page background, responsive height `clamp(50px, 8vw, 100px)`, `aria-hidden="true"`)
   - Wave positioned absolute at `bottom: -1px` to seamlessly bridge hero into page content with no visible seam
   - Content z-index layering: image (0), overlay (1), text content (2), wave (3)
-  - All subpages use hero images: apartments listing, gallery, getting here, FAQ, about hosts, local guide, why Pasman, contact, privacy policy, hrana, aktivnosti, plaze, zdrelac
+  - All subpages use hero images: apartments listing, gallery, getting here, FAQ, about hosts, local guide, contact, privacy policy, hrana, aktivnosti, plaze
   - **Imagery authenticity:** Subpage hero photos must depict Croatian/Adriatic scenes relevant to the page topic. No Greek islands (Santorini), no tropical resorts, no generic Mediterranean. Each page uses a unique hero image (no duplicates across pages).
   - **Image source:** All subpage hero photos are real island/Croatian images stored in R2 and served via `/api/img/{key}` Worker route (REQ-PERF-1).
   - `prefers-reduced-motion`: Ken Burns animation disabled

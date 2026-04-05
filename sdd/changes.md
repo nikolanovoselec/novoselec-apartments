@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-04-05 - Revision 71: Stale spec cleanup (dead translation keys + seed notes)
+
+Synced spec with cleanup commit removing dead `nav.zdrelac` and `zdrelac.title` translation keys, deleting stale seed notes (`content-encyclopedia.md`, `missed-requirements.md`, `session-summary-2026-04-03.md`), and fixing o-nama page entry lookup robustness.
+
+### Stale content removed
+- **REQ-SEO-4** (Sitemap): Acceptance criteria page list still included `zdrelac` and `zasto-pasman` despite both pages being deleted in revision 70. Removed.
+- **REQ-VD-12** (Subpage Heroes): Hero image page list still included `zdrelac`. Removed. Also removed `why Pasman` (page deprecated in revision 70).
+- **REQ-CMS-6** (Preloaded Content): Acceptance criteria still referenced `seed/seed.json` and `POST /api/admin/seed` endpoint, both deleted in earlier commits. Updated to reflect D1 SQL migration seeding model. Verification criteria updated accordingly. Status note about stale seed.json removed.
+
 ## 2026-04-05 - Revision 70: Content consolidation + CMS collection restructure
 
 Severe content overlap resolved: Ždrelac village page merged into Local Guide (vodic) as first 4 sections. Why Pašman standalone page deprecated (homepage section sufficient). Kornati/Telašćica shortened to teaser in aktivnosti (full content in vodic/izleti). CMS restructured from single overloaded `ec_editorial` collection to dedicated collections per page (vodic, hrana, aktivnosti, plaze, dolazak, about). Dead collections deleted (guide, posts, pages). Navigation reduced from 6 to 5 items.
