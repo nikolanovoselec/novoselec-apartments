@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-04-05 - Subpixel gap fixes, spacing reductions, dolazak wave (63c07db)
+
+Wave SVG transition added to the Getting Here (dolazak) page's dark "address" section, creating an organic light-to-dark transition matching the wave pattern used elsewhere on the site. Homepage spacing reduced (tighter gaps between sections). Subpixel gap fixes (margin-top: -1px) on homepage CTA and dolazak dark section.
+
+### AC updated
+- **REQ-ED-2:** Added wave SVG divider documentation to the address section acceptance criterion.
+- **REQ-VD-9:** Added "Editorial section waves" bullet documenting the dolazak page wave placement.
+
+### No status changes
+- REQ-ED-2, REQ-VD-9 remain Implemented (visual refinement and new wave placement).
+
+---
+
 ## 2026-04-05 - Add horizontal padding to all collage strips (505b26f)
 
 All collage and image strip containers (homepage collage, apartments listing collage, gallery strips, editorial strips in global CSS) gain responsive horizontal padding `clamp(1.25rem, 4vw, 3rem)`. This ensures 16px rounded-corner images have breathing room from viewport edges instead of touching the screen sides.
