@@ -1,5 +1,19 @@
 # Changelog
 
+## 2026-04-05 - Spec review: love-letter content rewrite (7bdfa5f)
+
+Commit 7bdfa5f rebranded the guide page and homepage guide card from informational to love-letter tone. Guide page title changed from "Vodič po Pašmanu" / "Pašman Local Guide" to "Otok našim očima" / "The Island Through Our Eyes" in all 4 locales. Homepage guide card subtitle changed from geographic listing ("Ždrelac, Pašman, Ugljan and surroundings") to poetic ("Pašman, Ugljan, and that small stretch of sea between them"). Beaches page intro rewritten from short Ždrelac-focused sentence to longer love-letter covering both Pašman and Ugljan.
+
+### Requirements updated
+- **REQ-SF-5** (Why Pašman + Ždrelac Section): Guide card subtitle updated from "Ždrelac, Pašman, Ugljan and surroundings" to poetic description evoking the two islands and the sea between them.
+- **REQ-ED-4** (Local Guide): Added page title rebrand note -- from informational to love-letter tone across all 4 locales.
+- **REQ-ED-10** (Beaches Detail Page): Updated intro paragraph description to note love-letter tone covering both Pašman and Ugljan, not just Ždrelac.
+
+### No status changes
+All affected requirements remain Implemented.
+
+---
+
 ## 2026-04-05 - Spec review: fix stale mobile subtitle criterion, stale commit hash
 
 Spec reviewer pass after 0756148. Two fixes: (1) REQ-SF-1 mobile criterion said "subtitle uses smaller font size" but the mobile font-size override was removed in f51df85 (subtitle is now 11px at all breakpoints) -- updated to reflect this. (2) Changelog entry for gallery bottom padding referenced non-existent commit 92655fb -- corrected to f51df85.

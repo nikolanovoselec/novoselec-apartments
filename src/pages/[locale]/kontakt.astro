@@ -13,10 +13,10 @@ const title: Record<Locale, string> = {
 };
 
 const labels: Record<Locale, Record<string, string>> = {
-  hr: { name: "Ime i prezime", email: "Email", phone: "Telefon", dates: "Željeni datumi", guests: "Broj gostiju", message: "Poruka", send: "Pošaljite upit", sending: "Šaljem...", success: "Hvala! Vaš upit je uspješno poslan.", error: "Nešto je pošlo po krivu. Pokušajte ponovo.", gdpr: `Pristajem na obradu osobnih podataka prema <a href="/${locale}/privatnost">politici privatnosti</a>.` },
-  de: { name: "Vollständiger Name", email: "E-Mail", phone: "Telefon", dates: "Gewünschte Daten", guests: "Anzahl Gäste", message: "Nachricht", send: "Anfrage senden", sending: "Wird gesendet...", success: "Vielen Dank! Ihre Anfrage wurde erfolgreich gesendet.", error: "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.", gdpr: `Ich stimme der Verarbeitung meiner Daten gemäß der <a href="/${locale}/privatnost">Datenschutzrichtlinie</a> zu.` },
-  sl: { name: "Ime in priimek", email: "E-pošta", phone: "Telefon", dates: "Želeni datumi", guests: "Število gostov", message: "Sporočilo", send: "Pošljite povpraševanje", sending: "Pošiljam...", success: "Hvala! Vaše povpraševanje je bilo uspešno poslano.", error: "Nekaj je šlo narobe. Poskusite znova.", gdpr: `Soglašam z obdelavo osebnih podatkov v skladu s <a href="/${locale}/privatnost">politiko zasebnosti</a>.` },
-  en: { name: "Full name", email: "Email", phone: "Phone", dates: "Preferred dates", guests: "Number of guests", message: "Message", send: "Send inquiry", sending: "Sending...", success: "Thank you! Your inquiry has been sent successfully.", error: "Something went wrong. Please try again.", gdpr: `I consent to the processing of my personal data per the <a href="/${locale}/privatnost">privacy policy</a>.` },
+  hr: { name: "Ime i prezime", email: "Email", phone: "Telefon", dates: "Željeni termin", guests: "Broj gostiju", message: "Poruka", send: "Pošaljite upit", sending: "Šaljem...", success: "Upit poslan! Javit ćemo vam se u roku od 2 sata.", error: "Greška pri slanju. Pokušajte ponovno.", gdpr: `Pristajem na obradu osobnih podataka prema <a href="/${locale}/privatnost">politici privatnosti</a>.` },
+  de: { name: "Vor- und Nachname", email: "E-Mail", phone: "Telefon", dates: "Gewünschter Zeitraum", guests: "Anzahl der Gäste", message: "Nachricht", send: "Anfrage senden", sending: "Wird gesendet…", success: "Anfrage gesendet! Wir melden uns innerhalb von 2 Stunden.", error: "Fehler beim Senden. Bitte versuchen Sie es erneut.", gdpr: `Ich stimme der Verarbeitung meiner personenbezogenen Daten gemäß der <a href="/${locale}/privatnost">Datenschutzerklärung</a> zu.` },
+  sl: { name: "Ime in priimek", email: "E-pošta", phone: "Telefon", dates: "Želeni termin", guests: "Število gostov", message: "Sporočilo", send: "Pošlji povpraševanje", sending: "Pošiljam…", success: "Povpraševanje poslano! Javimo se v roku 2 ur.", error: "Napaka pri pošiljanju. Poskusite znova.", gdpr: `Strinjam se z obdelavo osebnih podatkov v skladu s <a href="/${locale}/privatnost">politiko zasebnosti</a>.` },
+  en: { name: "Full name", email: "Email", phone: "Phone", dates: "Preferred dates", guests: "Number of guests", message: "Message", send: "Send inquiry", sending: "Sending…", success: "Inquiry sent! We'll get back to you within 2 hours.", error: "Error sending. Please try again.", gdpr: `I agree to the processing of my personal data in line with the <a href="/${locale}/privatnost">privacy policy</a>.` },
 };
 
 const l = labels[typedLocale];
@@ -29,12 +29,12 @@ const l = labels[typedLocale];
     <div class="container">
       <div class="contact-layout">
         <div class="contact-info">
-          <h2>{typedLocale === "hr" ? "Javite nam se" : typedLocale === "de" ? "Kontaktieren Sie uns" : typedLocale === "sl" ? "Pišite nam" : "Get in touch"}</h2>
+          <h2>{typedLocale === "hr" ? "Javite nam se" : typedLocale === "de" ? "Meldet euch bei uns" : typedLocale === "sl" ? "Pišite nam" : "Get in touch"}</h2>
           <p class="text-lead" style="margin-top: var(--space-md);">
             {typedLocale === "hr" ? "Odgovaramo u roku od 2 sata. Pišite nam za bilo kakvo pitanje o apartmanima, dostupnosti ili otoku." :
-             typedLocale === "de" ? "Wir antworten innerhalb von 2 Stunden. Schreiben Sie uns bei Fragen zu den Apartments, Verfügbarkeit oder der Insel." :
-             typedLocale === "sl" ? "Odgovorimo v 2 urah. Pišite nam za vprašanja o apartmajih, razpoložljivosti ali otoku." :
-             "We respond within 2 hours. Write to us about apartments, availability, or the island."}
+             typedLocale === "de" ? "Wir antworten in der Regel innerhalb von 2 Stunden. Schreibt uns gern bei Fragen zu den Apartments, zur Verfügbarkeit oder zur Insel." :
+             typedLocale === "sl" ? "Odgovorimo v roku 2 ur. Pišite nam za karkoli glede apartmajev, prostih terminov ali otoka." :
+             "We usually reply within 2 hours. Message us with any question about the apartments, availability, or the island."}
           </p>
         </div>
 
