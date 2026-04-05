@@ -46,7 +46,7 @@ const photosRight = allPhotos.slice(mid);
   </section>
 
   {/* Both collages at bottom — one above the other */}
-  <div style="padding-bottom: var(--space-section);">
+  <div class="section--footer-clear" style="padding-top: 0;">
     {photosLeft.length > 1 && (
       <div class="editorial-strip">
         <MiniCollage images={photosLeft} speed={Math.max(35, photosLeft.length * 8)} />

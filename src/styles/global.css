@@ -278,6 +278,11 @@ p {
   margin-top: -2px;
 }
 
+/* Extra bottom padding for last section before footer wave */
+.section--footer-clear {
+  padding-bottom: calc(var(--space-section) + clamp(50px, 8vw, 100px));
+}
+
 .section--alt {
   background:
     radial-gradient(1200px 600px at 20% 10%, var(--tint-terracotta), transparent 60%),
