@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-04-05 - Revision 72: Homepage simplification (duo-image removed, guide card renamed)
+
+Homepage apartments section simplified from split-section with duo-image photo grid to centered text-only layout. "Vodic" CTA button removed from Why Pasman section. Zdrelac village card renamed to Guide card with localized label and regional subtitle.
+
+### Requirements updated
+- **REQ-SF-5** (Why Pasman + Zdrelac Section): Three acceptance criteria changes: (1) Removed Vodic CTA button from Why Pasman selling section — editorial navigation now handled solely by triptych and guide card. (2) Apartments preview changed from split-section + duo-image grid to centered text-only layout with ghost CTA. (3) Zdrelac village card renamed to Guide card — overlay label changed from hardcoded "Zdrelac" to localized "Guide" (hr: Vodic, de: Reisefuhrer, sl: Vodnik, en: Guide), subtitle changed from CMS-sourced zdrelac section title to hardcoded regional coverage description ("Zdrelac, Pasman, Ugljan and surroundings").
+- **REQ-VD-6** (Photo Frame Treatments): Duo-image treatment struck through — no longer used on homepage after apartments preview simplification.
+
+---
+
 ## 2026-04-05 - Revision 71: Stale spec cleanup (dead translation keys + seed notes)
 
 Synced spec with cleanup commit removing dead `nav.zdrelac` and `zdrelac.title` translation keys, deleting stale seed notes (`content-encyclopedia.md`, `missed-requirements.md`, `session-summary-2026-04-03.md`), and fixing o-nama page entry lookup robustness.

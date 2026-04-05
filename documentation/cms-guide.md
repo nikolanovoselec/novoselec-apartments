@@ -90,7 +90,7 @@ Each editorial page has its own dedicated CMS collection. There is no shared `pa
 | `dolazak` | Getting Here (`/dolazak`) | 3 sections; CMS-only |
 | `about` | About Us (`/o-nama`) | Single entry per locale; `body` field is the host story; CMS-only |
 
-The `editorial` collection is now used only for homepage section overrides (section keys: `why-pasman`, `zdrelac`, `apartments`, `cta`, `collage`). The `/zdrelac` and `/zasto-pasman` standalone pages have been removed — their content lives in the `vodic` collection and the homepage respectively.
+The `editorial` collection is now used only for homepage section overrides (section keys: `why-pasman`, `apartments`, `cta`, `collage`). The `/zdrelac` and `/zasto-pasman` standalone pages have been removed — their content lives in the `vodic` collection and the homepage respectively.
 
 ### Emdash Entry Requirements
 

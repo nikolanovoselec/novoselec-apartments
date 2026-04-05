@@ -31,7 +31,6 @@ const aptsSection = getSection("apartments");
 const ctaSection = getSection("cta");
 const collageSection = getSection("collage");
 
-
 const collagePhotos = parsePhotoArray(collageSection?.data.body);
 
 // Fallback content when CMS not yet seeded
@@ -332,15 +331,7 @@ const oliveOilLabel: Record<Locale, string> = {
       gap: var(--space-3xl);
       align-items: start;
     }
-    .split-section--reverse {
-      grid-template-columns: 1.2fr 1fr;
-    }
-    .split-section--reverse .split-section__left {
-      order: 1;
-    }
-    .split-section--reverse .split-section__right {
-      order: 2;
-    }
+
   }
 
   .split-section__left h2 {
@@ -405,7 +396,6 @@ const oliveOilLabel: Record<Locale, string> = {
   }
 
   
-
 
   /* ============================================================
      TESTIMONIALS - with subtle gradient background
