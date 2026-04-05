@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-04-05 - Gallery caption styling updated to base font size
+
+MiniCollage caption overlay styling changed from extra-small font (`font-size-xs`) to base font size (`font-size-base`) to match the gallery intro text. Padding increased from `space-sm/space-md` to `space-md/space-lg`. Letter-spacing (0.02em) removed in favor of `line-height: 1.6`. Gradient overlay opacity increased from 0.45 to 0.5 for slightly better contrast.
+
+### Requirements updated
+- **REQ-VD-15** (Exterior Photo Collage): `showCaptions` acceptance criterion updated — caption font size changed from "extra-small" to "base font size", letter-spacing replaced with line-height 1.6, padding specified as `var(--space-md) var(--space-lg)`, gradient background opacity updated from 0.45 to 0.5.
+
+---
+
 ## 2026-04-05 - Move apartment listing wave from collage bottom to CTA section top
 
 The apartment listing page (`/[locale]/apartmani/`) wave divider between the exterior photo collage and the inquiry CTA section was relocated. Previously an SVG at the bottom of the collage strip, it is now an inline SVG positioned absolute at the top of the CTA `<section>`. Fill remains navy (`var(--color-navy)`) with `scaleY(-1)` flip. The CTA section gains `position: relative` and `padding-top: clamp(80px, 12vw, 120px)` to accommodate the wave.
