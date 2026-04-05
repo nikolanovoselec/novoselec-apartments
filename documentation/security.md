@@ -84,7 +84,7 @@ All form inputs are sanitized before processing or storage. Sanitization functio
 
 ## Media Path Validation
 
-`GET /media/[...key]` rejects any key containing `..` or starting with `/` with a `400 Invalid key` response before the R2 lookup runs. This prevents path traversal attempts against the R2 bucket.
+`GET /api/img/[key]` rejects any key containing `..` or starting with `/` with a `400 Invalid key` response before the R2 lookup runs. This prevents path traversal attempts against the R2 bucket. The previous `/media/[...key]` route has been removed; the validation logic moved with it to `src/pages/api/img/[key].ts`.
 
 ## Schema Validation
 
