@@ -283,7 +283,7 @@ Color system, typography, scroll animations, micro-interactions, and Croatian vi
 - **Priority:** P1
 - **Dependencies:** REQ-VD-12
 - **Verification:** Audit all image URLs — no duplicates, no non-Croatian imagery
-- **Status:** Implemented — all pages use unique real island photos stored in R2 with UUID keys, served via `/api/img/{key}`; 135+ photos total (gallery page alone uses 135); zero Pexels URLs, zero stock photos, zero local `/photos/` paths remain; no non-Croatian imagery present
+- **Status:** Implemented — all pages use unique real island photos stored in R2 with UUID keys, served via `/api/img/{key}`; 139+ photos total (gallery page alone uses 139); zero Pexels URLs, zero stock photos, zero local `/photos/` paths remain; no non-Croatian imagery present
 
 ### REQ-VD-15: Exterior Photo Collage
 
@@ -301,7 +301,7 @@ Color system, typography, scroll animations, micro-interactions, and Croatian vi
   - Accessibility: `aria-roledescription="carousel"`, duplicate images get `aria-hidden="true"`
   - Photos sourced from CMS editorial entry (`page_key=homepage`, `section_key=collage`, `body` field containing JSON array of `{src, alt}` objects). JSON is validated at render time: non-array values are discarded, and array items missing `src` or `alt` string fields are filtered out.
   - Owner manages collage by editing the gallery array in Emdash admin — add/remove photos without code changes
-  - Placed on homepage in the apartments section (`section--dark`), after the text content. Also reused on: (1) apartment listing page (`section--dark`, exterior photos from same CMS entry, 35s speed), (2) apartment detail page (interior photos from `gallery` CMS field, 35s speed), (3) editorial detail pages (aktivnosti, dolazak, plaze, vodic) where each CMS section with photos renders a MiniCollage strip at 35s speed, (4) Food & Drink page (hrana) where a single gallery is split into two MiniCollage strips scrolling in opposite directions (default left, `reverse` right) sandwiching the description text, and (5) Gallery page (galerija, REQ-SF-8) where 135 photos are split into strips of 10 with alternating scroll directions and deterministic locale-based shuffle order. All MiniCollage instances use a minimum 35s loop duration site-wide (actual speed: `max(35, photoCount * 8)`).
+  - Placed on homepage in the apartments section (`section--dark`), after the text content. Also reused on: (1) apartment listing page (`section--dark`, exterior photos from same CMS entry, 35s speed), (2) apartment detail page (interior photos from `gallery` CMS field, 35s speed), (3) editorial detail pages (aktivnosti, dolazak, plaze, vodic) where each CMS section with photos renders a MiniCollage strip at 35s speed, (4) Food & Drink page (hrana) where a single gallery is split into two MiniCollage strips scrolling in opposite directions (default left, `reverse` right) sandwiching the description text, and (5) Gallery page (galerija, REQ-SF-8) where 139 photos are split into strips of 10 (14 strips total) with alternating scroll directions and deterministic locale-based shuffle order. All MiniCollage instances use a minimum 35s loop duration site-wide (actual speed: `max(35, photoCount * 8)`).
 - **Constraints:** CON-PERF, CON-A11Y
 - **Priority:** P2
 - **Dependencies:** REQ-VD-14, REQ-SF-1

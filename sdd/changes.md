@@ -1,13 +1,13 @@
 # Changelog
 
-## 2026-04-05 - Revision 82: Gallery page rewritten as 135-photo scrolling collage strips
+## 2026-04-05 - Revision 82: Gallery page rewritten as 139-photo scrolling collage strips
 
-Gallery page (`galerija`) completely rewritten from an 18-photo static masonry grid to 135 photos displayed as horizontally scrolling MiniCollage strips with alternating directions. Photos are deterministically shuffled per locale so each language sees a different arrangement. 50 poetic Croatian captions rotate across photos as alt text. HeroSimple now accepts an `intro` prop for introductory text below the title, first used on the gallery page.
+Gallery page (`galerija`) completely rewritten from an 18-photo static masonry grid to 139 photos (124 original + 15 added) displayed as horizontally scrolling MiniCollage strips with alternating directions (14 strips: 13 of 10 photos + 1 of 9). Photos are deterministically shuffled per locale so each language sees a different arrangement. 50 poetic Croatian captions rotate across photos as alt text. HeroSimple now accepts an `intro` prop for introductory text below the title, first used on the gallery page.
 
 ### Requirements updated
-- **REQ-SF-8** (Gallery Page): Acceptance criteria rewritten to reflect new implementation -- scrolling collage strips replacing static masonry grid. Dependencies updated from None to REQ-VD-15, REQ-VD-12. Status updated to reflect 135 photos, poetic captions, deterministic shuffle, and speed formula.
+- **REQ-SF-8** (Gallery Page): Acceptance criteria rewritten to reflect new implementation -- scrolling collage strips replacing static masonry grid. Dependencies updated from None to REQ-VD-15, REQ-VD-12. Status updated to reflect 139 photos, poetic captions, deterministic shuffle, and speed formula.
 - **REQ-VD-12** (Subpage Hero Pattern): Added `intro` prop to acceptance criteria -- optional introductory paragraph rendered below the title.
-- **REQ-VD-14** (Unique Imagery Per Page): Photo count updated from "68 photos total" to "135+ photos total" reflecting the expanded gallery.
+- **REQ-VD-14** (Unique Imagery Per Page): Photo count updated from "68 photos total" to "139+ photos total" reflecting the expanded gallery.
 - **REQ-VD-15** (Exterior Photo Collage / MiniCollage): Added gallery page (galerija) as consumer #5 in the "Placed on" list.
 
 ### Glossary updated

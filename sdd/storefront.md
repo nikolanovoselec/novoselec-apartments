@@ -156,14 +156,14 @@ The homepage and visual shell — hero, navigation, footer, language switcher, a
 - **Intent:** Showcase the property and destination through a curated photo collection
 - **Applies To:** Visitor
 - **Acceptance Criteria:**
-  - **Current implementation:** Standalone page at `/{locale}/galerija` with `HeroSimple` photo-backed header (REQ-VD-12), locale-aware title, and a locale-specific intro sentence. 135 island photos (excluding apartment interiors) rendered as alternating infinite-scroll `MiniCollage` strips — photos split into groups of 10, each group becoming one strip; strips alternate scroll direction (`reverse` prop on odd-indexed strips). Photo order is deterministically shuffled per locale using the first character of the locale as a seed (XOR with the UUID's leading 32-bit integer), so each language version presents a different visual sequence. Poetic Croatian captions from a 50-item list are assigned to photos by rotating index (`i % captions.length`). All images served from R2 via `/api/img/{key}` with UUID keys — real island photos, zero stock photography.
+  - **Current implementation:** Standalone page at `/{locale}/galerija` with `HeroSimple` photo-backed header (REQ-VD-12), locale-aware title, and a locale-specific intro sentence. 139 island photos (excluding apartment interiors) rendered as alternating infinite-scroll `MiniCollage` strips — photos split into groups of 10, each group becoming one strip (14 strips total: 13 full strips of 10 + 1 strip of 9); strips alternate scroll direction (`reverse` prop on odd-indexed strips). Photo order is deterministically shuffled per locale using the first character of the locale as a seed (XOR with the UUID's leading 32-bit integer), so each language version presents a different visual sequence. Poetic Croatian captions from a 50-item list are assigned to photos by rotating index (`i % captions.length`). All images served from R2 via `/api/img/{key}` with UUID keys — real island photos, zero stock photography.
   - Accessible from primary navigation in all locales
   - Linked from navigation as top-level page (between Ždrelac and Getting Here)
 - **Constraints:** CON-PERF, CON-I18N, CON-A11Y
 - **Priority:** P1
 - **Dependencies:** REQ-VD-15, REQ-VD-12
 - **Verification:** Visual review + responsive check on mobile/desktop. Verify strips scroll in alternating directions. Verify different locale produces different photo order.
-- **Status:** Implemented — 135 real island photos in alternating scrolling collage strips; locale-specific intro text in all 4 locales; locale-seeded deterministic shuffle for per-language visual variety; 50 poetic Croatian captions (not localized) assigned by rotation; speed per strip is `max(35, photoCount * 8)` seconds; zero stock photos
+- **Status:** Implemented — 139 real island photos in alternating scrolling collage strips (14 strips); locale-specific intro text in all 4 locales; locale-seeded deterministic shuffle for per-language visual variety; 50 poetic Croatian captions (not localized) assigned by rotation; speed per strip is `max(35, photoCount * 8)` seconds; zero stock photos
 
 ## Out of Scope
 

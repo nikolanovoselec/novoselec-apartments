@@ -8,9 +8,10 @@ interface Props {
   images: Array<{ src: string; alt: string }>;
   speed?: number;
   reverse?: boolean;
+  showCaptions?: boolean;
 }
 
-const { images, speed = 20, reverse = false } = Astro.props;
+const { images, speed = 20, reverse = false, showCaptions = false } = Astro.props;
 const hasMultiple = images.length > 1;
 ---
 
@@ -20,11 +21,13 @@ const hasMultiple = images.length > 1;
       {images.map((img) => (
         <div class="mini-collage__item">
           <img src={img.src} alt={img.alt} width="400" height="300" loading="lazy" />
+          {showCaptions && img.alt && <span class="mini-collage__caption">{img.alt}</span>}
         </div>
       ))}
       {images.map((img) => (
         <div class="mini-collage__item" aria-hidden="true">
           <img src={img.src} alt="" width="400" height="300" loading="lazy" />
+          {showCaptions && img.alt && <span class="mini-collage__caption">{img.alt}</span>}
         </div>
       ))}
     </div>
@@ -75,6 +78,16 @@ const hasMultiple = images.length > 1;
     width: auto;
     object-fit: cover;
     display: block;
+  }
+
+  .mini-collage__caption {
+    display: block;
+    padding: var(--space-xs) var(--space-sm);
+    font-size: var(--font-size-xs);
+    color: var(--color-text-light);
+    text-align: center;
+    font-style: italic;
+    white-space: nowrap;
   }
 
   @media (min-width: 768px) {

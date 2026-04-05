@@ -247,7 +247,7 @@ for (let i = 0; i < galleryItems.length; i += 10) {
   <div class="gallery-collages">
     {strips.map((strip) => (
       <div class="gallery-strip">
-        <MiniCollage images={strip.images} speed={Math.max(35, strip.images.length * 8)} reverse={strip.reverse} />
+        <MiniCollage images={strip.images} speed={Math.max(35, strip.images.length * 8)} reverse={strip.reverse} showCaptions />
       </div>
     ))}
   </div>
@@ -255,7 +255,8 @@ for (let i = 0; i < galleryItems.length; i += 10) {
 
 <style>
   .gallery-collages {
-    padding-block: var(--space-xl);
+    padding-top: var(--space-xl);
+    padding-bottom: var(--space-3xl);
   }
 
   .gallery-strip {
