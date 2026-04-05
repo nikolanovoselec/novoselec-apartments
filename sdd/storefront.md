@@ -27,7 +27,7 @@ The homepage and visual shell — hero, navigation, footer, language switcher, a
   - Scroll indicator pulses at bottom (CSS keyframe animation)
   - Title and subtitle fade up with staggered CSS animation (0.3s and 0.6s delay)
   - On `prefers-reduced-motion`: all animations disabled, content immediately visible
-  - Mobile: title scales down via clamp, subtitle uses smaller font size
+  - Mobile: title scales down via clamp (subtitle remains 11px at all breakpoints)
   - **Wave at bottom of hero:** Inline SVG wave divider at the bottom edge of the hero section (same pattern as REQ-VD-9: organic bezier path, fill `#F8F5EF` to match page background below, responsive height, `aria-hidden="true"`, positioned absolute at `bottom: -1px`). Creates organic transition from hero photo into the "Why Pašman" section — no hard edge.
   - **Imagery authenticity:** All hero carousel photos must depict the Croatian Adriatic coast, Pašman island, or Dalmatian architecture. No tropical resorts, Greek islands (Santorini blue domes), or generic Mediterranean stock. Each carousel image must be unique (no photo reused elsewhere on the site).
   - **Image source:** All hero carousel photos are real island images stored in R2 and served via `/api/img/{key}` Worker route (REQ-PERF-1).

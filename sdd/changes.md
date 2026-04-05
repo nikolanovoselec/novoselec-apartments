@@ -1,5 +1,25 @@
 # Changelog
 
+## 2026-04-05 - Spec review: fix stale mobile subtitle criterion, stale commit hash
+
+Spec reviewer pass after 0756148. Two fixes: (1) REQ-SF-1 mobile criterion said "subtitle uses smaller font size" but the mobile font-size override was removed in f51df85 (subtitle is now 11px at all breakpoints) -- updated to reflect this. (2) Changelog entry for gallery bottom padding referenced non-existent commit 92655fb -- corrected to f51df85.
+
+### Requirements updated
+- **REQ-SF-1** (Hero Section): Mobile criterion updated from "subtitle uses smaller font size" to "subtitle remains 11px at all breakpoints."
+
+### Changelog fixed
+- Gallery bottom padding entry: commit hash corrected from 92655fb to f51df85.
+
+---
+
+## 2026-04-05 - Fix gallery bottom padding after footer-clear removal (f51df85)
+
+After removing `.section--footer-clear` from the gallery page (d7ebc94), the gallery collage container lacked bottom padding, allowing the footer wave to clip photo captions. Added explicit bottom padding to the gallery container to restore spacing. Commit also removed a redundant mobile media query override for `.hero-subtitle` (was setting the same value as the base rule). No spec requirement changes needed for gallery padding -- REQ-SF-8 acceptance criteria and REQ-VD-9 footer-clear bullet already correctly describe the gallery as using standard section padding.
+
+### No requirements changed
+
+---
+
 ## 2026-04-05 - Fix nav CTA button, language picker chevron, hero subtitle styling (150b594)
 
 Three CSS bug fixes: (1) nav INQUIRE button was invisible when scrolled (navy text on navy background) -- fixed to white text on navy background, restoring the "always visible" CTA criterion; (2) language picker chevron barely visible over hero -- increased stroke-width and added explicit opacity; (3) hero subtitle styling aligned with `.text-label` pattern (11px, 600 weight, 0.2em tracking, rgba opacity) for visual consistency with the location label above it.
