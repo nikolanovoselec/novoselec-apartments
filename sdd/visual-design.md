@@ -292,6 +292,7 @@ Color system, typography, scroll animations, micro-interactions, and Croatian vi
 - **Acceptance Criteria:**
   - Pure CSS infinite horizontal scroll (marquee technique) — no JavaScript
   - `reverse` prop: when set, animation plays in reverse direction (`animation-direction: reverse`), scrolling right-to-left instead of the default left-to-right. Used for two-direction collage pairs (e.g., Food & Drink page, REQ-ED-8).
+  - `showCaptions` prop (default false): when enabled, renders each photo's alt text as an overlay caption positioned absolute at the bottom of the photo. Caption styling: italic, extra-small font, white text at 85% opacity, with a bottom-to-top gradient background (`rgba(0,0,0,0.5)` to transparent) for legibility over any image. `pointer-events: none` so the overlay does not interfere with hover pause. Currently enabled only on the gallery page (REQ-SF-8) to display poetic Croatian captions over photos.
   - `@keyframes scroll-collage` from `translateX(0)` to `translateX(-50%)` with duplicated image track
   - Image height: 250px mobile, 350px desktop
   - 16px border-radius, `var(--space-md)` gap between images

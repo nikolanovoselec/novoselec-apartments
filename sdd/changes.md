@@ -1,5 +1,19 @@
 # Changelog
 
+## 2026-04-05 - Re-add showCaptions as photo overlay (not below-image)
+
+`showCaptions` prop re-added to `MiniCollage` with a different rendering approach. Previously (Revision 83), captions were rendered as text below each photo (outside the image frame). They are now rendered as an absolute-positioned overlay at the bottom of each photo — italic white text at 85% opacity over a bottom-up dark gradient (`rgba(0,0,0,0.5)` to transparent), `pointer-events: none`. The `.mini-collage__item` container gains `position: relative` to enable the overlay. The gallery page passes `showCaptions` to all strips so the 50 poetic Croatian captions are again visible to sighted visitors, while also serving as alt text.
+
+### Requirements updated
+- **REQ-VD-15** (Exterior Photo Collage / MiniCollage): `showCaptions` prop re-added to acceptance criteria with overlay positioning details (absolute bottom, gradient background, pointer-events none).
+- **REQ-SF-8** (Gallery Page): Current implementation updated — captions now rendered as visible overlay text via `showCaptions` (not alt-text-only).
+
+### Glossary updated
+- **Poetic Captions**: Updated to reflect overlay rendering (italic white text over bottom-edge gradient).
+- **MiniCollage**: Added `showCaptions` to prop list with overlay description.
+
+---
+
 ## 2026-04-05 - Revert showCaptions and navy gradient CTA
 
 The `showCaptions` prop added in Revision 83 has been reverted. The prop, caption rendering template, and `.mini-collage__caption` CSS were all removed from the MiniCollage component. Gallery page no longer passes `showCaptions`. Poetic Croatian captions remain in the gallery page source and are still assigned as alt text, but are no longer rendered as visible text below photos.
