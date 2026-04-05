@@ -7,6 +7,7 @@ Beaches page (`plaze`) hero and OG image changed from dynamic CMS-first-section-
 ### Requirements updated
 - **REQ-ED-10** (Beaches Detail Page): Added fixed hero image detail — hero and OG image now use a fixed R2 photo (Galovac aerial), not derived from CMS entry order.
 - **REQ-VD-14** (Unique Imagery Per Page): Added triptych-to-page continuity clarification — homepage triptych preview images may intentionally match their target page's hero image for visual continuity.
+- **REQ-ED-8** (Food & Drink Detail Page): Spec reviewer fix — added fixed hero image detail to match code and align with REQ-ED-9/REQ-ED-10 pattern. Hero and OG image use a fixed R2 photo, not derived from CMS.
 
 ---
 

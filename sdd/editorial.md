@@ -145,7 +145,7 @@ Content pages that sell the destination and build emotional connection — Getti
   - ~~Alternating layout: odd sections image-left/text-right, even sections reversed (desktop); single column on mobile~~ — replaced by description-then-collages layout.
   - ~~Images: 4:3 aspect, organic asymmetric border-radius (`20px 4px 20px 4px`) with subtle box-shadow, hover zoom (1.03x)~~ — images now displayed within MiniCollage strips (16px border-radius, 250px/350px height).
   - Scroll-triggered reveal via `data-reveal` on the description section
-  - Hero image must be contextually appropriate (food/dining scene, not Santorini or tropical)
+  - Hero image must be contextually appropriate (food/dining scene, not Santorini or tropical). Hero and OG image use a fixed R2 photo, not derived from CMS entry order.
   - Linked from homepage triptych (REQ-SF-5)
 - **Constraints:** CON-I18N, CON-PERF
 - **Priority:** P1
