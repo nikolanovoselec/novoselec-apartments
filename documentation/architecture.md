@@ -232,7 +232,7 @@ The entire visual language lives in `src/styles/global.css` as CSS custom proper
 | `.img-padded` | Image wrapper with `--space-md` padding; child `<img>` gets `border-radius: 16px` and `--shadow-lg` |
 | `.animate-breathe` | Applies the `breathe` keyframe — subtle 1.02× scale pulse over 6 s, infinite |
 | `.animate-float` | Applies the `float` keyframe — 8px vertical translation over 5 s, infinite |
-| `.gradient-warm` | Section background — 135° diagonal from terracotta-tinted to azure-tinted at 5% opacity each. Used for editorial sections; removed from the homepage experience triptych as of 2026-04-05 |
+| `.gradient-warm` | Section background — 135° diagonal from terracotta-tinted to azure-tinted at 5% opacity each. Used for editorial sections. |
 | `.gradient-azure` | Section background — top-to-transparent azure wash at 3% opacity |
 | `.gradient-sunset` | Section background — cream → sand → cream horizontal sweep |
 | `.image-hover-zoom` | Wrapper that scales the child `<img>` to 1.05× on hover with a slow ease — used on apartment cards and gallery items |
