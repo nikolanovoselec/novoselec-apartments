@@ -166,7 +166,7 @@ const oliveOilLabel: Record<Locale, string> = {
       </p>
     </div>
 
-    <div class="container text-center" style="padding-block: var(--space-2xl);">
+    <div class="container text-center" style="padding-block: var(--space-lg);">
       <a href={`/${typedLocale}/apartmani`} class="btn btn--ghost">
         {t(typedLocale, "nav.apartments")}
       </a>
@@ -174,7 +174,7 @@ const oliveOilLabel: Record<Locale, string> = {
 
     {/* Exterior photo collage — CMS managed */}
     {collagePhotos.length > 0 && (
-      <div style="padding-block: var(--space-3xl);">
+      <div style="padding-block: var(--space-xl);">
         <ScrollCollage images={collagePhotos} />
       </div>
     )}
@@ -207,7 +207,7 @@ const oliveOilLabel: Record<Locale, string> = {
   )}
 
   {/* Experience section - what to do on the island */}
-  <section class="section gradient-warm" data-reveal style="padding-bottom: 0;">
+  <section class="section gradient-warm" data-reveal style="padding-bottom: var(--space-2xl);">
     <div class="container">
       <p class="text-label text-center">{t(typedLocale, "homepage.experiences")}</p>
       <h2 class="text-center" style="margin-top: var(--space-md); margin-bottom: var(--space-2xl);">
@@ -229,7 +229,7 @@ const oliveOilLabel: Record<Locale, string> = {
           </div>
         </a>
         <a href={`/${typedLocale}/plaze`} class="triptych__item">
-          <img src="/api/img/c9ccb3d6-c79c-4bdc-bda9-9688894826c7" alt="Kristalno čista plaža s brodovima na otoku Pašmanu" width="600" height="750" loading="lazy" />
+          <img src="/api/img/4c9238fa-0890-44a6-8f35-1ff787a8a27b" alt="Tirkizno more oko otoka Ugljana" width="600" height="750" loading="lazy" />
           <div class="card-overlay">
             <span class="card-overlay__label">{t(typedLocale, "guide.beaches")}</span>
             <span class="card-overlay__title">{t(typedLocale, "homepage.triptych.beachesSubtitle")}</span>

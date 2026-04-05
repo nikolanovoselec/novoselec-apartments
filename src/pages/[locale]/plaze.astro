@@ -30,8 +30,8 @@ const sections = cmsEntries.map((e) => ({
 }));
 ---
 
-<Page title={title[typedLocale]} locale={typedLocale} ogImage={`https://apartmani.novoselec.ch${sections[0]?.image || "/api/img/953b4b07-6c3a-4df1-8358-63a2997e6d24"}`}>
-  <HeroSimple title={title[typedLocale]} intro={intro[typedLocale]} image={sections[0]?.image || "/api/img/953b4b07-6c3a-4df1-8358-63a2997e6d24"} />
+<Page title={title[typedLocale]} locale={typedLocale} ogImage="https://apartmani.novoselec.ch/api/img/4c9238fa-0890-44a6-8f35-1ff787a8a27b">
+  <HeroSimple title={title[typedLocale]} intro={intro[typedLocale]} image="/api/img/4c9238fa-0890-44a6-8f35-1ff787a8a27b" />
 
   {sections.map((section, i) => {
     const photos = section.gallery.length > 0
