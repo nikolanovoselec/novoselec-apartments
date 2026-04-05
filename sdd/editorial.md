@@ -130,8 +130,8 @@ Content pages that sell the destination and build emotional connection — Getti
 - **Constraints:** CON-CMS, CON-I18N, CON-SEO
 - **Priority:** P1
 - **Dependencies:** REQ-CMS-1, REQ-CMS-5, REQ-I18N-4
-- **Verification:** Test accordion, verify structured data
-- **Status:** Implemented
+- **Verification:** Test accordion, verify structured data, verify fallback content matches locale tone conventions (REQ-I18N-6)
+- **Status:** Implemented — hardcoded fallback FAQ entries (used when CMS `faqs` collection is empty) are culturally adapted per locale: DE uses informal "ihr" register, EN uses warm conversational tone, SL uses native Slovenian phrasing. Transport FAQ answers in DE/EN/SL cross-reference the Getting Here page.
 
 ### REQ-ED-8: "Food & Drink" Detail Page
 

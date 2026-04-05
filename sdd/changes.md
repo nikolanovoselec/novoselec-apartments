@@ -1,5 +1,16 @@
 # Changelog
 
+## 2026-04-05 - Deep translation polish: FAQ fallbacks + CMS editorial content (c53ef69)
+
+Commit c53ef69 polished all FAQ fallback strings (DE informal, EN conversational, SL native) and 27 D1 CMS entries across aktivnosti, hrana, dolazak in DE/EN/SL. Croatianisms removed, tone aligned per REQ-I18N-6.
+
+### Requirements updated
+- **REQ-I18N-6** (Cultural Content Adaptation): Status updated — FAQ fallback DE "Sie" holdout in `faq.astro` resolved; remaining formal "Sie" holdouts reduced from three to two (index.astro CMS fallback, 404.astro). SL and EN descriptions refined.
+- **REQ-ED-7** (FAQ): Status expanded — fallback FAQ entries now culturally adapted per locale (DE informal "ihr", EN warm conversational, SL native phrasing). Transport answers cross-reference Getting Here page. Verification criterion added for locale tone.
+- **REQ-CMS-6** (Preloaded Content & Media): Status updated — DE/SL/EN CMS entries now present and polished for `aktivnosti`, `hrana`, and `dolazak` collections. Remaining gaps narrowed to `vodic`, `plaze`, `about`.
+
+---
+
 ## 2026-04-05 - Docs: route rename documentation + DE register consistency (eb5def7, be77a1d, 2c0f53a)
 
 Three commits fixing stale route references in documentation and aligning German register guidance between spec and content guide.
