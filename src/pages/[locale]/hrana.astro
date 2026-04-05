@@ -20,38 +20,42 @@ const intro: Record<Locale, string> = {
   en: "On Pašman and Ugljan, the cuisine is simple and self-assured: quality grilled fish, homemade olive oil, light Dalmatian wine, and a pace of life measured in meals by the sea.",
 };
 
-const cmsEntries = (await getLocalizedCollection("hrana", typedLocale))
-  .sort((a, b) => ((a.data.sort_order as number) ?? 0) - ((b.data.sort_order as number) ?? 0));
+const cmsEntries = await getLocalizedCollection("hrana", typedLocale);
+const entry = cmsEntries[0];
+const sectionTitle = (entry?.data.title as string) ?? title[typedLocale];
+const body = (entry?.data.body as string) ?? "";
+const allPhotos = parsePhotoArray(entry?.data.gallery);
 
-const sections = cmsEntries.map((e) => ({
-  title: (e.data.title as string) ?? "",
-  text: (e.data.body as string) ?? "",
-  image: (e.data.image as string) ?? "",
-  gallery: parsePhotoArray(e.data.gallery),
-}));
+// Split photos into two halves for two collages
+const mid = Math.ceil(allPhotos.length / 2);
+const photosLeft = allPhotos.slice(0, mid);
+const photosRight = allPhotos.slice(mid);
 ---
 
-<Page title={title[typedLocale]} locale={typedLocale} ogImage={`https://apartmani.novoselec.ch${sections[0]?.image || "/api/img/073aa7b8-b7d8-4da9-932d-d39caa24df2a"}`}>
-  <HeroSimple title={title[typedLocale]} intro={intro[typedLocale]} image={sections[0]?.image || "/api/img/073aa7b8-b7d8-4da9-932d-d39caa24df2a"} />
+<Page title={title[typedLocale]} locale={typedLocale} ogImage="https://apartmani.novoselec.ch/api/img/073aa7b8-b7d8-4da9-932d-d39caa24df2a">
+  <HeroSimple title={title[typedLocale]} intro={intro[typedLocale]} image="/api/img/073aa7b8-b7d8-4da9-932d-d39caa24df2a" />
 
-  {sections.map((section, i) => {
-    const photos = section.gallery.length > 0
-      ? section.gallery
-      : section.image ? [{ src: section.image, alt: section.title }] : [];
-    return (
-      <section class:list={["section", { "section--alt": i % 2 === 1 }]} data-reveal>
-        <div class="container">
-          <h2 class="editorial-title">{section.title}</h2>
-        </div>
-        {photos.length > 0 && (
-          <div class="editorial-strip">
-            <MiniCollage images={photos} speed={Math.max(35, photos.length * 8)} />
-          </div>
-        )}
-        <div class="container">
-          <p class="editorial-text">{section.text}</p>
-        </div>
-      </section>
-    );
-  })}
+  {/* First collage — scrolling left */}
+  {photosLeft.length > 1 && (
+    <div class="editorial-strip">
+      <MiniCollage images={photosLeft} speed={Math.max(35, photosLeft.length * 8)} />
+    </div>
+  )}
+
+  {/* Description */}
+  <section class="section" data-reveal>
+    <div class="container">
+      <h2 class="editorial-title">{sectionTitle}</h2>
+    </div>
+    <div class="container">
+      <p class="editorial-text">{body}</p>
+    </div>
+  </section>
+
+  {/* Second collage — scrolling right */}
+  {photosRight.length > 1 && (
+    <div class="editorial-strip">
+      <MiniCollage images={photosRight} speed={Math.max(35, photosRight.length * 8)} reverse />
+    </div>
+  )}
 </Page>

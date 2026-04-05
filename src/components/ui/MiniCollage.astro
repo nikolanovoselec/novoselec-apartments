@@ -7,14 +7,15 @@
 interface Props {
   images: Array<{ src: string; alt: string }>;
   speed?: number;
+  reverse?: boolean;
 }
 
-const { images, speed = 20 } = Astro.props;
+const { images, speed = 20, reverse = false } = Astro.props;
 const hasMultiple = images.length > 1;
 ---
 
 {hasMultiple ? (
-  <div class="mini-collage" role="region" aria-roledescription="carousel" aria-label={images[0]?.alt ?? "Photos"}>
+  <div class:list={["mini-collage", { "mini-collage--reverse": reverse }]} role="region" aria-roledescription="carousel" aria-label={images[0]?.alt ?? "Photos"}>
     <div class="mini-collage__track" style={`animation-duration: ${speed}s;`}>
       {images.map((img) => (
         <div class="mini-collage__item">
@@ -53,6 +54,10 @@ const hasMultiple = images.length > 1;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
     width: max-content;
+  }
+
+  .mini-collage--reverse .mini-collage__track {
+    animation-direction: reverse;
   }
 
   .mini-collage:hover .mini-collage__track {
