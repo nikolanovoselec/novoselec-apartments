@@ -22,20 +22,18 @@ The sitemap is served at `/sitemap.xml` and generated at request time by `src/pa
 |---|---|
 | `/` | Homepage |
 | `/apartmani` | Apartment listing |
-| `/zdrelac` | Ždrelac village |
 | `/galerija` | Gallery |
 | `/hrana` | Food and restaurants guide |
 | `/aktivnosti` | Activities guide |
 | `/plaze` | Beaches guide |
 | `/kontakt` | Contact and inquiry form |
-| `/zasto-pasman` | Why Pašman (editorial) |
 | `/dolazak` | Getting Here (ferry, airport, maps) |
-| `/vodic` | Local Guide (beaches, food, activities) |
+| `/vodic` | Local Guide |
 | `/o-nama` | About Us |
 | `/faq` | FAQ |
 | `/privatnost` | Privacy Policy |
-| `/impressum` | Legal notice |
-Each page is emitted once per locale, producing 60 `<url>` entries (15 pages × 4 locales).
+
+Each page is emitted once per locale, producing 48 `<url>` entries (12 pages × 4 locales).
 
 ### hreflang alternates
 
@@ -105,8 +103,6 @@ Each editorial page passes the same image used as its hero, ensuring the social 
 | `/o-nama` | Golden pine trees |
 | `/plaze` | Sandy beach |
 | `/vodic` | Pine forest with child |
-| `/zasto-pasman` | Beach at Ždrelac |
-| `/zdrelac` | Ždrelac from the sea |
 | All others (fallback) | Ždrelac from the sea |
 
 UUIDs are managed in each page's `ogImage` prop in `src/pages/[locale]/`. The fallback UUID is set in `src/layouts/Base.astro`.
@@ -155,7 +151,6 @@ The Phase 6 editorial pages exist primarily to capture long-tail search intent a
 
 | Page | Primary intent |
 |---|---|
-| `/zasto-pasman` | "Warum Pašman", "why Pašman island" — destination awareness |
 | `/dolazak` | "Fähre Pašman", "how to get to Pašman" — practical planning |
 | `/faq` | Common pre-booking questions — FAQ rich results |
 | `/o-nama` | Brand trust, host story |
@@ -165,7 +160,6 @@ The Phase 6 editorial pages exist primarily to capture long-tail search intent a
 | `/plaze` | "Beaches Pašman", "Pašman swimming", "coves Ugljan" — beach intent; linked from homepage triptych |
 | `/kontakt` | Contact page — inquiry form entry point; all site-wide CTAs link here |
 | `/privatnost` | GDPR legal requirement |
-| `/impressum` | German legal requirement (Impressumspflicht) |
 
 All editorial pages use the `hero-simple` pattern (navy header) and the shared `Page` layout which injects the canonical tag and `<html lang>` attribute.
 

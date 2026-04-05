@@ -74,5 +74,5 @@ When editing intro text for these pages via CMS or in code, match the voice alre
 ## Related Documentation
 
 - [CMS Guide](cms-guide.md#content-guidelines) - Owner-facing content editing reference
-- [SEO Guide](seo.md#on-page-content) - Keyword targets and content intent per page
-- [Architecture — Route Map](architecture.md#route-map) - Page slugs and what each page renders
+- [SEO Guide](seo.md#editorial-pages-and-seo) - Keyword targets and content intent per page
+- [Architecture — Public Page Routes](architecture.md#public-page-routes) - Page slugs and what each page renders

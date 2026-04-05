@@ -118,3 +118,11 @@ Guest inquiries arrive by email to hello@graymatter.ch. The D1 database also sto
 - **"Authentication failed":** Clear browser cookies for the site, then try logging in again. Make sure you're using one of the authorized Google accounts.
 - **Changes not visible:** Pages are edge-cached. Changes may take up to 1 hour to appear. Force refresh with Ctrl+Shift+R.
 - **Can't upload photos:** Check file size (max 15MB). Supported formats: JPEG, PNG, HEIC, WebP.
+
+---
+
+## Related Documentation
+
+- [Content Guide](content-guide.md#page-level-voice-rules) - Tone rules per locale and page-level voice requirements
+- [Architecture — Public Page Routes](architecture.md#public-page-routes) - Page slugs, CMS collections, and what each page renders
+- [Troubleshooting](troubleshooting.md) - Broader diagnostics beyond admin panel issues

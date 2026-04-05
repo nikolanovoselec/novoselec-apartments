@@ -6,9 +6,7 @@ Commit 4a818ed added page-level voice rules and LLM verification step to `docume
 
 ### Requirements updated
 - **REQ-SF-8** (Gallery Page): Intro sentence description updated to specify poetic tone (brief, evocative, open-ended statement) matching the page-level voice rule documented in content-guide.md.
-
-### No status changes
-All affected requirements remain Implemented.
+- **REQ-I18N-6** (Cultural Content Adaptation): Status changed from Planned to Implemented. All acceptance criteria are met in code: German uses "Ferienwohnung," detailed specs, informal "ihr/euch" on editorial pages; Croatian/Slovenian warm tone; English benefit-led; CMS supports per-locale descriptions.
 
 ---
 
