@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-04-05 - Revision 74: Uniform MiniCollage scroll speed (35s)
+
+All MiniCollage instances across the site now use a uniform 35s loop duration. Previously, editorial pages used variable speed per section (`18 + i * 4` = 18s, 22s, 26s, 30s) and the apartment detail page used 25s. Standardized to 35s for consistent visual rhythm.
+
+### Requirements updated
+- **REQ-VD-15** (Exterior Photo Collage): Removed "faster 25s speed" for apartment detail page. All placements now documented as uniform 35s. Added editorial pages (aktivnosti, dolazak, hrana, plaze, vodic) as MiniCollage usage sites.
+- **REQ-AP-3** (Apartment Detail Page): Interior photo collage speed updated from 25 to 35s.
+
+---
+
 ## 2026-04-05 - Revision 73: Triptych reduced to 3 items, layout polish
 
 Experience triptych reduced from 4 to 3 items — Local Guide card removed since it duplicates the guide feature card already present above. Grid changed from 4-column to 3-column on desktop. Apartment detail description section no longer uses scroll-triggered reveal animation. CTA button repositioned into standalone container. Collage padding increased.

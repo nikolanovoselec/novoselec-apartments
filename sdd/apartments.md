@@ -74,7 +74,7 @@ Apartment listings, detail pages, photo galleries, amenities, seasonal pricing, 
   - **Route:** `/{locale}/apartmani/{slug}` — dynamic route. Validates locale and slug; redirects to listing page if apartment not found or slug missing. Redirects to `/hr/` if locale is invalid.
   - **Current implementation (partial):**
     1. Hero: `HeroSimple` component (REQ-VD-12) with apartment name as title and tagline as subtitle. Photo-backed hero at 50vh with Ken Burns animation, dark overlay, and wave divider at bottom. Replaces the previous custom 60vh hero markup with inline gradient overlay.
-    2. Interior photo collage: `MiniCollage` compact horizontal scroll strip (speed 25) rendered between breadcrumbs and the details section, sourced from the `gallery` CMS field (JSON array of R2 URLs). Interior photos only — exterior/terrace/BBQ photos are reserved for the listing page and homepage collages. Renders only when `gallery` is populated. Replaces the previous full-width `ScrollCollage` component.
+    2. Interior photo collage: `MiniCollage` compact horizontal scroll strip (uniform 35s speed) rendered between breadcrumbs and the details section, sourced from the `gallery` CMS field (JSON array of R2 URLs). Interior photos only — exterior/terrace/BBQ photos are reserved for the listing page and homepage collages. Renders only when `gallery` is populated. Replaces the previous full-width `ScrollCollage` component.
     3. Description: plain text from CMS `description` field
     4. Meta grid: 2-column grid on stone background (12px radius) showing sleeps, bedrooms, size (m2), beach distance — locale-aware labels
     5. "Best for" line below meta grid
