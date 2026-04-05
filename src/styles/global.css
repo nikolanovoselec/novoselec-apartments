@@ -275,7 +275,7 @@ p {
 .section--wave-in {
   position: relative;
   padding-top: calc(var(--space-section) + clamp(50px, 8vw, 100px));
-  margin-top: -1px;
+  margin-top: -2px;
 }
 
 .section--alt {
