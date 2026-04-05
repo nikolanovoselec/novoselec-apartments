@@ -1,5 +1,17 @@
 # Changelog
 
+## 2026-04-05 - Revision 80: Editorial section layout reordered to title-text-collage
+
+All 4 editorial detail pages (aktivnosti, dolazak, plaze, vodic) changed section rendering order from title -> MiniCollage -> text to title -> text -> MiniCollage. Visitors now read the descriptive text before seeing the photo collage, improving reading flow across all editorial pages. This matches the description-first pattern already established on the Food & Drink page (REQ-ED-8, Revision 78).
+
+### Requirements updated
+- **REQ-ED-2** (Getting Here): Stale acceptance criteria fixed. Was still describing alternating image-left/text-right row layout from a prior implementation. Updated to reflect actual editorial section model: title, then body text (HTML), then optional MiniCollage strip. Added alternating backgrounds and scroll-triggered reveal details.
+- **REQ-ED-4** (Local Guide): Clarified section rendering order to explicitly state title, then body text, then optional MiniCollage photo strip.
+- **REQ-ED-9** (Nature & Activities): Layout description updated from "title, MiniCollage photo strip, and body text" to "title, then body text, then MiniCollage photo strip below the text."
+- **REQ-ED-10** (Beaches): Same layout order update as REQ-ED-9.
+
+---
+
 ## 2026-04-05 - Revision 79: Aktivnosti restructured to Land + Sea, fixed hero image
 
 Nature & Activities page (`aktivnosti`) restructured from 3 mismatched CMS sections (hiking / cycling / water with wrong photos) to 2 love-letter sections: Land (hiking trails, viewpoints, cycling) and Sea (Adriatic embrace, coves, Kornati, water sports). Content rewritten as island rhythm, not an activity list. 10 new biking photos added. Hero and OG image changed from dynamic CMS-first-section image to a fixed UUID (`0afa5c7a-6108-454d-b309-80eccc3b8f6b` — cyclist on island path), decoupling the visual identity of the hero from CMS entry order.

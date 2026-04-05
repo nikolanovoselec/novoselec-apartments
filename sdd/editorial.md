@@ -34,7 +34,7 @@ Content pages that sell the destination and build emotional connection — Getti
 - **Intent:** Remove travel anxiety — make the journey feel easy and exciting
 - **Applies To:** Visitor
 - **Acceptance Criteria:**
-  - **Current implementation:** Standalone page at `/{locale}/dolazak` with `HeroSimple` photo-backed header (marina/harbor image). Content from dedicated `dolazak` CMS collection, sorted by `sort_order`. Each entry renders as one content row with `title`, `body` (rendered as HTML via `set:html`), and optional `image`. Alternating layout: odd rows image-left/text-right, even rows reversed. Single column on mobile.
+  - **Current implementation:** Standalone page at `/{locale}/dolazak` with `HeroSimple` photo-backed header (marina/harbor image). Content from dedicated `dolazak` CMS collection, sorted by `sort_order`. Multi-section editorial layout: each section renders title, then body text (rendered as HTML via `set:html`), then optional MiniCollage photo strip below the text. Alternating section backgrounds (`.section--alt`). Scroll-triggered reveal via `data-reveal`.
   - **Address + map links section:** Dark-background section at the bottom of the page with property address ("Fratarsko 3, 23271 Zdrelac, Croatia") displayed in serif font, plus two ghost-style buttons linking to Google Maps and Apple Maps with lat/lng coordinates. No static map image or interactive map — just deep-link buttons.
   - **Content sections (3 total, consolidated from 5+):** (1) by car + ferry — two routes: Biograd-Tkon Jadrolinija (25 min) or Zadar-Preko via Ugljan + Ždrelac bridge, (2) without car — Zadar Airport (ZAD), bus/taxi to city, Zadar-Preko ferry + local transport, bike rental from 10 EUR/day, (3) practical travel tips — ferry schedules, parking, peak season advice
   - Ferry info: Jadrolinija link, frequency, cost, peak season advice
@@ -71,7 +71,7 @@ Content pages that sell the destination and build emotional connection — Getti
 - **Intent:** Curated recommendations that build trust and drive SEO
 - **Applies To:** Visitor
 - **Acceptance Criteria:**
-  - **Current state:** Standalone guide page (`/[locale]/vodic`) with `HeroSimple` photo-backed header (REQ-VD-12). **Editorial-only content model** — content comes from dedicated `vodic` CMS collection, sorted by `sort_order`. Each section renders as a titled content block with optional photo gallery displayed via `MiniCollage` horizontal scroll strip. Scroll-triggered reveal on each section. Alternating section backgrounds (`.section--alt`).
+  - **Current state:** Standalone guide page (`/[locale]/vodic`) with `HeroSimple` photo-backed header (REQ-VD-12). **Editorial-only content model** — content comes from dedicated `vodic` CMS collection, sorted by `sort_order`. Each section renders title, then body text, then optional `MiniCollage` horizontal photo strip below the text. Scroll-triggered reveal on each section. Alternating section backgrounds (`.section--alt`).
   - **Content sections (8 total):** Sections 1-4 are merged Ždrelac village content (from deprecated REQ-ED-6): (1) the bridge — 210m span, 68m steel arch (2009), views of Zadar archipelago at sunset; (2) the village — stone centre, St. Luke's church (13th century), fishing harbour, lavender and rosemary; (3) the fishermen — night squid fishing with lamps, morning catch on the grill; (4) olive groves, pines and trails — 13 km recreational trail from Bokolj to Soline. Sections 5-8 are original guide content: (5) Pašman villages — 10 villages, each with character: Dobropoljana sunsets, Neviđane St. Michael statue, Tkon Benedictine monastery (1129), Kraj Franciscan monastery; (6) Ugljan villages — "Green Island" of olives, Preko with fortress, Kali fishing capital, Kukljica gastro hub; (7) Zadar — Sea Organ, Greeting to the Sun, Roman Forum, St. Donatus, cathedral, Hitchcock sunset quote; (8) Day trips — Kornati NP (89 islands, 40-50 EUR), Telašćica (salt lake Mir, 161m cliffs), Vransko jezero.
   - Three guide categories have standalone detail pages: Food & Drink (REQ-ED-8), Nature & Activities (REQ-ED-9), Beaches (REQ-ED-10). Linked from homepage experience triptych (REQ-SF-5). Local Guide itself is linked from the guide feature card above the triptych, not from within the triptych.
   - CMS-managed per locale
@@ -163,7 +163,7 @@ Content pages that sell the destination and build emotional connection — Getti
   - 2 content sections (Land + Sea): (1) Land — hiking trails, Veliki Bokolj (274m) viewpoint, Pustograd fortress, cycling the Ždrelac bridge bike lane, 46 km two-island loop, ZZUUM e-bike tours; (2) Sea — Adriatic embrace, crystal coves, Kornati and Telašćica day trips, kayaking, SUP, snorkeling
   - Each section written as a love letter to island life, not an activity list; practical tips woven into emotional narrative
   - **CMS wiring:** Page queries the dedicated `aktivnosti` CMS collection, sorted by `sort_order`. CMS-only content model — no hardcoded fallback. If CMS entries missing, no sections render.
-  - Multi-section alternating layout: odd sections on default background, even sections on `.section--alt`. Each section has title, MiniCollage photo strip, and body text. Scroll-triggered reveal via `data-reveal`.
+  - Multi-section alternating layout: odd sections on default background, even sections on `.section--alt`. Each section renders title, then body text, then MiniCollage photo strip below the text. Scroll-triggered reveal via `data-reveal`.
   - Linked from homepage triptych (REQ-SF-5)
 - **Constraints:** CON-I18N, CON-PERF
 - **Priority:** P1
@@ -181,7 +181,7 @@ Content pages that sell the destination and build emotional connection — Getti
   - 4 content sections (consolidated from 5): (1) Ždrelac coves — Matlovac sandy beach with beach bar, Soline mineral-rich sand, pine forest microclimate, (2) Pašman beaches — Banj shallow water, Lokva under tamarisk in Neviđane, Mrljane with view of heart-shaped Galešnjak, (3) Ugljan beaches — Jaz Blue Flag in Preko, Sabuša in Kukljica, Mostir snorkeling, (4) hidden coves — kayak-access south side cliffs, Prtljug in Lukoran (40m pebble cove, no facilities)
   - Each section includes named beaches with distances from Ždrelac
   - **CMS wiring:** Page queries the dedicated `plaze` CMS collection, sorted by `sort_order`. CMS-only content model — no hardcoded fallback. If CMS entries missing, no sections render.
-  - Multi-section alternating layout: odd sections on default background, even sections on `.section--alt`. Each section has title, MiniCollage photo strip, and body text. Scroll-triggered reveal via `data-reveal`.
+  - Multi-section alternating layout: odd sections on default background, even sections on `.section--alt`. Each section renders title, then body text, then MiniCollage photo strip below the text. Scroll-triggered reveal via `data-reveal`.
   - Linked from homepage triptych (REQ-SF-5)
 - **Constraints:** CON-I18N, CON-PERF
 - **Priority:** P1
