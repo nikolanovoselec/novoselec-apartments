@@ -242,7 +242,7 @@ for (let i = 0; i < galleryItems.length; i += 10) {
 <Page title={galleryTitle[typedLocale]} locale={typedLocale}>
   <HeroSimple title={galleryTitle[typedLocale]} intro={intro[typedLocale]} image="/api/img/bd440b3f-7f65-4971-bfba-639458c5b9ec" />
 
-  <div class="gallery-collages section--footer-clear">
+  <div class="gallery-collages">
     {strips.map((strip) => (
       <div class="gallery-strip">
         <MiniCollage images={strip.images} speed={80} reverse={strip.reverse} showCaptions />
