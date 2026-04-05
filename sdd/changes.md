@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-04-05 - Move apartment listing wave from collage bottom to CTA section top
+
+The apartment listing page (`/[locale]/apartmani/`) wave divider between the exterior photo collage and the inquiry CTA section was relocated. Previously an SVG at the bottom of the collage strip, it is now an inline SVG positioned absolute at the top of the CTA `<section>`. Fill remains navy (`var(--color-navy)`) with `scaleY(-1)` flip. The CTA section gains `position: relative` and `padding-top: clamp(80px, 12vw, 120px)` to accommodate the wave.
+
+### Requirements updated
+- **REQ-AP-2** (Apartment Listing Page): Updated wave description — wave moved from collage bottom to CTA section top as an inline SVG with absolute positioning, scaleY(-1) flip, and navy fill. CTA section gains relative positioning and extra top padding.
+
+---
+
 ## 2026-04-05 - Restore cream wave between triptych and sunset CTA
 
 The inline SVG wave divider between the experience triptych and sunset CTA section on the homepage was restored. The wave uses `fill="var(--color-bg)"` (cream) with `scaleY(-1)` vertical flip, positioned absolute at the top of the CTA section. The CTA section also regains `position: relative` and extra `padding-top` to accommodate the wave.
