@@ -6,7 +6,7 @@ Emdash CMS integration, media library, authentication, mobile admin UX, section 
 
 - **Emdash**: Astro integration providing admin panel, REST API, content loader, media library
 - **Mobile-first admin**: Every operation must work on owner's phone
-- **Collections**: Apartments, seasons, testimonials, guide entries, FAQs, pages, site-settings
+- **Collections**: Apartments, seasons, testimonials, FAQs, pages, editorial, site-settings (guide collection deprecated -- content migrated to editorial)
 - **Section toggles**: Owner can show/hide optional homepage sections without deleting content
 - **Preloaded content**: Site requires CMS seed data to render content — no hardcoded fallbacks on editorial pages
 - **Structured editing**: Prefer structured fields over freeform rich text for most content types
@@ -21,7 +21,7 @@ Emdash CMS integration, media library, authentication, mobile admin UX, section 
   - Emdash as Astro integration with D1 database and R2 storage
   - Admin panel at `/_emdash/admin/` for authenticated owner only
   - Content queried via Emdash content loader (`getEmDashCollection`, `getEmDashEntry`) wrapped in a locale-aware abstraction layer providing `getLocalizedCollection(collectionSlug, locale)`, `getLocalizedEntry(collectionSlug, slug, locale)`, and `getSettings()`. Collection queries use cursor-based pagination (100 entries per page) to retrieve all entries regardless of collection size. All queries filter by `data.locale` field with automatic Croatian fallback.
-  - Collections: homepage, apartments, testimonials, guide, faqs, pages (currently seeded), editorial (queried by multiple pages but not yet seeded). Planned: seasons, inquiries, site-settings
+  - Collections: homepage, apartments, testimonials, faqs, pages, editorial (all currently seeded). Guide collection deprecated and emptied -- all guide content migrated to editorial entries with `page_key=vodic`. Planned: seasons, inquiries, site-settings
   - Site-settings: property name, WhatsApp number, phone number, email, active locales, hero photos, social links, section visibility toggles, check-in/out times, tourist tax rate
   - Public queries filtered by active locale and published status. Admin queries show all content including drafts/unpublished.
   - **Failure modes:**
@@ -169,12 +169,12 @@ Emdash CMS integration, media library, authentication, mobile admin UX, section 
   - All pages fully written in HR, DE, SL, EN with native-quality copy
   - Preloaded:
     - 2-3 example apartments with descriptions, amenities, realistic seasonal pricing, house rules
-    - Hero slideshow: 4+ real island photos (Pašman/Adriatic) stored in R2, served via `/api/img/{key}`
+    - Hero slideshow: 7 real island photos (Pašman/Adriatic) stored in R2, served via `/api/img/{key}`
     - "Why Pašman" with real selling points and photos
     - "About Ždrelac" village description with photos
     - "Getting Here" with real Jadrolinija ferry info for both routes (Biograd-Tkon AND Zadar-Preko via Ždrelac bridge), airport distances, driving routes
     - "A Day on Pašman" with real itinerary and real places
-    - Local guide: 12-15 real entries across all categories including Food & Drink
+    - Local guide: 4 editorial sections (Pašman villages, Ugljan villages, Zadar, day trips) — guide collection deprecated
     - 3-5 example testimonials with realistic profiles
     - 10-15 real FAQ entries including house rules, cancellation, tourist tax
     - Host story template
@@ -185,14 +185,14 @@ Emdash CMS integration, media library, authentication, mobile admin UX, section 
   - Site deployable and visitor-ready on day one
   - Owner workflow: open admin → see checklist → replace photos → edit text → mark as own content → done
   - **Seed API:** `POST /api/admin/seed` endpoint applies `seed/seed.json` to D1 via Emdash's `applySeed()`. Idempotent (safe to run multiple times). Returns JSON `{ success, result }` on 200 or `{ success: false, error }` on 500.
-  - **Seed data (`seed/seed.json`):** 6 collections across 4 locales: `homepage` (section-based: why-pasman, zdrelac, apartments, cta), `pages` (why-pasman, getting-here, about, faq with structured section data — note: `why-pasman` and `getting-here` page entries with `sections_json` are superseded by individual `editorial` entries with respective `page_key` values), `apartments` (2 listings: Lavanda 4-pax, Tramuntana 2-pax with full field set), `faqs` (categorized Q&A), `guide` (local guide entries across categories), `testimonials` (guest quotes with country metadata). All entries have per-locale variants (hr, de, sl, en).
-  - **Editorial collection seeding (critical):** CMS entries for ALL `editorial` page_keys must be seeded in all 4 locales: `hrana` (5 sections), `aktivnosti` (6 sections), `plaze` (5 sections), `zdrelac` (6+ sections), `why-pasman` (4 sections), `dolazak` (individual editorial entries per transport/arrival section), `about` (1 section), `homepage` sections, `privacy`. Hardcoded fallback content has been removed from all editorial pages — pages now render empty sections if CMS entries are missing. Complete seeding is a prerequisite for a functional site.
+  - **Seed data (`seed/seed.json`):** 6 collections across 4 locales: `homepage` (section-based: why-pasman, zdrelac, apartments, cta), `pages` (why-pasman, getting-here, about, faq with structured section data — note: `why-pasman` and `getting-here` page entries with `sections_json` are superseded by individual `editorial` entries with respective `page_key` values), `apartments` (2 listings: Lavanda 4-pax, Tramuntana 2-pax with full field set), `faqs` (categorized Q&A), `guide` (deprecated — collection emptied, all content migrated to `editorial` entries with `page_key=vodic`), `testimonials` (guest quotes with country metadata). All entries have per-locale variants (hr, de, sl, en).
+  - **Editorial collection seeding (critical):** CMS entries for ALL `editorial` page_keys must be seeded in all 4 locales: `hrana` (4 sections), `aktivnosti` (4 sections), `plaze` (4 sections), `zdrelac` (4 sections), `vodic` (4 sections), `dolazak` (3 sections), `why-pasman` (4 sections), `about` (1 section), `homepage` sections, `privacy`. Total: 23 editorial sections across 6 restructured pages (consolidated from ~42). Guide collection emptied — all guide content migrated to editorial entries with `page_key=vodic`. Hardcoded fallback content has been removed from all editorial pages — pages now render empty sections if CMS entries are missing. Complete seeding is a prerequisite for a functional site.
   - **All 4 locales complete:** DE and SL content must be culturally adapted (not machine-translated Croatian). German content is precise and detailed; Slovenian is warm and familiar. No locale should show Croatian fallback for seeded pages.
 - **Constraints:** CON-MEDIA, CON-I18N
 - **Priority:** P0
 - **Dependencies:** REQ-CMS-1, REQ-CMS-2, REQ-I18N-4
 - **Verification:** Deploy fresh instance, run seed endpoint, verify complete site renders in all 4 locales with no empty sections (all editorial page_keys have CMS entries), verify placeholder badges
-- **Status:** Partial — 118+ entries seeded in HR and EN for most collections; DE and SL largely missing. Editorial collection: 27+ HR entries seeded via D1 SQL for `hrana` (5), `aktivnosti` (6), `plaze` (5), `zdrelac` (6+), `why-pasman` (4), `about` (1). DE/SL/EN editorial entries still missing. `why-pasman` content model restructured from single entry with `sections_json` to individual entries (consistent with other editorial pages). All 48 Pexels stock photo URLs replaced with real R2 photos in live D1 data — zero stock photos remain in production. `seed/seed.json` still references old Pexels URLs and is out of sync with live D1. **Risk: pages with missing CMS entries now render empty sections (no fallback) so incomplete seeding in non-HR locales produces visibly broken pages. Running seed endpoint would overwrite real photos with stale Pexels URLs.**
+- **Status:** Partial — editorial content restructured to 23 sections across 6 pages (consolidated from ~42). HR entries seeded via D1 SQL for all 6 restructured pages: `hrana` (4), `aktivnosti` (4), `plaze` (4), `zdrelac` (4), `dolazak` (3), `vodic` (4). Guide collection emptied -- all content migrated to editorial. DE/SL/EN editorial entries for restructured pages pending (SQL migration files exist at `sql/restructure-editorial-{de,en,sl}.sql`). All 48 Pexels stock photo URLs replaced with real R2 photos in live D1. `seed/seed.json` still references old Pexels URLs and is out of sync with live D1. **Risk: pages with missing CMS entries render empty sections (no fallback) so incomplete seeding in non-HR locales produces visibly broken pages. Running seed endpoint would overwrite real photos with stale Pexels URLs.**
 
 ### REQ-CMS-7: Content Safeguards
 
