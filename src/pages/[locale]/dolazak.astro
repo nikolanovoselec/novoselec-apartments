@@ -37,14 +37,14 @@ const appleMapsUrl = "https://maps.apple.com/?ll=44.010669,15.285480&q=Apartmani
         <div class="container">
           <h2 class="editorial-title">{section.title}</h2>
         </div>
+        <div class="container">
+          <p class="editorial-text" set:html={section.text.replace(/<(?!\/?(a|br|em|strong)\b)[^>]+>/gi, '')} />
+        </div>
         {photos.length > 0 && (
           <div class="editorial-strip">
             <MiniCollage images={photos} speed={Math.max(35, photos.length * 8)} />
           </div>
         )}
-        <div class="container">
-          <p class="editorial-text" set:html={section.text.replace(/<(?!\/?(a|br|em|strong)\b)[^>]+>/gi, '')} />
-        </div>
       </section>
     );
   })}

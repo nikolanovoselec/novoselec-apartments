@@ -33,14 +33,14 @@ const sections = cmsEntries.map((e) => ({
         <div class="container">
           <h2 class="editorial-title">{section.title}</h2>
         </div>
+        <div class="container">
+          <p class="editorial-text">{section.text}</p>
+        </div>
         {photos.length > 0 && (
           <div class="editorial-strip">
             <MiniCollage images={photos} speed={Math.max(35, photos.length * 8)} />
           </div>
         )}
-        <div class="container">
-          <p class="editorial-text">{section.text}</p>
-        </div>
       </section>
     );
   })}
