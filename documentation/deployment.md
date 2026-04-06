@@ -23,7 +23,7 @@ Note: local dev does not emulate D1 or R2 bindings. For full Worker runtime test
 
 ## Seed Data
 
-Initial CMS content is sourced from `seed/content/` — individual JSON files per collection. The `/api/admin/seed` endpoint and the `seed/seed.json` monolithic file have been removed. Content is seeded via SQL migration scripts in `sql/` or entered directly through the Emdash admin panel.
+Initial CMS content is sourced from `seed/content/` — individual JSON files per collection. The `/api/admin/seed` endpoint and the `seed/seed.json` monolithic file have been removed. Content is entered directly through the Emdash admin panel or bootstrapped via SQL inserted through the D1 console.
 
 ### Seed content files
 

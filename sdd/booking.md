@@ -5,7 +5,7 @@ Request-to-book inquiry flow, business rules, server pipeline, WhatsApp integrat
 ## Key Concepts
 
 - **Request-to-book**: Structured inquiry with dates, guests, apartment — not a generic contact form
-- **Inquiry pipeline**: Form submission -> Turnstile validation -> persist to D1 -> send via Resend -> auto-reply to guest
+- **Inquiry pipeline**: Form submission -> Turnstile validation -> persist to D1 -> send owner notification via Resend
 - **Inquiry lifecycle**: new -> read -> responded -> confirmed (blocks dates) / declined
 - **WhatsApp**: Floating button with pre-filled message as alternative contact channel
 - **Quick question**: Low-friction contact path for visitors who don't have dates yet
@@ -64,8 +64,7 @@ Request-to-book inquiry flow, business rules, server pipeline, WhatsApp integrat
   - Inquiry persisted to D1 `inquiries` table before email attempt with status `new`
   - Input sanitized: all user-supplied fields stripped of HTML before rendering in email output, email header injection prevented, URLs stripped from message body
   - Honeypot hidden field for bot detection (in addition to Turnstile)
-  - Email to owner via Resend: formatted HTML with all inquiry details, computed price, guest contact, one-tap "Confirm & Block Dates" link (deep link to admin action). Sent from `noreply@graymatter.ch`.
-  - Auto-reply to guest via Resend: confirmation with apartment name, dates, **explicit disclaimer: "This is a request, not a confirmed booking. Dates are not held automatically."**, response time promise. Sent from `noreply@graymatter.ch`.
+  - Email to owner via Resend: formatted HTML with all inquiry details, computed price, guest contact, one-tap "Confirm & Block Dates" link (deep link to admin action). Sent from `noreply@graymatter.ch`. (Owner notification only — no guest auto-reply is sent.)
   - **Email delivery via outbox pattern:**
     - Inquiry persisted to D1 with `email_status: pending`
     - Immediate send attempt (one try in request lifecycle)
@@ -86,8 +85,8 @@ Request-to-book inquiry flow, business rules, server pipeline, WhatsApp integrat
 - **Constraints:** CON-SEC, CON-PERF
 - **Priority:** P0
 - **Dependencies:** REQ-CMS-1
-  - **Email delivery verified:** Owner email and guest auto-reply must actually send via Resend using `RESEND_API_KEY` from Worker env. The `env as unknown as Env` cast pattern must successfully access the key at runtime. Email delivery must be verified with a real test submission, not just by reading code.
-- **Verification:** End-to-end test with real Resend + Turnstile: submit inquiry from live site → verify owner receives email → verify guest receives auto-reply. Test availability race condition.
+  - **Email delivery verified:** Owner email must actually send via Resend using `RESEND_API_KEY` from Worker env. The `env as unknown as Env` cast pattern must successfully access the key at runtime. Email delivery must be verified with a real test submission, not just by reading code.
+- **Verification:** End-to-end test with real Resend + Turnstile: submit inquiry from live site → verify owner receives email. Test availability race condition.
 - **Status:** Implemented
 
 ### REQ-BK-3: WhatsApp Floating Button
@@ -230,5 +229,5 @@ Request-to-book inquiry flow, business rules, server pipeline, WhatsApp integrat
 
 - Apartments (apartment data, pricing, availability, capacity)
 - CMS (inquiry storage, admin actions, section toggles)
-- i18n (form labels, auto-reply, pre-filled messages, date formatting)
+- i18n (form labels, pre-filled messages, date formatting)
 - Trust & Compliance (Turnstile, rate limiting, GDPR consent, privacy policy)

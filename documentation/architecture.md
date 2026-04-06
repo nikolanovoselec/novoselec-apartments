@@ -31,7 +31,6 @@ Apartmani Pašman is a server-side rendered Astro site deployed as a Cloudflare 
 | `src/lib/auth.ts` | JWT signing/verification, code generation, refresh tokens |
 | `src/lib/availability.ts` | Half-open interval overlap logic for booking calendar |
 | `src/lib/pricing.ts` | Season-based price computation, tourist tax, cleaning fee |
-| `src/lib/media.ts` | R2 URL builder (`buildMediaUrl`) and srcset helper |
 | `src/lib/resend.ts` | Fetch-based Resend email client — used by inquiry and custom admin login flows |
 | `src/lib/turnstile.ts` | Server-side Turnstile token verification |
 | `src/lib/content.ts` | Emdash CMS helpers — `getLocalizedCollection`, `getLocalizedEntry`, `getSettings` with locale fallback to Croatian. `getLocalizedCollection` calls `getEmDashCollection` once with a locale filter; Emdash returns all matching entries without pagination. |
@@ -148,9 +147,9 @@ Inquiries are stored in D1 `inquiries` table covering the full lifecycle: `new �
 
 ```
 Browser submits form
-  → Turnstile verification (server-side, 10s timeout)
-  → Honeypot check (silent fake-success on bot)
   → Zod schema validation (discriminated union: booking | question)
+  → Honeypot check (silent fake-success on bot)
+  → Turnstile verification (server-side, 10s timeout)
   → Input sanitization (stripHtml, sanitizeEmail, stripUrls, etc.)
   → [booking only] Server-side availability overlap recheck → 409 if stale
   → [booking only] Price estimate from seasons table
@@ -181,7 +180,7 @@ Overlap detection is embedded in the INSERT statement itself (`INSERT...WHERE NO
 
 ## Seed Data Structure
 
-The live D1 database is the source of truth for all CMS content. The `seed/seed.json` file and its `/api/admin/seed` endpoint have been removed; content is managed directly via the Emdash admin panel and via SQL migration scripts in `sql/`. The collections below reflect the current live data structure.
+The live D1 database is the source of truth for all CMS content. The `seed/seed.json` file and its `/api/admin/seed` endpoint have been removed; content is managed directly via the Emdash admin panel. The collections below reflect the current live data structure.
 
 ### Collections
 

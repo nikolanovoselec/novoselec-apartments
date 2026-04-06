@@ -81,7 +81,7 @@ All form inputs are sanitized before processing or storage. Sanitization functio
 | `stripHtml()` | Remove HTML tags |
 | `sanitizeEmailField()` | Strip newlines/CR (prevents email header injection) |
 | `stripUrls()` | Replace `http(s)://` URLs with `[link removed]` (anti-spam) |
-| `sanitizeMessage()` | Full pipeline for message bodies: strip URLs → strip HTML → trim |
+| `sanitizeMessage()` | Full pipeline for message bodies: strip HTML → strip URLs → trim |
 | `sanitizeName()` | Strip HTML, limit to 200 characters |
 | `sanitizeEmail()` | Normalize + regex validate email format |
 | `sanitizePhone()` | Strip non-phone characters, enforce 6–20 char length |

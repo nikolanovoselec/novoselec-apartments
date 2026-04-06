@@ -43,7 +43,7 @@ Emdash CMS integration, media library, authentication, mobile admin UX, section 
   - Multiple photo upload in one action from phone camera roll
   - **Upload via R2 presigned URLs:** CMS client requests presigned PUT URL from Worker, then uploads directly to R2 from browser/phone. Avoids Worker memory limits on large files.
   - **Originals stored in private R2 bucket.** Public images served via Worker route `GET /api/img/{key}` which fetches from private R2 (via Emdash storage abstraction with direct R2 bucket fallback) and returns the original image as-is. No Cloudflare Image Resizing applied — no format conversion, no resizing, no EXIF stripping. Object keys use `UUID.ext` format (file extension included).
-  - **EXIF GPS:** Originals in R2 may retain EXIF metadata, but since originals are never served publicly (only transformed derivatives via Image Resizing), GPS data is not exposed to visitors. Admin shown warning: "Original photos are stored securely. Location data is not visible to visitors."
+  - **EXIF GPS:** Originals in R2 retain EXIF metadata and are served as-is, so GPS data may be present in served images. No Image Resizing or EXIF stripping is applied. Admin shown warning: "Original photos are stored securely. Location data is not visible to visitors." (Note: this warning is aspirational — EXIF is currently not stripped.)
   - **Blurhash:** Computed at seed time for preloaded content. For new uploads: computed client-side in the CMS admin UI (lightweight JS library, runs on phone) before upload completes. Stored as metadata string in D1.
   - Per-image: alt text (per locale, with "missing alt text" warning), sort order
   - Focal point: optional tap-to-set on mobile, defaults to center. CMS shows crop preview for how image appears in different contexts (hero, card, lightbox).
@@ -96,7 +96,7 @@ Emdash CMS integration, media library, authentication, mobile admin UX, section 
   - `CF_ACCESS_AUDIENCE` env var holds the Access Application AUD tag for JWT validation
   - Auto-provisioning enabled: first authenticated user automatically created as admin (role 50)
   - No custom login page — Cloudflare Access handles the login flow (email OTP, SSO, or other configured identity providers)
-  - No Resend dependency for authentication (Resend still used for inquiry notifications and guest auto-replies)
+  - No Resend dependency for authentication (Resend still used for owner inquiry notifications)
   - Session lifecycle managed by Cloudflare Access (token expiry, re-authentication)
   - **Failure modes:**
     - Cloudflare Access unavailable: admin panel inaccessible, visitor-facing site unaffected
@@ -180,7 +180,7 @@ Emdash CMS integration, media library, authentication, mobile admin UX, section 
     - Host story template
     - Privacy policy, house rules, and cancellation policy templates
   - **Placeholder marking:** All preloaded content tagged as `placeholder: true` in CMS. Admin shows "Demo content — replace with your own" badge on placeholder items. Dashboard checklist: "Replace apartment photos with your own", "Update host story", etc.
-  - Real photos: 68 real island/Croatian photos stored in R2 with UUID keys, served via `/api/img/{key}` (no stock photography, no Pexels URLs, no local `/photos/` directory)
+  - Real photos: 68 real island/Croatian photos stored in R2 with `UUID.ext` keys, served via `/api/img/{key}` (no stock photography, no Pexels URLs, no local `/photos/` directory)
   - Optional hero video: one 10-15s ambient stock clip
   - Site deployable and visitor-ready on day one
   - Owner workflow: open admin → see checklist → replace photos → edit text → mark as own content → done
@@ -241,4 +241,4 @@ Emdash CMS integration, media library, authentication, mobile admin UX, section 
 - Apartments (schema definition)
 - Editorial (content collections)
 - Booking (inquiry lifecycle)
-- Performance (image serving via Cloudflare Image Resizing)
+- Performance (image serving via Worker route from R2)

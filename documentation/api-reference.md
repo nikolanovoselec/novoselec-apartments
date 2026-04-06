@@ -155,7 +155,7 @@ Cookieless analytics event logging. Writes to the D1 `events` table. No PII is s
 
 ### POST /api/inquiry
 
-Submits a booking inquiry or quick question. Used by apartment detail page booking forms (`type: "booking"`), apartment quick-question modals (`type: "question"`), and the standalone contact page at `/:locale/kontakt` (`type: "question"`). Full server pipeline: Turnstile verification, honeypot check, Zod validation, server-side availability revalidation (booking type only), D1 persistence, and email dispatch (owner notification only).
+Submits a booking inquiry or quick question. Used by apartment detail page booking forms (`type: "booking"`), apartment quick-question modals (`type: "question"`), and the standalone contact page at `/:locale/kontakt` (`type: "question"`). Full server pipeline: Zod validation, honeypot check, Turnstile verification, server-side availability revalidation (booking type only), D1 persistence, and email dispatch (owner notification only).
 
 **Authentication:** None required.
 
@@ -229,11 +229,11 @@ Submits a booking inquiry or quick question. Used by apartment detail page booki
 
 ## Admin API
 
-All admin endpoints are under `/admin/api/` and require a valid `auth_token` JWT cookie. See [Authentication](authentication.md#cloudflare-access) for the auth flow.
+All admin endpoints are under `/admin/api/` and require a valid `auth_token` JWT cookie. See [Authentication](authentication.md#cloudflare-access-authentication) for the auth flow.
 
 ### POST /admin/api/login
 
-**Legacy — primary auth is Cloudflare Access.** This endpoint still exists in the codebase but is no longer the primary authentication mechanism. See [Authentication](authentication.md#cloudflare-access).
+**Legacy — primary auth is Cloudflare Access.** This endpoint still exists in the codebase but is no longer the primary authentication mechanism. See [Authentication](authentication.md#cloudflare-access-authentication).
 
 Initiates Magic Link auth — sends a 6-digit code to the provided email address.
 
@@ -251,7 +251,7 @@ Initiates Magic Link auth — sends a 6-digit code to the provided email address
 
 ### POST /admin/api/verify
 
-**Legacy — primary auth is Cloudflare Access.** See [Authentication](authentication.md#cloudflare-access).
+**Legacy — primary auth is Cloudflare Access.** See [Authentication](authentication.md#cloudflare-access-authentication).
 
 Verifies a 6-digit login code and issues auth cookies.
 

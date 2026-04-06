@@ -35,7 +35,7 @@ Schema.org structured data, Open Graph, multilingual sitemap, keyword strategy, 
 - **Intent:** Beautiful social sharing previews across all platforms
 - **Applies To:** System
 - **Acceptance Criteria:**
-  - OG image per apartment (hero photo via Image Resizing at 1200x630)
+  - OG image per apartment (hero photo at 1200x630)
   - OG title, description per page per locale
   - Default OG image for non-apartment pages
   - `og:site_name` set to property name on all pages
@@ -45,7 +45,7 @@ Schema.org structured data, Open Graph, multilingual sitemap, keyword strategy, 
 - **Priority:** P1
 - **Dependencies:** REQ-AP-1, REQ-CMS-2
 - **Verification:** Test sharing on WhatsApp, Facebook, Twitter/X. Validate cards via Twitter Card Validator.
-- **Status:** Partial — per-page OG images set on 10 subpages via `ogImage` prop on Page layout. Default fallback image applied to homepage, apartment listing, apartment detail, galerija, privatnost, and 404. OG title and description rendered per page per locale. `og:site_name` and `og:locale` emitted on all pages. Twitter Card tags (summary_large_image) emitted on all pages with title, description, and image. Still missing: per-apartment OG image (hero photo via Image Resizing at 1200x630)
+- **Status:** Partial — per-page OG images set on 10 subpages via `ogImage` prop on Page layout. Default fallback image applied to homepage, apartment listing, apartment detail, galerija, privatnost, and 404. OG title and description rendered per page per locale. `og:site_name` and `og:locale` emitted on all pages. Twitter Card tags (summary_large_image) emitted on all pages with title, description, and image. Still missing: per-apartment OG image (hero photo at 1200x630)
 
 ### REQ-SEO-3: Analytics + Conversion Events
 
@@ -77,7 +77,7 @@ Schema.org structured data, Open Graph, multilingual sitemap, keyword strategy, 
 - **Applies To:** System
 - **Acceptance Criteria:**
   - XML sitemap at `/sitemap.xml` generated as a dynamic API route
-  - All static public pages included: homepage, apartmani, galerija, hrana, aktivnosti, plaze, kontakt, dolazak, vodic, o-nama, faq, privatnost
+  - All static public pages included: homepage, apartmani, galerija, hrana, aktivnosti, plaze, kontakt, dolazak, vodic, o-nama, faq, privatnost, impresum (13 pages)
   - Apartment detail pages dynamically loaded from CMS (published apartment slugs queried at request time)
   - Each page (static and dynamic) emitted once per active locale (hr, de, sl, en) with `xhtml:link` alternates for all active locales plus `x-default` pointing to Croatian variant
   - `Cache-Control: public, max-age=3600` response header
