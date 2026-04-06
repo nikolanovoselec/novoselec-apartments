@@ -141,7 +141,7 @@ Schema.org JSON-LD is injected via `src/components/seo/SchemaOrg.astro`. The com
 
 ### FAQPage markup
 
-The FAQ page (`src/pages/[locale]/faq.astro`) builds a `mainEntity` array from the preloaded FAQ entries and passes it to `<SchemaOrg type="FAQPage" />`. Each entry maps to a `Question` / `Answer` pair. FAQ content is currently static; when loaded from Emdash CMS the schema will be generated from the same data.
+The FAQ page (`src/pages/[locale]/faq.astro`) loads entries from the `faqs` Emdash collection via `getLocalizedCollection` and builds a `mainEntity` array passed to `<SchemaOrg type="FAQPage" />`. Each entry maps to a `Question` / `Answer` pair. When the CMS has no entries for a locale, a hardcoded fallback of 8 questions per locale is used (same topics: check-in/lockbox, car needed, pets, AC/Wi-Fi/parking, groceries, beaches, house rules).
 
 ---
 

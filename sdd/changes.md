@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-04-06 - Complete FAQ rewrite: family operation, no hotel language (f87bc62)
+
+Commit f87bc62 rewrote all FAQ content. Deleted all 38 previous CMS entries (wrong locales, hotel-style language). Rebuilt 32 entries (8 per locale) reflecting the reality of a family-run operation: self-check-in via PIN code lockbox (no reception, no formalities), pets by arrangement, combined AC/Wi-Fi/parking question, local knowledge (groceries + fish market in Kali, beach types). New topics: car needed (bus/bike alternatives, 10 EUR/day rental), beaches (sand vs pebbles, Matlovac named), groceries and fresh fish. Removed: separate AC, parking, Wi-Fi, and check-in/check-out time questions. Hardcoded fallbacks updated to match.
+
+### Requirements updated
+- **REQ-ED-7** (FAQ): Acceptance criteria updated — fallback category distribution changed from getting-there (2), apartment (3), booking (2), house-rules (1) to getting-there (4), booking (2), apartment (1), house-rules (1). Topic list rewritten to reflect actual questions. Status updated to document the complete rewrite, new question topics, and removed questions.
+
+---
+
 ## 2026-04-06 - House rules FAQ entry + category-based anchor (d579b1f)
 
 Commit d579b1f added a "house rules" FAQ entry in all 4 locales (HR: "Kućni red", DE: "Hausordnung", SL: "Hišni red", EN: "House rules") with category `house-rules`. Message: no cleaning service, leave apartment as found. Anchor id on `<details>` elements is now derived from `faq.category === "house-rules"` rather than last-item index, making the anchor stable regardless of entry order. An inline script auto-opens and scrolls to the element when `window.location.hash === "#house-rules"` on page load.
