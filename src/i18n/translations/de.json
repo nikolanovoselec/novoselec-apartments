@@ -106,7 +106,7 @@
   "error.500.title": "Etwas ist schiefgelaufen",
   "error.500.message": "Bitte versucht es erneut oder meldet euch bei uns.",
   "cta.checkAvailability": "Verfügbarkeit prüfen",
-  "cta.fromPrice": "~ {price} €/Nacht",
+  "cta.fromPrice": "ca. {price} €/Nacht",
   "calendar.months": "Januar,Februar,März,April,Mai,Juni,Juli,August,September,Oktober,November,Dezember",
   "calendar.weekdays": "Mo,Di,Mi,Do,Fr,Sa,So",
   "fallback.banner": "Einige Inhalte auf dieser Seite werden auf Kroatisch angezeigt, da die Übersetzung noch nicht verfügbar ist.",

@@ -106,7 +106,7 @@
   "error.500.title": "Nekaj je šlo narobe",
   "error.500.message": "Poskusite znova ali nas kontaktirajte.",
   "cta.checkAvailability": "Preverite razpoložljivost",
-  "cta.fromPrice": "~ {price} €/noč",
+  "cta.fromPrice": "ok. {price} €/noč",
   "calendar.months": "Januar,Februar,Marec,April,Maj,Junij,Julij,Avgust,September,Oktober,November,December",
   "calendar.weekdays": "Po,To,Sr,Če,Pe,So,Ne",
   "fallback.banner": "Del vsebine na tej strani je prikazan v hrvaščini, ker prevod še ni na voljo.",

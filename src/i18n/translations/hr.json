@@ -106,7 +106,7 @@
   "error.500.title": "Nešto je pošlo po krivu",
   "error.500.message": "Pokušajte ponovo ili nas kontaktirajte.",
   "cta.checkAvailability": "Provjeri dostupnost",
-  "cta.fromPrice": "~ {price} €/noć",
+  "cta.fromPrice": "oko {price} €/noć",
   "calendar.months": "Siječanj,Veljača,Ožujak,Travanj,Svibanj,Lipanj,Srpanj,Kolovoz,Rujan,Listopad,Studeni,Prosinac",
   "calendar.weekdays": "Po,Ut,Sr,Če,Pe,Su,Ne",
   "fallback.banner": "Dio sadržaja na ovoj stranici prikazan je na hrvatskom jer prijevod još nije dostupan.",
