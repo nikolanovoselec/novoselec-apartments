@@ -188,7 +188,7 @@ Schema.org structured data, Open Graph, multilingual sitemap, keyword strategy, 
 - **Priority:** P2
 - **Dependencies:** None
 - **Verification:** Verify theme-color changes browser chrome on Android. Verify iOS "Add to Home Screen" uses apple-touch-icon and short title. Verify manifest loads without errors in DevTools Application panel.
-- **Status:** Implemented — all acceptance criteria met. theme-color (light/dark), apple-touch-icon reference, manifest link, apple-mobile-web-app-title in head. Icon image files (apple-touch-icon.png, android-chrome-192x192.png, android-chrome-512x512.png) committed. SVG favicon as primary icon. Cache headers for icon paths and manifest.
+- **Status:** Implemented — all acceptance criteria met. theme-color (light/dark), apple-touch-icon reference, manifest link, apple-mobile-web-app-title in head. Icon/favicon PNGs (apple-touch-icon 180px, android-chrome 192px + 512px, favicon-32x32.png) regenerated from sailboat brand logo and committed. SVG favicon as primary icon. Cache headers for icon paths and manifest.
 
 ## Out of Scope
 

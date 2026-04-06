@@ -12,7 +12,9 @@
 /api/img/*
   Cache-Control: public, max-age=86400, stale-while-revalidate=604800
 
-# Favicon and app icons
+# Logo, favicon and app icons
+/logo.png
+  Cache-Control: public, max-age=2592000
 /favicon*
   Cache-Control: public, max-age=2592000
 /apple-touch-icon*

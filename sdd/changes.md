@@ -1,5 +1,29 @@
 # Changelog
 
+## 2026-04-06 - Spec review: logo acceptance criteria refined in storefront (d7733cc)
+
+Commit d7733cc refined the inline acceptance criteria for the sailboat logo in REQ-SF-3 and REQ-SF-6 (formatting and detail only — no new requirements). Documentation files (architecture.md, deployment.md) updated in parallel to describe logo rendering in Navigation, Footer, and Mobile menu components, and to list logo.png in the public/ directory.
+
+### Requirements updated
+- **REQ-SF-3** (Navigation): Reformatted brand logo icon and mobile menu brand icon criteria as bold inline items for clarity.
+- **REQ-SF-6** (Footer): Reformatted brand identity criterion as bold inline item with flexbox detail.
+
+---
+
+## 2026-04-06 - Spec review: sailboat brand logo added to shell (10c038b)
+
+Commit 10c038b added a sailboat logo PNG to the header (28px, white on hero, original on scroll), footer (36px, white inverted), and mobile menu (48px, white inverted centered above nav links). Favicon PNGs regenerated from the logo. A new favicon-32x32.png was also added.
+
+### Requirements updated
+- **REQ-SF-3** (Navigation): Added brand logo icon acceptance criteria for header (28px with scroll-aware color inversion) and mobile menu (48px centered above nav links).
+- **REQ-SF-6** (Footer): Updated brand identity criterion — sailboat logo icon (36px, white inverted) left of property name.
+- **REQ-SEO-10** (Browser Integration & Home Screen): Status updated to note favicon PNGs regenerated from sailboat logo; favicon-32x32.png added.
+
+### Glossary updated
+- **Sailboat Logo** — new term added.
+
+---
+
 ## 2026-04-06 - Spec review: favicon PNGs committed, icon caching (cc92ae2)
 
 Commit cc92ae2 added the three generated PNG icon files to the repository (apple-touch-icon.png, android-chrome-192x192.png, android-chrome-512x512.png), added cache-control headers for icon paths and site.webmanifest, and deduplicated the OG image fallback expression in Base.astro.
