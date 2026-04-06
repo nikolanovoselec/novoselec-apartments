@@ -58,7 +58,7 @@ In addition to the sitemap, every page `<head>` carries `<link rel="alternate" h
 
 Individual apartment detail pages (`/apartmani/:slug`) are included dynamically. At sitemap generation time, `getLocalizedCollection("apartments", defaultLocale)` fetches all published apartments from the CMS and appends `/apartmani/:slug` to the page list. Each slug is then emitted once per locale with full `hreflang` alternates.
 
-All entries include a `<lastmod>` element set to the current date (UTC, `YYYY-MM-DD`), which signals to Google that the content is actively maintained.
+No `<lastmod>` element is emitted. Google's own guidance discourages dynamic `<lastmod>` values (date changes every request) as they are treated as unreliable, so the field was omitted to avoid misleading signals.
 
 ---
 

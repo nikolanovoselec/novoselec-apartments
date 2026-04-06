@@ -77,7 +77,6 @@ Schema.org structured data, Open Graph, multilingual sitemap, keyword strategy, 
   - All static public pages included: homepage, apartmani, galerija, hrana, aktivnosti, plaze, kontakt, dolazak, vodic, o-nama, faq, privatnost
   - Apartment detail pages dynamically loaded from CMS (published apartment slugs queried at request time)
   - Each page (static and dynamic) emitted once per active locale (hr, de, sl, en) with `xhtml:link` alternates for all active locales plus `x-default` pointing to Croatian variant
-  - `<lastmod>` element included on every URL entry
   - `Cache-Control: public, max-age=3600` response header
   - **Planned enhancements:** Filter by active locales from site-settings (currently all locales included). `noindex` on disabled locale pages and draft preview URLs.
 - **Constraints:** CON-SEO

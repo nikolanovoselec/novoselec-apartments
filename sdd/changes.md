@@ -1,12 +1,21 @@
 # Changelog
 
+## 2026-04-06 - Remove misleading lastmod from sitemap, doc fixes (bfe415f)
+
+Commit bfe415f removed `<lastmod>` from sitemap URL entries -- setting it to the current date on every request provided no real signal to search engines and was misleading. Documentation and spec updated to reflect dynamic apartment slugs, `_headers` restoration, and `LLMs-Txt` directive from prior commit (07b4de2).
+
+### Requirements updated
+- **REQ-SEO-4** (Multilingual Sitemap): Removed `<lastmod>` acceptance criterion -- code no longer emits lastmod elements.
+
+---
+
 ## 2026-04-06 - Restore _headers caching, dynamic sitemap with apartments, robots.txt LLMs-Txt (07b4de2)
 
-Commit 07b4de2 restored `public/_headers` for static asset cache-control (the previous deletion was incorrect -- the Astro Cloudflare adapter does process `_headers` for static assets). Sitemap now dynamically includes apartment detail pages loaded from CMS at request time, and adds `<lastmod>` dates to all URL entries. `robots.txt` now includes `LLMs-Txt` directive pointing to `/llms.txt` for AI/LLM discovery.
+Commit 07b4de2 restored `public/_headers` for static asset cache-control (the previous deletion was incorrect -- the Astro Cloudflare adapter does process `_headers` for static assets). Sitemap now dynamically includes apartment detail pages loaded from CMS at request time. `robots.txt` now includes `LLMs-Txt` directive pointing to `/llms.txt` for AI/LLM discovery.
 
 ### Requirements updated
 - **REQ-PERF-2** (Edge Caching): Reverted caching description back to `_headers` file (not Workers middleware). Added note that API routes set their own Cache-Control in response code.
-- **REQ-SEO-4** (Multilingual Sitemap): Apartment detail pages now dynamically loaded from CMS. `<lastmod>` element added to all URL entries. Removed completed "planned enhancement" (query apartment slugs).
+- **REQ-SEO-4** (Multilingual Sitemap): Apartment detail pages now dynamically loaded from CMS. Removed completed "planned enhancement" (query apartment slugs).
 - **REQ-SEO-9** (LLM Discoverability): Added acceptance criterion for `LLMs-Txt` directive in robots.txt.
 
 ---
