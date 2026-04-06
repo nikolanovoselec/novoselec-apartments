@@ -62,7 +62,6 @@ function getLocalizedPath(targetLocale: string): string {
 
 {/* Mobile menu overlay */}
 <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
-  <img src="/logo.png" alt="" class="mobile-menu__logo" width="48" height="48" loading="lazy" />
   <nav class="mobile-menu__nav" aria-label="Mobile navigation">
     {navItems.map((item) => (
       <a href={item.href} class="mobile-menu__link">
@@ -254,14 +253,6 @@ function getLocalizedPath(targetLocale: string): string {
     flex-direction: column;
     align-items: center;
     gap: var(--space-xl);
-  }
-
-  .mobile-menu__logo {
-    width: 48px;
-    height: 48px;
-    object-fit: contain;
-    filter: brightness(0) invert(1);
-    margin-bottom: var(--space-md);
   }
 
   .mobile-menu__link,

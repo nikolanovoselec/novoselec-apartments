@@ -67,17 +67,34 @@ const { locale } = Astro.props;
 <script>
   const stickyCta = document.getElementById("sticky-cta");
   const heroSentinel = document.querySelector(".hero-sentinel");
+  const endSentinel = document.querySelector(".sticky-cta-end");
 
   if (stickyCta && heroSentinel) {
-    const heroObserver = new IntersectionObserver(
+    let pastHero = false;
+    let pastEnd = false;
+
+    function updateVisibility() {
+      const shouldShow = pastHero && !pastEnd;
+      stickyCta.classList.toggle("is-visible", shouldShow);
+      stickyCta.setAttribute("aria-hidden", String(!shouldShow));
+    }
+
+    new IntersectionObserver(
       ([entry]) => {
-        const shouldShow = !entry.isIntersecting;
-        stickyCta.classList.toggle("is-visible", shouldShow);
-        stickyCta.setAttribute("aria-hidden", String(!shouldShow));
+        pastHero = !entry.isIntersecting;
+        updateVisibility();
       },
       { threshold: 0 }
-    );
+    ).observe(heroSentinel);
 
-    heroObserver.observe(heroSentinel);
+    if (endSentinel) {
+      new IntersectionObserver(
+        ([entry]) => {
+          pastEnd = !entry.isIntersecting && entry.boundingClientRect.top < 0;
+          updateVisibility();
+        },
+        { threshold: 0 }
+      ).observe(endSentinel);
+    }
   }
 </script>
