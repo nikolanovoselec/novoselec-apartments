@@ -14,6 +14,10 @@ Disallow: /media/
 Disallow: /api/
 
 Sitemap: ${url.origin}/sitemap.xml
+
+# AI/LLM readable site description
+# See: https://llmstxt.org/
+LLMs-Txt: ${url.origin}/llms.txt
 `;
 
   return new Response(content, {

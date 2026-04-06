@@ -1,7 +1,8 @@
 import type { APIRoute } from "astro";
 import { locales, defaultLocale } from "~/i18n/config";
+import { getLocalizedCollection } from "~/lib/content";
 
-const pages = [
+const staticPages = [
   "",              // homepage
   "/apartmani",
   "/galerija",
@@ -19,16 +20,21 @@ const pages = [
 /**
  * Dynamic multilingual sitemap.
  * Includes xhtml:link alternates for all active locales per URL.
- * TODO: Query active locales and published apartments from D1/Emdash.
+ * Apartment detail pages are dynamically loaded from CMS.
  */
 export const GET: APIRoute = async ({ url }) => {
   const origin = url.origin;
-  // TODO: Filter by active locales from site-settings
   const activeLocales = [...locales];
+  const today = new Date().toISOString().split("T")[0];
 
+  // Load apartment slugs from CMS
+  const apartments = await getLocalizedCollection("apartments", defaultLocale);
+  const apartmentSlugs = apartments.map((a) => `/apartmani/${a.slug}`);
+
+  const allPages = [...staticPages, ...apartmentSlugs];
   const urls: string[] = [];
 
-  for (const page of pages) {
+  for (const page of allPages) {
     for (const locale of activeLocales) {
       const loc = `${origin}/${locale}${page}`;
       const alternates = activeLocales
@@ -40,6 +46,7 @@ export const GET: APIRoute = async ({ url }) => {
 
       urls.push(`  <url>
     <loc>${loc}</loc>
+    <lastmod>${today}</lastmod>
 ${alternates}
     <xhtml:link rel="alternate" hreflang="x-default" href="${origin}/${defaultLocale}${page}" />
   </url>`);

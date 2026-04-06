@@ -50,6 +50,6 @@
 | **WCAG** | Web Content Accessibility Guidelines — international standard for web accessibility. This site targets WCAG 2.1 Level AA compliance. |
 | **security.txt** | A standard (RFC 9116) for publishing security vulnerability reporting instructions at `/.well-known/security.txt`. Contains contact, expiry, preferred languages, and canonical URL. Managed via Cloudflare dashboard (not a static file in the repo). |
 | **llms.txt** | A convention for providing structured site information to AI/LLM systems at `/llms.txt`. Contains property details, booking method, key URLs, and guidance for accurate AI-generated responses. |
-| **HSTS** | HTTP Strict Transport Security — response header instructing browsers to only connect via HTTPS. Configured with max-age=31536000 (1 year), includeSubDomains, and preload directive. |
-| **COOP** | Cross-Origin-Opener-Policy — response header preventing other origins from obtaining a reference to the window. Set to `same-origin`. |
+| **HSTS** | HTTP Strict Transport Security — response header instructing browsers to only connect via HTTPS. Configured with max-age=31536000 (1 year) and includeSubDomains (no preload — site is not submitted to the HSTS preload list). |
+| **COOP** | Cross-Origin-Opener-Policy — response header controlling cross-origin window references. Set to `same-origin-allow-popups` (allows payment/OAuth popups to communicate back while blocking other cross-origin access). |
 | **CORP** | Cross-Origin-Resource-Policy — response header controlling which origins can read a resource. Set to `same-origin`. |

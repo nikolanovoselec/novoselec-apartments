@@ -1,5 +1,22 @@
 # Changelog
 
+## 2026-04-06 - Remove _headers, adjust HSTS/COOP, add privacy page link (a285cd3)
+
+Commit a285cd3 made three security/infrastructure changes: (1) Deleted `public/_headers` — Cloudflare Workers do not process `_headers` files; cache-control is already handled via Workers middleware. (2) Removed `preload` directive from HSTS header — site is not submitted to the browser HSTS preload list. (3) Changed Cross-Origin-Opener-Policy from `same-origin` to `same-origin-allow-popups` to allow payment/OAuth popup windows. Also added privacy policy page URL to `llms.txt`.
+
+### Requirements updated
+- **REQ-PERF-2** (Edge Caching): Acceptance criteria updated — static caching described as Workers middleware, not `_headers` file.
+- **REQ-TC-6** (Security Headers): Acceptance criteria updated — HSTS no longer includes `preload`; COOP changed to `same-origin-allow-popups`.
+
+### Constraints updated
+- **CON-SEC**: HSTS `preload` removed; COOP changed to `same-origin-allow-popups`.
+
+### Glossary terms updated
+- **HSTS**: Removed preload reference; noted site is not on the preload list.
+- **COOP**: Changed from `same-origin` to `same-origin-allow-popups` with rationale.
+
+---
+
 ## 2026-04-06 - security.txt moved to Cloudflare dashboard (7f69fc2)
 
 Commit 7f69fc2 removed the static `public/.well-known/security.txt` file from the repository. The security.txt content is now managed via the Cloudflare dashboard rather than deployed as a static file. The endpoint `/.well-known/security.txt` remains accessible to visitors; only the management method changed.

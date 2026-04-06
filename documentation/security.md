@@ -15,13 +15,13 @@ All responses pass through `src/middleware/headers.ts`. Headers are set uncondit
 | `X-Frame-Options` | `DENY` |
 | `X-Content-Type-Options` | `nosniff` |
 | `Referrer-Policy` | `strict-origin-when-cross-origin` |
-| `Strict-Transport-Security` | `max-age=31536000; includeSubDomains; preload` |
-| `Cross-Origin-Opener-Policy` | `same-origin` |
+| `Strict-Transport-Security` | `max-age=31536000; includeSubDomains` |
+| `Cross-Origin-Opener-Policy` | `same-origin-allow-popups` |
 | `Cross-Origin-Resource-Policy` | `same-origin` |
 | `Permissions-Policy` | `camera=(), microphone=(), geolocation=(), accelerometer=(), gyroscope=(), magnetometer=(), midi=(), payment=(), usb=()` |
 | `Content-Security-Policy` | See below |
 
-HSTS with `preload` opts the domain into browser preload lists, enforcing HTTPS before the first connection. COOP (`same-origin`) prevents cross-origin windows from sharing a browsing context group, mitigating Spectre-class attacks. CORP (`same-origin`) blocks cross-origin reads of responses from this origin.
+HSTS enforces HTTPS for 1 year including subdomains. The `preload` directive is intentionally omitted — preloading requires explicit submission to browser preload lists and is an irreversible commitment; the current policy enforces HTTPS without that constraint. COOP (`same-origin-allow-popups`) prevents cross-origin windows from sharing a browsing context group except for popups the page itself opened, mitigating Spectre-class attacks while allowing OAuth and payment flows that open popups. CORP (`same-origin`) blocks cross-origin reads of responses from this origin.
 
 ## Content Security Policy
 
@@ -129,7 +129,7 @@ The redirects middleware enforces canonical URLs: trailing slashes are removed w
 
 ## Static Asset Cache Headers
 
-`public/_headers` sets Cloudflare cache directives for static assets before the Worker even runs. Rules applied:
+Cache-Control rules for static assets are configured in the Cloudflare dashboard (not via a `_headers` file in the repo). Rules applied:
 
 | Path pattern | Cache-Control |
 |---|---|
@@ -139,7 +139,7 @@ The redirects middleware enforces canonical URLs: trailing slashes are removed w
 | `/favicon*`, `/images/*` | `public, max-age=2592000` (30 days) |
 | `/*` (HTML pages) | `public, max-age=3600, stale-while-revalidate=86400` |
 
-These headers are applied by Cloudflare's edge before the request reaches the Worker. The `/api/img/*` rule is separate from the immutable rule because image keys are UUIDs but the response bodies can be updated by replacing the R2 object.
+These rules are applied by Cloudflare's edge before the request reaches the Worker. The `/api/img/*` rule is separate from the immutable rule because image keys are UUIDs but the response bodies can be updated by replacing the R2 object.
 
 ## Vulnerability Disclosure
 
