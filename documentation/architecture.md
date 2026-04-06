@@ -131,7 +131,25 @@ The admin panel uses Cloudflare Access for CMS authentication, with legacy Magic
 
 Season-based pricing supports cross-season stays. Tourist tax is applied per taxable person per night (adults + children 12–17; children under 12 exempt). Cleaning fee is flat. See `src/lib/pricing.ts` for `computeStayPrice()`.
 
-**Current limitations:** The booking inquiry handler (`src/pages/api/inquiry.ts`) passes `cleaningFee: 0` and `touristTaxRate: 1.35` as hardcoded values (marked `TODO: get from apartment/site settings`). Price estimates produced by the `type: "booking"` branch therefore do not reflect the actual cleaning fee and may not reflect the configured tourist tax rate until these are wired to their data sources (apartment settings and `site-settings` CMS collection respectively). The `seasons` table also has no migration yet — see [Configuration — D1 Migrations](configuration.md#d1-migrations).
+### Seasons table schema
+
+The `seasons` table drives all price computation. No migration file covers it yet — `0003_seasons.sql` must be created and applied before booking price estimates function (see [Configuration — D1 Migrations](configuration.md#d1-migrations)).
+
+```sql
+CREATE TABLE seasons (
+  id               TEXT PRIMARY KEY,
+  apartment_id     TEXT NOT NULL,
+  name             TEXT NOT NULL,
+  start_date       TEXT NOT NULL,  -- YYYY-MM-DD inclusive
+  end_date         TEXT NOT NULL,  -- YYYY-MM-DD inclusive
+  price_per_night  REAL NOT NULL,
+  min_stay         INTEGER NOT NULL DEFAULT 1
+);
+```
+
+Seed data lives in `seed/content/seasons.json`. Each apartment has separate season rows (e.g., `apt-lavanda`, `apt-tramuntana`). The inquiry handler queries by `apartment_id`.
+
+**Current limitations:** The booking inquiry handler (`src/pages/api/inquiry.ts`) passes `cleaningFee: 0` and `touristTaxRate: 1.35` as hardcoded values (marked `TODO: get from apartment/site settings`). Price estimates produced by the `type: "booking"` branch therefore do not reflect the actual cleaning fee and may not reflect the configured tourist tax rate until these are wired to their data sources (apartment settings and `site-settings` CMS collection respectively).
 
 ## Availability Model
 
