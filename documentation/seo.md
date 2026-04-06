@@ -83,7 +83,30 @@ The `LLMs-Txt:` directive points to `/llms.txt`, a machine-readable site descrip
 
 ## Open Graph Tags
 
-Every page emits Open Graph meta tags via `src/layouts/Base.astro`. The tags are standard `og:title`, `og:description`, `og:type`, `og:url`, and `og:image`.
+Every page emits Open Graph and Twitter Card meta tags via `src/layouts/Base.astro`.
+
+### Open Graph
+
+| Tag | Value |
+|---|---|
+| `og:title` | Full page title (site name + page title) |
+| `og:description` | Page meta description |
+| `og:type` | `website` |
+| `og:url` | Canonical URL |
+| `og:image` | Per-page image or fallback (Ždrelac from the sea) |
+| `og:site_name` | `Apartmani Novoselec` (static) |
+| `og:locale` | Locale-mapped: `hr_HR`, `de_CH`, `sl_SI`, `en_US` |
+
+### Twitter Card
+
+Every page also emits Twitter Card tags derived from the same values:
+
+| Tag | Value |
+|---|---|
+| `twitter:card` | `summary_large_image` |
+| `twitter:title` | Full page title |
+| `twitter:description` | Page meta description |
+| `twitter:image` | Per-page image or same fallback as `og:image` |
 
 ### ogImage prop
 
@@ -111,7 +134,42 @@ Each editorial page passes the same image used as its hero, ensuring the social 
 
 UUIDs are managed in each page's `ogImage` prop in `src/pages/[locale]/`. The fallback UUID is set in `src/layouts/Base.astro`.
 
-### Gallery alt text
+---
+
+## Theme Color and Web App Manifest
+
+### theme-color
+
+Two `theme-color` meta tags are emitted in every `<head>` — one for each color scheme:
+
+| Media query | Value | Usage |
+|---|---|---|
+| `(prefers-color-scheme: light)` | `#F8F5EF` (cream) | Browser chrome tint on mobile, PWA splash |
+| `(prefers-color-scheme: dark)` | `#0A1F33` (navy) | Same, dark mode |
+
+### Web App Manifest
+
+`/site.webmanifest` (static file at `public/site.webmanifest`) enables "Add to Home Screen" on Android and provides metadata for PWA-aware browsers:
+
+| Field | Value |
+|---|---|
+| `name` | `Apartmani Novoselec` |
+| `short_name` | `Apartmani` |
+| `start_url` | `/hr/` |
+| `display` | `standalone` |
+| `theme_color` | `#F8F5EF` |
+| `background_color` | `#F8F5EF` |
+| `icons` | `android-chrome-192x192.png`, `android-chrome-512x512.png` |
+
+The manifest is linked from every page via `<link rel="manifest" href="/site.webmanifest" />`.
+
+### Apple Touch Icon
+
+`<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />` and `<meta name="apple-mobile-web-app-title" content="Apartmani" />` are present in every `<head>`. The PNG files (`apple-touch-icon.png`, `android-chrome-192x192.png`, `android-chrome-512x512.png`) must be generated from `public/favicon.svg` and placed in `public/` — they are not yet committed.
+
+---
+
+## Gallery Alt Text
 
 Gallery items in `src/pages/[locale]/galerija.astro` use 50 rotating poetic Croatian captions (e.g. "more šuti, a govori sve", "lavanda i sol") assigned by rotating index (`i % captions.length`). Alt text is intentionally evocative rather than descriptive — the images are decorative in an auto-scrolling context and the captions reinforce the editorial voice. They are not localized (Croatian only). The gallery uses 137 distinct island photos shuffled deterministically per locale.
 
