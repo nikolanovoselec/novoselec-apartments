@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-04-06 - Spec review: privacy policy fallback text rewritten (3030ac1)
+
+Commit 3030ac1 rewrote the hardcoded privacy policy fallback text in `privatnost.astro` for all 4 locales (hr, de, sl, en). The new text is substantially more comprehensive GDPR copy: it names the website explicitly (apartmani-novoselec.ch), states the purpose of data collection, describes third-party sharing conditions, and includes a retention-based deletion policy instead of the previous 2-year fixed retention.
+
+### Requirements updated
+- **REQ-TC-2** (Privacy Policy): Updated "Content covers" acceptance criteria to match the new fallback text. Previous criteria referenced specific data processors (Resend, Cloudflare) and features (WhatsApp, Cloudflare Web Analytics) that the new text omits in favor of generic "technical service providers" language. Added GAP note: fallback text does not mention check-in/check-out dates or guest count (collected by the inquiry form), does not name specific processors, and omits WhatsApp and analytics disclosures. These should be addressed when CMS-managed content replaces the fallback.
+
+### No new requirements
+- The change is a content improvement to an existing feature (privacy policy fallback text), not a new feature.
+- No apartment detail page layout changes were present in this commit.
+
+---
+
 ## 2026-04-06 - Spec review: sticky CTA triptych sentinel + logo scope reduced (37fa731)
 
 Commit 37fa731 made two behavior changes: (1) `StickyMobileCTA` now hides when the user scrolls past the experience triptych section on the homepage, via a new `.sticky-cta-end` sentinel div placed immediately after the triptych. (2) The sailboat logo was removed from the mobile menu and footer — it now appears only in the top nav header.

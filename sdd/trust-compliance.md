@@ -35,16 +35,17 @@ GDPR, privacy policy, house rules, cancellation policy, security headers, and ac
 - **Acceptance Criteria:**
   - Standalone page, CMS-managed per locale
   - Content covers:
-    - Data controller identity and contact
+    - Website identification (apartmani-novoselec.ch named explicitly)
+    - Data controller identity: owner of Apartmani Novoselec, Zdrelac, Pasman, Croatia
+    - Purpose of data collection: respond to inquiry, provide availability info, arrange potential booking
     - Legal basis for inquiry processing (Art. 6(1)(b) GDPR — pre-contractual measures)
-    - What data is collected: name, email, phone, dates, message via inquiry form
-    - How data is stored: D1 database on Cloudflare infrastructure (EU region)
-    - Data processors: Resend (email delivery), Cloudflare (hosting)
-    - Data retention: inquiries retained for 2 years, then deleted unless converted to booking records
-    - Right to access, rectify, erase — contact email for requests
-    - WhatsApp: user-initiated contact, subject to Meta's privacy policy (third-country transfer — user-initiated basis)
-    - Cloudflare Web Analytics: cookieless, no personal data collected
+    - What data is collected: first and last name, email address, phone number, and message content via inquiry form
+    - How data is stored: Cloudflare D1 database on servers within the European Union
+    - Third-party sharing: data not sold, rented, or shared; only disclosed to technical service providers under strictly controlled conditions
+    - Data retention: retained only as long as necessary for inquiry processing and booking preparation; securely deleted if no booking results
+    - Right to access, rectify, erase — by contacting the data controller
     - No data sold to third parties
+  - **GAP (known):** Fallback text does not explicitly mention check-in/check-out dates or guest count as collected data (the inquiry form collects these). Also does not name specific data processors (Resend, Cloudflare) or mention WhatsApp contact or Cloudflare Web Analytics cookieless tracking. These should be added when CMS-managed content replaces the fallback.
   - Preloaded with template content in all 4 locales
   - Always accessible in 1 click from any page (footer link)
   - **Available in German regardless of DE locale activation** (CON-LEGAL)
