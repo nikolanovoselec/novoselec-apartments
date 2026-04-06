@@ -56,7 +56,7 @@ Apartment listings, detail pages, photo galleries, amenities, seasonal pricing, 
   - Quick-compare key facts visible on cards without clicking through
   - Image hover: subtle zoom within overflow:hidden
   - Scroll-triggered staggered fade-up entry
-  - If only 1 apartment exists, listing page redirects to detail page
+  - If only 1 apartment exists, listing page redirects to detail page (planned — not currently implemented; the listing always renders even with a single apartment)
   - **If zero apartments published in current locale:** empty grid renders (CMS-only, no fallback content)
   - 2-column grid on desktop (cards), single column on mobile
   - Only shows apartments published in current locale

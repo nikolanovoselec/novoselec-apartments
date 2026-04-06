@@ -27,7 +27,7 @@ Guest testimonials with contextual metadata and trust signal aggregates.
 - **Priority:** P1
 - **Dependencies:** REQ-CMS-1, REQ-CMS-5, REQ-AP-1
 - **Verification:** Create testimonials, verify on homepage and apartment pages
-- **Status:** Implemented
+- **Status:** Partial — homepage testimonials grid renders 3 cards from the `testimonials` Emdash collection with locale fallback. Section hidden if collection empty. Apartment detail page does NOT yet render featured/contextual testimonials, "Most loved for" tag cloud, or per-apartment filtering. Card carousel for 4+ testimonials is also planned, not built.
 
 ### REQ-SP-2: Trust Strip
 

@@ -1,5 +1,44 @@
 # Changelog
 
+## 2026-04-06 - Final spec sweep after e65d345: hero controls, address, env types, ScrollCollage vs MiniCollage, single-apartment redirect, contextual testimonials
+
+Final verification pass after the e65d345 spec sync commit. Audited every domain file against actual source code. Six categories of residual inaccuracy fixed.
+
+### Requirements updated
+- **REQ-SF-1** (Hero Section): Removed claims that don't exist in `src/components/home/Hero.astro`. The hero has NO progress dots, NO dot click handlers, NO mouseenter/mouseleave pause behavior, and NO staggered fade-up entry animation on title/subtitle. The auto-advance is a plain DOMContentLoaded handler with `setInterval(next, 10000)`. Updated AC to describe what actually exists. Also fixed wave bottom position (`-2px` not `-1px`, matching code) and added the responsive height clamp value.
+- **REQ-VD-15** (Photo Collage): Spec previously said "MiniCollage" was the only component name and described it as placed on the homepage. Two distinct components actually exist: `ScrollCollage` (homepage + apartment listing — no `reverse`, no `showCaptions`, default speed 35s) and `MiniCollage` (editorial pages, apartment detail, gallery — adds `reverse`, `showCaptions`, single-image fallback; default speed prop is 20s but every caller overrides it). Restructured the placement section as an explicit matrix showing which component is used on each page.
+- **REQ-CMS-1** (Emdash Integration): Fixed inaccurate claim that `getLocalizedCollection` calls `getEmDashCollection` "once". Actual code makes a second fallback call with `{ locale: "hr" }` if the first locale-specific query returns zero results. Also corrected the locale-filtering description: Emdash's built-in `{ locale }` option is used (not a manual `data.locale` filter).
+- **REQ-AP-2** (Apartment Listing Page): The "if only 1 apartment exists, listing page redirects to detail page" criterion is NOT implemented in `src/pages/[locale]/apartmani/index.astro`. Marked the criterion as "planned — not currently implemented" inline so the status badge no longer overstates coverage.
+- **REQ-SP-1** (Guest Testimonials): Status downgraded from Implemented to Partial. Homepage testimonials grid IS implemented, but the spec also requires contextual featured quotes on apartment detail pages, "Most loved for" tag cloud, isFeatured selection logic, and per-apartment filtering — none of which exist. The apartment detail page renders only price card + amenities in the sidebar, no testimonials.
+- **REQ-ED-2** (Getting Here Page): Property address corrected from "Fratarsko 3, 23271 Zdrelac" to the actual address used in `src/pages/[locale]/dolazak.astro` — **"Fratarsko 5, 23263 Ždrelac, Croatia"**. House number was wrong (3 → 5), postal code was wrong (23271 → 23263), and the village name was missing the diacritic (Zdrelac → Ždrelac).
+
+### Constraints updated
+- **CON-STACK** (Technology Stack): Two corrections to the env access pattern paragraph.
+  - **Env type interface name was wrong:** spec named the global type `CloudflareBindings` and claimed the Cloudflare adapter maps it automatically so API routes need no extra imports. Actual code uses an `Env` interface declared in `src/env.d.ts` and every API route does `import type { Env } from "~/env"` followed by `const env = _env as unknown as Env;`. Corrected the description.
+  - **`CF_ACCESS_AUDIENCE` is NOT a secret:** spec said it's set via `wrangler secret put`. Actual `wrangler.jsonc` has it in the `vars` block as plaintext. The Access Application AUD tag is a public identifier, not a secret. Moved it to the non-secret list and added an explanatory note. Also added `R2_BUCKET_NAME` to the non-secret list (it was missing).
+
+### Validation results (no changes needed — already accurate)
+- **REQ-BK-2** inquiry pipeline order: matches `src/pages/api/inquiry.ts` exactly (Zod → honeypot → Turnstile → sanitize → persist → email).
+- **REQ-BK-8** contact page: form fields, honeypot, GDPR consent, Turnstile managed mode, JSON POST to `/api/inquiry` with `type: "question"` — all match `src/pages/[locale]/kontakt.astro`.
+- **REQ-SF-3** Navigation: brand.name translation key, sailboat logo, transparent-to-solid scroll, IntersectionObserver — all match. (Note: the "Focus trapping when fullscreen menu is open" criterion is aspirational — actual code only handles Escape key. This is acknowledged in REQ-A11Y-2 which is `Planned`, so no spec contradiction.)
+- **REQ-SF-8** gallery: 142 photos counted in the actual `allPhotos` array in `src/pages/[locale]/galerija.astro`. Locale-seeded shuffle, MiniCollage strips of 10, `showCaptions`, fixed 80s speed — all accurate.
+- **REQ-VD-12** HeroSimple: matches actual component behavior.
+- **REQ-CMS-9** Cloudflare Access: still accurate.
+- **REQ-SEO-1, REQ-SEO-2, REQ-SEO-3, REQ-SEO-4**: all SEO claims still match Base.astro and the apartment detail / FAQ schema emission.
+- **REQ-ED-7** FAQ: matches faq.astro implementation including the `house-rules` deep-link.
+- **REQ-ED-8, REQ-ED-9, REQ-ED-10**: hrana, aktivnosti, plaze pages match.
+- **REQ-PERF-1** photo count "142+": matches actual gallery array length.
+- All other domain files verified — no remaining contradictions found.
+
+### Known stale-but-acceptable items (NOT changed in this pass)
+- **REQ-PERF-1** lists `Responsive <picture> with srcset at 400/800/1200/1920px widths` and `Format negotiation` as acceptance criteria, but neither is implemented. Status correctly says `Partial` and explicitly notes both as missing — this is intentional aspirational content, not a stale claim.
+- **REQ-A11Y-2** Keyboard Navigation lists focus trapping for the fullscreen nav. Code only handles Escape. Status is `Planned`, so the AC reflects the target state correctly.
+- **REQ-VD-3** mentions "GSAP optional" — `@mdi/js` and `gsap` are installed but not actually used anywhere on the site. The optionality is correctly described as a future possibility, not a current claim.
+- The `meta.titleSuffix` translation key is still in active use in `src/layouts/Base.astro` (line 25) and all four `src/i18n/translations/*.json` files. REQ-I18N-3 references it correctly. The previous changelog entry's wording "removes stale meta.titleSuffix claim" was misleading — that claim was never actually stale and was not actually removed. The reference in REQ-I18N-3 remains correct as-is.
+- **R2 key format ambiguity:** REQ-PERF-1 / REQ-CMS-2 / REQ-PERF-2 / REQ-VD-12 status notes describe the format as "`UUID.ext`". The `POST /admin/api/upload-url` endpoint does generate `UUID.ext` keys. However, the seeded photo set in the components (Hero, gallery, triptych, etc.) uses pure UUID keys with NO extension. Both formats coexist in R2 because the `/api/img/[key]` route accepts the key as-is. This is documented in `documentation/architecture.md` and is accurate enough for spec purposes — the "as-returned-by-upload-url" definition is the canonical one for new uploads.
+
+---
+
 ## 2026-04-06 - Post-09f1e83 audit: hero title accuracy, photo count refresh, per-locale page titles
 
 Deep audit of commits 7d77430..09f1e83 (gallery_captions CMS collection, brand name localization, MiniCollage single-image styling, alternating editorial collage direction, hero tuning, gallery cleanup, CI consolidation). Most new features were already captured by spec updates in 09f1e83 itself; this pass fixes the residual gaps.
