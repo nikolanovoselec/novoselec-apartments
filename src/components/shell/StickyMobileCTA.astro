@@ -87,7 +87,11 @@ const { locale } = Astro.props;
 
     if (endSentinel) {
       new IntersectionObserver(([entry]) => {
-        reachedEnd = entry.isIntersecting;
+        if (entry.isIntersecting) {
+          reachedEnd = true;
+        } else if (entry.boundingClientRect.top > 0) {
+          reachedEnd = false;
+        }
         update();
       }, { threshold: 0 }).observe(endSentinel);
     }
