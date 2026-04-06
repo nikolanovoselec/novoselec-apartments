@@ -87,19 +87,21 @@ Content pages that sell the destination and build emotional connection — Getti
 - **Intent:** Build trust through personal connection — this is a family, not an agency
 - **Applies To:** Visitor
 - **Acceptance Criteria:**
-  - Standalone page (`/hr/o-nama`, `/de/ueber-uns`, `/sl/o-nas`, `/en/about-us`) AND condensed version on homepage
-  - Photo(s) of the hosts (framed with Dalmatian arch clip-path mask)
-  - Rich text story about their connection to Pašman, the property, the family
+  - **Current implementation:** Standalone page at `/{locale}/o-nama` (single Croatian-style slug used in all four locales — no `/de/ueber-uns`, `/sl/o-nas`, or `/en/about-us` route variants exist) with `HeroSimple` photo-backed header (REQ-VD-12). Single content section with circular host portrait (200x200 inside a `border-radius: 50%` mask, 4px white border, soft shadow) on the left and rich-text story body on the right (`grid-template-columns: 1fr 1.3fr` desktop, single column mobile). The section uses `.section--footer-clear` for footer wave clearance (REQ-VD-9). Story body sourced from the dedicated `about` CMS collection — entry resolved by `section_key === "story"` with fallback to first entry. CMS-only — no hardcoded fallback story.
   - Warm, personal tone — "We didn't grow up here; we chose Pašman, returned for decades, and slowly made it our second home." (Parents are from Črešnjevo, Zagorje — they chose the island, they were not born on it.)
   - CMS-managed per locale — each language can have different length/tone
-  - Response time badge: "We usually respond within 2 hours"
-  - WhatsApp link for direct contact
-  - Toggleable via section settings (homepage appearance; standalone page always available)
+  - **Planned (not currently implemented):**
+    - Localized URL slugs per locale (e.g., `/de/ueber-uns`, `/en/about-us`) — currently all locales use `/o-nama`
+    - Dalmatian arch clip-path frame on host portrait — currently uses a simple circular mask
+    - Response time badge ("We usually respond within 2 hours")
+    - WhatsApp link for direct contact
+    - Condensed homepage version of the host story
+    - Section visibility toggle (REQ-CMS-5)
 - **Constraints:** CON-I18N
 - **Priority:** P1
 - **Dependencies:** REQ-CMS-1, REQ-CMS-5
-- **Verification:** Visual review
-- **Status:** Implemented — dedicated `about` CMS collection. All 4 locales populated.
+- **Verification:** Visual review of the standalone page in all 4 locales; verify CMS-only content (no hardcoded fallback) renders the host story.
+- **Status:** Partial — standalone `/{locale}/o-nama` page renders the host story from the `about` CMS collection in all 4 locales with a circular portrait. Localized slugs, arch clip-path framing, response time badge, WhatsApp link, homepage condensed version, and section toggle are all not yet built.
 
 ### REQ-ED-6: "About Ždrelac" Page
 

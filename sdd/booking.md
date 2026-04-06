@@ -35,7 +35,7 @@ Request-to-book inquiry flow, business rules, server pipeline, WhatsApp integrat
     - "This is an estimate. Final price confirmed by owner."
   - Auto-generated summary: "Interested in Apartment Lavanda, 2 adults + 1 child, 5-12 August"
   - GDPR consent checkbox (unchecked by default): "I agree to the processing of my data per the [Privacy Policy](/privacy)"
-  - Turnstile widget in invisible mode validates before submission
+  - Turnstile widget in managed mode (visibly rendered, `data-appearance="always"`) validates before submission
   - Submit button with fill-sweep hover animation
   - On success: confirmation + "This is a request, not a confirmed booking. Dates are not secured until we confirm. We typically respond within 2 hours."
   - On failure: clear error message, form state preserved

@@ -36,7 +36,7 @@ Color system, typography, scroll animations, micro-interactions, and Croatian vi
 - **Acceptance Criteria:**
   - Display/headings: DM Serif Display (transitional serif with high contrast strokes), regular weight (400), dramatic clamp scale (`clamp(3rem, 7vw, 6rem)` for display, `clamp(2rem, 4vw, 3.5rem)` for h2), negative letter-spacing (-0.02em headings, -0.03em display)
   - Body: Inter (variable humanist sans-serif, weight range 100-900), regular weight, 15px base, 1.7 line-height
-  - Utility classes: `.text-lead` (19px, 1.65 line-height) for introductory paragraphs, `.text-label` (11px, 600 weight, 0.12em tracking, uppercase) for small-caps section labels
+  - Utility classes: `.text-lead` (19px, 1.65 line-height) for introductory paragraphs, `.text-label` (11px, 600 weight, 0.12em tracking, `text-transform: uppercase`) for section labels
   - Max 2 typefaces loaded (DM Serif Display + Inter variable). Both self-hosted as `.woff2` in `/fonts/`, preloaded via `<link rel="preload">`.
   - Full glyph coverage verified: Croatian (c, c, d, s, z), Slovenian (c, s, z), German (a, o, u, ss)
   - `font-display: swap` with size-adjusted fallback system font stack
@@ -312,7 +312,7 @@ Color system, typography, scroll animations, micro-interactions, and Croatian vi
   - Owner manages collage by editing the gallery array in Emdash admin — add/remove photos without code changes
   - Placement matrix:
     - **Homepage** apartments section (`section--dark`), after the text content — uses **`ScrollCollage`** (no `reverse`, no captions, default 35s speed).
-    - **Apartment listing page** (`section--dark`, exterior photos from the same `editorial`/`page_key=homepage`/`section_key=collage` CMS entry as the homepage) — uses **`ScrollCollage`**.
+    - **Apartment listing page** — uses **`ScrollCollage`** wrapped in a custom `.collage-strip` element (navy background `var(--color-navy)`, top-edge decorative wave SVG, no `.section--dark` class). Photos sourced from the same `editorial`/`page_key=homepage`/`section_key=collage` CMS entry as the homepage.
     - **Apartment detail page** interior photos from the `gallery` CMS field — uses **`MiniCollage`** with `Math.max(35, gallery.length * 8)` speed.
     - **Editorial detail pages** (aktivnosti, dolazak, plaze, vodic) — each CMS section with photos renders a `MiniCollage` strip at `Math.max(35, photos.length * 8)` speed with alternating scroll direction (`reverse` on odd-indexed sections, matching galerija and hrana).
     - **Food & Drink page** (hrana) — a single gallery is split into two `MiniCollage` strips scrolling in opposite directions (default left, `reverse` right) stacked below the description text.

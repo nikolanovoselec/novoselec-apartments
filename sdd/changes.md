@@ -1,5 +1,41 @@
 # Changelog
 
+## 2026-04-06 - Post-3a1b897 verification sweep: Turnstile mode in glossary, HeroSimple wave clamp, REQ-ED-5 status
+
+Verification pass after the 3a1b897 docs commit. Spot-checked every requirement called out in the brief (REQ-SF-1, REQ-VD-15, REQ-ED-2, REQ-CMS-1, REQ-AP-2, REQ-SP-1) against the actual source files plus a sweep of the remaining domains. Three residual issues found and fixed.
+
+### Requirements updated
+- **REQ-VD-12** (Subpage Hero Pattern): The `HeroSimple` wave divider uses `clamp(40px, 6vw, 80px)` for its responsive height — slightly smaller than the `clamp(50px, 8vw, 100px)` value used by the standalone `WaveDivider` component (REQ-VD-9). The spec previously asserted both used the same clamp values, which is wrong. Corrected the AC to call out the difference and explain why (subpage hero scale vs full-section divider scale).
+- **REQ-ED-5** (About Your Hosts Page): Status downgraded from Implemented to Partial. The page exists and renders the host story from the `about` CMS collection in all four locales, but several criteria the spec listed as Implemented are not actually built: Dalmatian-arch clip-path frame on the host portrait (actual code uses a circular `border-radius: 50%` mask), localized URL slugs per locale (`/de/ueber-uns`, `/en/about-us`, `/sl/o-nas` — all locales currently use `/o-nama`), response time badge ("We usually respond within 2 hours"), WhatsApp link, condensed homepage host story, and section visibility toggle. Restructured the AC into a "current implementation" section + an explicit "planned" list so the gap is unambiguous.
+
+### Glossary updates
+- **Turnstile**: Glossary entry still said "Used in invisible mode on inquiry forms" — stale claim. The actual `kontakt.astro` widget uses `data-appearance="always"` (managed mode, always visible) and CON-SEC was already updated to reflect this. Brought the glossary in line with CON-SEC and the source.
+- **Scroll Collage**: Glossary entry said the component was "used on the homepage to showcase property exterior photos" — incomplete. `ScrollCollage` is also used on the apartment listing page (per REQ-VD-15 placement matrix). Updated to mention both placements and reference REQ-VD-15.
+
+### Validation results (no changes needed — code matches spec)
+- **REQ-SF-1** (Hero Section): `src/components/home/Hero.astro` matches the spec exactly — 7 stacked slides, `setInterval(next, 10000)`, 8s opacity transition, continuous `heroZoom` keyframe on all slides (12s ease-in-out infinite alternate, scale 1 → 1.1 with `translate3d(-1%, -1%, 0)`), inline locale switching for the first word of the title with constant "Novoselec" surname in italic at 0.65 opacity, location label above title at 0.7 opacity, no progress dots, no dot click handlers, no hover pause, no fade-up animation. Wave at `bottom: -2px`, `clamp(50px, 8vw, 100px)` height, fill `#F8F5EF`. All 7 hero images served via `/api/img/{UUID}` from R2.
+- **REQ-VD-15** (Exterior Photo Collage): `src/components/home/ScrollCollage.astro` and `src/components/ui/MiniCollage.astro` match the spec. ScrollCollage default speed 35s, no `reverse`/`showCaptions`. MiniCollage default speed 20s, supports `reverse` and `showCaptions`, has single-image fallback with `border-radius: 16px`, `max-width: 1000px`, `padding: 0`, 4:3 aspect. Both pause on hover, both respect reduced motion. Placement matrix verified: homepage + apartments listing use ScrollCollage; vodic, dolazak, plaze, aktivnosti, hrana, galerija, apartment detail use MiniCollage with the documented `Math.max(35, count * 8)` or fixed-80s overrides. Apartments listing wraps `ScrollCollage` in a custom `.collage-strip` element (navy background, top-edge decorative wave) rather than the homepage's `.section--dark .section--wave-in` pattern — placement matrix tightened to reflect this.
+- **REQ-ED-2** (Getting Here Page): `src/pages/[locale]/dolazak.astro` uses the `dolazak` CMS collection sorted by `sort_order`, alternating `section--alt`, MiniCollage with `reverse` on odd-indexed sections, dark address section using `.section--dark .section--wave-in .section--footer-clear` with inline wave SVG (cream fill, `scaleY(-1)`), Google Maps + Apple Maps deep-link buttons. Address constant matches spec exactly: `"Fratarsko 5, 23263 Ždrelac, Croatia"`.
+- **REQ-CMS-1** (Emdash Integration): `src/lib/content.ts` `getLocalizedCollection` calls `getEmDashCollection(slug, { locale })` first, then falls back to `{ locale: "hr" }` if the first call returns zero entries and the requested locale is not Croatian. Active collections in source: `apartments, aktivnosti, hrana, editorial, testimonials, plaze, gallery_captions, vodic, dolazak, faqs, about`. Matches the spec list.
+- **REQ-AP-2** (Apartment Listing Page): `src/pages/[locale]/apartmani/index.astro` matches spec. Card grid (CMS-only, no fallback), full-card `<a>` link, conditional ScrollCollage from `editorial` page_key=homepage, conditional `.section--wave-in` on the CTA section based on `collagePhotos.length > 0`, `.section--footer-clear` always applied, CTA links to `/{locale}/kontakt`. Single-apartment redirect correctly marked as Planned inline.
+- **REQ-SP-1** (Guest Testimonials): `src/pages/[locale]/index.astro` renders the testimonials grid (3 cards from `testimonials` collection, hidden if empty). Apartment detail page `src/pages/[locale]/apartmani/[slug].astro` does NOT render any testimonials — only price card + amenities sidebar. Status correctly says Partial.
+- **REQ-BK-8** (Contact Inquiry Page): `src/pages/[locale]/kontakt.astro` matches — Turnstile widget with `data-appearance="always"`, honeypot `<input name="website">` off-screen, GDPR `<input type="checkbox" name="gdpr" required>`, POSTs JSON to `/api/inquiry` with `type: "question"`. All four locale label sets present.
+- **REQ-BK-2** (Inquiry Server Pipeline): `src/pages/api/inquiry.ts` order matches spec exactly — Zod parse → honeypot check → Turnstile verify → sanitize → optional booking validation → D1 insert with `email_status: pending` → Resend send → status update → 200/202 response.
+- **REQ-CMS-9** (Cloudflare Access): no contradiction with code.
+- **REQ-VD-9** (Wave dividers): All five `section--footer-clear` placements verified in source (`index.astro`, `dolazak.astro`, `kontakt.astro`, `apartmani/index.astro`, `o-nama.astro`). All `section--wave-in` placements verified.
+- **REQ-SF-3** (Navigation): logo CSS sets `width: 28px` (HTML `width="32"` is the layout-reservation attribute, CSS overrides) — matches spec value of 28px.
+- **REQ-ED-7** (FAQ): all 8 hardcoded fallbacks per locale match the spec topic list, including `<a href="/${locale}/dolazak">` inline links and `house-rules` deep-link anchor.
+- **CON-STACK** env access pattern, **CON-SEC** Turnstile managed mode, **CON-PERF**, **CON-MEDIA**, **CON-LEGAL** — all current.
+
+### Stale-but-acceptable items (not changed in this pass)
+- **REQ-PERF-1** still aspirationally lists `<picture>` srcset and format negotiation as criteria. Status correctly says Partial. No change needed.
+- **REQ-A11Y-2** keyboard navigation status `Planned`. Still aspirational, AC describes target state.
+- **REQ-SEO-3** analytics still Partial — `/api/track` exists but the Cloudflare Web Analytics beacon is not present in `Base.astro`. Status correctly reflects this.
+- **REQ-AP-1** through **REQ-AP-8** (apartment schema, pricing, availability, gallery, ICS sync, comparison) all correctly Deprecated for MVP scope.
+- **REQ-CMS-3** (Magic Link) correctly Deprecated, REQ-CMS-9 (Cloudflare Access) is canonical.
+
+---
+
 ## 2026-04-06 - Final spec sweep after e65d345: hero controls, address, env types, ScrollCollage vs MiniCollage, single-apartment redirect, contextual testimonials
 
 Final verification pass after the e65d345 spec sync commit. Audited every domain file against actual source code. Six categories of residual inaccuracy fixed.
