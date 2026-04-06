@@ -7,10 +7,11 @@ Vacation rental website for family apartments in Ždrelac, Pašman island, Croat
 ## Tech Stack
 
 - **Runtime:** Astro 6 SSR on Cloudflare Workers (HTML rendered per-request, no static generation)
-- **Database:** Cloudflare D1 (SQLite — auth, availability, inquiries, analytics)
-- **Storage:** Cloudflare R2 (media, served via `/api/img/[key]` with Cloudflare Image Resizing)
-- **CMS:** Emdash (apartments, editorial, testimonials, FAQ, guide collections)
-- **Email:** Resend (inquiry notifications, magic link auth)
+- **CMS:** [Emdash](https://emdash.dev) — content management for apartments, editorial pages, testimonials, FAQ, guide collections
+- **Database:** Cloudflare D1 (SQLite — inquiries, availability, analytics)
+- **Storage:** Cloudflare R2 (media served via `/api/img/[key]`)
+- **Auth:** Cloudflare Access (admin protected via identity-aware proxy)
+- **Email:** Resend (inquiry notifications)
 - **Languages:** Croatian (primary), German, English, Slovenian
 - **Architecture:** Islands — minimal JS, `is:inline` scripts, IntersectionObserver for scroll reveals
 
@@ -18,8 +19,7 @@ Vacation rental website for family apartments in Ždrelac, Pašman island, Croat
 
 - **i18n:** Manual routing with 4 locales (`hr` default, `de`, `sl`, `en`). Locale fallback: requested → `hr`.
 - **Inquiry pipeline:** Zod validation → honeypot → Turnstile → sanitize → availability check → D1 insert → Resend email
-- **Auth:** Cloudflare Access for CMS admin. Magic link codes (SHA-256, 10-min expiry) for future guest portal.
-- **Security:** Turnstile on forms, CSP headers, input sanitization, rate limiting
+- **Security:** Cloudflare Access for admin, Turnstile on public forms, CSP headers, input sanitization
 - **Pricing:** Season-based with tourist tax. Defined in `seed/content/seasons.json`.
 
 ## Quick Start
