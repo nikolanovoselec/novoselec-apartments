@@ -103,12 +103,12 @@ const hasMultiple = images.length > 1;
     }
   }
 
-  /* Single image fallback — matches collage radius, constrained and centered */
+  /* Single image fallback — proportional radius matching collage visual weight */
   .mini-collage--single {
     overflow: hidden;
     max-width: 1000px;
     margin-inline: auto;
-    border-radius: 16px;
+    border-radius: 24px;
   }
 
   .mini-collage--single img {
