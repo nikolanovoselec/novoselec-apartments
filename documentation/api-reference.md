@@ -224,7 +224,7 @@ Submits a booking inquiry or quick question. Currently the only frontend caller 
 - Honeypot triggers a fake `{ "success": true }` with no processing (silent bot rejection).
 - The inquiry is written to D1 before email dispatch — data is never lost on email failure.
 - `email_status` is set to `sent` or `retry`; on failure `retry_at` is set to `+2 minutes`.
-- Price estimate is computed from the `seasons` table and stored on the inquiry row.
+- Price estimate is computed from the `seasons` table and stored on the inquiry row. `cleaningFee` and `touristTaxRate` are currently hardcoded (`0` and `1.35` respectively) pending wiring to apartment and site-settings data sources — see [Architecture — Pricing Model](architecture.md#pricing-model).
 
 **Implementation:** `src/pages/api/inquiry.ts`.
 
