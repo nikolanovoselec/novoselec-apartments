@@ -143,6 +143,16 @@ function getLocalizedPath(targetLocale: string): string {
     font-size: var(--font-size-xl);
     font-weight: 400;
     letter-spacing: 0.02em;
+    opacity: 0;
+    max-width: 0;
+    overflow: hidden;
+    transition: opacity var(--duration-normal) var(--ease-out),
+                max-width var(--duration-normal) var(--ease-out);
+  }
+
+  .nav.is-scrolled .nav__logo-text {
+    opacity: 1;
+    max-width: 300px;
   }
 
   .nav__links {
