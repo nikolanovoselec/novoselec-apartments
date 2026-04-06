@@ -5,7 +5,7 @@ Request-to-book inquiry flow, business rules, server pipeline, WhatsApp integrat
 ## Key Concepts
 
 - **Request-to-book**: Structured inquiry with dates, guests, apartment — not a generic contact form
-- **Inquiry pipeline**: Form submission -> Turnstile validation -> persist to D1 -> send owner notification via Resend
+- **Inquiry pipeline**: Form submission -> Zod validation -> honeypot check -> Turnstile verification -> input sanitization -> persist to D1 -> send owner notification via Resend
 - **Inquiry lifecycle**: new -> read -> responded -> confirmed (blocks dates) / declined
 - **WhatsApp**: Floating button with pre-filled message as alternative contact channel
 - **Quick question**: Low-friction contact path for visitors who don't have dates yet
