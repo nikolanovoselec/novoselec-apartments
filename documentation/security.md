@@ -143,7 +143,7 @@ These headers are applied by Cloudflare's edge before the request reaches the Wo
 
 ## Vulnerability Disclosure
 
-`public/.well-known/security.txt` follows the [securitytxt.org](https://securitytxt.org/) standard. It declares the contact address, preferred languages, canonical URL, and an expiry date. Researchers who discover a vulnerability can reference this file to find the responsible disclosure contact.
+`/.well-known/security.txt` is served by Cloudflare (not a static file in the repo). It follows the [securitytxt.org](https://securitytxt.org/) standard (RFC 9116) and declares the contact address, preferred languages, canonical URL, and an expiry date. Researchers who discover a vulnerability can reference this file to find the responsible disclosure contact. The content is managed in the Cloudflare dashboard and must be updated before the `Expires` date.
 
 ---
 

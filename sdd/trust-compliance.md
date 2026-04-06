@@ -161,7 +161,7 @@ GDPR, privacy policy, house rules, cancellation policy, security headers, and ac
 - **Intent:** Enable responsible disclosure of security vulnerabilities via standard well-known URI
 - **Applies To:** System
 - **Acceptance Criteria:**
-  - `/.well-known/security.txt` served as a static file
+  - `/.well-known/security.txt` served at the well-known URI (managed via Cloudflare dashboard, not a static file in the repo)
   - Contains: Contact (mailto), Expires date, Preferred-Languages (hr, en, de, sl), Canonical URL
   - Expires date set to a future date (must be updated before expiry)
   - Conforms to RFC 9116

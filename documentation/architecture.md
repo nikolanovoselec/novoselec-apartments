@@ -59,13 +59,14 @@ Apartmani Pašman is a server-side rendered Astro site deployed as a Cloudflare 
 
 ## Static Public Files
 
-Three files in `public/` are served directly by Cloudflare before the Worker runs:
+Two files in `public/` are served directly by Cloudflare before the Worker runs:
 
 | File | Purpose |
 |---|---|
 | `public/_headers` | Cloudflare cache-control rules for static assets — content-hashed Astro bundles cached immutably, fonts and favicons 30 days, R2 images 1 day with SWR, HTML 1 hour with SWR |
 | `public/llms.txt` | Machine-readable site description for LLMs — property details, apartment specs, key pages, and notes to AI assistants |
-| `public/.well-known/security.txt` | Vulnerability disclosure contact per [securitytxt.org](https://securitytxt.org/) |
+
+`/.well-known/security.txt` is served by Cloudflare directly (not a file in the repo) — see [Vulnerability Disclosure](security.md#vulnerability-disclosure).
 
 ## Request Lifecycle
 

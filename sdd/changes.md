@@ -1,5 +1,20 @@
 # Changelog
 
+## 2026-04-06 - security.txt moved to Cloudflare dashboard (7f69fc2)
+
+Commit 7f69fc2 removed the static `public/.well-known/security.txt` file from the repository. The security.txt content is now managed via the Cloudflare dashboard rather than deployed as a static file. The endpoint `/.well-known/security.txt` remains accessible to visitors; only the management method changed.
+
+### Requirements updated
+- **REQ-TC-8** (Security Contact Disclosure): Acceptance criteria updated — file is now served via Cloudflare dashboard configuration, not as a static file in the repo.
+
+### Constraints updated
+- **CON-SEC**: Clarified security.txt is managed via Cloudflare dashboard.
+
+### Glossary terms updated
+- **security.txt**: Added note that it is managed via Cloudflare dashboard, not a static repo file.
+
+---
+
 ## 2026-04-06 - Security hardening, llms.txt, security.txt, static caching headers (67083a1)
 
 Commit 67083a1 added three new static files and hardened security headers. (1) `public/.well-known/security.txt` — RFC 9116 security contact disclosure with mailto, expiry, preferred languages, and canonical URL. (2) `public/llms.txt` — structured site summary for AI assistants covering property details, apartment specs, booking method, key page URLs, and guidance for accurate AI responses. (3) `public/_headers` — Cloudflare static headers file defining Cache-Control tiers for content-hashed Astro assets (immutable, 1 year), fonts (30 days), R2 image API (1 day + 7-day stale-while-revalidate), favicons/static images (30 days), and HTML pages (1 hour + 1-day stale-while-revalidate). (4) `src/middleware/headers.ts` updated with three new security headers: HSTS (max-age=31536000, includeSubDomains, preload), Cross-Origin-Opener-Policy (same-origin), Cross-Origin-Resource-Policy (same-origin). Permissions-Policy expanded from 3 restrictions (camera, microphone, geolocation) to 9 (added accelerometer, gyroscope, magnetometer, midi, payment, usb).
