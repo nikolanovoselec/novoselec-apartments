@@ -130,7 +130,7 @@ The homepage and visual shell — hero, navigation, footer, language switcher, a
   - ~~"Book direct — no platform fees" trust message~~ — **Removed:** direct-booking trust message removed from footer per owner decision
   - SVG wave at the top edge of the footer (organic bezier path, navy fill `#0C2D48` to match footer background, responsive width, `aria-hidden="true"`). Creates organic transition from page content into footer — no hard edge.
   - Footer background: vertical gradient from `#0C2D48` to `#091E32`
-  - Bottom bar: gradient divider line (transparent edges, 15% white center), copyright with location ("Zdrelac, Pasman")
+  - Bottom bar: gradient divider line (transparent edges, 15% white center), copyright with location ("Ždrelac, Pašman")
   - Contact info CMS-managed in site-settings
 - **Constraints:** CON-LEGAL, CON-I18N
 - **Priority:** P1
@@ -146,7 +146,7 @@ The homepage and visual shell — hero, navigation, footer, language switcher, a
   - After scrolling past hero, a bottom bar slides up with two text spans: primary label (`cta.checkAvailability`, e.g., "Check availability") and secondary label (`homepage.cta.title`, e.g., "Get in touch"). No price is displayed.
   - Tapping navigates to the contact page (`/{locale}/kontakt`, REQ-BK-8)
   - Thin bar (~56px), does not obscure content
-  - Visibility controlled by two sentinels: shows when `.hero-sentinel` leaves the viewport (hero scrolled past); hides when `.sticky-cta-end` sentinel enters the viewport. On the homepage, `.sticky-cta-end` is placed immediately after the triptych section, so the CTA disappears once the user scrolls down to the triptych end. On non-homepage pages where no `.sticky-cta-end` exists, the bar remains visible for the full scroll past the hero.
+  - Visibility controlled by two sentinels: shows when `.hero-title` leaves the viewport (hero heading scrolled off-screen), falling back to `.hero-sentinel` on pages with a hero but no title element; hides when `.sticky-cta-end` sentinel enters the viewport. Once `.sticky-cta-end` has been reached, the CTA stays hidden even if the user scrolls back up (latch behavior — `reachedEnd` only resets if the sentinel moves back below the viewport). On the homepage, `.sticky-cta-end` is placed immediately after the triptych section, so the CTA disappears once the user scrolls down to the triptych end. On non-homepage pages where no `.sticky-cta-end` exists, the bar remains visible for the full scroll past the hero.
 - **Constraints:** CON-PERF, CON-A11Y
 - **Priority:** P0
 - **Dependencies:** REQ-BK-8

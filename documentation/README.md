@@ -27,4 +27,4 @@ Documentation for the vacation rental website for apartments in Ždrelac, Pašma
 ## Related Documentation
 
 - [Product Specification](../sdd/README.md) — Full requirements and design spec
-- [README](../README.md) — Project overview and quickstart
+- [Project README](../README.md) — Project overview, tech stack, commands, and quickstart

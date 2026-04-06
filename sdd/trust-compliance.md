@@ -61,16 +61,16 @@ GDPR, privacy policy, house rules, cancellation policy, security headers, and ac
 - **Applies To:** Visitor
 - **Acceptance Criteria:**
   - Standalone page at `/{locale}/impresum` with `HeroSimple` photo-backed header (REQ-VD-12)
-  - CMS-managed per locale via `editorial` collection (`page_key: "impressum"`), with hardcoded 4-locale fallback content
+  - CMS-managed per locale via `editorial` collection (`page_key: "impressum"`), with hardcoded 4-locale fallback content containing inline HTML links (mailto, external sites) rendered via sanitized `set:html` (allowlist: `<a>`, `<br>`, `<em>`, `<strong>` tags only — all other HTML stripped)
   - Content covers (per locale):
-    - Operator identity: "Apartmani Novoselec", address (Zdrelac, Pasman, Croatia), contact email (hello@novoselec.ch)
-    - Website development attribution: Gray Matter GmbH (graymatter.ch)
-    - Photo credits: Sara & Marco from Places of Juma (placesofjuma.com) — credited for island photography
+    - Operator identity: "Apartmani Novoselec", address (Ždrelac, Pašman, Croatia), contact email (hello@novoselec.ch). Operator label varies per locale: "Vlasnik" (hr), "Betreiber" (de), "Upravljavec" (sl), "Operator" (en)
+    - Website development attribution: Gray Matter GmbH (graymatter.ch) — linked
+    - Photo credits: Sara & Marco from Places of Juma (placesofjuma.com) — linked, with warm editorial recommendation to visit their blog
     - External link disclaimer: no liability for third-party linked content
     - Copyright notice: all content subject to copyright, reproduction requires written consent, downloads for private non-commercial use only
   - **Always reachable in 1 click from every page** (footer link in legal links section)
   - Footer link labeled per locale: "Impresum" (hr), "Impressum" (de), "Impresum" (sl), "Legal Notice" (en) via `footer.impressum` translation key
-  - Available in all 4 active locales with culturally adapted text (German uses "Betreiber", Croatian uses "Operator (Betreiber)")
+  - Available in all 4 active locales with culturally adapted text (German uses "Betreiber", Croatian uses "Vlasnik", Slovenian uses "Upravljavec", English uses "Operator")
   - Preloaded with complete fallback content in all 4 locales
 - **Constraints:** CON-LEGAL, CON-I18N
 - **Priority:** P1

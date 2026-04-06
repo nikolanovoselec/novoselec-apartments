@@ -8,7 +8,7 @@ How to manage content, photos, and settings from your phone.
 2. Cloudflare Access login appears — sign in with your Google account
 3. The Emdash admin dashboard loads
 
-**Authorized users:** REDACTED_EMAIL, REDACTED_EMAIL
+**Authorized users:** Configured in the Cloudflare Access policy (see Cloudflare dashboard).
 
 ## Common Tasks
 

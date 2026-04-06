@@ -1,5 +1,23 @@
 # Changelog
 
+## 2026-04-06 - Final spec review: CTA trigger, impressum rendering, footer diacritics
+
+End-of-session validation of all session-changed requirements against source code. Three gaps found and fixed.
+
+### Requirements updated
+- **REQ-SF-7** (Sticky Mobile CTA): Fixed start sentinel description -- CTA triggers on `.hero-title` (primary) with `.hero-sentinel` fallback, not `.hero-sentinel` alone. Added latch behavior detail: once `.sticky-cta-end` is reached, CTA stays hidden unless sentinel scrolls back below viewport.
+- **REQ-TC-3** (Impressum): Updated rendering description -- fallback content contains inline HTML links (mailto, external sites) rendered via sanitized `set:html` with tag allowlist (`<a>`, `<br>`, `<em>`, `<strong>`). Added locale-specific operator labels ("Vlasnik" hr, "Betreiber" de, "Upravljavec" sl, "Operator" en). Added note that photo credits include warm editorial blog recommendation.
+- **REQ-SF-6** (Footer): Fixed copyright location from ASCII "Zdrelac, Pasman" to proper diacritics "Ždrelac, Pašman".
+
+### Validation results (no changes needed)
+- **REQ-SF-3** (Navigation): Nav items, scroll trigger, logo behavior, hamburger spec, mobile menu all verified against code. Accurate.
+- **REQ-TC-2** (Privacy Policy): Content coverage matches fallback text. GAP note remains valid. Accurate.
+- **REQ-I18N-6** (Cultural Content Adaptation): Formal "Sie" exception for Privacy Policy and Impressum confirmed accurate.
+- **Constraints**: CON-LEGAL, CON-I18N, CON-SEC all current. No orphaned constraints.
+- **Glossary**: Impressum, Sailboat Logo, Wave Divider, all session-relevant terms verified. No stale definitions.
+
+---
+
 ## 2026-04-06 - Final spec review: formal "Sie" exception expanded to Impressum
 
 Post-session validation of all session-changed requirements (REQ-SF-3, REQ-SF-6, REQ-SF-7, REQ-TC-2, REQ-TC-3, constraints, glossary). One gap found and fixed.
