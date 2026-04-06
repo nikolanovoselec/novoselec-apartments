@@ -1,5 +1,26 @@
 # Changelog
 
+## 2026-04-06 - Footer wave clearance added to about page (ee1f014)
+
+Commit ee1f014 added `section--footer-clear` to the about page (`o-nama.astro`). The about page has a single content section between the hero and footer, making it vulnerable to footer wave overlap on the host story text.
+
+### Requirements updated
+- **REQ-VD-9** (Wave Section Dividers): `section--footer-clear` page list updated — added `o-nama` (about). Clarified that the class applies not only to CTA/interactive sections but also to shallow single-section layouts where the footer wave would otherwise encroach on content. Removed `o-nama` from the editorial/standard-padding exemption list.
+
+### Glossary updated
+- **section--footer-clear**: Page list updated to include `o-nama`. Description broadened from "CTA or interactive element" to also cover "shallow content layout" near footer wave.
+
+---
+
+## 2026-04-06 - CSS class rename, dead cta.fromPrice removed, German ss orthography (63ce6b7)
+
+Commit 63ce6b7 made three cleanup changes: (1) renamed StickyMobileCTA CSS classes from `__price`/`__action` to `__primary`/`__secondary` to match their actual content (no longer price-related); (2) deleted the dead `cta.fromPrice` translation key from all 4 locale JSON files (key was no longer referenced by any component since 19bc983); (3) replaced all German `ß` (sharp s) with `ss` across translation files and hardcoded `.astro` page fallbacks — adopting Swiss German orthography consistent with the `.ch` domain.
+
+### Requirements updated
+- **REQ-I18N-6** (Cultural Content Adaptation): AC updated — added Swiss German orthography rule (`ss` instead of `ß`). Status updated to reflect `ss` normalization across all German content.
+
+---
+
 ## 2026-04-06 - Sticky CTA: price removed, replaced with two text labels (19bc983)
 
 Commit 19bc983 removed the price display from `StickyMobileCTA`. The `cta.fromPrice` interpolation and the hardcoded `priceText` variable were deleted. The two spans now render `cta.checkAvailability` (primary) and `homepage.cta.title` (secondary) — both purely text labels with no price.
