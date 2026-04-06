@@ -1,4 +1,5 @@
 {
+  "brand.name": "Apartments Novoselec",
   "nav.home": "Home",
   "nav.apartments": "Apartments",
   "nav.whyPasman": "Why Pašman",
@@ -99,7 +100,7 @@
   "hosts.title": "About Us",
   "hosts.responseTime": "We typically respond within 2 hours",
   "dayOnPasman.title": "A Day on Pašman",
-  "meta.titleSuffix": "Apartments Ždrelac — Pašman Island",
+  "meta.titleSuffix": "Apartments Novoselec — Pašman Island",
   "meta.description": "Apartments in Ždrelac on Pašman island, Croatia. Crystal-clear sea, peace, and authentic Dalmatia.",
   "error.404.title": "Page not found",
   "error.404.message": "The page you're looking for doesn't exist.",

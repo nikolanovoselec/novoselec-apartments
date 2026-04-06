@@ -1,4 +1,5 @@
 {
+  "brand.name": "Apartmaji Novoselec",
   "nav.home": "Domov",
   "nav.apartments": "Apartmaji",
   "nav.whyPasman": "Zakaj Pašman",
@@ -99,7 +100,7 @@
   "hosts.title": "O nas",
   "hosts.responseTime": "Običajno odgovorimo v 2 urah",
   "dayOnPasman.title": "Dan na Pašmanu",
-  "meta.titleSuffix": "Apartmaji Ždrelac — Otok Pašman",
+  "meta.titleSuffix": "Apartmaji Novoselec — Otok Pašman",
   "meta.description": "Apartmaji v Ždrelacu na otoku Pašman, Hrvaška. Kristalno čisto morje, mir in pristna Dalmacija.",
   "error.404.title": "Stran ni najdena",
   "error.404.message": "Stran, ki jo iščete, ne obstaja.",

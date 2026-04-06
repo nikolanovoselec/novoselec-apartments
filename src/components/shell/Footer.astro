@@ -19,7 +19,7 @@ const address = "Fratarsko 5, 23263 Ždrelac, Croatia";
   <div class="container">
     <div class="footer__grid">
       <div class="footer__brand">
-        <h3 class="footer__logo">Apartmani Novoselec</h3>
+        <h3 class="footer__logo">{t(locale, "brand.name")}</h3>
         <p class="footer__tagline">{t(locale, "hero.tagline")}</p>
         <p class="footer__address">{address}</p>
       </div>
@@ -43,7 +43,7 @@ const address = "Fratarsko 5, 23263 Ždrelac, Croatia";
 
     <div class="footer__bottom">
       <div class="footer__divider"></div>
-      <p>&copy; {new Date().getFullYear()} Apartmani Novoselec &middot; Ždrelac, Pašman</p>
+      <p>&copy; {new Date().getFullYear()} {t(locale, "brand.name")} &middot; Ždrelac, Pašman</p>
     </div>
   </div>
 </footer>

@@ -37,7 +37,7 @@ const heroImages = [
        "Pašman Island, Croatia"}
     </p>
     <h1 class="hero-title">
-      <span class="hero-title__line">Apartmani</span>
+      <span class="hero-title__line">{locale === "hr" ? "Apartmani" : locale === "de" ? "Ferienwohnungen" : locale === "sl" ? "Apartmaji" : "Apartments"}</span>
       <span class="hero-title__line hero-title__line--accent">Novoselec</span>
     </h1>
     <p class="hero-subtitle">{t(locale, "hero.tagline")}</p>

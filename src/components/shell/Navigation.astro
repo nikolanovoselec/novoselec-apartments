@@ -28,7 +28,7 @@ function getLocalizedPath(targetLocale: string): string {
   <div class="nav__inner container">
     <a href={`/${locale}`} class="nav__logo" aria-label={t(locale, "nav.home")}>
       <img src="/logo.png" alt="" class="nav__logo-icon" width="32" height="32" />
-      <span class="nav__logo-text">Apartmani Novoselec</span>
+      <span class="nav__logo-text">{t(locale, "brand.name")}</span>
     </a>
 
     <nav class="nav__links" aria-label="Main navigation">

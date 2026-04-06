@@ -49,7 +49,7 @@ const socialImage = ogImage ?? `${siteOrigin}/api/img/aa0fd53c-5d96-4a78-a5b5-0f
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:image" content={socialImage} />
-    <meta property="og:site_name" content="Apartmani Novoselec" />
+    <meta property="og:site_name" content={t(lang, "brand.name")} />
     <meta property="og:locale" content={lang === "hr" ? "hr_HR" : lang === "de" ? "de_CH" : lang === "sl" ? "sl_SI" : "en_US"} />
 
     {/* Twitter Card */}
