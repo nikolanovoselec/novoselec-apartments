@@ -16,13 +16,13 @@
 | **R2** | Cloudflare's object storage (S3-compatible). Used for media (photos, video). |
 | **Honeypot** | Anti-spam technique using a hidden form field invisible to humans but filled by bots. Submissions with the field populated are silently rejected. |
 | **Turnstile** | Cloudflare's privacy-preserving CAPTCHA alternative. Used in invisible mode on inquiry forms. |
-| **Resend** | Email delivery service. Used to send inquiry notifications to owner and auto-replies to guests. No longer used for CMS authentication (replaced by Cloudflare Access). |
+| **Resend** | Email delivery service. Used to send owner inquiry notifications and legacy Magic Link codes. No longer used for CMS authentication (replaced by Cloudflare Access). Guest auto-reply is not implemented. |
 | **Plugin KV** | Emdash's key-value store accessible to plugins at runtime via `ctx.kv`. Used to store configuration (e.g., Resend API key) that cannot be provided via Worker env bindings due to Vite build-time bundling. |
 | **Crossfade Carousel** | Image slideshow where slides transition by fading opacity (stacked via absolute positioning), as opposed to sliding/swiping. Used for the hero section. |
 | **Ken Burns** | Slow zoom and pan animation effect applied to still photographs, named after the documentary filmmaker. |
 | **Blurhash** | Compact encoding of an image placeholder as a short string, decoded to a blurred preview before the full image loads. |
 | **Portable Text** | Structured JSON format for rich text content used by Emdash, allowing flexible rendering. |
-| **HEIC** | High Efficiency Image Container — native iPhone photo format. Stored as-is in R2; converted to AVIF/WebP/JPEG on-the-fly by Cloudflare Image Resizing when served. |
+| **HEIC** | High Efficiency Image Container — native iPhone photo format. Stored as-is in R2 and served as-is via Worker route — no server-side format conversion occurs. |
 | **Impressum** | Legal notice page containing operator identity, photo credits, website development attribution, external link disclaimer, and copyright notice. Not strictly required for Croatian-based sites but provided for DACH visitor trust and transparency (REQ-TC-3). Available at `/{locale}/impresum` in all 4 locales. |
 | **OTA** | Online Travel Agency (e.g., Airbnb, Booking.com). The site encourages direct booking to avoid OTA fees. |
 | **ICS** | iCalendar format for sharing calendar data. Used for syncing availability from Airbnb/Booking.com. |
@@ -31,7 +31,7 @@
 | **PAngV** | Preisangabenverordnung — German pricing transparency regulation requiring total price display including all mandatory fees. |
 | **Magic Link** | Passwordless authentication method where a one-time code is sent to the user's email. **Deprecated** — replaced by Cloudflare Access for admin authentication (REQ-CMS-9). |
 | **Cloudflare Access** | Cloudflare's zero-trust identity-aware proxy. Protects the Emdash admin panel by requiring authentication (email OTP, SSO, or other identity providers) before requests reach the Worker. Configured via the `access()` plugin from `@emdash-cms/cloudflare`. |
-| **Image Resizing** | Cloudflare service that transforms images on-the-fly at the edge. Applied via `cf: { image: { ... } }` on Worker fetch responses from private R2 (through the `/api/img/{key}` route, where key is a UUID). Avoids Worker-side image processing. |
+| **Image Resizing** | Cloudflare service that transforms images on-the-fly at the edge. **Not currently used** — images are served as-is from R2 via the `/api/img/{key}` Worker route. The service remains available for future optimization (AVIF/WebP conversion, responsive widths) but has not been applied. |
 | **NAP** | Name, Address, Phone — consistency across all web presences is critical for local SEO. |
 | **GBP** | Google Business Profile — local business listing on Google Maps. |
 | **GSAP** | GreenSock Animation Platform — JavaScript animation library. Used optionally for max 1 signature scroll animation per page when CSS alone cannot achieve the effect. Gated to <20KB bundle contribution. |
