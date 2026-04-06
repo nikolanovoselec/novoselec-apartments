@@ -33,7 +33,7 @@ The sitemap is served at `/sitemap.xml` and generated at request time by `src/pa
 | `/faq` | FAQ |
 | `/privatnost` | Privacy Policy |
 
-Each page is emitted once per locale, producing 48 `<url>` entries (12 pages × 4 locales).
+Each static page is emitted once per locale (12 static pages × 4 locales = 48 entries), plus one entry per locale for each published apartment loaded dynamically from the CMS. Total entry count varies with the number of published apartments.
 
 ### hreflang alternates
 
@@ -54,9 +54,11 @@ In addition to the sitemap, every page `<head>` carries `<link rel="alternate" h
 
 **Cache:** `public, max-age=3600` — refreshes every hour at the edge.
 
-### Future: apartment URLs
+### Apartment detail pages
 
-Individual apartment detail pages (`/apartmani/:slug`) are not yet included in the sitemap. They should be added once dynamic slug generation from D1/Emdash is implemented.
+Individual apartment detail pages (`/apartmani/:slug`) are included dynamically. At sitemap generation time, `getLocalizedCollection("apartments", defaultLocale)` fetches all published apartments from the CMS and appends `/apartmani/:slug` to the page list. Each slug is then emitted once per locale with full `hreflang` alternates.
+
+All entries include a `<lastmod>` element set to the current date (UTC, `YYYY-MM-DD`), which signals to Google that the content is actively maintained.
 
 ---
 
@@ -71,7 +73,9 @@ Served at `/robots.txt` by `src/pages/robots.txt.ts`. All crawlers are allowed o
 | `/media/` | Stale — route removed. Images are now served via `/api/img/:key`. Disallow retained to prevent crawling of any cached/legacy URLs. |
 | `/api/` | JSON API endpoints — no indexable content |
 
-The `Sitemap:` directive in robots.txt points to `/sitemap.xml` using the request origin, so it works correctly across staging and production domains.
+The `Sitemap:` directive points to `/sitemap.xml` using the request origin, so it works correctly across staging and production domains.
+
+The `LLMs-Txt:` directive points to `/llms.txt`, a machine-readable site description following the [llmstxt.org](https://llmstxt.org/) convention. It tells AI assistants where to find a structured summary of the property and what content is available on the site.
 
 **Cache:** `public, max-age=86400` — refreshes once per day.
 

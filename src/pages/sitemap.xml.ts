@@ -25,8 +25,6 @@ const staticPages = [
 export const GET: APIRoute = async ({ url }) => {
   const origin = url.origin;
   const activeLocales = [...locales];
-  const today = new Date().toISOString().split("T")[0];
-
   // Load apartment slugs from CMS
   const apartments = await getLocalizedCollection("apartments", defaultLocale);
   const apartmentSlugs = apartments.map((a) => `/apartmani/${a.slug}`);
@@ -46,7 +44,6 @@ export const GET: APIRoute = async ({ url }) => {
 
       urls.push(`  <url>
     <loc>${loc}</loc>
-    <lastmod>${today}</lastmod>
 ${alternates}
     <xhtml:link rel="alternate" hreflang="x-default" href="${origin}/${defaultLocale}${page}" />
   </url>`);

@@ -129,7 +129,7 @@ The redirects middleware enforces canonical URLs: trailing slashes are removed w
 
 ## Static Asset Cache Headers
 
-Cache-Control rules for static assets are configured in the Cloudflare dashboard (not via a `_headers` file in the repo). Rules applied:
+Cache-Control rules for static assets are configured in `public/_headers`, which Cloudflare reads as origin-level headers. Rules applied:
 
 | Path pattern | Cache-Control |
 |---|---|

@@ -47,12 +47,12 @@ Image serving, edge caching, bundle budget.
   - Cache purged on content update from CMS (via Cache API)
   - Media from R2 via Image Resizing: cached at edge with long TTL
   - Locale is embedded in URL path (`/hr/`, `/de/`, etc.) so standard URL-based edge caching naturally separates locales. No custom cache key logic needed.
-  - **Static asset caching via Workers middleware:** content-hashed Astro assets (`/_astro/*`) cached immutably (1 year); fonts (`.woff2`, `.woff`) cached 30 days; R2 image API responses (`/api/img/*`) cached 1 day with 7-day stale-while-revalidate; favicons and static images cached 30 days; HTML pages cached 1 hour with 1-day stale-while-revalidate. (Cache-Control headers set in Workers response, not via `_headers` file — `_headers` is not supported on Workers.)
+  - **Static asset caching via `_headers` file:** content-hashed Astro assets (`/_astro/*`) cached immutably (1 year); fonts (`.woff2`, `.woff`) cached 30 days; R2 image API responses (`/api/img/*`) cached 1 day with 7-day stale-while-revalidate; favicons and static images cached 30 days; HTML pages cached 1 hour with 1-day stale-while-revalidate. API routes (sitemap, robots.txt, image serving) set their own Cache-Control headers in response code.
 - **Constraints:** CON-PERF
 - **Priority:** P1
 - **Dependencies:** REQ-CMS-1
 - **Verification:** Check cache headers, multi-region response times
-- **Status:** Partial — static asset caching headers set via Workers middleware (content-hashed assets, fonts, images, HTML). Edge caching strategy for dynamic content still planned.
+- **Status:** Partial — static asset caching headers defined via `_headers` file (content-hashed assets, fonts, images, HTML) and per-route Cache-Control in API responses. Edge caching strategy for dynamic content still planned.
 
 ### REQ-PERF-3: Bundle Budget
 

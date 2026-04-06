@@ -1,5 +1,16 @@
 # Changelog
 
+## 2026-04-06 - Restore _headers caching, dynamic sitemap with apartments, robots.txt LLMs-Txt (07b4de2)
+
+Commit 07b4de2 restored `public/_headers` for static asset cache-control (the previous deletion was incorrect -- the Astro Cloudflare adapter does process `_headers` for static assets). Sitemap now dynamically includes apartment detail pages loaded from CMS at request time, and adds `<lastmod>` dates to all URL entries. `robots.txt` now includes `LLMs-Txt` directive pointing to `/llms.txt` for AI/LLM discovery.
+
+### Requirements updated
+- **REQ-PERF-2** (Edge Caching): Reverted caching description back to `_headers` file (not Workers middleware). Added note that API routes set their own Cache-Control in response code.
+- **REQ-SEO-4** (Multilingual Sitemap): Apartment detail pages now dynamically loaded from CMS. `<lastmod>` element added to all URL entries. Removed completed "planned enhancement" (query apartment slugs).
+- **REQ-SEO-9** (LLM Discoverability): Added acceptance criterion for `LLMs-Txt` directive in robots.txt.
+
+---
+
 ## 2026-04-06 - Remove _headers, adjust HSTS/COOP, add privacy page link (a285cd3)
 
 Commit a285cd3 made three security/infrastructure changes: (1) Deleted `public/_headers` — Cloudflare Workers do not process `_headers` files; cache-control is already handled via Workers middleware. (2) Removed `preload` directive from HSTS header — site is not submitted to the browser HSTS preload list. (3) Changed Cross-Origin-Opener-Policy from `same-origin` to `same-origin-allow-popups` to allow payment/OAuth popup windows. Also added privacy policy page URL to `llms.txt`.
