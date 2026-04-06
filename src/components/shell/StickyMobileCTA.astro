@@ -71,31 +71,25 @@ const { locale } = Astro.props;
 
   if (stickyCta && heroSentinel) {
     let pastHero = false;
-    let pastEnd = false;
+    let reachedEnd = false;
 
     const el = stickyCta;
-    function updateVisibility() {
-      const shouldShow = pastHero && !pastEnd;
+    function update() {
+      const shouldShow = pastHero && !reachedEnd;
       el.classList.toggle("is-visible", shouldShow);
       el.setAttribute("aria-hidden", String(!shouldShow));
     }
 
-    new IntersectionObserver(
-      ([entry]) => {
-        pastHero = !entry.isIntersecting;
-        updateVisibility();
-      },
-      { threshold: 0 }
-    ).observe(heroSentinel);
+    new IntersectionObserver(([entry]) => {
+      pastHero = !entry.isIntersecting;
+      update();
+    }).observe(heroSentinel);
 
     if (endSentinel) {
-      new IntersectionObserver(
-        ([entry]) => {
-          pastEnd = !entry.isIntersecting && entry.boundingClientRect.top < 0;
-          updateVisibility();
-        },
-        { threshold: 0 }
-      ).observe(endSentinel);
+      new IntersectionObserver(([entry]) => {
+        reachedEnd = entry.isIntersecting;
+        update();
+      }, { threshold: 0 }).observe(endSentinel);
     }
   }
 </script>
