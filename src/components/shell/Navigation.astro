@@ -355,14 +355,24 @@ function getLocalizedPath(targetLocale: string): string {
   document.addEventListener("DOMContentLoaded", function() {
     // Transparent-to-solid on scroll
     var nav = document.getElementById("site-nav");
+    var heroTitle = document.querySelector(".hero-title");
     var heroSentinel = document.querySelector(".hero-sentinel");
 
-    if (nav && heroSentinel) {
+    if (nav && heroTitle) {
       var observer = new IntersectionObserver(
         function(entries) {
           nav.classList.toggle("is-scrolled", !entries[0].isIntersecting);
         },
-        { threshold: 0, rootMargin: "50px 0px 0px 0px" }
+        { threshold: 0 }
+      );
+      observer.observe(heroTitle);
+    } else if (nav && heroSentinel) {
+      // Fallback for pages with hero but no title
+      var observer = new IntersectionObserver(
+        function(entries) {
+          nav.classList.toggle("is-scrolled", !entries[0].isIntersecting);
+        },
+        { threshold: 0 }
       );
       observer.observe(heroSentinel);
     } else if (nav) {
