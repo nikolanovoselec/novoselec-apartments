@@ -39,7 +39,7 @@ Apartmani Pašman is a server-side rendered Astro site deployed as a Cloudflare 
 | `src/lib/sanitize.ts` | Input sanitization — HTML stripping, email header injection prevention |
 | `src/schemas/inquiry.ts` | Zod schemas for booking and quick-question form submissions |
 | `src/middleware/` | Request pipeline: redirects → locale → security headers |
-| `src/pages/api/img/[key].ts` | Image serving route — fetches from R2 via Emdash storage or direct bucket access; applies `Cache-Control: public, max-age=31536000, immutable`; accepts the key as-is (upload-url generates `UUID.ext` keys with extensions) |
+| `src/pages/api/img/[key].ts` | Image serving route — fetches from R2 via Emdash storage or direct bucket access; applies `Cache-Control: public, max-age=31536000, immutable`; accepts the key as-is; `upload-url` generates `UUID.ext` keys (e.g. `aa0fd53c-....jpg`); hard-coded hero carousel keys are extension-less UUIDs; both forms work because content type is derived from R2 object metadata |
 | `src/pages/admin/api/` | Auth API endpoints (login, verify, upload-url) |
 | `src/pages/admin/api/inquiries/[id]/confirm.ts` | Confirm booking inquiry and block dates atomically |
 | `src/pages/api/apartments/[id]/availability.ts` | Availability API — returns booked dates for calendar display |
