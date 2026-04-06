@@ -136,7 +136,8 @@ Cache-Control rules for static assets are configured in `public/_headers`, which
 | `/_astro/*` | `public, max-age=31536000, immutable` (content-hashed by Astro) |
 | `/*.woff2`, `/*.woff` | `public, max-age=2592000` (30 days) |
 | `/api/img/*` | `public, max-age=86400, stale-while-revalidate=604800` |
-| `/favicon*`, `/apple-touch-icon*`, `/android-chrome*`, `/site.webmanifest`, `/images/*` | `public, max-age=2592000` (30 days) |
+| `/logo.png` | `public, max-age=2592000` (30 days) |
+| `/favicon*`, `/apple-touch-icon*`, `/android-chrome*`, `/site.webmanifest` | `public, max-age=2592000` (30 days) |
 | `/*` (HTML pages) | `public, max-age=3600, stale-while-revalidate=86400` |
 
 These rules are applied by Cloudflare's edge before the request reaches the Worker. The `/api/img/*` rule is separate from the immutable rule because image keys are UUIDs but the response bodies can be updated by replacing the R2 object.
