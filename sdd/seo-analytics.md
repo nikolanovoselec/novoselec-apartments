@@ -19,7 +19,7 @@ Schema.org structured data, Open Graph, multilingual sitemap, keyword strategy, 
 - **Acceptance Criteria:**
   - `LodgingBusiness` on homepage: property name, locale-aware description, canonical URL, hero image, postal address, geo coordinates, numberOfRooms, amenityFeature (Wi-Fi, Parking, Air conditioning, BBQ)
   - `VacationRental` on apartment detail pages: name, description, image, address, geo coordinates, price range, amenities, check-in/out times
-  - `FAQPage` on FAQ sections (REQ-ED-7)
+  - `FAQPage` on FAQ sections (REQ-ED-7) — answer text HTML-stripped before JSON-LD emission to ensure clean structured data
   - `BreadcrumbList` on all pages
   - **No Review/AggregateRating schema at launch.** Self-published reviews on own domain are a Google policy-sensitive area. Testimonials are displayed visually but not marked up with Review schema. Can be revisited if owner obtains verifiable third-party review sources (Google Reviews, Booking.com).
   - Validated via Google Rich Results Test
@@ -28,7 +28,7 @@ Schema.org structured data, Open Graph, multilingual sitemap, keyword strategy, 
 - **Priority:** P1
 - **Dependencies:** REQ-AP-1, REQ-ED-7, REQ-SP-1
 - **Verification:** Google Rich Results Test for all page types. Verify `LodgingBusiness` JSON-LD on homepage. Verify `VacationRental` JSON-LD on apartment detail pages. Verify `BreadcrumbList` on all pages.
-- **Status:** Partial — `LodgingBusiness` JSON-LD on homepage (name, description, canonical URL, hero image, postal address, geo, numberOfRooms, amenityFeature). `VacationRental` JSON-LD on apartment detail pages. `FAQPage` on FAQ page. `BreadcrumbList` on apartment detail pages only. Still missing: BreadcrumbList on non-apartment pages; Google Rich Results Test validation pending
+- **Status:** Partial — `LodgingBusiness` JSON-LD on homepage (name, description, canonical URL, hero image, postal address, geo, numberOfRooms, amenityFeature). `VacationRental` JSON-LD on apartment detail pages. `FAQPage` on FAQ page (answer text HTML-stripped for clean structured data since 45de3f3). `BreadcrumbList` on apartment detail pages only. Still missing: BreadcrumbList on non-apartment pages; Google Rich Results Test validation pending
 
 ### REQ-SEO-2: Open Graph & Social
 

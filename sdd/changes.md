@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-04-06 - FAQ answers render as HTML, Schema.org strips HTML (45de3f3)
+
+Commit 45de3f3 fixed two rendering issues introduced when inline `<a>` links were added to FAQ answers in 76ff40a: (1) FAQ answers now render as HTML via Astro's `set:html` directive instead of plain text interpolation, so inline links and formatting actually appear as clickable elements in the browser; (2) Schema.org FAQPage structured data strips HTML tags from answer text before JSON-LD emission, ensuring search engines receive clean plain text in `acceptedAnswer.text` rather than raw HTML markup.
+
+### Requirements updated
+- **REQ-ED-7** (FAQ): Two new acceptance criteria added — answers rendered as HTML to support inline links; Schema.org answer text HTML-stripped for structured data. Status updated to reference 45de3f3.
+- **REQ-SEO-1** (Schema.org): FAQPage acceptance criterion updated to note HTML stripping. Status updated to reference 45de3f3.
+
+---
+
 ## 2026-04-06 - FAQ fallback refinements: key safe terminology, locale links, pets with notice (76ff40a)
 
 Commit 76ff40a refined FAQ fallback content across all 4 locales. Four behavioral changes: (1) "lockbox" terminology replaced with "key safe" in all locales (EN: key safe, HR: sef za ključeve, DE: Schlüsselsafe, SL: sef za ključe); (2) directions answer now includes inline `<a>` link to `/{locale}/dolazak` (Getting Here page) instead of plain text reference; (3) pets answer changed from vague "depending on the situation" to explicit "yes, with prior notice — specify animal in inquiry"; (4) house rules answer reframed from "no cleaning service or hotel staff" to "not a hotel, no daily cleaning — apartment handed over clean and ready." Check-in answer tone shifted from "nobody will bother you" to warm availability ("we're a phone call away if you need anything").
