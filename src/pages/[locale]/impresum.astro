@@ -28,7 +28,7 @@ const body = (page?.data.body as string) ?? fallback[typedLocale].body;
   <section class="section">
     <div class="container legal-content">
       {body.split("\n\n").map((paragraph) => (
-        <p set:html={paragraph.replace(/\n/g, "<br />")} />
+        <p style="white-space: pre-line">{paragraph}</p>
       ))}
     </div>
   </section>

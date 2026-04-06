@@ -5,7 +5,7 @@ GDPR, privacy policy, house rules, cancellation policy, security headers, and ac
 ## Key Concepts
 
 - **GDPR**: EU General Data Protection Regulation governing personal data processing
-- **Impressum**: ~~Legal notice page required by German/Austrian law for commercial websites~~ — Deprecated (REQ-TC-3). Not legally required for Croatian-based site.
+- **Impressum**: Legal notice page with operator identity, photo credits, Gray Matter attribution, external link disclaimer, and copyright notice. Not strictly required for Croatian-based sites, but provided for DACH visitor trust and transparency.
 - **PAngV**: German pricing transparency regulation requiring total price display
 - **Cookie consent**: EU requirement for explicit consent before setting non-essential cookies
 - **Data retention**: Maximum period personal data (inquiries) is stored before deletion
@@ -57,19 +57,26 @@ GDPR, privacy policy, house rules, cancellation policy, security headers, and ac
 
 ### REQ-TC-3: Impressum (Legal Notice)
 
-- **Intent:** Legal page required for German/Austrian visitors (Telemediengesetz)
+- **Intent:** Transparency and DACH visitor trust — operator identity, photo credits, copyright, and external link disclaimers
 - **Applies To:** Visitor
 - **Acceptance Criteria:**
-  - Standalone page, CMS-managed per locale
-  - Required content: operator full name, postal address, email, phone, tourism registration/license number if applicable
-  - **Always reachable in 1 click from every page** (footer link, clearly labeled "Impressum")
-  - Available in German even if DE locale is otherwise disabled (legal requirement)
-  - Preloaded with template
+  - Standalone page at `/{locale}/impresum` with `HeroSimple` photo-backed header (REQ-VD-12)
+  - CMS-managed per locale via `editorial` collection (`page_key: "impressum"`), with hardcoded 4-locale fallback content
+  - Content covers (per locale):
+    - Operator identity: "Apartmani Novoselec", address (Zdrelac, Pasman, Croatia), contact email (hello@novoselec.ch)
+    - Website development attribution: Gray Matter GmbH (graymatter.ch)
+    - Photo credits: Sara & Marco from Places of Juma (placesofjuma.com) — credited for island photography
+    - External link disclaimer: no liability for third-party linked content
+    - Copyright notice: all content subject to copyright, reproduction requires written consent, downloads for private non-commercial use only
+  - **Always reachable in 1 click from every page** (footer link in legal links section)
+  - Footer link labeled per locale: "Impresum" (hr), "Impressum" (de), "Impresum" (sl), "Legal Notice" (en) via `footer.impressum` translation key
+  - Available in all 4 active locales with culturally adapted text (German uses "Betreiber", Croatian uses "Operator (Betreiber)")
+  - Preloaded with complete fallback content in all 4 locales
 - **Constraints:** CON-LEGAL, CON-I18N
 - **Priority:** P1
-- **Dependencies:** REQ-CMS-1
-- **Verification:** Verify 1-click access from all pages, verify German version exists
-- **Status:** Deprecated - not legally required in Croatia, page removed
+- **Dependencies:** REQ-CMS-1, REQ-VD-12
+- **Verification:** Verify 1-click access from all pages via footer link, verify all 4 locale versions render correctly, verify photo credits and Gray Matter attribution present
+- **Status:** Implemented
 
 ### REQ-TC-4: House Rules & Booking Terms
 

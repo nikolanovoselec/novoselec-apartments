@@ -126,7 +126,7 @@ The homepage and visual shell — hero, navigation, footer, language switcher, a
   - **Brand identity:** "Apartmani Novoselec" text rendered as serif heading in the footer brand section. No logo image in footer — logo appears only in the top nav header.
   - Physical address displayed below tagline (muted, small text)
   - Quick links to all visible sections
-  - Legal links: privacy policy, house rules, inquiry/contact page, admin panel
+  - Legal links: impressum (REQ-TC-3), privacy policy, house rules, inquiry/contact page, admin panel
   - ~~"Book direct — no platform fees" trust message~~ — **Removed:** direct-booking trust message removed from footer per owner decision
   - SVG wave at the top edge of the footer (organic bezier path, navy fill `#0C2D48` to match footer background, responsive width, `aria-hidden="true"`). Creates organic transition from page content into footer — no hard edge.
   - Footer background: vertical gradient from `#0C2D48` to `#091E32`

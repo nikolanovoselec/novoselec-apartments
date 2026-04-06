@@ -23,7 +23,7 @@
 | **Blurhash** | Compact encoding of an image placeholder as a short string, decoded to a blurred preview before the full image loads. |
 | **Portable Text** | Structured JSON format for rich text content used by Emdash, allowing flexible rendering. |
 | **HEIC** | High Efficiency Image Container — native iPhone photo format. Stored as-is in R2; converted to AVIF/WebP/JPEG on-the-fly by Cloudflare Image Resizing when served. |
-| **Impressum** | Legal notice page required by German/Austrian law (Telemediengesetz). Contains owner identity and contact. **Deprecated** — not legally required for Croatian-based site (REQ-TC-3). Page removed. |
+| **Impressum** | Legal notice page containing operator identity, photo credits, website development attribution, external link disclaimer, and copyright notice. Not strictly required for Croatian-based sites but provided for DACH visitor trust and transparency (REQ-TC-3). Available at `/{locale}/impresum` in all 4 locales. |
 | **OTA** | Online Travel Agency (e.g., Airbnb, Booking.com). The site encourages direct booking to avoid OTA fees. |
 | **ICS** | iCalendar format for sharing calendar data. Used for syncing availability from Airbnb/Booking.com. |
 | **hreflang** | HTML attribute indicating the language and geographic targeting of a page, used for multilingual SEO. |

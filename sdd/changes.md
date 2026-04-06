@@ -1,5 +1,29 @@
 # Changelog
 
+## 2026-04-06 - Spec review: Impressum page restored (31dd3a0)
+
+Commit 31dd3a0 added a new Impressum page at `/{locale}/impresum` with full 4-locale fallback content including operator identity, Gray Matter GmbH attribution, Places of Juma photo credits, external link disclaimer, and copyright notice. Footer link added in legal links section. Translation key `footer.impressum` added for all 4 locales.
+
+### Requirements updated
+- **REQ-TC-3** (Impressum): **Un-deprecated and rewritten.** Previously marked `Status: Deprecated - not legally required in Croatia, page removed`. Now `Status: Implemented` with full acceptance criteria reflecting the new page: standalone page at `/{locale}/impresum`, CMS-managed with hardcoded fallback, content covering operator identity, Gray Matter attribution, photo credits (Places of Juma), external link disclaimer, copyright notice. Footer link present on every page.
+- **REQ-SF-6** (Footer): Added Impressum to legal links list (first position, before privacy policy).
+
+### Glossary updated
+- **Impressum**: Un-deprecated. Updated definition to reflect current scope (operator identity, photo credits, development attribution, external link disclaimer, copyright).
+
+### Constraints updated
+- **CON-LEGAL**: Removed struck-through Impressum deprecation. Impressum now described as always 1-click accessible via footer.
+- **CON-I18N**: Removed struck-through Impressum deprecation. Legal pages now listed as Privacy Policy and Impressum.
+
+### i18n updated
+- **REQ-I18N-1**: Removed struck-through Impressum deprecation note. Updated legal page exception to include Impressum as available in all active locales.
+
+### No new requirements
+- The `footer.impressum` translation key in all 4 locales is covered by REQ-I18N-3 (UI String Translations) -- no separate requirement needed.
+- The `-webkit-backdrop-filter` prefix and CTA end-sentinel latch fix mentioned in the commit context were not present in the actual diff for this commit (31dd3a0).
+
+---
+
 ## 2026-04-06 - Spec review: nav logo text fade, scroll trigger, CTA sentinel fix, privacy contact email
 
 Post-session spec sync covering navigation logo text visibility, scroll trigger change, sticky CTA sentinel logic correction, privacy policy contact email, and stale GAP removal.

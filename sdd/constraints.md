@@ -22,7 +22,7 @@ WCAG 2.1 AA compliance. `prefers-reduced-motion` fully respected — all animati
 
 ## CON-I18N: Internationalization
 
-4 locales: Croatian (`/hr/`), German (`/de/`), Slovenian (`/sl/`), English (`/en/`). Owner-activated per locale (Croatian always on). Locale-prefixed routes. `Intl.DateTimeFormat` and `Intl.NumberFormat` for locale-aware formatting. **Fallback policy:** Disabled locale = 404. Published page with partial missing content within an active locale = Croatian fallback with visible indicator. ~~Legal pages (Impressum) always available in German regardless of DE locale activation~~ — Impressum deprecated (REQ-TC-3). Never mix languages silently. Locale preference stored in functional cookie (no consent required).
+4 locales: Croatian (`/hr/`), German (`/de/`), Slovenian (`/sl/`), English (`/en/`). Owner-activated per locale (Croatian always on). Locale-prefixed routes. `Intl.DateTimeFormat` and `Intl.NumberFormat` for locale-aware formatting. **Fallback policy:** Disabled locale = 404. Published page with partial missing content within an active locale = Croatian fallback with visible indicator. Legal pages (Privacy Policy, Impressum) available in all active locales. Never mix languages silently. Locale preference stored in functional cookie (no consent required).
 
 ## CON-SEC: Security
 
@@ -42,4 +42,4 @@ Schema.org structured data: VacationRental, FAQPage, BreadcrumbList. `hreflang` 
 
 ## CON-LEGAL: EU/DACH Legal Compliance
 
-GDPR consent checkbox on inquiry form. Privacy policy with data controller, legal basis, retention periods, processor list, erasure rights. ~~Impressum always 1-click accessible and available in German~~ — Impressum deprecated (REQ-TC-3), not legally required for Croatian-based site. House rules and cancellation policy on apartment pages. Tourist tax disclosure. **PAngV compliance (German pricing law):** total price including all mandatory fees shown for German locale. Cleaning fee disclosed. "Estimate — confirmed by owner" disclaimer.
+GDPR consent checkbox on inquiry form. Privacy policy with data controller, legal basis, retention periods, processor list, erasure rights. Impressum (REQ-TC-3) always 1-click accessible via footer link — operator identity, photo credits, Gray Matter attribution, external link disclaimer, copyright notice. House rules and cancellation policy on apartment pages. Tourist tax disclosure. **PAngV compliance (German pricing law):** total price including all mandatory fees shown for German locale. Cleaning fee disclosed. "Estimate — confirmed by owner" disclaimer.
