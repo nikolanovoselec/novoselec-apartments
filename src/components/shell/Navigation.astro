@@ -189,6 +189,12 @@ function getLocalizedPath(targetLocale: string): string {
     display: none;
     align-items: center;
     gap: var(--space-md);
+    color: var(--color-white);
+    transition: color 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .nav.is-scrolled .nav__actions {
+    color: var(--color-warm-gray);
   }
 
   .nav__cta {
