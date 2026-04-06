@@ -2,6 +2,10 @@
 
 Common issues and how to resolve them.
 
+**Audience:** Developers, Operators
+
+---
+
 ## Admin Panel
 
 ### "Authentication failed" after CF Access login
@@ -88,3 +92,13 @@ npx wrangler tail          # watch live logs during form submission
 npx wrangler d1 execute apartmani-db --remote --command="SELECT name FROM sqlite_master WHERE type='table'"
 ```
 Check which tables exist and compare to expected schema.
+
+---
+
+## Related Documentation
+
+- [Configuration](configuration.md#d1-migrations) — Migration files and apply commands
+- [Deployment](deployment.md) — Full setup and deploy steps
+- [Authentication](authentication.md#cloudflare-access-authentication) — CF Access setup and troubleshooting
+- [Security](security.md#rate-limiting) — Rate limiting and bot protection details
+- [CMS Guide](cms-guide.md) — Owner-facing content management issues

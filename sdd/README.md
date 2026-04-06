@@ -10,7 +10,7 @@ A vacation rental website for apartments on Pašman island, Croatia. The site is
 |-------|-------------|
 | **Visitor** | Potential guest browsing the site. Could be Croatian, German, Slovenian, or English-speaking. Wants to see photos, check availability, compare apartments, and submit a booking inquiry. |
 | **Owner** | The property owner. Manages apartments, uploads photos from her phone, updates prices and availability, reads inquiry emails, toggles site sections and languages. Logs in via Cloudflare Access (zero-trust). Zero technical knowledge. |
-| **System** | Cloudflare Workers + Astro 6 + Emdash CMS + D1 + R2 + Turnstile + Resend. Handles content delivery, form processing, email delivery, image optimization, and edge caching. |
+| **System** | Cloudflare Workers + Astro 6 + Emdash CMS + D1 + R2 + Turnstile + Resend. Handles content delivery, form processing, email delivery, image serving, and edge caching. |
 
 ## Design Principles
 

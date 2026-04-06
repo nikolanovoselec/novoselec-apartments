@@ -2,6 +2,10 @@
 
 Guidelines for creating and translating content across all 4 locales.
 
+**Audience:** Owner, Developers
+
+---
+
 ## Tone by Locale
 
 ### Croatian (HR) — Warm and Familiar

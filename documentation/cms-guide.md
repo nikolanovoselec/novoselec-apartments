@@ -2,6 +2,10 @@
 
 How to manage content, photos, and settings from your phone.
 
+**Audience:** Owner, Operators
+
+---
+
 ## Accessing the Admin Panel
 
 1. Open `https://apartmani.novoselec.ch/_emdash/admin/`
@@ -43,7 +47,7 @@ Apartment galleries are controlled by the **Gallery (JSON array)** (`gallery_jso
 
 ### Managing the Photo Collage
 
-The exterior photo strip that scrolls across the homepage (under the apartments section) is controlled by a CMS entry in the **Homepage** collection with `section_key = collage`.
+The exterior photo strip that scrolls across the homepage (under the apartments section) is controlled by a CMS entry in the **Editorial** collection with `page_key = homepage` and `section_key = collage`.
 
 The `body` field of that entry must contain a JSON array of photo objects using R2 image URLs. Emdash automatically parses any `body` value that begins with `[` or `{`, so the field is delivered to the page as an already-parsed JavaScript value, not a raw string — the page handles both forms safely:
 
@@ -55,8 +59,8 @@ The `body` field of that entry must contain a JSON array of photo objects using 
 ```
 
 **To update the collage:**
-1. Open Admin → Homepage collection
-2. Find the entry with `section_key = collage`
+1. Open Admin → Editorial collection
+2. Find the entry with `page_key = homepage` and `section_key = collage`
 3. Edit the `body` field — paste the updated JSON array
 4. Save and publish
 

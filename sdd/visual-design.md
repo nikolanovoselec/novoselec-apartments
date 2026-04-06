@@ -254,7 +254,7 @@ Color system, typography, scroll animations, micro-interactions, and Croatian vi
 - **Priority:** P1
 - **Dependencies:** REQ-VD-9, REQ-VD-1
 - **Verification:** Visual review across ALL subpages — verify wave renders at bottom with correct fill color, no gap. Verify hero images are contextually appropriate and unique per page.
-- **Status:** Implemented — all subpages have real Croatian hero photos served from R2 via `/api/img/{key}` (UUID keys); inline SVG waves on all custom heroes; no non-Croatian imagery remains
+- **Status:** Implemented — all subpages have real Croatian hero photos served from R2 via `/api/img/{key}` (`UUID.ext` keys); inline SVG waves on all custom heroes; no non-Croatian imagery remains
 
 ### REQ-VD-13: Icon System
 
@@ -286,7 +286,7 @@ Color system, typography, scroll animations, micro-interactions, and Croatian vi
 - **Priority:** P1
 - **Dependencies:** REQ-VD-12
 - **Verification:** Audit all image URLs — no duplicates, no non-Croatian imagery
-- **Status:** Implemented — all pages use unique real island photos stored in R2 with UUID keys, served via `/api/img/{key}`; 137+ photos total (gallery page alone uses 137); zero Pexels URLs, zero stock photos, zero local `/photos/` paths remain; no non-Croatian imagery present
+- **Status:** Implemented — all pages use unique real island photos stored in R2 with `UUID.ext` keys, served via `/api/img/{key}`; 137+ photos total (gallery page alone uses 137); zero Pexels URLs, zero stock photos, zero local `/photos/` paths remain; no non-Croatian imagery present
 
 ### REQ-VD-15: Exterior Photo Collage
 

@@ -1,5 +1,51 @@
 # Changelog
 
+## 2026-04-06 - Sync spec with docs audit (commit ec25953): remove Image Resizing fiction, dead seed claims, guest auto-reply, wrong key format, pagination myth
+
+Cross-referencing the 25 documentation findings fixed in ec25953 against the SDD. Five categories of stale claims identified and corrected.
+
+### Requirements updated
+- **REQ-PERF-1** (Image Serving Pipeline): Removed all Cloudflare Image Resizing claims (`cf: { image }`). Route now documented as serving originals as-is. Format negotiation marked "not implemented." Failure mode simplified (no Image Resizing fallback). Status updated: "no Image Resizing, no format conversion, no responsive widths." Object keys changed from "UUIDs (no file extensions)" to "`UUID.ext` format."
+- **REQ-PERF-2** (Edge Caching): "Media from R2 via Image Resizing" changed to "Media from R2 via Worker route."
+- **REQ-CMS-1** (Emdash Integration): Removed cursor-based pagination claim. Now states `getLocalizedCollection` calls `getEmDashCollection` once with a locale filter, no pagination.
+- **REQ-CMS-2** (Media Library): Removed Image Resizing claims from image serving description. Object keys changed to `UUID.ext` format. EXIF GPS note updated: originals served as-is, EXIF not stripped.
+- **REQ-CMS-6** (Preloaded Content): R2 key format updated from "UUID keys" to "`UUID.ext` keys."
+- **REQ-CMS-9** (Cloudflare Access): Removed "guest auto-replies" from Resend usage note -- only owner notifications are sent.
+- **REQ-BK-2** (Inquiry Server Pipeline): Removed guest auto-reply email from acceptance criteria. Email delivery now documented as owner notification only. Verification criteria updated to remove guest auto-reply check.
+- **REQ-SEO-2** (Open Graph): Removed "via Image Resizing" from OG image description.
+- **REQ-SEO-4** (Multilingual Sitemap): Added `/impresum` to static pages list (now 13 pages).
+- **REQ-AP-6** (Photo Gallery): Changed "AVIF/WebP with responsive srcset" to "original format, no conversion."
+- **REQ-SF-8** (Gallery Page): R2 key format updated to `UUID.ext`.
+- **REQ-VD-12** (Subpage Hero Pattern): Status key format updated to `UUID.ext`.
+- **REQ-VD-14** (Unique Imagery Per Page): Status key format updated to `UUID.ext`.
+
+### Constraints updated
+- **CON-STACK**: Removed Image Resizing from image serving path. Keys changed from "UUIDs" to "`UUID.ext` format." Email sender domain description changed from "inquiry notifications, guest auto-replies" to "owner inquiry notifications, legacy Magic Link codes."
+- **CON-PERF**: Removed Image Resizing and AVIF/WebP claims. Images now documented as served as-is from R2. Key format updated to `UUID.ext`.
+- **CON-SEC**: EXIF GPS description changed from "not exposed (Image Resizing strips EXIF)" to "retained in R2 originals; may be present in served images."
+- **CON-MEDIA**: Removed "Served via Cloudflare Image Resizing" and all derivative claims (HEIC conversion, EXIF stripping). Now states "Served as-is via Worker route."
+
+### Glossary updated
+- **Image Resizing**: Marked as "not currently used" with note that it remains available for future optimization.
+- **HEIC**: Changed from "converted on-the-fly by Image Resizing" to "served as-is, no conversion."
+- **Resend**: Changed from "inquiry notifications and auto-replies to guests" to "owner inquiry notifications; guest auto-reply not implemented."
+
+### Other updates
+- **README.md Actors table**: Changed System description from "image optimization" to "image serving."
+- **booking.md Key Concepts**: Removed "auto-reply to guest" from inquiry pipeline description.
+- **booking.md Domain Dependencies**: Removed "auto-reply" from i18n dependency.
+
+---
+
+## 2026-04-06 - Post-commit cleanup: stale Image Resizing references
+
+Followup to commit b7e80b0 (remove dead media.ts). That commit updated most spec files, but one stale reference remained.
+
+### Requirements updated
+- **REQ-TC-5** (Security Headers): CSP `img-src` comment changed from "Image Resizing, external maps" to "R2 images via Worker route, external maps" — Image Resizing is not currently used.
+
+---
+
 ## 2026-04-06 - Final spec review: CTA trigger, impressum rendering, footer diacritics
 
 End-of-session validation of all session-changed requirements against source code. Three gaps found and fixed.

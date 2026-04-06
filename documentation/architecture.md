@@ -325,7 +325,7 @@ Scroll reveal animations are gated on a `.reveal-ready` class that JavaScript ad
 - [API Reference](api-reference.md#post-apiinquiry) — Inquiry and confirm endpoint signatures
 - [API Reference](api-reference.md#get-sitemapxml) — Sitemap and robots.txt endpoints
 - [Configuration](configuration.md#environment-variables) — All env vars and bindings
-- [Authentication](authentication.md#cloudflare-access) — Auth flow detail
+- [Authentication](authentication.md#cloudflare-access-authentication) — Auth flow detail
 - [Security](security.md#availability-double-check) — Overlap guard on inquiry submit and confirm
 - [Security](security.md#content-security-policy) — CSP and header policy
 - [SEO](seo.md) — Keyword targets, structured data, sitemap strategy

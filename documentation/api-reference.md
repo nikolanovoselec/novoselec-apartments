@@ -343,7 +343,7 @@ Confirms a booking inquiry and atomically blocks the dates in `availability_bloc
 
 ## Related Documentation
 
-- [Authentication](authentication.md#cloudflare-access) — Auth flow, token details, rate limiting
+- [Authentication](authentication.md#cloudflare-access-authentication) — Auth flow, token details, rate limiting
 - [Architecture](architecture.md#inquiry-pipeline) — Inquiry submission and confirmation flows
 - [Architecture](architecture.md#request-lifecycle) — Request pipeline and middleware order
 - [Architecture](architecture.md#public-page-routes) — Full list of public page routes

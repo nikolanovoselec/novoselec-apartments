@@ -150,6 +150,6 @@ These rules are applied by Cloudflare's edge before the request reaches the Work
 
 ## Related Documentation
 
-- [Authentication](authentication.md#cloudflare-access) — Auth flow and token details
+- [Authentication](authentication.md#cloudflare-access-authentication) — Auth flow and token details
 - [Configuration](configuration.md#secrets) — Secret env vars
 - [Architecture](architecture.md#request-lifecycle) — Where middleware runs in the pipeline

@@ -156,7 +156,7 @@ Apartment listings, detail pages, photo galleries, amenities, seasonal pricing, 
   - "View all X photos" opens lightbox
   - Lightbox: full-screen, keyboard nav (arrow keys, Esc), swipe on mobile, counter, close button always visible
   - Blurhash placeholder crossfades to sharp image
-  - Images served as AVIF/WebP with responsive srcset
+  - Images served from R2 via Worker route (original format, no conversion)
   - Image reveal: clip-path uncover animation on scroll
   - Alt text per image per locale
   - Focus trapping in lightbox
