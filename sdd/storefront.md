@@ -20,7 +20,7 @@ The homepage and visual shell — hero, navigation, footer, language switcher, a
   - **Crossfade carousel:** Slides stacked via absolute positioning, opacity 0 by default, `is-active` class sets opacity 1 with 8s ease-in-out CSS transition (long dreamy crossfade). Auto-advances every 10 seconds via inline `<script is:inline>` (IIFE pattern). Progress dots at bottom allow manual slide selection. Clicking a dot resets the auto-advance timer. Carousel pauses on mouseenter (desktop), resumes on mouseleave.
   - **Ken Burns on active slide:** Active slide image uses a continuous CSS keyframe animation (`@keyframes heroZoom`, 12s ease-in-out infinite alternate) that scales from 1.0 to 1.1 with a subtle translate3d drift (-1%, -1%). Animation runs continuously on ALL slides (no pause/resume tied to `is-active` class), so the crossfade reveals each incoming slide already mid-motion. The continuous alternating cycle ensures the hero image is never static.
   - **Progress dots:** Centered at bottom (80px from bottom, 100px on mobile), 8px circles with 1.5px white border at 50% opacity. Active dot fills white and scales to 1.3x. `aria-label` on each dot button (`Slide N`).
-  - Two-line title: property name on first line, location on second line in italic at reduced opacity (0.65)
+  - Two-line title: localized brand name (via `brand.name` translation key) on first line, location on second line in italic at reduced opacity (0.65)
   - `.text-label` location tag above title (localized per locale, e.g. "Otok Pasman, Hrvatska" for Croatian) at 0.7 opacity with wide letter-spacing
   - Tagline below title in `.text-label` style: uppercase sans-serif, 11px (`--font-size-xs`), 600 weight, 0.2em letter-spacing, white at 0.7 opacity (via `rgba`)
   - Ghost CTA button linking to apartments listing
@@ -60,8 +60,8 @@ The homepage and visual shell — hero, navigation, footer, language switcher, a
 - **Acceptance Criteria:**
   - Nav starts transparent with white text over hero
   - Transitions to warm cream background with `backdrop-filter: blur(10px)` after scrolling past hero. All nav transitions use 0.5s cubic-bezier easing.
-  - **Brand logo icon:** Sailboat PNG (`/logo.png`) displayed left of "Apartmani Novoselec" text at 28px. White (CSS `brightness(0) invert(1)` filter) when nav is transparent over hero; original colors (filter removed) when nav transitions to solid background on scroll.
-  - **Logo text visibility:** The "Apartmani Novoselec" text next to the logo is hidden (opacity 0) while the nav is transparent over the hero. It fades in when the nav transitions to solid background on scroll. Only the sailboat icon is visible in the hero state.
+  - **Brand logo icon:** Sailboat PNG (`/logo.png`) displayed left of the localized brand name text at 28px. White (CSS `brightness(0) invert(1)` filter) when nav is transparent over hero; original colors (filter removed) when nav transitions to solid background on scroll. Brand name is localized via `brand.name` translation key (hr "Apartmani Novoselec", de "Ferienwohnungen Novoselec", sl "Apartmaji Novoselec", en "Apartments Novoselec").
+  - **Logo text visibility:** The localized brand name text next to the logo is hidden (opacity 0) while the nav is transparent over the hero. It fades in when the nav transitions to solid background on scroll. Only the sailboat icon is visible in the hero state.
   - **Scroll trigger:** Nav transition is driven by IntersectionObserver on `.hero-title` (the hero heading element) as the primary trigger. Falls back to `.hero-sentinel` on pages with a hero but no title element, or applies `is-scrolled` immediately on pages with no hero.
   - Logo, language switcher, and nav links always visible
   - "Inquire" CTA button always visible in nav, links to `/{locale}/kontakt` (REQ-BK-8)
@@ -123,7 +123,7 @@ The homepage and visual shell — hero, navigation, footer, language switcher, a
 - **Intent:** Secondary navigation, legal links, property identity
 - **Applies To:** Visitor
 - **Acceptance Criteria:**
-  - **Brand identity:** "Apartmani Novoselec" text rendered as serif heading in the footer brand section. No logo image in footer — logo appears only in the top nav header.
+  - **Brand identity:** Localized brand name (via `brand.name` translation key) rendered as serif heading in the footer brand section. No logo image in footer — logo appears only in the top nav header.
   - Physical address displayed below tagline (muted, small text)
   - Quick links to all visible sections
   - Legal links: impressum (REQ-TC-3), privacy policy, house rules, inquiry/contact page, admin panel

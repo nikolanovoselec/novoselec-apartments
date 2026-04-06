@@ -38,7 +38,7 @@ Schema.org structured data, Open Graph, multilingual sitemap, keyword strategy, 
   - OG image per apartment (hero photo at 1200x630)
   - OG title, description per page per locale
   - Default OG image for non-apartment pages
-  - `og:site_name` set to property name on all pages
+  - `og:site_name` set to localized brand name (via `brand.name` translation key) on all pages
   - `og:locale` set per language (hr_HR, de_CH, sl_SI, en_US)
   - **Twitter Card meta tags:** `twitter:card` (summary_large_image), `twitter:title`, `twitter:description`, `twitter:image` on all pages. Image falls back to the same default OG image when no page-specific image is set.
 - **Constraints:** CON-SEO

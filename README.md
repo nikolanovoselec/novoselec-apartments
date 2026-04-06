@@ -41,7 +41,7 @@ npm run dev         # Local dev server
 | `npm test` | Run tests |
 | `npm run seed` | Re-seed CMS content |
 
-CI runs typecheck → test → build → deploy (on main) via `.github/workflows/ci.yml`.
+CI runs typecheck → test → build → deploy (on main) in a single job via `.github/workflows/ci.yml`. Build and deploy are merged into one job (single checkout, single install, single build) with deploy steps conditional on the main branch.
 
 ## Cloudflare Bindings
 

@@ -12,6 +12,12 @@ Last updated: 2026-04-06 (session 6)
 - Apartment galleries cleaned (interiors+terraces only, exteriors in collage)
 - Dead CMS collections deleted (guide, posts, pages)
 - 1 broken image fixed (homepage collage)
+- Brand name localized via `brand.name` translation key — nav, footer, hero title, Schema.org, OG meta now show locale-specific brand (hr/de/sl/en); `meta.titleSuffix` standardized to "Novoselec" across all locales
+- Single-image MiniCollage styling refined (border-radius: 16px, max-width: 1000px, padding: 0 fix)
+- Editorial strip spacing normalized (`var(--space-xl) 0` — consistent gap above and below)
+- Gallery trimmed to 142 photos (one interior removed, one visual duplicate removed)
+- CI workflow optimized — build+deploy merged into single job, eliminating redundant npm ci and astro build
+- Hero crossfade transition changed from 1.8s to 8s (long dreamy dissolve)
 
 ## Spec: Partial Requirements (4)
 
