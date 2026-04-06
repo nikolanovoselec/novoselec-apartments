@@ -59,7 +59,7 @@ All photography is stored in the `apartmani-media` R2 bucket. No photos are comm
 
 All R2 keys use UUID format (e.g., `aa0fd53c-5d96-4a78-a5b5-0f68b543515a.jpg`), matching Emdash's native upload format. This applies to all photos — both those bulk-loaded at setup and those uploaded later through the CMS.
 
-To add photos, upload through Emdash (`/_emdash/admin`) or via the presigned PUT flow (`POST /admin/api/upload-url`). The route returns a UUID key — reference it in the relevant CMS field (`gallery_json`, hero image, `collage` JSON array, etc.).
+To add photos, upload through Emdash (`/_emdash/admin`) or via the presigned PUT flow (`POST /admin/api/upload-url`). The route returns a UUID key — reference it in the relevant CMS field (`gallery`, hero image, `collage` JSON array, etc.).
 
 See `seed/media/README.md` for the full inventory of uploaded photos.
 

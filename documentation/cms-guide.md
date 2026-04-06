@@ -31,18 +31,18 @@ All R2 keys use `UUID.ext` format, matching Emdash's native upload format (e.g.,
 
 Photos are referenced as `/api/img/<uuid>.<ext>` URLs.
 
-Apartment galleries are controlled by the **Gallery (JSON array)** (`gallery_json`) field in each apartment entry. The value is a JSON array of `/api/img/:key` URL strings.
+Apartment galleries are controlled by the **Gallery** (`gallery`) field in each apartment entry. The value is a JSON array of `/api/img/:key` URL strings.
 
 **To update a gallery via CMS:**
 1. Open Admin → Apartments → select apartment
-2. Find the **Gallery (JSON array)** field
+2. Find the **Gallery** field
 3. Edit the JSON array — each entry is a URL string, e.g. `"/api/img/aa0fd53c-5d96-4a78-a5b5-0f68b543515a.jpg"` (include the file extension)
 4. Save and publish
 
 **To add new photos:**
 1. Open Admin → Media Library (`/_emdash/admin`)
 2. Upload the photo — you will receive a `UUID.ext` key (e.g., `aa0fd53c-5d96-4a78-a5b5-0f68b543515a.jpg`)
-3. Add `/api/img/<uuid>.<ext>` to the `gallery_json` field of the relevant apartment
+3. Add `/api/img/<uuid>.<ext>` to the `gallery` field of the relevant apartment
 4. Save and publish — no redeploy required
 
 ### Managing the Photo Collage

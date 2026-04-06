@@ -243,7 +243,7 @@ Color system, typography, scroll animations, micro-interactions, and Croatian vi
   - Ken Burns animation on hero image: continuous CSS keyframe (`scale(1)` to `scale(1.06)`, 20s ease-in-out infinite alternate) — subtler and slower than the homepage hero carousel (12s, 1.1x)
   - Minimum height 50vh (50svh on mobile for viewport-accurate sizing), vertically centered content
   - Title (`h1`), optional subtitle, and optional introductory paragraph (`intro` prop) rendered over the overlay. The `intro` prop displays a poetic/descriptive sentence below the title (used on the gallery page, REQ-SF-8).
-  - Wave SVG divider at bottom edge (same pattern as REQ-VD-9: `viewBox="0 0 1440 80"`, `preserveAspectRatio="none"`, organic bezier path, fill `#F8F5EF` to match page background, responsive height `clamp(50px, 8vw, 100px)`, `aria-hidden="true"`)
+  - Wave SVG divider at bottom edge (same pattern as REQ-VD-9: `viewBox="0 0 1440 80"`, `preserveAspectRatio="none"`, organic bezier path, fill `#F8F5EF` to match page background, `aria-hidden="true"`). HeroSimple uses a slightly smaller responsive height `clamp(40px, 6vw, 80px)` than the standalone WaveDivider component (which uses `clamp(50px, 8vw, 100px)`) to suit subpage hero scale.
   - Wave positioned absolute at `bottom: -1px` to seamlessly bridge hero into page content with no visible seam
   - Content z-index layering: image (0), overlay (1), text content (2), wave (3)
   - All subpages use hero images: apartments listing, gallery, getting here, FAQ, about hosts, local guide, contact, privacy policy, hrana, aktivnosti, plaze
