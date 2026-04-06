@@ -70,6 +70,8 @@ All public inquiry forms require a valid Cloudflare Turnstile token. The token i
 
 Cloudflare Turnstile is used on all public-facing forms. Server-side verification in `src/lib/turnstile.ts` uses `fetch()` with a 10-second timeout. A 10-second `AbortSignal.timeout` is applied to prevent hanging on network errors.
 
+The Turnstile widget on the inquiry and contact forms uses managed mode (`data-appearance="always"`), meaning the challenge widget is always visibly rendered — it is not invisible or conditional. This was changed from invisible mode to give guests a clear visual confirmation that bot protection is active before they submit.
+
 Turnstile widget requires `TURNSTILE_SITE_KEY` (public, safe to embed). Server verification requires `TURNSTILE_SECRET_KEY` (secret, never exposed to browser).
 
 ## Input Sanitization

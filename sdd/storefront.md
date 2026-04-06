@@ -23,8 +23,8 @@ The homepage and visual shell — hero, navigation, footer, language switcher, a
   - `.hero__label` location tag above the title (localized per locale via inline switching, e.g. hr "Otok Pašman, Hrvatska", de "Insel Pašman, Kroatien", sl "Otok Pašman, Hrvaška", en "Pašman Island, Croatia") at 0.7 opacity with wide letter-spacing. The location appears ABOVE the title, not below it.
   - Tagline below title in `.text-label` style: uppercase sans-serif, 11px (`--font-size-xs`), 600 weight, 0.2em letter-spacing, white at 0.7 opacity (via `rgba`)
   - Ghost CTA button linking to apartments listing
-  - Scroll indicator chevron rendered at bottom of hero (subtle, no pulse animation in current implementation)
-  - Hero title and subtitle render in their final position immediately — no JS-driven entry animation; the visual effect comes from the long 8s crossfade and continuous Ken Burns rather than text-level reveals
+  - Scroll indicator chevron at bottom of hero pulses via `@keyframes scrollPulse` (2.5s ease-in-out infinite) — opacity oscillates 0.3↔0.8 with 8px vertical translation
+  - **Entry animations:** `.hero__label`, `.hero-title`, `.hero-subtitle`, and `.hero__cta` animate in via staggered CSS keyframes defined in `src/styles/animations.css` — `fadeIn` (label, 1.2s, 0.1s delay), `fadeUp` (title, 1.4s, 0.3s delay; subtitle, 1.4s, 0.7s delay; CTA, 1.2s, 1s delay) — all with `var(--ease-out)` timing and `both` fill-mode. No JS orchestration; pure CSS animations run once on load.
   - On `prefers-reduced-motion`: all animations disabled, content immediately visible
   - Mobile: title scales down via clamp (subtitle remains 11px at all breakpoints)
   - **Wave at bottom of hero:** Inline SVG wave divider at the bottom edge of the hero section (same pattern as REQ-VD-9: organic bezier path, fill `#F8F5EF` to match page background below, responsive height `clamp(50px, 8vw, 100px)`, `aria-hidden="true"`, positioned absolute at `bottom: -2px` for subpixel gap fix). Creates organic transition from hero photo into the "Why Pašman" section — no hard edge.

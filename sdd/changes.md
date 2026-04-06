@@ -1,5 +1,36 @@
 # Changelog
 
+## 2026-04-06 - Post-9df3430 final sweep: confirm REQ-AP-3 / REQ-VD-15 / REQ-SF-1 / REQ-TC-5 against source
+
+Fifth verification pass after commit 9df3430 (which fixed glossary entries for Turnstile and Scroll Collage). Spot-checked the four requirements called out in the brief plus a sweep of the remaining domains for residual stale content.
+
+### Requirements verified against source (no further changes needed)
+- **REQ-BK-1** (Request-to-Book Widget): Acceptance criterion previously said "Turnstile widget in invisible mode validates before submission" — fixed in commit 5756c59 to "managed mode (visibly rendered, `data-appearance="always"`)" matching REQ-BK-8, REQ-TC-5, CON-SEC, and the glossary. Even though REQ-BK-1 itself is Deprecated for MVP scope, the spec must remain internally consistent.
+- **REQ-VD-15** (Exterior Photo Collage): Placement matrix line for the apartment listing page previously read `(section--dark, exterior photos ...)`. Fixed in commit 5756c59 to describe the actual custom `.collage-strip` wrapper (navy background `var(--color-navy)`, top-edge decorative wave SVG, no `.section--dark` class — only the homepage uses that class for its collage section). Photo source attribution preserved.
+
+### Validation results (verified accurate against source, no further changes needed)
+- **REQ-AP-3** (Apartment Detail Page): Acceptance criterion #2 says "interior photo collage: `MiniCollage` compact horizontal scroll strip (speed scales with gallery size, minimum 35s) ... sourced from the `gallery` CMS field". Source code (`src/pages/[locale]/apartmani/[slug].astro`) reads `d.gallery` and passes `speed={Math.max(35, gallery.length * 8)}` — exact match. Item #7 says "amenities checklist ... parsed from `amenities_json` field" and source uses `d.amenities_json` — exact match. No `gallery_json` references remain anywhere in the active spec.
+- **REQ-SF-1** (Hero Section): `src/components/home/Hero.astro` matches every claim — 7 stacked island photos served via `/api/img/{UUID}`, first slide eager + `fetchpriority="high"`, dual-layer overlay (radial + linear), `setInterval(next, 10000)`, 8s opacity transition for crossfade, continuous `heroZoom` keyframe (12s ease-in-out infinite alternate, scale 1 → 1.1, `translate3d(-1%, -1%, 0)`) running on ALL slides not gated to `is-active`, inline locale-switched first word with constant "Novoselec" surname in italic at 0.65 opacity, location label above title at 0.7 opacity, no progress dots, no dot click handlers, no hover pause, ghost CTA button, scroll chevron, inline SVG wave at `bottom: -2px` with `clamp(50px, 8vw, 100px)` height and `#F8F5EF` fill.
+- **REQ-TC-5** (GDPR Consent on Forms): Acceptance criteria do not mention Turnstile mode at all (only consent checkbox + Privacy Policy link). The Turnstile mode claim lives in REQ-BK-8 ("managed mode with site key, loaded async"), CON-SEC ("managed mode, always visible"), and glossary ("managed mode, `data-appearance="always"`") — all consistent with code.
+- **REQ-BK-8** (Contact Inquiry Page): Already correct — managed mode Turnstile, JSON POST to `/api/inquiry` with `type: "question"`, all four locale label sets present.
+- **REQ-VD-15** placement matrix entries for homepage, apartment detail, vodic, dolazak, plaze, aktivnosti, hrana, galerija — all verified against actual `MiniCollage`/`ScrollCollage` usage in the corresponding `src/pages/[locale]/*.astro` files.
+- **Glossary** `Turnstile`, `Scroll Collage`, and `MiniCollage` entries — all already correct after 9df3430.
+- **CON-SEC** Turnstile description — already correct ("managed mode, always visible").
+- **CON-STACK**, **CON-PERF**, **CON-MEDIA**, **CON-LEGAL**, **CON-I18N** — all current.
+
+### Stale content sweep (none found in active spec files)
+- No `gallery_json` references (only in changes.md historical entries — correct)
+- No `invisible mode` Turnstile language anywhere
+- No `WhatsAppButton` references (only in changes.md historical entries — correct)
+- No `var(--space-xl) 0` ScrollCollage padding claims (already updated to `var(--space-md)` in 9df3430)
+- No `Cloudflare Image Resizing` active claims
+- No dead collection references (`guide`, `posts`, `pages`, `homepage`) as active
+- No `seed/seed.json` or seed API endpoint references as active
+- No `meta.titleSuffix` removal claims (still in active use, correctly described)
+- No "Magic Link as primary auth" claims (REQ-CMS-3 Deprecated, REQ-CMS-9 canonical)
+
+---
+
 ## 2026-04-06 - Post-3a1b897 verification sweep: Turnstile mode in glossary, HeroSimple wave clamp, REQ-ED-5 status
 
 Verification pass after the 3a1b897 docs commit. Spot-checked every requirement called out in the brief (REQ-SF-1, REQ-VD-15, REQ-ED-2, REQ-CMS-1, REQ-AP-2, REQ-SP-1) against the actual source files plus a sweep of the remaining domains. Three residual issues found and fixed.
