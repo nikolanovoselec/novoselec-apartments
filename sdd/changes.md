@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-04-06 - FAQ fallback refinements: key safe terminology, locale links, pets with notice (76ff40a)
+
+Commit 76ff40a refined FAQ fallback content across all 4 locales. Four behavioral changes: (1) "lockbox" terminology replaced with "key safe" in all locales (EN: key safe, HR: sef za ključeve, DE: Schlüsselsafe, SL: sef za ključe); (2) directions answer now includes inline `<a>` link to `/{locale}/dolazak` (Getting Here page) instead of plain text reference; (3) pets answer changed from vague "depending on the situation" to explicit "yes, with prior notice — specify animal in inquiry"; (4) house rules answer reframed from "no cleaning service or hotel staff" to "not a hotel, no daily cleaning — apartment handed over clean and ready." Check-in answer tone shifted from "nobody will bother you" to warm availability ("we're a phone call away if you need anything").
+
+### Requirements updated
+- **REQ-ED-7** (FAQ): Acceptance criteria updated — lockbox changed to key safe, pets changed from "ask when inquiring" to "yes with prior notice", house rules changed from "no cleaning service, leave as found" to "not a hotel, no daily cleaning, leave tidy", directions answer now includes inline HTML link to dolazak page. Tone description updated from "no formalities, nobody will bother you" to "personal care, warm availability." Status updated to reference 76ff40a and document all terminology/behavioral changes.
+
+---
+
 ## 2026-04-06 - Complete FAQ rewrite: family operation, no hotel language (f87bc62)
 
 Commit f87bc62 rewrote all FAQ content. Deleted all 38 previous CMS entries (wrong locales, hotel-style language). Rebuilt 32 entries (8 per locale) reflecting the reality of a family-run operation: self-check-in via PIN code lockbox (no reception, no formalities), pets by arrangement, combined AC/Wi-Fi/parking question, local knowledge (groceries + fish market in Kali, beach types). New topics: car needed (bus/bike alternatives, 10 EUR/day rental), beaches (sand vs pebbles, Matlovac named), groceries and fresh fish. Removed: separate AC, parking, Wi-Fi, and check-in/check-out time questions. Hardcoded fallbacks updated to match.

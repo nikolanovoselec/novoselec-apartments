@@ -141,7 +141,7 @@ Schema.org JSON-LD is injected via `src/components/seo/SchemaOrg.astro`. The com
 
 ### FAQPage markup
 
-The FAQ page (`src/pages/[locale]/faq.astro`) loads entries from the `faqs` Emdash collection via `getLocalizedCollection` and builds a `mainEntity` array passed to `<SchemaOrg type="FAQPage" />`. Each entry maps to a `Question` / `Answer` pair. When the CMS has no entries for a locale, a hardcoded fallback of 8 questions per locale is used (topics: directions/ferry routes, car needed, check-in/lockbox, pets, AC/Wi-Fi/parking, groceries and fresh fish, beaches, house rules).
+The FAQ page (`src/pages/[locale]/faq.astro`) loads entries from the `faqs` Emdash collection via `getLocalizedCollection` and builds a `mainEntity` array passed to `<SchemaOrg type="FAQPage" />`. Each entry maps to a `Question` / `Answer` pair. When the CMS has no entries for a locale, a hardcoded fallback of 8 questions per locale is used (topics: directions/ferry routes, car needed, check-in/key safe, pets with prior notice, AC/Wi-Fi/parking, groceries and fresh fish, beaches, house rules). The fallback "getting there" answer contains an inline locale-aware HTML anchor (`<a href="/${locale}/dolazak">`) pointing to the Getting Here page; this link is embedded in the answer string and survives into the FAQPage JSON-LD `acceptedAnswer.text` field — Google may or may not render it in rich results.
 
 ---
 

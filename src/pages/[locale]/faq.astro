@@ -72,12 +72,13 @@ if (cmsFaqs.length > 0) {
   faqs = fb[typedLocale];
 }
 
-// Schema.org FAQPage
+// Schema.org FAQPage — strip HTML from answers for structured data
+const stripHtml = (s: string) => s.replace(/<[^>]+>/g, "");
 const faqSchema = {
   mainEntity: faqs.map((faq) => ({
     "@type": "Question",
     name: faq.question,
-    acceptedAnswer: { "@type": "Answer", text: faq.answer },
+    acceptedAnswer: { "@type": "Answer", text: stripHtml(faq.answer) },
   })),
 };
 ---
@@ -98,7 +99,7 @@ const faqSchema = {
               </svg>
             </summary>
             <div class="faq-item__answer">
-              <p>{faq.answer}</p>
+              <p set:html={faq.answer} />
             </div>
           </details>
         ))}
