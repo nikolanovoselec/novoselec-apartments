@@ -1,5 +1,37 @@
 # Changelog
 
+## 2026-04-06 - Post-1b9b6ba verification: REQ-SF-1 animations restored, WaveDivider purge, file-path leak removed, third wave variant documented
+
+Verification pass after commit 1b9b6ba. The commit itself restored REQ-SF-1's `scrollPulse` and `fadeUp` keyframe entry animations and rephrased every remaining `WaveDivider`/`WaveDivider.astro` reference in REQ-VD-4, REQ-VD-9, and REQ-VD-12 to "inline SVG (no reusable component)". This pass re-verified those changes against source and swept for residual stale acceptance criteria.
+
+### Requirements verified against source (commit 1b9b6ba changes confirmed)
+- **REQ-SF-1** (Hero Section): `src/styles/animations.css` defines `@keyframes scrollPulse` (2.5s ease-in-out infinite, opacity 0.3↔0.8, `translateY(0)→translateY(8px)`) bound to `.scroll-indicator`, plus `@keyframes fadeUp` and `@keyframes fadeIn` bound to `.hero__label` (fadeIn 1.2s 0.1s), `.hero-title` (fadeUp 1.4s 0.3s), `.hero-subtitle` (fadeUp 1.4s 0.7s), `.hero__cta` (fadeUp 1.2s 1s) — every delay, duration, and easing matches the restored AC exactly. The Hero markup at `src/components/home/Hero.astro` uses class `scroll-indicator` on the chevron wrapper (line 52) so the animation picks up automatically.
+- **REQ-VD-4 / REQ-VD-9 / REQ-VD-12** (Wave dividers): No `WaveDivider.astro` file exists in `src/components/`. No `.wave-divider` CSS class exists in `src/styles/`. The single remaining mention of "WaveDivider.astro" in active spec is the negation in REQ-VD-9 ("there is no `WaveDivider.astro` component") — correct. All wave usages in pages are inline `<svg>` elements with viewBox `0 0 1440 80` and the standard bezier path, matching the rephrased criteria.
+
+### Requirements updated this pass
+- **REQ-SF-1** (Hero Section): The freshly-added "Entry animations" criterion contained an inline file path (`src/styles/animations.css`) and a CSS variable (`var(--ease-out)`). Both violate the spec rule "no file paths, function names, or implementation details in requirements". Rewrote the criterion to say "via staggered CSS keyframes" + plain "ease-out timing" without naming the source file or the custom property. Animation names, durations, and delays preserved (those describe behavior, not implementation).
+- **REQ-VD-9** (Wave Section Dividers): Active spec previously listed only TWO clamp variants for wave height — `clamp(50px, 8vw, 100px)` standard and `clamp(40px, 6vw, 80px)` for HeroSimple. Source code `src/pages/[locale]/apartmani/index.astro` defines a third smaller variant on the `.collage-strip__wave`: `viewBox="0 0 1440 60"` with a simpler 720-unit period bezier path at `clamp(30px, 5vw, 60px)` height. Added this third variant to the inline-SVG bullet so the spec is complete.
+
+### Validation results (verified accurate against source, no further changes needed)
+- **REQ-VD-9 homepage 3 placements**: `src/pages/[locale]/index.astro` lines 158, 182, 245 — confirmed three inline SVG waves on homepage: (1) cream-to-dark at top of `.section--dark .section--wave-in` apartments section (`scaleY(-1)`, fill `#F8F5EF`), (2) dark-to-cream at bottom of same section (no flip, fill `#F8F5EF`), (3) cream-to-sunset at top of `.sunset-gradient .section--wave-in .section--footer-clear` CTA section (`scaleY(-1)`, fill `var(--color-bg)`). Every clamp value is `clamp(50px, 8vw, 100px)`. Matches REQ-VD-9 exactly.
+- **REQ-VD-9 apartment listing CTA wave**: `src/pages/[locale]/apartmani/index.astro` line 84 — wave only renders when `collagePhotos.length > 0`, uses `scaleY(-1)`, fill `var(--color-navy)`, `clamp(50px, 8vw, 100px)`, on a `section--alt section--footer-clear` block that conditionally adds `section--wave-in`. Matches REQ-VD-9.
+- **REQ-VD-12 HeroSimple wave**: `src/components/ui/HeroSimple.astro` line 86-95 — wave at `bottom: -1px`, `clamp(40px, 6vw, 80px)`, fill `#F8F5EF`, viewBox `0 0 1440 80`. Matches REQ-VD-12.
+- **REQ-SF-1 hero wave**: `src/components/home/Hero.astro` line 58-72 — wave at `bottom: -2px`, `clamp(50px, 8vw, 100px)`, fill `#F8F5EF`, viewBox `0 0 1440 80`. Matches REQ-SF-1.
+- **`parsePhotoArray`**: Confirmed as the active export name in `src/lib/content.ts:97`, used by 9 page templates (`index.astro`, `apartmani/index.astro`, `aktivnosti.astro`, `hrana.astro`, `plaze.astro`, `vodic.astro`, `dolazak.astro`, plus apartment detail). No active spec leaks the function name (correct — spec captures WHAT not HOW). Documentation reference in `documentation/architecture.md` already updated by 1b9b6ba from `parseCollageBody`.
+
+### Stale content sweep (no further issues found)
+- No `WaveDivider`/`WaveDivider.astro` references in any active spec file (only in changes.md historical entries — correct, history is preserved).
+- No `.wave-divider` CSS class references in active spec.
+- No `parseCollageBody` references anywhere (renamed to `parsePhotoArray` in source).
+- No "no fade-up animation" / "no JS-driven entry" claims in active spec (those exist only in older changelog entries from earlier passes when REQ-SF-1 had been incorrectly stripped of its animations — preserved as historical record).
+- No `font-variant: small-caps` claims (already converted to `text-transform: uppercase` in earlier commits).
+- No `parsePhotoArray` or other function names leaked into active requirements.
+
+### Quality issues fixed
+- **Implementation-detail leak removed:** REQ-SF-1 entry-animations criterion previously named `src/styles/animations.css` and `var(--ease-out)`. Both removed — the criterion now describes the animation behavior (fadeIn/fadeUp keyframes, delays, ease-out timing) without pointing at source files or custom properties. This restores compliance with the "spec captures WHAT and WHY, never HOW" rule.
+
+---
+
 ## 2026-04-06 - Post-9df3430 final sweep: confirm REQ-AP-3 / REQ-VD-15 / REQ-SF-1 / REQ-TC-5 against source
 
 Fifth verification pass after commit 9df3430 (which fixed glossary entries for Turnstile and Scroll Collage). Spot-checked the four requirements called out in the brief plus a sweep of the remaining domains for residual stale content.
