@@ -157,7 +157,7 @@ Cookieless analytics event logging. Writes to the D1 `events` table. No PII is s
 
 ### POST /api/inquiry
 
-Submits a booking inquiry or quick question. Used by apartment detail page booking forms (`type: "booking"`), apartment quick-question modals (`type: "question"`), and the standalone contact page at `/:locale/kontakt` (`type: "question"`). Full server pipeline: Zod validation, honeypot check, Turnstile verification, server-side availability revalidation (booking type only), D1 persistence, and email dispatch (owner notification only).
+Submits a booking inquiry or quick question. Currently the only frontend caller is the standalone contact page at `/:locale/kontakt` (`src/pages/[locale]/kontakt.astro`), which submits `type: "question"` inquiries. The `type: "booking"` path exists in the Zod schema and server handler but has no UI surface yet — no apartment detail page or booking form submits to this endpoint. Full server pipeline: Zod validation, honeypot check, Turnstile verification, server-side availability revalidation (booking type only), D1 persistence, and email dispatch (owner notification only).
 
 **Authentication:** None required.
 
