@@ -59,8 +59,10 @@ The homepage and visual shell — hero, navigation, footer, language switcher, a
 - **Applies To:** Visitor
 - **Acceptance Criteria:**
   - Nav starts transparent with white text over hero
-  - Transitions to warm cream background with `backdrop-filter: blur(10px)` after scrolling past hero
-  - **Brand logo icon:** Sailboat PNG (`/logo.png`) displayed left of "Apartmani Novoselec" text at 28px. White (CSS `brightness(0) invert(1)` filter) when nav is transparent over hero; original colors (filter removed) when nav transitions to solid background on scroll. Transition matches the nav background transition timing.
+  - Transitions to warm cream background with `backdrop-filter: blur(10px)` after scrolling past hero. All nav transitions use 0.5s cubic-bezier easing.
+  - **Brand logo icon:** Sailboat PNG (`/logo.png`) displayed left of "Apartmani Novoselec" text at 28px. White (CSS `brightness(0) invert(1)` filter) when nav is transparent over hero; original colors (filter removed) when nav transitions to solid background on scroll.
+  - **Logo text visibility:** The "Apartmani Novoselec" text next to the logo is hidden (opacity 0) while the nav is transparent over the hero. It fades in when the nav transitions to solid background on scroll. Only the sailboat icon is visible in the hero state.
+  - **Scroll trigger:** Nav transition is driven by IntersectionObserver on `.hero-title` (the hero heading element) as the primary trigger. Falls back to `.hero-sentinel` on pages with a hero but no title element, or applies `is-scrolled` immediately on pages with no hero.
   - Logo, language switcher, and nav links always visible
   - "Inquire" CTA button always visible in nav, links to `/{locale}/kontakt` (REQ-BK-8)
   - Hamburger menu on mobile with fullscreen overlay, including inline language picker (locale links with active state highlight)
@@ -70,7 +72,7 @@ The homepage and visual shell — hero, navigation, footer, language switcher, a
   - **Admin link:** Footer includes a link to the Emdash admin panel (`/_emdash/admin/`) labeled with the `nav.admin` translation key. No authentication gate on the link itself (Emdash handles auth). ~~Previously in navigation header~~ — moved to footer only.
   - Menu items stagger in with animation
   - Focus trapping when fullscreen menu is open
-  - Transition driven by IntersectionObserver (0.4s ease)
+  - Transition driven by IntersectionObserver on `.hero-title` (0.5s cubic-bezier easing)
 - **Constraints:** CON-A11Y, CON-PERF
 - **Priority:** P0
 - **Dependencies:** None
@@ -144,7 +146,7 @@ The homepage and visual shell — hero, navigation, footer, language switcher, a
   - After scrolling past hero, a bottom bar slides up with two text spans: primary label (`cta.checkAvailability`, e.g., "Check availability") and secondary label (`homepage.cta.title`, e.g., "Get in touch"). No price is displayed.
   - Tapping navigates to the contact page (`/{locale}/kontakt`, REQ-BK-8)
   - Thin bar (~56px), does not obscure content
-  - Visibility controlled by two sentinels: shows when `.hero-sentinel` leaves the viewport (hero scrolled past); hides again when `.sticky-cta-end` sentinel scrolls out of view above the fold. On the homepage, `.sticky-cta-end` is placed immediately after the triptych section, so the CTA disappears once the user scrolls past the triptych. On non-homepage pages where no `.sticky-cta-end` exists, the bar remains visible for the full scroll past the hero.
+  - Visibility controlled by two sentinels: shows when `.hero-sentinel` leaves the viewport (hero scrolled past); hides when `.sticky-cta-end` sentinel enters the viewport. On the homepage, `.sticky-cta-end` is placed immediately after the triptych section, so the CTA disappears once the user scrolls down to the triptych end. On non-homepage pages where no `.sticky-cta-end` exists, the bar remains visible for the full scroll past the hero.
 - **Constraints:** CON-PERF, CON-A11Y
 - **Priority:** P0
 - **Dependencies:** REQ-BK-8

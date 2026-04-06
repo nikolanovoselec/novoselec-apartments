@@ -43,7 +43,7 @@ GDPR, privacy policy, house rules, cancellation policy, security headers, and ac
     - How data is stored: Cloudflare D1 database on servers within the European Union
     - Third-party sharing: data not sold, rented, or shared; only disclosed to technical service providers under strictly controlled conditions
     - Data retention: retained only as long as necessary for inquiry processing and booking preparation; securely deleted if no booking results
-    - Right to access, rectify, erase — by contacting the data controller
+    - Right to access, rectify, erase — by contacting the data controller at hello@novoselec.ch
     - No data sold to third parties
   - **GAP (known):** Fallback text does not explicitly mention check-in/check-out dates or guest count as collected data (the inquiry form collects these). Also does not name specific data processors (Resend, Cloudflare) or mention WhatsApp contact or Cloudflare Web Analytics cookieless tracking. These should be added when CMS-managed content replaces the fallback.
   - Preloaded with template content in all 4 locales
@@ -101,7 +101,7 @@ GDPR, privacy policy, house rules, cancellation policy, security headers, and ac
 - **Applies To:** Visitor
 - **Acceptance Criteria:**
   - Unchecked checkbox on inquiry form: "I agree to the processing of my personal data according to the Privacy Policy"
-  - Privacy Policy linked (GAP: contact page consent text does not currently hyperlink to Privacy Policy — needs fix)
+  - Privacy Policy hyperlinked in all 4 locales (links to `/{locale}/privatnost`)
   - Form cannot submit without consent checked
   - Consent timestamp stored with inquiry in D1
   - Per-locale label text

@@ -1,5 +1,21 @@
 # Changelog
 
+## 2026-04-06 - Spec review: nav logo text fade, scroll trigger, CTA sentinel fix, privacy contact email
+
+Post-session spec sync covering navigation logo text visibility, scroll trigger change, sticky CTA sentinel logic correction, privacy policy contact email, and stale GAP removal.
+
+### Requirements updated
+- **REQ-SF-3** (Navigation): Added logo text visibility behavior (hidden over hero, fades in on scroll). Added scroll trigger detail: primary observer on `.hero-title` with `.hero-sentinel` fallback. Updated transition timing from 0.4s ease to 0.5s cubic-bezier.
+- **REQ-SF-7** (Sticky Mobile CTA): Fixed end sentinel description — CTA hides when `.sticky-cta-end` enters the viewport (not "scrolls out of view above the fold"). The previous changelog entry described this inaccurately.
+- **REQ-TC-2** (Privacy Policy): Added explicit contact email (hello@novoselec.ch) to the "right to access/rectify/erase" criterion.
+- **REQ-TC-5** (GDPR Consent on Forms): Removed stale GAP note about Privacy Policy not being hyperlinked — all 4 locales now link to `/{locale}/privatnost` in the consent label.
+
+### No new requirements
+- Slovenian consent terminology change ("politiko zasebnosti" to "pravilnikom o zasebnosti") is a localization refinement, not a new feature.
+- Apartment detail bottom spacing (`padding-bottom: var(--space-3xl)`) is a layout detail, not a behavioral requirement.
+
+---
+
 ## 2026-04-06 - Spec review: privacy policy fallback text rewritten (3030ac1)
 
 Commit 3030ac1 rewrote the hardcoded privacy policy fallback text in `privatnost.astro` for all 4 locales (hr, de, sl, en). The new text is substantially more comprehensive GDPR copy: it names the website explicitly (apartmani-novoselec.ch), states the purpose of data collection, describes third-party sharing conditions, and includes a retention-based deletion policy instead of the previous 2-year fixed retention.
