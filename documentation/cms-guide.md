@@ -97,6 +97,7 @@ Each editorial page has its own dedicated CMS collection. There is no shared `pa
 | `plaze` | Beaches (`/plaze`) | 4 sections; CMS-only, page is blank without entries |
 | `dolazak` | Getting Here (`/dolazak`) | 3 sections; CMS-only |
 | `about` | About Us (`/o-nama`) | Single entry per locale; `body` field is the host story; CMS-only |
+| `gallery_captions` | Gallery (`/galerija`) | 57 entries per locale (228 total); each entry has `text` (required) and `sort_order`; captions are assigned to gallery photos by rotating index and rendered as visible overlay text via `showCaptions` prop on `MiniCollage`; seeded via `.emdash/seed.json` |
 
 The `editorial` collection is now used only for homepage section overrides (section keys: `why-pasman`, `apartments`, `cta`, `collage`). The `/zdrelac` and `/zasto-pasman` standalone pages have been removed — their content lives in the `vodic` collection and the homepage respectively.
 

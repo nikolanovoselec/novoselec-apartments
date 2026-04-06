@@ -33,7 +33,7 @@ Image serving, edge caching, bundle budget.
 - **Priority:** P0
 - **Dependencies:** REQ-CMS-2
 - **Verification:** Lighthouse audit on 4G throttle
-- **Status:** Partial — R2 serving route implemented at `/api/img/[key]` with long-lived immutable cache headers and error handling. Fetches via Emdash storage abstraction with direct R2 bucket fallback. 68 real photos uploaded to R2 with `UUID.ext` keys. All site images (hero, subpage heroes, gallery, content) served from R2 via `/api/img/{key}`. R2 access credentials (`R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`) configured as Worker secrets. Zero stock photos remain. Images served as-is from R2 (no Image Resizing, no format conversion, no responsive widths). Blurhash, responsive `<picture>`, and format negotiation not yet implemented.
+- **Status:** Partial — R2 serving route implemented at `/api/img/[key]` with long-lived immutable cache headers and error handling. Fetches via Emdash storage abstraction with direct R2 bucket fallback. 142+ real photos uploaded to R2 with `UUID.ext` keys (the gallery page alone references 142 unique photos; additional photos used by hero carousel, triptych, editorial sections, and apartment interiors). All site images (hero, subpage heroes, gallery, content) served from R2 via `/api/img/{key}`. R2 access credentials (`R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`) configured as Worker secrets. Zero stock photos remain. Images served as-is from R2 (no Image Resizing, no format conversion, no responsive widths). Blurhash, responsive `<picture>`, and format negotiation not yet implemented.
 
 ### REQ-PERF-2: Edge Caching
 

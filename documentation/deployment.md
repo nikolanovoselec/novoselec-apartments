@@ -49,6 +49,7 @@ Initial CMS content is sourced from `seed/content/` — individual JSON files pe
 | `dolazak` | Getting Here content rows per locale |
 | `about` | About Us — single entry per locale |
 | `site-settings` | Global site settings |
+| `gallery_captions` | Poetic gallery photo captions in all 4 locales (57 per locale, 228 total) |
 
 See [Architecture](architecture.md#seed-data-structure) for full field-level details.
 
@@ -80,6 +81,18 @@ npx wrangler d1 migrations apply apartmani-db --remote
 | `migrations/0002_availability.sql` | `availability_blocks`, `inquiries`, `events`, `redirects` |
 
 Migrations are applied in order. The D1 `wrangler_migrations` table tracks which have been applied.
+
+## CI Workflow
+
+The GitHub Actions workflow (`.github/workflows/ci.yml`) uses a single `ci` job with conditional deploy steps.
+
+**Every push and PR to `main`:** typecheck (`npx astro check`) → test (`npx vitest run`) → build (`npx astro build`)
+
+**Main branch only** (additional steps after build): deploy (`npx wrangler deploy`) → set Worker secrets (`wrangler secret put RESEND_API_KEY`)
+
+PRs get typecheck + test + build only; the deploy and secret steps are gated on `github.ref == 'refs/heads/main'` and do not run for pull requests. This replaced the previous two-job structure where `build` and `deploy` were separate jobs each running a full checkout and `npm ci`.
+
+Required GitHub Actions secrets: `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, `RESEND_API_KEY`.
 
 ## Deploy to Production
 

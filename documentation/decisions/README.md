@@ -25,6 +25,7 @@ Decisions made during implementation with rationale.
 | AD13 | Switch to manual i18n routing to prevent Astro from rewriting integration-injected routes | Architecture | 2026-04-02 |
 | AD14 | Emdash CMS auth switched to Cloudflare Access | Security | 2026-04-03 |
 | AD15 | All R2 image keys standardized to UUID format | Storage | 2026-04-04 |
+| AD16 | Brand name localized in UI via `brand.name` translation key; system/email sender stays Croatian-only | Architecture | 2026-04-06 |
 
 ---
 
@@ -119,3 +120,9 @@ Standardizing on UUIDs matches Emdash's native upload format, ensures the image 
 **Decision:** Astro's i18n is configured with `routing: "manual"` in `astro.config.mjs`. The `[locale]` file-based directory structure handles all locale routing; Astro performs no automatic route prefixing or rewriting.
 
 With Astro's automatic `prefixDefaultLocale` routing enabled, Astro localizes every route it knows about — including pages injected by integrations such as Emdash. This moved `/_emdash/admin` to `/hr/_emdash/admin`. Requests to `/_emdash/admin` then hit the `[locale]` handler with `locale="_emdash"`, which returned 404 instead of reaching Emdash's request handler. Manual mode stops Astro from touching integration-injected routes while leaving file-based `[locale]` routing unchanged. The previous workaround — a `src/pages/_emdash/[...path].ts` catch-all and per-page underscore-prefix guards — was removed when manual routing was adopted.
+
+### AD16: Brand name localized in UI via `brand.name` translation key; system/email sender stays Croatian-only
+
+**Decision:** The visible brand name shown to visitors in navigation, footer, Open Graph tags, LodgingBusiness schema, and page titles is locale-specific, resolved via `t(locale, "brand.name")`: hr "Apartmani Novoselec", de "Ferienwohnungen Novoselec", sl "Apartmaji Novoselec", en "Apartments Novoselec". System-generated strings — the email `from` address ("Apartmani Novoselec <noreply@graymatter.ch>"), the admin Magic Link subject line, and the web manifest `name` field — remain hardcoded to Croatian "Apartmani Novoselec" regardless of locale.
+
+German-speaking visitors see "Ferienwohnungen Novoselec" (the correct German term for vacation apartments) in the nav, footer, and social previews. Using the Croatian form "Apartmani" in German-locale pages is a register error — it reads as an untranslated foreign word. The split from system strings is intentional: email headers and admin tooling are always operator-facing, not guest-facing, so Croatian is correct there regardless of which locale triggered the email.

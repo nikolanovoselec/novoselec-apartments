@@ -95,7 +95,7 @@ Every page emits Open Graph and Twitter Card meta tags via `src/layouts/Base.ast
 | `og:type` | `website` |
 | `og:url` | Canonical URL |
 | `og:image` | Per-page image or fallback (Ždrelac from the sea) |
-| `og:site_name` | `Apartmani Novoselec` (static) |
+| `og:site_name` | Locale-specific via `t(lang, "brand.name")`: hr "Apartmani Novoselec", de "Ferienwohnungen Novoselec", sl "Apartmaji Novoselec", en "Apartments Novoselec" |
 | `og:locale` | Locale-mapped: `hr_HR`, `de_CH`, `sl_SI`, `en_US` |
 
 ### Twitter Card
@@ -196,7 +196,7 @@ Breadcrumb markup is built inline in `Breadcrumbs.astro` — there is no separat
 
 | Type | Builder | Used on | Purpose |
 |---|---|---|---|
-| `LodgingBusiness` | Inline in `index.astro` | `/:locale/` | Business identity for Google Knowledge Panel — name, address (Fratarsko 5, Ždrelac), geo coordinates, amenity features |
+| `LodgingBusiness` | Inline in `index.astro` | `/:locale/` | Business identity for Google Knowledge Panel — name from `t(locale, "brand.name")` (locale-specific), address (Fratarsko 5, Ždrelac), geo coordinates, amenity features |
 | `FAQPage` | Inline in `faq.astro` | `/:locale/faq` | Enables FAQ rich results in Google Search |
 | `VacationRental` | `buildVacationRentalSchema` | Apartment detail pages | Enables rental rich results |
 | `BreadcrumbList` | Inline in `Breadcrumbs.astro` | Apartment detail pages | Breadcrumb trail in search results |

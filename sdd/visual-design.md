@@ -299,7 +299,7 @@ Color system, typography, scroll animations, micro-interactions, and Croatian vi
   - `@keyframes scroll-collage` from `translateX(0)` to `translateX(-50%)` with duplicated image track
   - Image height: 250px mobile, 350px desktop
   - 16px border-radius, `var(--space-md)` gap between images (multi-image strips only)
-  - **Single-image fallback:** When only 1 image is provided, MiniCollage renders a static centered image (4:3 aspect, `object-fit: cover`) with `border-radius: 16px`, `max-width: 1000px`, `margin-inline: auto`, and `padding: 0` (overrides base class padding that would inflate the corner curve). No scrolling animation, no hover zoom. The single image has rounded corners matching the collage strip aesthetic.
+  - **Single-image fallback:** When only 1 image is provided, MiniCollage renders a static centered image (4:3 aspect, `object-fit: cover`) with `border-radius: 16px`, `max-width: 1000px`, `margin-inline: auto`, and `padding: 0` (overrides base class padding that would inflate the corner curve). No scrolling animation, no hover zoom, no caption overlay (the `showCaptions` overlay only renders in the multi-image marquee branch). The single image has rounded corners matching the collage strip aesthetic.
   - All collage/strip containers (homepage collage, apartments collage, gallery strips, editorial strips) use responsive horizontal padding `clamp(1.25rem, 4vw, 3rem)` so that rounded-corner images have breathing room from viewport edges
   - 35s loop duration, `linear infinite` timing
   - Pauses on hover (`:hover` sets `animation-play-state: paused`)

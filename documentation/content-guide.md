@@ -79,6 +79,7 @@ When editing intro text for these pages via CMS or in code, match the voice alre
 | `plaze` | sort_order, locale, title, image, gallery | body text |
 | `dolazak` | sort_order, locale, title, image, gallery | body text |
 | `about` | locale | body text (host story) |
+| `gallery_captions` | text (required), sort_order | none |
 
 ---
 

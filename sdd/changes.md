@@ -1,5 +1,44 @@
 # Changelog
 
+## 2026-04-06 - Post-09f1e83 audit: hero title accuracy, photo count refresh, per-locale page titles
+
+Deep audit of commits 7d77430..09f1e83 (gallery_captions CMS collection, brand name localization, MiniCollage single-image styling, alternating editorial collage direction, hero tuning, gallery cleanup, CI consolidation). Most new features were already captured by spec updates in 09f1e83 itself; this pass fixes the residual gaps.
+
+### Requirements updated
+- **REQ-SF-1** (Hero Section): Fixed stale claim that the two-line title uses the `brand.name` translation key. The hero actually uses inline locale switching for the first word ("Apartmani" / "Ferienwohnungen" / "Apartmaji" / "Apartments") with the constant brand surname "Novoselec" on the second line in italic. The `brand.name` translation key is used in nav, footer, Schema.org, and og:site_name (REQ-SF-3, REQ-SF-6, REQ-SEO-2) — but NOT in the hero. Also clarified that the location label sits ABOVE the title, not below it (the previous wording incorrectly described "location on second line in italic," conflating the location label and the surname line).
+- **REQ-I18N-3** (UI String Translations): Added explicit per-locale homepage page titles to the AC list. The homepage title is constructed via a per-locale `Record<Locale, string>` containing the localized brand name plus locale-appropriate location phrasing (hr "Apartmani Novoselec — Otok Pašman", de "Ferienwohnungen Novoselec — Insel Pašman", sl "Apartmaji Novoselec — Otok Pašman", en "Apartments Novoselec — Pašman Island"). Page titles must not be a single-language constant.
+- **REQ-CMS-6** (Preloaded Content & Media): Photo count corrected from "68 real photos" to "142+" — the gallery page alone references 142 unique island photos. Additional photos used by hero carousel, triptych, editorial sections, and apartment interiors push the total higher.
+- **REQ-PERF-1** (Image Serving Pipeline): Status photo count corrected from "68 real photos" to "142+" with the same context note.
+
+### Validation results (already accurate, no changes needed)
+- **REQ-SF-1** hero timing: 10s slide interval and 8s crossfade are already documented correctly in AC and status text.
+- **REQ-SF-1** continuous Ken Burns on all slides: already captured.
+- **REQ-SF-3** (Navigation): brand.name translation key for nav logo text — correct.
+- **REQ-SF-6** (Footer): brand.name translation key for footer brand and copyright — correct.
+- **REQ-SF-8** (Gallery Page): 142 photos, gallery_captions CMS collection (57 per locale, 228 total), showCaptions overlay rendering, locale-seeded shuffle — all accurate.
+- **REQ-SEO-2** (Open Graph): `og:site_name` set to localized brand name via `brand.name` — correct.
+- **REQ-I18N-3** brand.name key list (hr/de/sl/en values) — already documented.
+- **REQ-VD-15** (Exterior Photo Collage): single-image fallback CSS (16px border-radius, max-width 1000px, margin-inline auto, padding 0, 4:3 aspect) — already documented. The `reverse` prop alternation across editorial pages (vodic, dolazak, plaze, aktivnosti) is already documented.
+- **REQ-CMS-1** collections list: includes `gallery_captions` — correct. Dead collections (guide, posts, pages, homepage) correctly marked removed.
+- **Glossary**: `Poetic Captions` entry already documents the gallery_captions collection structure (57 per locale, 228 total). `Sailboat Logo` entry already explains the brand identity. `MiniCollage` entry already covers `reverse` and `showCaptions` props.
+- **REQ-ED-7** (FAQ): Emdash collection is `faqs`, no change needed.
+- **CON-STACK**, **CON-PERF**, **CON-MEDIA**, **CON-SEC**: all current — no Image Resizing claims, no guest auto-reply claims, no extension-free key claims, no cursor-based pagination claims.
+
+### Stale claim sweep (none found)
+- No "Image Resizing" claims in active acceptance criteria (only in glossary as "not currently used")
+- No "Magic Link as primary auth" claims (REQ-CMS-3 correctly Deprecated, REQ-CMS-9 Cloudflare Access is canonical)
+- No dead collections (pages, guide, amenities, posts, homepage) referenced as active
+- No `seed/seed.json` or seed API endpoint referenced as active
+- No "extension-free UUID" claims (all references use `UUID.ext`)
+- No "guest auto-reply" claims as sent (only documented as not implemented)
+- No "cursor-based pagination" claims
+- No outdated photo counts in active acceptance criteria after this pass
+- Hero timing references uniformly say 10s interval / 8s crossfade
+- CI workflow consolidation (single job with conditional deploy) is implementation detail — no spec coverage needed
+- Editorial-strip top-margin normalization (`var(--space-xl)`) is visual polish — not a spec-level concern
+
+---
+
 ## 2026-04-06 - Deep verification sweep: fix remaining stale claims across all domains
 
 Comprehensive verification of every SDD domain file against actual codebase. Fixed six categories of stale or inaccurate claims.

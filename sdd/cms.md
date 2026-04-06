@@ -180,7 +180,7 @@ Emdash CMS integration, media library, authentication, mobile admin UX, section 
     - Host story template
     - Privacy policy, house rules, and cancellation policy templates
   - **Placeholder marking:** All preloaded content tagged as `placeholder: true` in CMS. Admin shows "Demo content — replace with your own" badge on placeholder items. Dashboard checklist: "Replace apartment photos with your own", "Update host story", etc.
-  - Real photos: 68 real island/Croatian photos stored in R2 with `UUID.ext` keys, served via `/api/img/{key}` (no stock photography, no Pexels URLs, no local `/photos/` directory)
+  - Real photos: 142+ real island/Croatian photos stored in R2 with `UUID.ext` keys, served via `/api/img/{key}` (no stock photography, no Pexels URLs, no local `/photos/` directory). The gallery page alone references 142 unique photos; additional photos are used by hero, triptych, editorial sections, and apartment interiors.
   - Optional hero video: one 10-15s ambient stock clip
   - Site deployable and visitor-ready on day one
   - Owner workflow: open admin → see checklist → replace photos → edit text → mark as own content → done
