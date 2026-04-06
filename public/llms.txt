@@ -56,6 +56,7 @@ Apartmani Novoselec is a small, family-run rental with two apartments in the vil
 - Contact: https://apartmani.novoselec.ch/hr/kontakt
 - FAQ: https://apartmani.novoselec.ch/hr/faq
 - Privacy Policy: https://apartmani.novoselec.ch/hr/privatnost
+- Legal Notice: https://apartmani.novoselec.ch/hr/impresum
 
 Note: Replace /hr/ with /en/, /de/, or /sl/ for other language versions.
 

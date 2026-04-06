@@ -15,6 +15,7 @@ const staticPages = [
   "/o-nama",
   "/faq",
   "/privatnost",
+  "/impresum",
 ];
 
 /**
