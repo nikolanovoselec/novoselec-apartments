@@ -16,12 +16,12 @@ Set via `npx wrangler secret put <NAME>`. Never commit these values.
 
 | Variable | Required | Description |
 |---|---|---|
-| `RESEND_API_KEY` | Yes | Resend API key — used by `src/lib/resend.ts` for inquiry notifications and custom admin magic links (`POST /admin/api/login`) |
+| `RESEND_API_KEY` | Yes | Resend API key — used by `src/lib/resend.ts` for owner inquiry notifications and legacy Magic Link admin login (`POST /admin/api/login`) |
 | `JWT_SECRET` | Yes | HMAC-SHA-256 signing secret for auth JWTs — minimum 32 random bytes |
 | `TURNSTILE_SECRET_KEY` | Yes | Cloudflare Turnstile secret key — server-side form verification |
 | `R2_ACCESS_KEY_ID` | Yes | R2 S3-compatible access key ID — used for presigned upload URLs |
 | `R2_SECRET_ACCESS_KEY` | Yes | R2 S3-compatible secret access key — used for presigned upload URLs |
-| `EMDASH_AUTH_SECRET` | Yes | Shared secret for `POST /api/admin/seed` — validated via `X-Seed-Token` request header. Cloudflare Access does not cover `/api/*`, so this header check is the only auth guard on the seed endpoint. |
+| `EMDASH_AUTH_SECRET` | Yes | Shared secret for internal Emdash operations — previously used by the now-removed `POST /api/admin/seed` endpoint. Retained as a Worker secret for future use. |
 
 ### Plain Vars (non-secret)
 
@@ -32,18 +32,13 @@ Defined in the `vars` block of `wrangler.jsonc`. Safe to commit — no sensitive
 | `ADMIN_EMAILS` | Yes | Comma-separated list of authorized admin email addresses (case-insensitive). Current value: `hello@graymatter.ch` |
 | `TURNSTILE_SITE_KEY` | Yes | Cloudflare Turnstile site key — embedded in forms |
 | `CF_ACCESS_AUDIENCE` | Yes | Cloudflare Access audience tag for Emdash CMS auth. Read by the `access()` adapter via `process.env` at runtime — must be a `vars` entry, not a secret (see note below). |
+| `CLOUDFLARE_ACCOUNT_ID` | Yes | Cloudflare account ID — used by `POST /admin/api/upload-url` to construct the R2 S3-compatible endpoint URL. Also committed in `wrangler.jsonc` for convenience. |
+| `R2_BUCKET_NAME` | Yes | R2 bucket name (`apartmani-media`) — used by `POST /admin/api/upload-url` when signing presigned PUT URLs, and by `src/lib/storage-r2-hybrid.ts` for direct bucket operations. |
 
 ### Important: CF_ACCESS_AUDIENCE must be a var, not a secret
 
 The `@emdash-cms/cloudflare` access plugin reads the audience tag via `process.env[envVarName]` at runtime. On Cloudflare Workers, `process.env` is populated from `wrangler.jsonc` vars — not from Worker secrets. If `CF_ACCESS_AUDIENCE` is set as a secret, the plugin throws "Environment variable not found" and CMS authentication fails. The AUD tag is not sensitive — it is a public identifier present in every CF Access JWT.
 
-### Runtime Context Variables
-
-Available via `env` at runtime but not set via wrangler secrets or vars — provided by the Cloudflare platform or used internally.
-
-| Variable | Source | Description |
-|---|---|---|
-| `CLOUDFLARE_ACCOUNT_ID` | Worker env (set via `wrangler.jsonc` vars or CI env) | Cloudflare account ID — used by `POST /admin/api/upload-url` to construct the R2 S3-compatible endpoint URL (`https://{accountId}.r2.cloudflarestorage.com`) |
 
 ### Setting Secrets
 
@@ -57,7 +52,7 @@ To update `ADMIN_EMAILS` or `CF_ACCESS_AUDIENCE`, edit the `vars` block in `wran
 
 ## Email Sender Address
 
-All outbound emails use `Apartmani Novoselec <noreply@graymatter.ch>` as the from-address. This applies to both owner notifications and guest auto-replies sent from `POST /api/inquiry` and the admin confirm/magic-link endpoints. The sending domain (`graymatter.ch`) must remain verified in the Resend dashboard.
+All outbound emails use `Apartmani Novoselec <noreply@graymatter.ch>` as the from-address. This applies to owner notifications sent from `POST /api/inquiry` and the legacy Magic Link admin login flow. The sending domain (`graymatter.ch`) must remain verified in the Resend dashboard.
 
 ## Cloudflare Bindings
 
@@ -84,7 +79,11 @@ Accessed as `env.DB` (type `D1Database`) via `import { env } from "cloudflare:wo
 }
 ```
 
-Accessed as `env.MEDIA` (type `R2Bucket`) via `import { env } from "cloudflare:workers"`. Used by the `/api/img/[key]` route to serve uploaded images and by the Emdash CMS storage integration. The `storage: r2({ binding: "MEDIA" })` option in `astro.config.mjs` connects the same binding to Emdash's file storage. The previous `/media/:key` route has been removed.
+Accessed as `env.MEDIA` (type `R2Bucket`) via `import { env } from "cloudflare:workers"`. Used by the `/api/img/[key]` route to serve uploaded images and by the Emdash CMS storage integration. The `storage: { entrypoint: "~/lib/storage-r2-hybrid", config: { binding: "MEDIA" } }` option in `astro.config.mjs` connects the same binding to Emdash's file storage via a custom hybrid adapter. The previous `/media/:key` route has been removed.
+
+### Phantom Binding: SESSION KVNamespace
+
+`src/env.d.ts` declares `SESSION: KVNamespace` in the `Env` interface, but no corresponding `kv_namespaces` binding exists in `wrangler.jsonc`. This binding is unused — no production code reads `env.SESSION`. The declaration is a leftover type stub. Do not provision a KV namespace for it unless a session-storage feature is actively being implemented.
 
 ## Custom Domain Route
 

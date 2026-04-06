@@ -32,7 +32,7 @@ Guidelines for creating and translating content across all 4 locales.
 ## Photography Guidelines
 
 - **Minimum resolution:** 1200px wide for any use, 1920px for hero images
-- **Format:** JPEG or HEIC from phone camera. Cloudflare handles conversion to WebP/AVIF.
+- **Format:** JPEG or HEIC from phone camera. Photos are served as-is from R2 — no server-side format conversion occurs.
 - **Subject matter:** Croatian Adriatic coast, Dalmatian architecture, local food, nature. No generic Mediterranean or non-Croatian imagery.
 - **Composition:** Landscape orientation preferred for hero images. Portrait works for gallery items.
 - **Lighting:** Golden hour (sunrise/sunset) photos are most impactful for hero use.
@@ -65,11 +65,16 @@ When editing intro text for these pages via CMS or in code, match the voice alre
 
 | Collection | Structured Fields | Rich Text |
 |-----------|-------------------|-----------|
-| Apartments | name, sleeps, bedrooms, amenities, price | description only |
-| Testimonials | name, country, rating, quote | none |
-| FAQs | question, answer, category | none |
-| Guide | name, category, distance, image | description only |
-| Editorial | page_key, section_key, title, image | body text |
+| `apartments` | name, sleeps, bedrooms, amenities, price | description only |
+| `testimonials` | name, country, rating, quote | none |
+| `faqs` | question, answer, category, sort_order | none |
+| `editorial` | page_key, section_key, title, image | body text |
+| `vodic` | sort_order, locale, title, image, gallery | body text |
+| `hrana` | locale, title, gallery | body text |
+| `aktivnosti` | sort_order, locale, title, image, gallery | body text |
+| `plaze` | sort_order, locale, title, image, gallery | body text |
+| `dolazak` | sort_order, locale, title, image, gallery | body text |
+| `about` | locale | body text (host story) |
 
 ---
 

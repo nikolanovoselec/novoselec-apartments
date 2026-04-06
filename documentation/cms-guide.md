@@ -23,22 +23,22 @@ How to manage content, photos, and settings from your phone.
 
 All photos are stored in R2 and served via `/api/img/:key`. No photos are committed to the repository.
 
-All R2 keys use UUID format, matching Emdash's native upload format (e.g., `aa0fd53c-5d96-4a78-a5b5-0f68b543515a`). Keys are extension-free — the image serving route at `/api/img/:key` strips any extension before fetching from R2. Every photo — whether uploaded through the CMS media library or bulk-loaded via script — is stored and referenced using a UUID key only. Descriptive slug keys are not used.
+All R2 keys use `UUID.ext` format, matching Emdash's native upload format (e.g., `aa0fd53c-5d96-4a78-a5b5-0f68b543515a.jpg`). The file extension is part of the key — the image serving route at `/api/img/:key` accepts the key as-is. Every photo — whether uploaded through the CMS media library or bulk-loaded via script — is stored and referenced using a `UUID.ext` key. Descriptive slug keys are not used.
 
-Photos are referenced as `/api/img/<key>` URLs.
+Photos are referenced as `/api/img/<uuid>.<ext>` URLs.
 
 Apartment galleries are controlled by the **Gallery (JSON array)** (`gallery_json`) field in each apartment entry. The value is a JSON array of `/api/img/:key` URL strings.
 
 **To update a gallery via CMS:**
 1. Open Admin → Apartments → select apartment
 2. Find the **Gallery (JSON array)** field
-3. Edit the JSON array — each entry is a URL string, e.g. `"/api/img/aa0fd53c-5d96-4a78-a5b5-0f68b543515a"` (no file extension)
+3. Edit the JSON array — each entry is a URL string, e.g. `"/api/img/aa0fd53c-5d96-4a78-a5b5-0f68b543515a.jpg"` (include the file extension)
 4. Save and publish
 
 **To add new photos:**
 1. Open Admin → Media Library (`/_emdash/admin`)
-2. Upload the photo — you will receive a UUID-based key
-3. Add `/api/img/<key>` to the `gallery_json` field of the relevant apartment
+2. Upload the photo — you will receive a `UUID.ext` key (e.g., `aa0fd53c-5d96-4a78-a5b5-0f68b543515a.jpg`)
+3. Add `/api/img/<uuid>.<ext>` to the `gallery_json` field of the relevant apartment
 4. Save and publish — no redeploy required
 
 ### Managing the Photo Collage
@@ -63,6 +63,10 @@ The `body` field of that entry must contain a JSON array of photo objects using 
 The collage strip is hidden entirely if the entry is absent or if the JSON is invalid. At least 5 photos are recommended for a smooth seamless loop. The photo list is locale-independent — all four language versions of the homepage show the same collage.
 
 ### Managing Prices
+
+**Note: The `seasons` table migration (`0003_seasons.sql`) has not yet been applied. Price management through the CMS will not function until that migration is run. See [Configuration — D1 Migrations](configuration.md#d1-migrations).**
+
+Once the migration is applied:
 
 1. Open Admin → Seasons collection
 2. Each season has: name, date range, price per night, minimum stay
@@ -108,7 +112,7 @@ Guest inquiries arrive by email to hello@graymatter.ch. The D1 database also sto
 
 ## Content Guidelines
 
-- **Photos:** Minimum 1200px wide for hero use. JPEG or HEIC from phone camera is fine — Cloudflare handles format conversion.
+- **Photos:** Minimum 1200px wide for hero use. JPEG or HEIC from phone camera is fine. Photos are served as-is from R2 — no server-side format conversion or resizing occurs.
 - **Text:** Write naturally. Croatian can be warmer and more familiar. German should be precise with exact distances.
 - **Locales:** Content can be published per locale independently. Unpublished locales fall back to Croatian.
 - **Voice rules:** Certain pages (`aktivnosti`, `hrana`, `galerija`, `404`) have tighter tone requirements. See [Page-Level Voice Rules](content-guide.md#page-level-voice-rules) before editing intro text on those pages.

@@ -18,9 +18,8 @@ Apartmani Pašman is a server-side rendered Astro site deployed as a Cloudflare 
 |---|---|
 | Cloudflare Worker | Hosts the entire application (Astro SSR via `@astrojs/cloudflare`) |
 | Cloudflare D1 | SQLite-compatible edge database — auth codes, sessions, inquiries, availability blocks, analytics events, slug redirects |
-| Cloudflare R2 | Private object storage for uploaded media (`apartmani-media` bucket) |
-| Cloudflare Image Resizing | Edge image transforms — AVIF/WebP conversion, resizing, HEIC support |
-| Resend | Transactional email — magic link codes, inquiry notifications |
+| Cloudflare R2 | Private object storage for uploaded media (`apartmani-media` bucket). Images are served raw via `/api/img/:key` — no edge resizing or format conversion. |
+| Resend | Transactional email — owner inquiry notifications and legacy Magic Link codes |
 | Cloudflare Turnstile | Bot protection on public forms |
 | Emdash CMS | Embedded CMS integration mounted at `/_emdash/` |
 
@@ -35,13 +34,13 @@ Apartmani Pašman is a server-side rendered Astro site deployed as a Cloudflare 
 | `src/lib/media.ts` | R2 URL builder (`buildMediaUrl`) and srcset helper |
 | `src/lib/resend.ts` | Fetch-based Resend email client — used by inquiry and custom admin login flows |
 | `src/lib/turnstile.ts` | Server-side Turnstile token verification |
-| `src/lib/content.ts` | Emdash CMS helpers — `getLocalizedCollection`, `getLocalizedEntry`, `getSettings` with locale fallback to Croatian. `getLocalizedCollection` paginates through all Emdash pages (cursor-based, 100 entries per request) to guarantee the full dataset is returned regardless of collection size. |
+| `src/lib/content.ts` | Emdash CMS helpers — `getLocalizedCollection`, `getLocalizedEntry`, `getSettings` with locale fallback to Croatian. `getLocalizedCollection` calls `getEmDashCollection` once with a locale filter; Emdash returns all matching entries without pagination. |
 | `src/lib/hreflang.ts` | `buildHreflangLinks(pathname, siteOrigin)` — builds `<link rel="alternate" hreflang>` objects for all four locales plus `x-default`; used in the `<head>` of every page |
-| `src/lib/schema.ts` | Schema.org JSON-LD builders — `buildVacationRentalSchema(apartment, locale)` and `buildBreadcrumbSchema(items)`; consumed by apartment detail pages |
+| `src/lib/schema.ts` | Schema.org JSON-LD builders — `buildVacationRentalSchema(apartment)` and inline breadcrumb construction; consumed by apartment detail pages |
 | `src/lib/sanitize.ts` | Input sanitization — HTML stripping, email header injection prevention |
 | `src/schemas/inquiry.ts` | Zod schemas for booking and quick-question form submissions |
 | `src/middleware/` | Request pipeline: redirects → locale → security headers |
-| `src/pages/api/img/[key].ts` | Image serving route — fetches from R2 via Emdash storage or direct bucket access; applies `Cache-Control: public, max-age=31536000, immutable`; key is an extension-free UUID |
+| `src/pages/api/img/[key].ts` | Image serving route — fetches from R2 via Emdash storage or direct bucket access; applies `Cache-Control: public, max-age=31536000, immutable`; accepts the key as-is (upload-url generates `UUID.ext` keys with extensions) |
 | `src/pages/admin/api/` | Auth API endpoints (login, verify, upload-url) |
 | `src/pages/admin/api/inquiries/[id]/confirm.ts` | Confirm booking inquiry and block dates atomically |
 | `src/pages/api/apartments/[id]/availability.ts` | Availability API — returns booked dates for calendar display |
@@ -50,7 +49,7 @@ Apartmani Pašman is a server-side rendered Astro site deployed as a Cloudflare 
 | `src/layouts/` | Base and Page layout shells |
 | `src/components/shell/` | Navigation (desktop nav + mobile hamburger menu with `is:inline` script to avoid Astro bundler stripping; sailboat logo `public/logo.png` rendered at 28px left of the brand name — white on hero, original on scroll; brand name text `.nav__logo-text` is hidden (`opacity: 0; visibility: hidden`) until `is-scrolled` is applied, then fades in; `is-scrolled` is toggled by an `IntersectionObserver` on `.hero-title` (`threshold: 0`, no rootMargin) — falls back to `.hero-sentinel` on pages without `.hero-title`; pages with neither get `is-scrolled` immediately on load; all nav transitions use `0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)` instead of the global `--duration-normal` easing), Footer (text-only brand name, no logo), LanguageSwitcher, WhatsAppButton, StickyMobileCTA. Mobile menu contains no logo — nav links, language picker, and CTA button only. |
 | `src/components/shell/StickyMobileCTA.astro` | Fixed bottom bar visible on mobile/tablet (max-width 1023px) after the hero scrolls out of view. Slides up via `translateY` when `.is-visible` is toggled. Renders two text labels: primary span uses `cta.checkAvailability`, secondary span uses `homepage.cta.title`. No price display — `cta.fromPrice` was removed. CSS classes are `__primary` and `__secondary` (formerly `__price`/`__action`). Tapping navigates to `/{locale}/kontakt`. Visibility driven by two `IntersectionObserver` instances: shows when `.hero-sentinel` leaves the viewport; hides again when `.sticky-cta-end` sentinel (placed after the homepage triptych section) scrolls out of view above the fold. On non-homepage pages where `.sticky-cta-end` is absent, the bar stays visible for the entire scroll past the hero. |
-| `src/components/home/Hero.astro` | Hero carousel — 7 island photos served from R2 via `/api/img/:uuid`, crossfade (1.8s CSS transition), continuous zoom animation (`heroZoom` keyframe: 12s ease-in-out infinite alternate, scale 1→1.1 with -1%/-1% translate, paused until slide is active), auto-advance every 6 s, dot navigation, hover-pause; implemented as `is:inline` script; all image keys are extension-free UUIDs |
+| `src/components/home/Hero.astro` | Hero carousel — 7 island photos served from R2 via `/api/img/:uuid.ext`, crossfade (1.8s CSS transition), continuous zoom animation (`heroZoom` keyframe: 12s ease-in-out infinite alternate, scale 1→1.1 with -1%/-1% translate, paused until slide is active), auto-advance every 6 s, dot navigation, hover-pause; implemented as `is:inline` script |
 | `src/components/home/ScrollCollage.astro` | Infinite-scroll exterior photo strip — accepts `images: Array<{ src: string; alt: string }>` and optional `speed` (default 35 s). Renders two copies of the image set side-by-side so CSS `translateX(-50%)` creates a seamless loop. Hover pauses animation. Respects `prefers-reduced-motion` by disabling the keyframe and falling back to an overflow-scrollable row. Photos are sourced from a CMS `editorial` entry with `section_key=collage` (body field = JSON array of `{src, alt}` objects). Emdash auto-parses any body value that begins with `[` or `{`, so `data.body` may arrive as an already-parsed array or as a string — `parseCollageBody` in `index.astro` handles both. Collage is hidden if the CMS entry is absent. |
 | `src/components/ui/HeroSimple.astro` | Interior page hero — used on all non-homepage pages including apartment detail. Props: `title` (required), `subtitle` (optional, displayed as small-caps label), `image` (optional URL). When `image` is provided, the photo fills the hero with a slow 20 s zoom (`heroSimpleZoom` keyframe: scale 1→1.06, ease-in-out infinite alternate) and a dark navy gradient overlay. Without `image`, falls back to a static dark navy radial-gradient background. An inline SVG wave (cream `#F8F5EF`) is always rendered at the bottom of the section to merge visually with the page background. |
 | `src/components/ui/WaveDivider.astro` | Full-width SVG wave divider between sections. Props: `fill` (wave color, default `#F8F5EF`), `flip` (boolean, flips vertically via `scaleY(-1)` for wave-out effect), `class`. Height is fluid: `clamp(40px, 6vw, 80px)`. Used on the homepage to bracket the dark navy section (wave-in / wave-out pair). Sections that receive a wave at their top edge (e.g., the sunset CTA section, the apartments dark section) use the `.section--wave-in` CSS utility class for positioning and extra top padding rather than inline style overrides. |
@@ -115,19 +114,19 @@ All photos — editorial, hero, apartment interior, and gallery — are stored i
 
 ### Image serving route
 
-`src/pages/api/img/[key].ts` handles `GET /api/img/:uuid` requests. The key is an extension-free UUID. The route first attempts retrieval via `locals.emdash.storage.download(key)` (the Emdash storage abstraction over the same R2 bucket). On failure it falls back to direct `env.MEDIA` bucket access. Both paths return `Cache-Control: public, max-age=31536000, immutable`.
+`src/pages/api/img/[key].ts` handles `GET /api/img/:key` requests. The route accepts any key as-is — `POST /admin/api/upload-url` generates keys in `UUID.ext` format (e.g., `aa0fd53c-5d96-4a78-a5b5-0f68b543515a.jpg`) with the file extension included. The route first attempts retrieval via `locals.emdash.storage.download(key)` (the Emdash storage abstraction over the same R2 bucket). On failure it falls back to direct `env.MEDIA` bucket access. Both paths return `Cache-Control: public, max-age=31536000, immutable`.
 
 Key validation rejects empty keys, path traversal sequences (`..`), and leading slashes.
 
-All image keys across the codebase — hero carousel, editorial D1 entries, gallery JSON fields, and CMS references — use the UUID format exclusively. No descriptive slug keys exist in source code or production data. See [AD15](decisions/README.md#ad15-all-r2-image-keys-standardized-to-uuid-format) for the standardization decision.
+All image keys across the codebase use `UUID.ext` format. No descriptive slug keys exist in source code or production data. See [AD15](decisions/README.md#ad15-all-r2-image-keys-standardized-to-uuid-format) for the standardization decision.
 
 ### Owner uploads
 
-Direct browser-to-R2 uploads use presigned PUT URLs generated by `POST /admin/api/upload-url` via `aws4fetch` signed with R2 S3-compatible credentials. The returned `key` is a `UUID.ext` string; callers strip the extension when constructing `/api/img/:uuid` URLs. See [AD12](decisions/README.md#ad12-all-photos-migrated-to-r2-served-via-apiimguuid) for the migration decision.
+Direct browser-to-R2 uploads use presigned PUT URLs generated by `POST /admin/api/upload-url` via `aws4fetch` signed with R2 S3-compatible credentials. The returned `key` is a `UUID.ext` string (e.g., `aa0fd53c-5d96-4a78-a5b5-0f68b543515a.jpg`). Use the full key including extension in `/api/img/:key` references. See [AD12](decisions/README.md#ad12-all-photos-migrated-to-r2-served-via-apiimguuid) for the migration decision.
 
 ## Authentication Model
 
-The admin panel uses Magic Link auth. See [Authentication](authentication.md) for the full flow.
+The admin panel uses Cloudflare Access for CMS authentication, with legacy Magic Link endpoints (`/admin/api/login`, `/admin/api/verify`) still present in the codebase. See [Authentication](authentication.md) for the full flow.
 
 ## Pricing Model
 
@@ -156,7 +155,7 @@ Browser submits form
   → [booking only] Server-side availability overlap recheck → 409 if stale
   → [booking only] Price estimate from seasons table
   → INSERT INTO inquiries (status='new', email_status='pending')
-  → Resend: owner notification + guest auto-reply
+  → Resend: owner notification
   → UPDATE inquiries SET email_status='sent'|'retry'
   → INSERT INTO events (type='inquiry_submit'|'question_submit')
   → 200 (email sent) or 202 (email failed, inquiry saved)
@@ -202,7 +201,7 @@ The live D1 database is the source of truth for all CMS content. The `seed/seed.
 
 Dead collections removed in Revision 70: `guide`, `posts`, `pages`, `homepage`. Most content pages are CMS-only with no hardcoded fallback — pages render empty content until matching entries are seeded in their dedicated collection. The legal pages (`privatnost`, `impresum`) are an exception: both have full per-locale hardcoded fallbacks that render correct content without any CMS entry.
 
-All content is loaded at runtime via `src/lib/content.ts` helpers (`getLocalizedCollection`, `getLocalizedEntry`), which filter entries by locale and fall back to Croatian (`hr`) if the requested locale has no entries. `getLocalizedCollection` exhausts cursor-based pagination before filtering, so all entries in a collection are always considered regardless of how many pages Emdash returns.
+All content is loaded at runtime via `src/lib/content.ts` helpers (`getLocalizedCollection`, `getLocalizedEntry`), which filter entries by locale and fall back to Croatian (`hr`) if the requested locale has no entries. `getLocalizedCollection` calls `getEmDashCollection` once with a locale filter — no pagination; Emdash returns all matching entries in a single response.
 
 ## Design System
 
@@ -327,7 +326,7 @@ Scroll reveal animations are gated on a `.reveal-ready` class that JavaScript ad
 - [API Reference](api-reference.md#post-apiinquiry) — Inquiry and confirm endpoint signatures
 - [API Reference](api-reference.md#get-sitemapxml) — Sitemap and robots.txt endpoints
 - [Configuration](configuration.md#environment-variables) — All env vars and bindings
-- [Authentication](authentication.md#magic-link-flow) — Auth flow detail
+- [Authentication](authentication.md#cloudflare-access) — Auth flow detail
 - [Security](security.md#availability-double-check) — Overlap guard on inquiry submit and confirm
 - [Security](security.md#content-security-policy) — CSP and header policy
 - [SEO](seo.md) — Keyword targets, structured data, sitemap strategy

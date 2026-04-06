@@ -32,8 +32,9 @@ The sitemap is served at `/sitemap.xml` and generated at request time by `src/pa
 | `/o-nama` | About Us |
 | `/faq` | FAQ |
 | `/privatnost` | Privacy Policy |
+| `/impresum` | Legal Notice / Impressum |
 
-Each static page is emitted once per locale (12 static pages × 4 locales = 48 entries), plus one entry per locale for each published apartment loaded dynamically from the CMS. Total entry count varies with the number of published apartments.
+Each static page is emitted once per locale (13 static pages × 4 locales = 52 entries), plus one entry per locale for each published apartment loaded dynamically from the CMS. Total entry count varies with the number of published apartments.
 
 ### hreflang alternates
 
@@ -185,12 +186,11 @@ Schema.org JSON-LD is injected via `src/components/seo/SchemaOrg.astro`. The com
 
 | Function | Output type | Used on |
 |---|---|---|
-| `buildVacationRentalSchema(apartment, locale)` | `VacationRental` | Apartment detail pages |
-| `buildBreadcrumbSchema(items)` | `BreadcrumbList` | Apartment detail pages |
+| `buildVacationRentalSchema(apartment)` | `VacationRental` | Apartment detail pages |
 
-`buildVacationRentalSchema` accepts an `ApartmentData` object (`name`, `description`, `image`, `sleeps`, `bedrooms`, `bathrooms`, `size`, `priceFrom`, `amenities`) and a locale string, and returns a Schema.org `VacationRental` object with a hardcoded `PostalAddress` for Ždrelac, Zadar County, HR.
+`buildVacationRentalSchema` accepts an `ApartmentData` object (`name`, `description`, `image`, `sleeps`, `bedrooms`, `bathrooms`, `size`, `priceFrom`, `amenities`) and returns a Schema.org `VacationRental` object with a hardcoded `PostalAddress` for Ždrelac, Zadar County, HR.
 
-`buildBreadcrumbSchema` accepts an array of `{ label, href? }` items and returns a `BreadcrumbList`. Items without `href` are emitted without an `item` property — the convention for the current (last) page in a trail.
+Breadcrumb markup is built inline in `Breadcrumbs.astro` — there is no separate `buildBreadcrumbSchema` function.
 
 ### Supported schema types
 
@@ -199,7 +199,7 @@ Schema.org JSON-LD is injected via `src/components/seo/SchemaOrg.astro`. The com
 | `LodgingBusiness` | Inline in `index.astro` | `/:locale/` | Business identity for Google Knowledge Panel — name, address (Fratarsko 5, Ždrelac), geo coordinates, amenity features |
 | `FAQPage` | Inline in `faq.astro` | `/:locale/faq` | Enables FAQ rich results in Google Search |
 | `VacationRental` | `buildVacationRentalSchema` | Apartment detail pages | Enables rental rich results |
-| `BreadcrumbList` | `buildBreadcrumbSchema` | Apartment detail pages | Breadcrumb trail in search results |
+| `BreadcrumbList` | Inline in `Breadcrumbs.astro` | Apartment detail pages | Breadcrumb trail in search results |
 
 ### FAQPage markup
 

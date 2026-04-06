@@ -23,29 +23,32 @@ Note: local dev does not emulate D1 or R2 bindings. For full Worker runtime test
 
 ## Seed Data
 
-`seed/seed.json` contains the full Emdash CMS seed: all 6 collections, ~80 entries across all 4 locales, and global site settings. It is the source of truth for initial CMS content.
+Initial CMS content is sourced from `seed/content/` — individual JSON files per collection. The `/api/admin/seed` endpoint and the `seed/seed.json` monolithic file have been removed. Content is seeded via SQL migration scripts in `sql/` or entered directly through the Emdash admin panel.
 
-### Running the seed
+### Seed content files
 
-After first deploy, call the seed endpoint once to populate all Emdash collections. The endpoint requires the `X-Seed-Token` header matching the `EMDASH_AUTH_SECRET` Worker secret:
+| File | Description |
+|---|---|
+| `seed/content/apartments.json` | Lavanda and Tramuntana — structured fields + per-locale names, descriptions, SEO |
+| `seed/content/seasons.json` | Season date ranges, prices per night, and minimum stay rules |
+| `seed/content/site-settings.json` | Property name, WhatsApp, phone, email, active locales, social links, etc. |
+| `seed/content/testimonials.json` | Guest testimonials linked to apartments |
 
-```bash
-curl -X POST https://apartmani.novoselec.ch/api/admin/seed \
-  -H "X-Seed-Token: <EMDASH_AUTH_SECRET value>"
-```
-
-The endpoint is idempotent — it is safe to call multiple times. After seeding, content can be edited through the Emdash admin panel at `/_emdash/`.
-
-### Collections in seed.json
+### Current CMS collections
 
 | Collection | Description |
 |---|---|
-| `pages` | Editorial pages (Why Pašman, Getting Here, About, Privacy, Impressum) in all 4 locales |
-| `apartments` | Lavanda and Tramuntana — structured fields + per-locale names, descriptions, SEO |
-| `faq` | FAQ entries per locale with sort order |
-| `guide` | Local guide entries by category (beaches, food, activities, day trips) per locale |
+| `apartments` | Apartment detail pages per locale — Lavanda and Tramuntana |
 | `testimonials` | Guest testimonials linked to apartments |
-| `amenities` | Amenity definitions with icons and localized labels |
+| `faqs` | FAQ entries in all 4 locales with sort order |
+| `editorial` | Homepage section overrides and legal page body overrides |
+| `vodic` | Local Guide content rows per locale |
+| `hrana` | Food & Drink page — single entry per locale |
+| `aktivnosti` | Nature & Activities content rows per locale |
+| `plaze` | Beaches content rows per locale |
+| `dolazak` | Getting Here content rows per locale |
+| `about` | About Us — single entry per locale |
+| `site-settings` | Global site settings |
 
 See [Architecture](architecture.md#seed-data-structure) for full field-level details.
 
@@ -100,7 +103,7 @@ npx wrangler d1 migrations apply apartmani-db --remote
 
 ### R2 Bucket
 
-The `apartmani-media` bucket is provisioned and the `r2_buckets` binding is active in `wrangler.jsonc`. The Emdash CMS storage integration is configured in `astro.config.mjs` via `storage: r2({ binding: "MEDIA" })`. No additional setup steps are needed unless recreating the bucket from scratch.
+The `apartmani-media` bucket is provisioned and the `r2_buckets` binding is active in `wrangler.jsonc`. The Emdash CMS storage integration is configured in `astro.config.mjs` via the custom hybrid adapter `storage: { entrypoint: "~/lib/storage-r2-hybrid", config: { binding: "MEDIA" } }`. No additional setup steps are needed unless recreating the bucket from scratch.
 
 ### Secrets
 
@@ -123,7 +126,7 @@ src/
   styles/         # Global CSS design system
 migrations/       # D1 SQL migration files (applied via wrangler)
 seed/
-  seed.json       # Emdash CMS seed — 6 collections, ~80 entries, all 4 locales
+  content/        # Per-collection seed JSON files (apartments, seasons, site-settings, testimonials)
   media/          # Stock media sourcing plan (README.md)
 public/           # Static assets (fonts, logo.png, favicon PNGs, web manifest; no photos)
 wrangler.jsonc    # Cloudflare Worker configuration

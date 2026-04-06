@@ -16,7 +16,7 @@ Dynamic multilingual sitemap. Generates one `<url>` entry per locale per page, w
 
 **Response:** `application/xml` — a Sitemap Protocol 0.9 document with `xmlns:xhtml` alternates.
 
-**Included pages:** `/`, `/apartmani`, `/galerija`, `/hrana`, `/aktivnosti`, `/plaze`, `/kontakt`, `/dolazak`, `/vodic`, `/o-nama`, `/faq`, `/privatnost` — each emitted once per locale, producing 48 `<url>` entries (12 pages × 4 locales).
+**Included pages:** `/`, `/apartmani`, `/galerija`, `/hrana`, `/aktivnosti`, `/plaze`, `/kontakt`, `/dolazak`, `/vodic`, `/o-nama`, `/faq`, `/privatnost`, `/impresum` — 13 static pages, each emitted once per locale, plus one entry per locale for each published apartment loaded dynamically from the CMS. Total entry count varies with the number of published apartments.
 
 **Cache:** `Cache-Control: public, max-age=3600`.
 
@@ -155,7 +155,7 @@ Cookieless analytics event logging. Writes to the D1 `events` table. No PII is s
 
 ### POST /api/inquiry
 
-Submits a booking inquiry or quick question. Used by apartment detail page booking forms (`type: "booking"`), apartment quick-question modals (`type: "question"`), and the standalone contact page at `/:locale/kontakt` (`type: "question"`). Full server pipeline: Turnstile verification, honeypot check, Zod validation, server-side availability revalidation (booking type only), D1 persistence, and dual-email dispatch (owner notification + guest auto-reply).
+Submits a booking inquiry or quick question. Used by apartment detail page booking forms (`type: "booking"`), apartment quick-question modals (`type: "question"`), and the standalone contact page at `/:locale/kontakt` (`type: "question"`). Full server pipeline: Turnstile verification, honeypot check, Zod validation, server-side availability revalidation (booking type only), D1 persistence, and email dispatch (owner notification only).
 
 **Authentication:** None required.
 
@@ -229,52 +229,11 @@ Submits a booking inquiry or quick question. Used by apartment detail page booki
 
 ## Admin API
 
-All admin endpoints are under `/admin/api/` and require a valid `auth_token` JWT cookie. See [Authentication](authentication.md#magic-link-flow) for the auth flow.
-
-### POST /api/admin/seed
-
-One-shot endpoint to seed all Emdash CMS collections with the preloaded content from `seed/seed.json`. Safe to run multiple times — idempotent via `applySeed`.
-
-**Authentication:** Requires `X-Seed-Token` header matching the `EMDASH_AUTH_SECRET` Worker secret. Returns `401` if the header is missing, empty, or does not match. Cloudflare Access only protects `/_emdash/*` — this endpoint lives under `/api/` which is reachable on the workers.dev subdomain without Access, so the shared-secret check is the only auth guard.
-
-**Request headers:**
-
-| Header | Required | Description |
-|---|---|---|
-| `X-Seed-Token` | Yes | Must match the `EMDASH_AUTH_SECRET` Worker secret |
-
-**Request body:** None.
-
-**Response on success (`200`):**
-
-```json
-{ "success": true, "result": { ... } }
-```
-
-`result` contains the Emdash `applySeed` return value (counts of inserted/skipped records per collection).
-
-**Response on auth failure (`401`):**
-
-```json
-{ "error": "Authentication required" }
-```
-
-**Response on failure (`500`):**
-
-```json
-{ "error": "Seed failed" }
-```
-
-**Notes:**
-
-- Reads `seed/seed.json` at build time (static import). The file defines 6 Emdash collections: `pages`, `apartments`, `faq`, `guide`, `testimonials`, `amenities`.
-- Call this endpoint once after first deploy to populate CMS content. After seeding, content is editable through the Emdash admin panel at `/_emdash/`.
-
-**Implementation:** `src/pages/api/admin/seed.ts`, uses `applySeed` and `getDb` from `emdash`.
-
----
+All admin endpoints are under `/admin/api/` and require a valid `auth_token` JWT cookie. See [Authentication](authentication.md#cloudflare-access) for the auth flow.
 
 ### POST /admin/api/login
+
+**Legacy — primary auth is Cloudflare Access.** This endpoint still exists in the codebase but is no longer the primary authentication mechanism. See [Authentication](authentication.md#cloudflare-access).
 
 Initiates Magic Link auth — sends a 6-digit code to the provided email address.
 
@@ -291,6 +250,8 @@ Initiates Magic Link auth — sends a 6-digit code to the provided email address
 ---
 
 ### POST /admin/api/verify
+
+**Legacy — primary auth is Cloudflare Access.** See [Authentication](authentication.md#cloudflare-access).
 
 Verifies a 6-digit login code and issues auth cookies.
 
@@ -382,7 +343,7 @@ Confirms a booking inquiry and atomically blocks the dates in `availability_bloc
 
 ## Related Documentation
 
-- [Authentication](authentication.md#magic-link-flow) — Auth flow, token details, rate limiting
+- [Authentication](authentication.md#cloudflare-access) — Auth flow, token details, rate limiting
 - [Architecture](architecture.md#inquiry-pipeline) — Inquiry submission and confirmation flows
 - [Architecture](architecture.md#request-lifecycle) — Request pipeline and middleware order
 - [Architecture](architecture.md#public-page-routes) — Full list of public page routes
