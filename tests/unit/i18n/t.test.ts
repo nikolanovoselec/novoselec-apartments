@@ -31,8 +31,8 @@ describe("t() translation helper", () => {
 
   it("interpolates params with {placeholder} syntax", () => {
     expect(t("en", "apartments.sleeps", { count: "4" })).toBe("Sleeps 4");
-    expect(t("de", "apartments.sleeps", { count: "6" })).toBe("Schläft 6");
-    expect(t("hr", "apartments.sleeps", { count: "3" })).toBe("Spava 3");
+    expect(t("de", "apartments.sleeps", { count: "6" })).toBe("6 Personen");
+    expect(t("hr", "apartments.sleeps", { count: "3" })).toBe("3 osoba");
   });
 
   it("interpolates multiple params", () => {

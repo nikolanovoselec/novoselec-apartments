@@ -14,7 +14,7 @@
   "hero.tagline": "Euer Platz am Meer",
   "hero.scroll": "Nach unten scrollen",
   "apartments.title": "Unsere Ferienwohnungen",
-  "apartments.sleeps": "Schläft {count}",
+  "apartments.sleeps": "{count} Personen",
   "apartments.fromPrice": "ab {price} €/Nacht",
   "apartments.beachDistance": "{meters} m zum Strand",
   "apartments.viewAll": "Alle Fotos ansehen",
