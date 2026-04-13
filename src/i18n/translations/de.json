@@ -1,7 +1,7 @@
 {
   "brand.name": "Ferienwohnungen Novoselec",
   "nav.home": "Startseite",
-  "nav.apartments": "Ferienwohnungen",
+  "nav.apartments": "Wohnungen",
   "nav.whyPasman": "Warum Pašman",
   "nav.gettingHere": "Anreise",
   "nav.localGuide": "Reiseführer",
@@ -70,7 +70,7 @@
   "booking.quickQuestion.email": "Eure E-Mail",
   "booking.quickQuestion.message": "Eure Frage",
   "whatsapp.prefilled": "Hallo! Ich interessiere mich für {apartment} vom {dates}.",
-  "whatsapp.prefilledGeneric": "Hallo! Ich interessiere mich für eure Ferienwohnungen auf Pašman.",
+  "whatsapp.prefilledGeneric": "Hallo! Ich interessiere mich für eure Wohnungen auf Pašman.",
   "trust.noFees": "Keine Plattformgebühren",
   "trust.directContact": "Direkter Kontakt zum Vermieter",
   "trust.localTips": "Lokale Tipps inklusive",
