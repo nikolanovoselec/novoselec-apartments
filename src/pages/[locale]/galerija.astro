@@ -14,13 +14,13 @@ const galleryTitle: Record<Locale, string> = {
 };
 
 const intro: Record<Locale, string> = {
-  hr: "Sve boje otoka na jednom mjestu — more, kameni zidovi, konobe, borovi i onaj mir koji se ne da opisati, samo osjetiti.",
+  hr: "Sve boje otoka na jednom mjestu - more, kameni zidovi, konobe, borovi i onaj mir koji se ne da opisati, samo osjetiti.",
   de: "Alle Farben der Insel an einem Ort – Meer, Steinmauern, Konoben, Pinien und diese Ruhe, die man nicht erklären kann. Man spürt sie einfach.",
   sl: "Vse barve otoka na enem mestu – morje, kamniti zidovi, konobe, borovci in tisti mir, ki ga ne moreš opisati. Lahko ga samo začutiš.",
-  en: "All the island's colors in one place — sea, stone walls, konobas, pines, and that kind of peace you can't really describe. You only feel it.",
+  en: "All the island's colors in one place - sea, stone walls, konobas, pines, and that kind of peace you can't really describe. You only feel it.",
 };
 
-// Poetic captions from CMS — localized per language
+// Poetic captions from CMS - localized per language
 const captionEntries = (await getLocalizedCollection("gallery_captions", typedLocale))
   .sort((a, b) => (Number(a.data.sort_order) || 0) - (Number(b.data.sort_order) || 0));
 const captions = captionEntries.map((e) => (e.data.text as string) || "");
@@ -179,7 +179,7 @@ const shuffled = [...allPhotos].sort((a, b) => {
   return ha - hb;
 });
 
-// Build gallery items — images are decorative in auto-scrolling context
+// Build gallery items - images are decorative in auto-scrolling context
 // Poetic captions used as alt text are visual atmosphere, not descriptive
 const galleryItems = shuffled.map((uuid, i) => ({
   src: `/api/img/${uuid}`,

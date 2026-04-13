@@ -27,7 +27,7 @@ export function sanitizeMessage(input: string): string {
 }
 
 /**
- * Sanitize a name field — strip HTML and limit length.
+ * Sanitize a name field - strip HTML and limit length.
  */
 export function sanitizeName(input: string): string {
   return stripHtml(input).trim().slice(0, 200);
@@ -44,7 +44,7 @@ export function sanitizeEmail(input: string): string | null {
 }
 
 /**
- * Validate a phone number format (loose — allows international formats).
+ * Validate a phone number format (loose - allows international formats).
  * Returns null if clearly invalid.
  */
 export function sanitizePhone(input: string): string | null {

@@ -11,10 +11,10 @@ if (!locale || !isValidLocale(locale)) return Astro.redirect("/hr/", 302);
 const typedLocale = locale as Locale;
 
 const titles: Record<Locale, string> = {
-  hr: "Apartmani Novoselec — Otok Pašman",
-  de: "Ferienwohnungen Novoselec — Insel Pašman",
-  sl: "Apartmaji Novoselec — Otok Pašman",
-  en: "Apartments Novoselec — Pašman Island",
+  hr: "Apartmani Novoselec - Otok Pašman",
+  de: "Ferienwohnungen Novoselec - Insel Pašman",
+  sl: "Apartmaji Novoselec - Otok Pašman",
+  en: "Apartments Novoselec - Pašman Island",
 };
 
 // Load CMS content
@@ -76,10 +76,10 @@ const aptsTitle = (aptsSection?.data.title as string) ?? {
 }[typedLocale];
 
 const aptsBody = (aptsSection?.data.body as string) ?? {
-  hr: "Naši apartmani nisu samo turistički objekt, u njih smo uložili godine truda i ljubavi. Nismo ovdje odrasli — Pašman smo izabrali, vraćali mu se desetljećima i polako ga pretvorili u svoj drugi dom.",
-  de: "Unsere Apartments sind nicht nur ein Mietobjekt — in sie haben wir Jahre an Liebe und Arbeit gesteckt. Wir sind hier nicht aufgewachsen; wir haben Pašman gewählt und ihn zu unserem zweiten Zuhause gemacht.",
-  sl: "Naši apartmaji niso le oddajanje, vanje smo vložili leta truda in ljubezni. Tukaj nismo odraščali — Pašman smo izbrali in ga počasi spremenili v svoj drugi dom.",
-  en: "Our apartments aren't just a rental — they're a labor of love shaped over years. We didn't grow up here; we chose Pašman, returned for decades, and slowly made it our second home.",
+  hr: "Naši apartmani nisu samo turistički objekt, u njih smo uložili godine truda i ljubavi. Nismo ovdje odrasli - Pašman smo izabrali, vraćali mu se desetljećima i polako ga pretvorili u svoj drugi dom.",
+  de: "Unsere Wohnungen sind nicht nur ein Mietobjekt - in sie haben wir Jahre an Liebe und Arbeit gesteckt. Wir sind hier nicht aufgewachsen; wir haben Pašman gewählt und ihn zu unserem zweiten Zuhause gemacht.",
+  sl: "Naši apartmaji niso le oddajanje, vanje smo vložili leta truda in ljubezni. Tukaj nismo odraščali - Pašman smo izbrali in ga počasi spremenili v svoj drugi dom.",
+  en: "Our apartments aren't just a rental - they're a labor of love shaped over years. We didn't grow up here; we chose Pašman, returned for decades, and slowly made it our second home.",
 }[typedLocale];
 
 const ctaTitle = (ctaSection?.data.title as string) ?? t(typedLocale, "homepage.cta.title");
@@ -172,7 +172,7 @@ const oliveOilLabel: Record<Locale, string> = {
       </a>
     </div>
 
-    {/* Exterior photo collage — CMS managed */}
+    {/* Exterior photo collage - CMS managed */}
     {collagePhotos.length > 0 && (
       <div style="padding-block: var(--space-xl); padding-inline: clamp(1.25rem, 4vw, 3rem);">
         <ScrollCollage images={collagePhotos} />

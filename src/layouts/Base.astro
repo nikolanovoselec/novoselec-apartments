@@ -22,7 +22,7 @@ const {
   noIndex = false,
 } = Astro.props;
 
-const fullTitle = title.includes("—") ? title : `${title} — ${t(lang, "meta.titleSuffix")}`;
+const fullTitle = title.includes("-") ? title : `${title} - ${t(lang, "meta.titleSuffix")}`;
 const metaDescription = description ?? t(lang, "meta.description");
 const siteOrigin = (Astro.site ?? new URL(Astro.url.origin)).toString().replace(/\/$/, "");
 const canonicalUrl = new URL(Astro.url.pathname, siteOrigin).toString();

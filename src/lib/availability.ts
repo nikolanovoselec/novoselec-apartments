@@ -1,12 +1,12 @@
 /**
  * Availability block: represents a booked date range.
- * Uses half-open interval: [checkIn, checkOut) — checkout day is available for new check-in.
+ * Uses half-open interval: [checkIn, checkOut) - checkout day is available for new check-in.
  */
 export interface AvailabilityBlock {
   readonly id: string;
   readonly apartmentId: string;
   readonly checkIn: string;  // YYYY-MM-DD
-  readonly checkOut: string; // YYYY-MM-DD (exclusive — this day is available)
+  readonly checkOut: string; // YYYY-MM-DD (exclusive - this day is available)
 }
 
 /**
@@ -38,7 +38,7 @@ export function findOverlappingBlocks(
 
 /**
  * Get all booked dates within a month range as an array of YYYY-MM-DD strings.
- * Useful for calendar display — returns each individual booked night.
+ * Useful for calendar display - returns each individual booked night.
  */
 export function getBookedDatesInRange(
   blocks: ReadonlyArray<AvailabilityBlock>,

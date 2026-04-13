@@ -34,7 +34,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
     .first<{ count: number }>();
 
   if (recentAttempts && recentAttempts.count >= 5) {
-    return jsonResponse({ success: true }); // Silent — don't reveal lockout
+    return jsonResponse({ success: true }); // Silent - don't reveal lockout
   }
 
   const code = generateCode();
@@ -46,10 +46,10 @@ export const POST: APIRoute = async ({ request, locals }) => {
     .bind(email, codeHash)
     .run();
 
-  // Send code via Resend — check result
+  // Send code via Resend - check result
   const emailResult = await sendEmail({
     to: [email],
-    subject: "Your login code — Apartmani Novoselec",
+    subject: "Your login code - Apartmani Novoselec",
     html: `
       <div style="font-family: sans-serif; max-width: 400px; margin: 0 auto; text-align: center;">
         <h2 style="color: #0C2D48; font-weight: 300;">Your login code</h2>
@@ -63,7 +63,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
   });
 
   if (!emailResult.success) {
-    // Delete the stored code since email failed — don't count against brute force limit
+    // Delete the stored code since email failed - don't count against brute force limit
     await db
       .prepare("DELETE FROM auth_codes WHERE email = ? AND code_hash = ?")
       .bind(email, codeHash)

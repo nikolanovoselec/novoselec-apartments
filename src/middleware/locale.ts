@@ -28,7 +28,7 @@ export function detectLocaleFromHeader(acceptLanguage: string | null): Locale {
 
 /**
  * Locale middleware: validates locale in URL, sets on locals.
- * Does NOT handle root redirect — that's done in src/pages/index.astro.
+ * Does NOT handle root redirect - that's done in src/pages/index.astro.
  */
 export const localeMiddleware: MiddlewareHandler = async (context, next) => {
   const { pathname } = context.url;

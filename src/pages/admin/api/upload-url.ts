@@ -23,7 +23,7 @@ const MAX_FILENAME_LENGTH = 200;
  */
 export const POST: APIRoute = async ({ request, cookies, locals }) => {
 
-  // Auth check — verify JWT from cookie
+  // Auth check - verify JWT from cookie
   const authToken = cookies.get("auth_token")?.value;
   if (!authToken) {
     return jsonResponse({ error: "Authentication required" }, 401);

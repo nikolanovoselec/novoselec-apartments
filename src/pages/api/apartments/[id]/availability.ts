@@ -9,7 +9,7 @@ const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 /**
  * GET /api/apartments/:id/availability?start=YYYY-MM-DD&end=YYYY-MM-DD
  * Returns booked dates for an apartment within a date range.
- * This endpoint is NOT cached — always fresh availability data.
+ * This endpoint is NOT cached - always fresh availability data.
  */
 export const GET: APIRoute = async ({ params, url, locals }) => {
   const apartmentId = params.id;

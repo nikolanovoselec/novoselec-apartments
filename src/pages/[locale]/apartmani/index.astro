@@ -78,7 +78,7 @@ const collagePhotos = parsePhotoArray(collageEntry?.data.body);
     </section>
   )}
 
-  {/* Inquiry CTA — wave only when collage is present */}
+  {/* Inquiry CTA - wave only when collage is present */}
   <section class:list={["section", "section--alt", "section--footer-clear", { "section--wave-in": collagePhotos.length > 0 }]} id="inquiry" data-reveal>
     {collagePhotos.length > 0 && (
       <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="position: absolute; top: 0; left: 0; width: 100%; height: clamp(50px, 8vw, 100px); display: block; z-index: 2; transform: scaleY(-1);">

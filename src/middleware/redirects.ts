@@ -8,7 +8,7 @@ import type { MiddlewareHandler } from "astro";
 export const redirectsMiddleware: MiddlewareHandler = async (context, next) => {
   const { pathname } = context.url;
 
-  // Let Emdash handle its own routes — bypass all our routing
+  // Let Emdash handle its own routes - bypass all our routing
   if (pathname.startsWith("/_emdash")) {
     return next();
   }

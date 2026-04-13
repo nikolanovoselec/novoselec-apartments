@@ -17,7 +17,7 @@ const validEventTypes = [
 /**
  * POST /api/track
  * Cookieless analytics event tracking. Writes to D1 events table.
- * No PII stored — only event type, apartment slug, locale, timestamp, page path.
+ * No PII stored - only event type, apartment slug, locale, timestamp, page path.
  */
 export const POST: APIRoute = async ({ request, locals }) => {
   const db = env.DB;

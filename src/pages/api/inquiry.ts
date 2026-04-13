@@ -51,7 +51,7 @@ export const POST: APIRoute = async ({ request }) => {
 
   // Honeypot check
   if (data.honeypot) {
-    // Bot detected — return fake success
+    // Bot detected - return fake success
     return jsonResponse({ success: true });
   }
 
@@ -130,7 +130,7 @@ export const POST: APIRoute = async ({ request }) => {
     priceEstimate = breakdown.total;
   }
 
-  // Persist to D1 (before email attempt — data never lost)
+  // Persist to D1 (before email attempt - data never lost)
   const insertResult = await db
     .prepare(`INSERT INTO inquiries (
       type, apartment_id, check_in, check_out, adults, children_under_12, children_12_to_17,

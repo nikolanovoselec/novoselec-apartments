@@ -17,7 +17,7 @@ export async function getLocalizedCollection(
   locale: Locale,
 ): Promise<LocalizedEntry[]> {
   try {
-    // Use Emdash's native locale filter — no limit means ALL entries returned
+    // Use Emdash's native locale filter - no limit means ALL entries returned
     const { entries } = await getEmDashCollection(collectionSlug, { locale });
     if (entries && entries.length > 0) {
       return entries.map(mapEntry);

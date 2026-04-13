@@ -12,7 +12,7 @@ interface ApartmentData {
 
 /**
  * Build Schema.org VacationRental JSON-LD payload for an apartment.
- * Does NOT include @context/@type — the SchemaOrg.astro component adds those.
+ * Does NOT include @context/@type - the SchemaOrg.astro component adds those.
  */
 export function buildVacationRentalSchema(
   apartment: ApartmentData,

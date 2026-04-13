@@ -57,7 +57,7 @@ export const POST: APIRoute = async ({ params, cookies, locals }) => {
     return jsonResponse({ error: "Cannot confirm a non-booking inquiry" }, 400);
   }
 
-  // Step 1: Atomic INSERT — only inserts if no overlap exists
+  // Step 1: Atomic INSERT - only inserts if no overlap exists
   const [insertResult] = await db.batch([
     db.prepare(`
       INSERT INTO availability_blocks (apartment_id, check_in, check_out, source, inquiry_id)
@@ -72,7 +72,7 @@ export const POST: APIRoute = async ({ params, cookies, locals }) => {
     ),
   ]);
 
-  // If INSERT was a no-op, dates conflict — do NOT update inquiry status
+  // If INSERT was a no-op, dates conflict - do NOT update inquiry status
   if (insertResult.meta && insertResult.meta.changes === 0) {
     return jsonResponse({
       error: "date_conflict",
