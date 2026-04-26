@@ -76,7 +76,7 @@ Served at `/robots.txt` by `src/pages/robots.txt.ts`. All crawlers are allowed o
 
 The `Sitemap:` directive points to `/sitemap.xml` using the request origin, so it works correctly across staging and production domains.
 
-The `LLMs-Txt:` directive points to `/llms.txt`, a machine-readable site description following the [llmstxt.org](https://llmstxt.org/) convention. It tells AI assistants where to find a structured summary of the property and what content is available on the site.
+The `LLMs-Txt:` directive points to `/llms.txt`, a machine-readable site description following the [llmstxt.org](https://llmstxt.org/) convention. It tells AI assistants where to find a structured summary of the property and what content is available on the site. Implements [REQ-SEO-9](../sdd/seo-analytics.md#req-seo-9) (LLM discoverability).
 
 **Cache:** `public, max-age=86400` — refreshes once per day.
 

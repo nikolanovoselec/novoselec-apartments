@@ -8,6 +8,8 @@ Guidelines for creating and translating content across all 4 locales.
 
 ## Tone by Locale
 
+Implements [REQ-I18N-6](../sdd/i18n.md#req-i18n-6) (cultural content adaptation per locale).
+
 ### Croatian (HR) — Warm and Familiar
 - Use informal, conversational tone
 - Emphasize practical logistics (ferry times, parking, distances)
