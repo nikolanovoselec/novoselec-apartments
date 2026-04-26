@@ -28,12 +28,20 @@ jobs:
       - name: Build
         run: npx astro build
 
-      - name: Deploy to Cloudflare
+      - name: Verify deploy secrets are present
         if: github.ref == 'refs/heads/main'
-        run: npx --yes wrangler deploy
         env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          RESEND_RECIPIENTS: ${{ secrets.RESEND_RECIPIENTS }}
+        run: |
+          if [ -z "$RESEND_API_KEY" ]; then
+            echo "::error::GitHub repo secret RESEND_API_KEY is empty" >&2
+            exit 1
+          fi
+          if [ -z "$RESEND_RECIPIENTS" ]; then
+            echo "::error::GitHub repo secret RESEND_RECIPIENTS is empty — inquiry emails would silently drop" >&2
+            exit 1
+          fi
 
       - name: Set Worker secrets
         if: github.ref == 'refs/heads/main'
@@ -45,3 +53,10 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           RESEND_RECIPIENTS: ${{ secrets.RESEND_RECIPIENTS }}
+
+      - name: Deploy to Cloudflare
+        if: github.ref == 'refs/heads/main'
+        run: npx --yes wrangler deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

@@ -3,6 +3,7 @@
 ## 2026-04-26 (later)
 
 - **REQ-BK-2:** Inquiry-notification recipients now sourced from a new `RESEND_RECIPIENTS` Worker secret (semicolon-separated), rather than the comma-separated `ADMIN_EMAILS` plaintext var. CI pushes the value from a GitHub repo secret on every main deploy. `ADMIN_EMAILS` continues to gate the legacy Magic Link admin login.
+- **REQ-BK-2:** Owner notification is now sent as bcc so recipients do not see each other. Empty `RESEND_RECIPIENTS` no longer fails silently — CI deploys fail fast on empty value, and runtime logs an error if it ever reaches a request.
 
 ## 2026-04-26
 

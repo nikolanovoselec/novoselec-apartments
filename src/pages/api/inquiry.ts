@@ -164,15 +164,21 @@ export const POST: APIRoute = async ({ request }) => {
   const ownerEmails = recipients.split(";").map((e) => e.trim()).filter(Boolean);
   let emailSent = false;
 
+  if (ownerEmails.length === 0) {
+    console.error("[inquiry] RESEND_RECIPIENTS missing or empty — owner notification skipped (inquiry persisted to D1)");
+  }
+
   if (ownerEmails.length > 0 && resendKey) {
-    // Owner notification
+    const fromAddress = "Apartmani Novoselec <noreply@graymatter.ch>";
+    // bcc keeps recipients hidden from each other
     const ownerResult = await sendEmail({
-      to: ownerEmails,
+      to: [fromAddress],
+      bcc: ownerEmails,
       subject: `Novi upit${data.type === "booking" ? ` - ${data.checkIn} do ${data.checkOut}` : " - Brzo pitanje"}`,
       html: buildOwnerEmail(data, cleanName, cleanEmail, cleanPhone, cleanMessage, priceEstimate),
       replyTo: cleanEmail,
       apiKey: resendKey,
-      from: "Apartmani Novoselec <noreply@graymatter.ch>",
+      from: fromAddress,
     });
 
     emailSent = ownerResult.success;

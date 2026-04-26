@@ -17,7 +17,7 @@ Set via `npx wrangler secret put <NAME>`. Never commit these values.
 | Variable | Required | Description |
 |---|---|---|
 | `RESEND_API_KEY` | Yes | Resend API key — used by `src/lib/resend.ts` for owner inquiry notifications and legacy Magic Link admin login (`POST /admin/api/login`) |
-| `RESEND_RECIPIENTS` | Yes | Semicolon-separated list of email addresses that receive owner inquiry notifications from `POST /api/inquiry`. Held in GitHub repo secrets and pushed to the Worker on every main deploy by `.github/workflows/ci.yml`. |
+| `RESEND_RECIPIENTS` | Yes | Semicolon-separated list of email addresses that receive owner inquiry notifications from `POST /api/inquiry`. Sent as bcc so recipients do not see each other. Held in GitHub repo secrets and pushed to the Worker on every main deploy by `.github/workflows/ci.yml`. Implements [REQ-BK-2](../sdd/booking.md#req-bk-2). |
 | `JWT_SECRET` | Yes | HMAC-SHA-256 signing secret for auth JWTs — minimum 32 random bytes |
 | `TURNSTILE_SECRET_KEY` | Yes | Cloudflare Turnstile secret key — server-side form verification |
 | `R2_ACCESS_KEY_ID` | Yes | R2 S3-compatible access key ID — used for presigned upload URLs |

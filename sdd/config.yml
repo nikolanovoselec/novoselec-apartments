@@ -1,0 +1,23 @@
+mode: interactive
+enforce_tdd: true
+test_globs:
+  - "tests/**/*.test.ts"
+  - "tests/**/*.test.js"
+  - "tests/**/*.spec.ts"
+  - "tests/**/*.spec.js"
+  - "test/**/*.test.ts"
+  - "test/**/*.test.js"
+  - "__tests__/**/*"
+  - "test_*.py"
+  - "*_test.py"
+  - "*_test.go"
+  - "*_test.rb"
+  - "cypress/**"
+  - "playwright/**"
+  - "tests/e2e/**"
+  - "e2e/**"
+forbidden_content_allowlist:
+  protocols: true
+  vendors: true
+  http_codes_in_api_reqs: true
+forbidden_content_overrides: []
