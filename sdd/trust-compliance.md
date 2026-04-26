@@ -35,7 +35,7 @@ GDPR, privacy policy, house rules, cancellation policy, security headers, and ac
 - **Acceptance Criteria:**
   - Standalone page, CMS-managed per locale
   - Content covers:
-    - Website identification (apartmani-novoselec.ch named explicitly)
+    - Website identification (novoselec.hr named explicitly)
     - Data controller identity: owner of Apartmani Novoselec, Zdrelac, Pasman, Croatia
     - Purpose of data collection: respond to inquiry, provide availability info, arrange potential booking
     - Legal basis for inquiry processing (Art. 6(1)(b) GDPR — pre-contractual measures)

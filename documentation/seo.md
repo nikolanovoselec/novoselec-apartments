@@ -114,7 +114,7 @@ Every page also emits Twitter Card tags derived from the same values:
 The `Page` layout and `Base` layout both accept an optional `ogImage` string (absolute URL). When provided it is written directly into `og:image`. When omitted the fallback is `{siteOrigin}/api/img/aa0fd53c-5d96-4a78-a5b5-0f68b543515a` (Ždrelac from the sea).
 
 ```astro
-<Page title={...} locale={typedLocale} ogImage="https://apartmani.novoselec.ch/api/img/<uuid>">
+<Page title={...} locale={typedLocale} ogImage="https://novoselec.hr/api/img/<uuid>">
 ```
 
 ### Per-page OG images

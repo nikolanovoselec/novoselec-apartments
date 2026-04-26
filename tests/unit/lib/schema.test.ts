@@ -8,7 +8,7 @@ import { buildVacationRentalSchema } from "~/lib/schema";
 const LAVANDA = {
   name: "Apartment Lavanda",
   description: "A beautiful sea-view apartment on Pašman island.",
-  image: "https://apartmani.novoselec.ch/images/lavanda/hero.jpg",
+  image: "https://novoselec.hr/images/lavanda/hero.jpg",
   sleeps: 4,
   bedrooms: 2,
   bathrooms: 1,
@@ -43,7 +43,7 @@ describe("buildVacationRentalSchema()", () => {
   it("includes image from apartment data", () => {
     const schema = buildVacationRentalSchema(LAVANDA);
     expect(schema["image"]).toBe(
-      "https://apartmani.novoselec.ch/images/lavanda/hero.jpg"
+      "https://novoselec.hr/images/lavanda/hero.jpg"
     );
   });
 

@@ -91,12 +91,12 @@ Defined in `wrangler.jsonc` under `routes`:
 
 ```jsonc
 {
-  "pattern": "apartmani.novoselec.ch",
+  "pattern": "novoselec.hr",
   "custom_domain": true
 }
 ```
 
-The Worker is bound to `apartmani.novoselec.ch` as a Cloudflare custom domain. DNS must be proxied through Cloudflare (orange cloud) for the route to take effect. No separate zone or route pattern configuration is needed beyond this entry.
+The Worker is bound to `novoselec.hr` as a Cloudflare custom domain. DNS must be proxied through Cloudflare (orange cloud) for the route to take effect. No separate zone or route pattern configuration is needed beyond this entry.
 
 ## Astro Configuration
 

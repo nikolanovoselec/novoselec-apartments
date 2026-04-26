@@ -6,7 +6,7 @@
   "compatibility_flags": ["nodejs_compat"],
   "workers_dev": true,
   "routes": [
-    { "pattern": "apartmani.novoselec.ch", "custom_domain": true }
+    { "pattern": "novoselec.hr", "custom_domain": true }
   ],
   "d1_databases": [
     {

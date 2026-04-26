@@ -19,7 +19,7 @@ Common issues and how to resolve them.
 ### Can't reach admin panel at all
 **Cause:** Cloudflare Access policy not configured for the path.
 
-**Fix:** Ensure a CF Access Application exists for domain `apartmani.novoselec.ch/_emdash` with the correct users in the policy.
+**Fix:** Ensure a CF Access Application exists for domain `novoselec.hr/_emdash` with the correct users in the policy.
 
 ## Content & Display
 

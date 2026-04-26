@@ -8,7 +8,7 @@ How to manage content, photos, and settings from your phone.
 
 ## Accessing the Admin Panel
 
-1. Open `https://apartmani.novoselec.ch/_emdash/admin/`
+1. Open `https://novoselec.hr/_emdash/admin/`
 2. Cloudflare Access login appears — sign in with your Google account
 3. The Emdash admin dashboard loads
 
