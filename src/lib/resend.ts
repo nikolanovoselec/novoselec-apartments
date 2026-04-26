@@ -1,5 +1,6 @@
 interface SendEmailParams {
   readonly to: readonly string[];
+  readonly bcc?: readonly string[];
   readonly subject: string;
   readonly html: string;
   readonly replyTo?: string;
@@ -16,9 +17,9 @@ interface SendEmailResult {
  * Send an email via Resend API (fetch-based, no SDK needed).
  */
 export async function sendEmail(params: SendEmailParams): Promise<SendEmailResult> {
-  const { to, subject, html, replyTo, apiKey, from } = params;
+  const { to, bcc, subject, html, replyTo, apiKey, from } = params;
 
-  if (to.length === 0) {
+  if (to.length === 0 && (!bcc || bcc.length === 0)) {
     return { success: false, error: "No recipients" };
   }
 
@@ -33,6 +34,7 @@ export async function sendEmail(params: SendEmailParams): Promise<SendEmailResul
       body: JSON.stringify({
         from,
         to: [...to],
+        ...(bcc && bcc.length > 0 ? { bcc: [...bcc] } : {}),
         subject,
         html,
         ...(replyTo ? { reply_to: replyTo } : {}),

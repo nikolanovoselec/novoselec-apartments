@@ -128,4 +128,44 @@ describe("sendEmail()", () => {
     expect(result.error).toBeTruthy();
     expect(fetchMock).not.toHaveBeenCalled();
   });
+
+  it("includes bcc in body when provided", async () => {
+    const fetchMock = makeFetchStub(true);
+    vi.stubGlobal("fetch", fetchMock);
+
+    await sendEmail({
+      ...baseParams,
+      to: ["from@example.com"],
+      bcc: ["a@example.com", "b@example.com"],
+    });
+
+    const [, init] = fetchMock.mock.calls[0];
+    const body = JSON.parse(init.body as string);
+    expect(body.bcc).toEqual(["a@example.com", "b@example.com"]);
+  });
+
+  it("omits bcc from body when empty", async () => {
+    const fetchMock = makeFetchStub(true);
+    vi.stubGlobal("fetch", fetchMock);
+
+    await sendEmail({ ...baseParams, bcc: [] });
+
+    const [, init] = fetchMock.mock.calls[0];
+    const body = JSON.parse(init.body as string);
+    expect(body).not.toHaveProperty("bcc");
+  });
+
+  it("sends when only bcc recipients are provided (to is empty)", async () => {
+    const fetchMock = makeFetchStub(true);
+    vi.stubGlobal("fetch", fetchMock);
+
+    const result = await sendEmail({
+      ...baseParams,
+      to: [],
+      bcc: ["a@example.com"],
+    });
+
+    expect(result.success).toBe(true);
+    expect(fetchMock).toHaveBeenCalledOnce();
+  });
 });

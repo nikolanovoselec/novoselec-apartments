@@ -64,7 +64,8 @@ Request-to-book inquiry flow, business rules, server pipeline, WhatsApp integrat
   - Inquiry persisted to D1 `inquiries` table before email attempt with status `new`
   - Input sanitized: all user-supplied fields stripped of HTML before rendering in email output, email header injection prevented, URLs stripped from message body
   - Honeypot hidden field for bot detection (in addition to Turnstile)
-  - Email to owner via Resend: formatted HTML with inquiry details (name, email, phone, dates, guest count, apartment, pets, message, locale). No admin deep links or "Confirm & Block Dates" action — owner replies directly via email. Sent from `noreply@graymatter.ch`. (Owner notification only — no guest auto-reply is sent.)
+  - Email to owner via Resend: formatted HTML with inquiry details (name, email, phone, dates, guest count, apartment, pets, message, locale). No admin deep links or "Confirm & Block Dates" action — owner replies directly via email (the inquirer's address is set as `Reply-To`). Sent from `noreply@graymatter.ch`. Recipients sourced from the `RESEND_RECIPIENTS` Worker secret (semicolon-separated list, allowing multiple owners without code changes). The first listed recipient is the visible `To:` address; any remaining recipients are bcc'd, so additional owners are not exposed to each other in the headers. (Owner notification only — no guest auto-reply is sent.)
+  - **Recipient configuration safety:** if `RESEND_RECIPIENTS` is unset or empty at request time, the inquiry is still persisted to D1, an error is logged (`[inquiry] RESEND_RECIPIENTS missing`), and no email is sent. The CI deploy workflow fails fast if the GitHub repo secret `RESEND_RECIPIENTS` is empty, so this only fires under direct misconfiguration of the Worker.
   - **Email delivery (single-attempt):**
     - Inquiry persisted to D1 with `email_status: pending`
     - Immediate send attempt (one try in request lifecycle)

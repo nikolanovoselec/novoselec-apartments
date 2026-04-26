@@ -124,6 +124,8 @@ To add or remove an admin email, edit `wrangler.jsonc`:
 
 Then redeploy. The check is case-insensitive. There is no UI for managing this list.
 
+**Note:** `ADMIN_EMAILS` gates the Magic Link admin login only. Inquiry-notification recipients are controlled by the `RESEND_RECIPIENTS` Worker secret — see [Configuration](configuration.md#secrets).
+
 ## Security Properties
 
 - Codes are never stored in plaintext — SHA-256 hashed before D1 insert.

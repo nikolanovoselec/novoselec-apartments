@@ -54,14 +54,17 @@ Common issues and how to resolve them.
 ### Emails not being received
 **Possible causes:**
 1. `RESEND_API_KEY` not set as Worker secret
-2. `ADMIN_EMAILS` var empty or wrong in `wrangler.jsonc`
-3. Resend API rate limit or domain verification issue
+2. `RESEND_RECIPIENTS` Worker secret missing or empty (GitHub repo secret not set, or last deploy did not push it)
+3. `RESEND_RECIPIENTS` uses the wrong separator — must be semicolons, not commas
+4. Resend API rate limit or domain verification issue
 
 **Debug:**
 ```bash
-npx wrangler secret list  # verify RESEND_API_KEY exists
+npx wrangler secret list  # verify RESEND_API_KEY and RESEND_RECIPIENTS exist
 npx wrangler tail          # watch live logs during form submission
 ```
+
+When `RESEND_RECIPIENTS` is empty at runtime, `wrangler tail` prints `[inquiry] RESEND_RECIPIENTS missing or empty — owner notification skipped (inquiry persisted to D1)`. The inquiry is still saved to D1; only the email is skipped.
 
 ### Turnstile widget not rendering
 **Cause:** CSP blocking the Turnstile script.
@@ -78,6 +81,7 @@ npx wrangler tail          # watch live logs during form submission
 1. TypeScript errors: run `astro check` locally to see details
 2. Missing dependencies: `npm ci` failed
 3. Import errors: check for circular imports or wrong paths
+4. `RESEND_API_KEY` or `RESEND_RECIPIENTS` GitHub repo secret is empty — the "Verify deploy secrets are present" step in `.github/workflows/ci.yml` fails the workflow before deploy with a `::error::` annotation. Set the missing secret under repo Settings → Secrets and variables → Actions.
 
 ### Deploy succeeds but site shows old version
 **Cause:** Cloudflare edge cache serving stale content.

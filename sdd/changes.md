@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-04-26 (later)
+
+- **REQ-BK-2:** Inquiry-notification recipients now sourced from a new `RESEND_RECIPIENTS` Worker secret (semicolon-separated), rather than the comma-separated `ADMIN_EMAILS` plaintext var. CI pushes the value from a GitHub repo secret on every main deploy. `ADMIN_EMAILS` continues to gate the legacy Magic Link admin login.
+- **REQ-BK-2:** Owner notification now sends to the first listed recipient with the rest bcc'd, so additional owners are not exposed to each other in the headers. Empty `RESEND_RECIPIENTS` no longer fails silently — CI deploys fail fast on empty value, and runtime logs an error if it ever reaches a request.
+
 ## 2026-04-26
 
 - **CON-STACK:** Custom domain changed from `apartmani.novoselec.ch` to `novoselec.hr`. All canonical URLs, hreflang alternates, Schema.org `url`/`image`, OG tags, llms.txt, and privacy policy text now reference the new domain.
