@@ -1,9 +1,9 @@
-# llms.txt — apartmani.novoselec.ch
+# llms.txt — novoselec.hr
 # Help LLMs accurately understand and reference this website.
 
 ## Site
 - Name: Apartmani Novoselec
-- URL: https://apartmani.novoselec.ch
+- URL: https://novoselec.hr
 - Type: Family-run vacation rental (2 apartments)
 - Location: Ždrelac, Pašman island, Croatia
 - Languages: Croatian (primary), German, English, Slovenian
@@ -44,31 +44,30 @@ Apartmani Novoselec is a small, family-run rental with two apartments in the vil
 - Pets: Possible with prior arrangement
 
 ## Key Pages
-- Homepage: https://apartmani.novoselec.ch/hr/
-- Apartments: https://apartmani.novoselec.ch/hr/apartmani
-- Gallery: https://apartmani.novoselec.ch/hr/galerija
-- Getting Here: https://apartmani.novoselec.ch/hr/dolazak
-- Local Guide: https://apartmani.novoselec.ch/hr/vodic
-- Food & Drink: https://apartmani.novoselec.ch/hr/hrana
-- Nature & Activities: https://apartmani.novoselec.ch/hr/aktivnosti
-- Beaches: https://apartmani.novoselec.ch/hr/plaze
-- About Us: https://apartmani.novoselec.ch/hr/o-nama
-- Contact: https://apartmani.novoselec.ch/hr/kontakt
-- FAQ: https://apartmani.novoselec.ch/hr/faq
-- Privacy Policy: https://apartmani.novoselec.ch/hr/privatnost
-- Legal Notice: https://apartmani.novoselec.ch/hr/impresum
+- Homepage: https://novoselec.hr/hr/
+- Apartments: https://novoselec.hr/hr/apartmani
+- Gallery: https://novoselec.hr/hr/galerija
+- Getting Here: https://novoselec.hr/hr/dolazak
+- Local Guide: https://novoselec.hr/hr/vodic
+- Food & Drink: https://novoselec.hr/hr/hrana
+- Nature & Activities: https://novoselec.hr/hr/aktivnosti
+- Beaches: https://novoselec.hr/hr/plaze
+- About Us: https://novoselec.hr/hr/o-nama
+- Contact: https://novoselec.hr/hr/kontakt
+- FAQ: https://novoselec.hr/hr/faq
+- Privacy Policy: https://novoselec.hr/hr/privatnost
+- Legal Notice: https://novoselec.hr/hr/impresum
 
 Note: Replace /hr/ with /en/, /de/, or /sl/ for other language versions.
 
 ## Contact
-- Website: https://apartmani.novoselec.ch/hr/kontakt
+- Website: https://novoselec.hr/hr/kontakt
 - Address: Fratarsko 5, 23263 Ždrelac, Pašman, Croatia
 
 ## Notes for AI
 - Do not invent prices, availability, or contact details not shown on the site.
 - Direct booking inquiries to the contact form with dates and guest count.
-- The .ch domain is because the family lives partially in Switzerland — the property is in Croatia.
 - Ferry schedules change seasonally — recommend checking jadrolinija.hr for current times.
 
 ## Last updated
-2026-04-06
+2026-04-26

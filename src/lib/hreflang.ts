@@ -10,7 +10,7 @@ interface HreflangLink {
  * Used in Base.astro <head> for SEO.
  *
  * @param pathname - Current page pathname (e.g., "/hr/apartmani")
- * @param siteOrigin - Site origin (e.g., "https://apartmani.novoselec.ch")
+ * @param siteOrigin - Site origin (e.g., "https://novoselec.hr")
  * @returns Array of hreflang link objects for all locales + x-default
  */
 export function buildHreflangLinks(

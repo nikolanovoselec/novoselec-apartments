@@ -76,7 +76,7 @@ Served at `/robots.txt` by `src/pages/robots.txt.ts`. All crawlers are allowed o
 
 The `Sitemap:` directive points to `/sitemap.xml` using the request origin, so it works correctly across staging and production domains.
 
-The `LLMs-Txt:` directive points to `/llms.txt`, a machine-readable site description following the [llmstxt.org](https://llmstxt.org/) convention. It tells AI assistants where to find a structured summary of the property and what content is available on the site.
+The `LLMs-Txt:` directive points to `/llms.txt`, a machine-readable site description following the [llmstxt.org](https://llmstxt.org/) convention. It tells AI assistants where to find a structured summary of the property and what content is available on the site. Implements [REQ-SEO-9](../sdd/seo-analytics.md#req-seo-9) (LLM discoverability).
 
 **Cache:** `public, max-age=86400` — refreshes once per day.
 
@@ -114,7 +114,7 @@ Every page also emits Twitter Card tags derived from the same values:
 The `Page` layout and `Base` layout both accept an optional `ogImage` string (absolute URL). When provided it is written directly into `og:image`. When omitted the fallback is `{siteOrigin}/api/img/aa0fd53c-5d96-4a78-a5b5-0f68b543515a` (Ždrelac from the sea).
 
 ```astro
-<Page title={...} locale={typedLocale} ogImage="https://apartmani.novoselec.ch/api/img/<uuid>">
+<Page title={...} locale={typedLocale} ogImage="https://novoselec.hr/api/img/<uuid>">
 ```
 
 ### Per-page OG images

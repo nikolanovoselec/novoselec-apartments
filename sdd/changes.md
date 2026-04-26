@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-04-26
+
+- **CON-STACK:** Custom domain changed from `apartmani.novoselec.ch` to `novoselec.hr`. All canonical URLs, hreflang alternates, Schema.org `url`/`image`, OG tags, llms.txt, and privacy policy text now reference the new domain.
+- **REQ-SEO-9:** Removed obsolete `.ch` domain rationale line from `/llms.txt` and the matching AC bullet, following the domain change above.
+
 ## 2026-04-06 - Post-b85cb9f: spec aligned with R2 dual-key reality (UUID.ext standard + bare-UUID hero legacy)
 
 Verification pass after commit b85cb9f (JSDoc + ADR clarification only — no source-code behavior change). The commit improved the JSDoc on `src/pages/api/img/[key].ts` and updated `documentation/architecture.md` + `documentation/decisions/README.md` (AD15) to acknowledge that the `/api/img/:key` route accepts two key shapes: standard `UUID.ext` (produced by `POST /admin/api/upload-url` and the Emdash media library, e.g. `aa0fd53c-5d96-4a78-a5b5-0f68b543515a.jpg`) and bare extension-less UUIDs (the 7 hard-coded hero carousel keys in `Hero.astro`, e.g. `d57cdaef-2625-448e-bd51-5bdc90de4883`). Content type is read from R2 object metadata, not from the key suffix, so both work transparently.

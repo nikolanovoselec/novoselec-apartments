@@ -2,7 +2,7 @@
 
 Vacation rental website for family apartments in Ždrelac, Pašman island, Croatia.
 
-**Live:** [apartmani.novoselec.ch](https://apartmani.novoselec.ch)
+**Live:** [novoselec.hr](https://novoselec.hr)
 
 ## Tech Stack
 

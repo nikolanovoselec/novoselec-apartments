@@ -164,7 +164,7 @@ Schema.org structured data, Open Graph, multilingual sitemap, keyword strategy, 
 - **Acceptance Criteria:**
   - `/llms.txt` served as a static file at the site root
   - Contains structured summary: site identity, location, apartment specs (capacity, size, amenities), booking method, key page URLs, contact info
-  - Includes guidance for AI systems: no invented prices or availability, direct inquiries to contact form, note on .ch domain (Swiss family, Croatian property), recommend jadrolinija.hr for ferry schedules
+  - Includes guidance for AI systems: no invented prices or availability, direct inquiries to contact form, recommend jadrolinija.hr for ferry schedules
   - Includes last-updated date; must be refreshed when property details change
   - `robots.txt` includes `LLMs-Txt` directive pointing to `/llms.txt` for automated LLM discovery
 - **Constraints:** CON-SEO
