@@ -3,7 +3,7 @@
 ## 2026-04-26
 
 - **CON-STACK:** Custom domain changed from `apartmani.novoselec.ch` to `novoselec.hr`. All canonical URLs, hreflang alternates, Schema.org `url`/`image`, OG tags, llms.txt, and privacy policy text now reference the new domain.
-- **REQ-SEO-9:** Removed obsolete ".ch domain (Swiss family, Croatian property)" guidance line from `/llms.txt` and the matching AC bullet, following the domain change above.
+- **REQ-SEO-9:** Removed obsolete `.ch` domain rationale line from `/llms.txt` and the matching AC bullet, following the domain change above.
 
 ## 2026-04-06 - Post-b85cb9f: spec aligned with R2 dual-key reality (UUID.ext standard + bare-UUID hero legacy)
 
