@@ -64,6 +64,8 @@ npx wrangler secret list  # verify RESEND_API_KEY and RESEND_RECIPIENTS exist
 npx wrangler tail          # watch live logs during form submission
 ```
 
+When `RESEND_RECIPIENTS` is empty at runtime, `wrangler tail` prints `[inquiry] RESEND_RECIPIENTS missing or empty — owner notification skipped (inquiry persisted to D1)`. The inquiry is still saved to D1; only the email is skipped.
+
 ### Turnstile widget not rendering
 **Cause:** CSP blocking the Turnstile script.
 
@@ -79,6 +81,7 @@ npx wrangler tail          # watch live logs during form submission
 1. TypeScript errors: run `astro check` locally to see details
 2. Missing dependencies: `npm ci` failed
 3. Import errors: check for circular imports or wrong paths
+4. `RESEND_API_KEY` or `RESEND_RECIPIENTS` GitHub repo secret is empty — the "Verify deploy secrets are present" step in `.github/workflows/ci.yml` fails the workflow before deploy with a `::error::` annotation. Set the missing secret under repo Settings → Secrets and variables → Actions.
 
 ### Deploy succeeds but site shows old version
 **Cause:** Cloudflare edge cache serving stale content.

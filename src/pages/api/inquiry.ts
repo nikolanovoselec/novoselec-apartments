@@ -169,16 +169,16 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   if (ownerEmails.length > 0 && resendKey) {
-    const fromAddress = "Apartmani Novoselec <noreply@graymatter.ch>";
-    // bcc keeps recipients hidden from each other
+    // First owner is the visible To; remaining owners go to bcc.
+    // Avoids the from==to deliverability anti-pattern when a single bcc-only message goes out.
     const ownerResult = await sendEmail({
-      to: [fromAddress],
-      bcc: ownerEmails,
+      to: [ownerEmails[0]],
+      bcc: ownerEmails.slice(1),
       subject: `Novi upit${data.type === "booking" ? ` - ${data.checkIn} do ${data.checkOut}` : " - Brzo pitanje"}`,
       html: buildOwnerEmail(data, cleanName, cleanEmail, cleanPhone, cleanMessage, priceEstimate),
       replyTo: cleanEmail,
       apiKey: resendKey,
-      from: fromAddress,
+      from: "Apartmani Novoselec <noreply@graymatter.ch>",
     });
 
     emailSent = ownerResult.success;
