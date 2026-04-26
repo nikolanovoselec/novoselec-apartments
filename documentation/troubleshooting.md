@@ -54,12 +54,13 @@ Common issues and how to resolve them.
 ### Emails not being received
 **Possible causes:**
 1. `RESEND_API_KEY` not set as Worker secret
-2. `ADMIN_EMAILS` var empty or wrong in `wrangler.jsonc`
-3. Resend API rate limit or domain verification issue
+2. `RESEND_RECIPIENTS` Worker secret missing or empty (GitHub repo secret not set, or last deploy did not push it)
+3. `RESEND_RECIPIENTS` uses the wrong separator — must be semicolons, not commas
+4. Resend API rate limit or domain verification issue
 
 **Debug:**
 ```bash
-npx wrangler secret list  # verify RESEND_API_KEY exists
+npx wrangler secret list  # verify RESEND_API_KEY and RESEND_RECIPIENTS exist
 npx wrangler tail          # watch live logs during form submission
 ```
 

@@ -1,3 +1,4 @@
+// Implements REQ-BK-2
 import type { APIRoute } from "astro";
 import { env as _env } from "cloudflare:workers";
 import type { Env } from "~/env";
@@ -28,7 +29,7 @@ export const POST: APIRoute = async ({ request }) => {
   const db = env.DB;
   const turnstileSecret = env.TURNSTILE_SECRET_KEY ?? "";
   const resendKey = env.RESEND_API_KEY ?? "";
-  const adminEmails = env.ADMIN_EMAILS ?? "";
+  const recipients = env.RESEND_RECIPIENTS ?? "";
 
   // Parse body
   const rawBody = await request.json().catch(() => null);
@@ -160,7 +161,7 @@ export const POST: APIRoute = async ({ request }) => {
   const inquiryId = insertResult.meta?.last_row_id;
 
   // Send emails
-  const ownerEmails = adminEmails.split(",").map((e) => e.trim()).filter(Boolean);
+  const ownerEmails = recipients.split(";").map((e) => e.trim()).filter(Boolean);
   let emailSent = false;
 
   if (ownerEmails.length > 0 && resendKey) {

@@ -19,6 +19,7 @@ export interface Env {
   DB: D1Database;
   MEDIA: R2Bucket;
   RESEND_API_KEY: string;
+  RESEND_RECIPIENTS: string;
   TURNSTILE_SECRET_KEY: string;
   TURNSTILE_SITE_KEY: string;
   ADMIN_EMAILS: string;
